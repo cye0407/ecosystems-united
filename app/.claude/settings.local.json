@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__cyeldon__directory_tree",
+      "mcp__cyeldon__list_directory",
+      "Bash(git rm:*)",
+      "Bash(npm install:*)",
+      "Bash(npx vitest run)",
+      "mcp__shared__create_directory",
+      "mcp__shared__write_file",
+      "Bash(npx tsc:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(cut:*)",
+      "Bash(wc:*)",
+      "mcp__shared__read_multiple_files",
+      "mcp__ecosystems-united__list_directory",
+      "mcp__ecosystems-united__read_multiple_files",
+      "Bash(npm view:*)",
+      "Bash(npx vite build)"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --foreground: #1a1a1a;
+  --background: #ffffff;
+  --muted: #6b7280;
+  
+  /* Option A: Match logo - Teal + Purple */
+  --primary: #4AA88C;
+  --primary-dark: #3d8f77;
+  --primary-light: #6dbfa6;
+  --accent: #5B5FC7;
+  --accent-dark: #4a4eb0;
+  --accent-light: #7a7dd4;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Prose styling for article content - no max-width here, controlled by Tailwind classes */
+.prose h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  color: #4AA88C;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  color: #6BC4A6;
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.625;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: var(--primary-dark);
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1rem 0;
+  color: #374151;
+}

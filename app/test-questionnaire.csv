@@ -1,0 +1,16 @@
+Question,Category,Reference
+What is your company's total greenhouse gas emissions (Scope 1, 2, and 3)?,Emissions,E1.1
+What percentage of your electricity comes from renewable sources?,Energy,E2.1
+What is your total energy consumption in kWh?,Energy,E2.2
+What is your water withdrawal in cubic meters?,Water,E3.1
+What is your total waste generated and what is your waste diversion rate?,Waste,E4.1
+How much hazardous waste did your organization generate?,Waste,E4.2
+How many employees does your organization have?,Social,S1.1
+What is your Total Recordable Incident Rate (TRIR)?,Health & Safety,S2.1
+How many training hours per employee did you provide?,Training,S3.1
+What percentage of your workforce is female?,Diversity,S1.2
+Do you have environmental certifications such as ISO 14001?,Governance,G1.1
+What is your company's primary sustainability goal?,Strategy,G2.1
+What materials do you use and what is the recycled content percentage?,Materials,E5.1
+Describe your packaging materials and recyclability,Packaging,E5.2
+What are the main modes of transport for your products?,Transport,E6.1
