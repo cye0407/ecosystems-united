@@ -65,7 +65,7 @@ export default function CircularityAssessmentPage() {
   };
 
   const allAnswered = answers.every((a) => a !== null);
-  const score = answers.reduce((sum, a) => sum + (a || 0), 0);
+  const score = answers.reduce((sum: number, a) => sum + (a || 0), 0);
   const result = getResult(score);
 
   const handleSubmit = () => {
