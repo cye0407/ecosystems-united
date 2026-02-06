@@ -9,14 +9,24 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Tailwind CSS
 
 ## Current State
-- Website and app in development
-- Five Stacks Framework defined and being integrated
-- CSRD toolkits and assessment flows in progress
+- Unified Next.js app under src/ — migration from separate Vite (app/) + Next.js (site/) complete
+- Build passes with 90+ routes (marketing, app, auth)
+- Legacy code preserved in app-legacy/ and site/ for reference
+- Branch: feat/nextjs-unification — ready for PR to main
 
 ## Architecture
-- src/ â€” main application source
-- public/ â€” static assets
-- (update as project structure evolves)
+- src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)
+- src/app/(app)/ — authenticated dashboard (data entry, respond, exports, settings, onboarding)
+- src/app/(auth)/ — login, signup, forgot-password
+- src/components/ — shared UI, data, auth, app, and marketing components
+- src/lib/ — supabase client, tracking, respond engine, analytics, sentry, validation
+- src/stores/ — Zustand stores (appStore, dataStore)
+- src/contexts/ — AuthContext (Supabase auth)
+- src/hooks/ — useResponseGenerator, useSupabaseSync
+- src/types/ — shared TypeScript types
+- app-legacy/ — original Vite React app (reference only)
+- site/ — original Next.js marketing site (reference only)
+- public/ — static assets (logo, icons)
 
 ## Git Conventions
 - Use conventional commits: feat:, fix:, docs:, refactor:, chore:
