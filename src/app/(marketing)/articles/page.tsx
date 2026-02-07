@@ -278,6 +278,31 @@ const guideCategories = [
         title: "Life Cycle Assessment Explained",
         desc: "Measuring full environmental impact",
       },
+      {
+        slug: "farm-waste-to-value",
+        title: "Farm Waste to Value",
+        desc: "Turning waste streams into revenue",
+      },
+      {
+        slug: "closed-loop-nutrient-cycling",
+        title: "Closed-Loop Nutrient Cycling",
+        desc: "Keeping N, P, and K on the farm",
+      },
+      {
+        slug: "biomass-energy-farm",
+        title: "Biomass Energy on the Farm",
+        desc: "Boilers, biogas, and small-scale options",
+      },
+      {
+        slug: "water-recycling-efficiency",
+        title: "Water Recycling & Efficiency",
+        desc: "Irrigation efficiency and water reuse systems",
+      },
+      {
+        slug: "circular-supply-chains-food",
+        title: "Circular Supply Chains in Food",
+        desc: "By-product markets and circular partnerships",
+      },
     ],
   },
   {
@@ -346,6 +371,31 @@ const guideCategories = [
         slug: "regenerative-practices-2025",
         title: "7 Practices Delivering ROI in 2025",
         desc: "What's working and why",
+      },
+      {
+        slug: "carbon-markets-agriculture",
+        title: "Carbon Markets for Agriculture",
+        desc: "Credits, verification, and what's actually worth it",
+      },
+      {
+        slug: "regenerative-transition-costs",
+        title: "Regenerative Transition Costs",
+        desc: "The J-curve economics of changing practices",
+      },
+      {
+        slug: "biochar-soil-amendment",
+        title: "Biochar as Soil Amendment",
+        desc: "Economics of carbon-rich soil improvement",
+      },
+      {
+        slug: "agroforestry-economics",
+        title: "Agroforestry Economics",
+        desc: "The long-term investment case for trees on farms",
+      },
+      {
+        slug: "composting-nutrient-cycling-roi",
+        title: "Composting & Nutrient Cycling ROI",
+        desc: "On-farm composting that pays for itself",
       },
     ],
   },
