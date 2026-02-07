@@ -122,6 +122,41 @@ const guideCategories = [
         title: "Direct Marketing for Small Farms",
         desc: "7 keys to building customer relationships",
       },
+      {
+        slug: "small-farm-market-channels",
+        title: "5 Market Channels Beyond the Farmgate",
+        desc: "CSA, food hubs, restaurants, and more",
+      },
+      {
+        slug: "why-consumers-want-local-food",
+        title: "Why Consumers Want Local Food",
+        desc: "What's driving demand and how to position your farm",
+      },
+      {
+        slug: "industrial-food-system-small-farms",
+        title: "What Small Farms Are Up Against",
+        desc: "The industrial food system and where it's vulnerable",
+      },
+      {
+        slug: "small-farm-value-added-products",
+        title: "Value-Added Products",
+        desc: "From raw commodities to revenue",
+      },
+      {
+        slug: "cooperative-models-small-farms",
+        title: "Cooperative Models",
+        desc: "Strength in numbers for market access",
+      },
+      {
+        slug: "small-farm-financial-planning",
+        title: "Financial Planning for Small Farms",
+        desc: "Cash flow, seasonality, and investment",
+      },
+      {
+        slug: "food-deserts-market-opportunity",
+        title: "Food Deserts as Market Opportunity",
+        desc: "Underserved markets your farm can reach",
+      },
     ],
   },
   {
