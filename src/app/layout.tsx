@@ -9,12 +9,32 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ecosystemsunited.com"),
   title: {
     default: "Ecosystems United",
     template: "%s | Ecosystems United",
   },
   description:
     "Sustainability frameworks that turn compliance into competitive advantage. The Five Stacks Framework for agricultural businesses and SMEs.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Ecosystems United",
+    title: "Ecosystems United",
+    description:
+      "Sustainability frameworks that turn compliance into competitive advantage. The Five Stacks Framework for agricultural businesses and SMEs.",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "Ecosystems United" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Ecosystems United",
+    description:
+      "Sustainability frameworks that turn compliance into competitive advantage.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({

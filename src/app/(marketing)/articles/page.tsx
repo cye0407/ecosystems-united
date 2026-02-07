@@ -63,6 +63,21 @@ const guideCategories = [
         title: "Sustainability Checklist",
         desc: "Complete assessment prep for farms",
       },
+      {
+        slug: "building-baseline",
+        title: "Building Your Operational Baseline",
+        desc: "From gut feel to audit-defensible data in 90 days",
+      },
+      {
+        slug: "buyer-scrutiny",
+        title: "Surviving Buyer ESG Scrutiny",
+        desc: "Why buyers need your data and when to be ready",
+      },
+      {
+        slug: "what-gets-measured",
+        title: "What Gets Measured in Ag Sustainability",
+        desc: "The core metrics on every buyer questionnaire",
+      },
     ],
   },
   {
