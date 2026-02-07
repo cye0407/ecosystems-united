@@ -100,6 +100,16 @@ const guideCategories = [
         title: "Sustainability in Agribusiness",
         desc: "How sustainability creates advantage",
       },
+      {
+        slug: "agribusiness-technology-trends",
+        title: "Technology Trends in Agribusiness",
+        desc: "What's delivering ROI and what's hype",
+      },
+      {
+        slug: "agribusiness-supply-chain-explained",
+        title: "The Agribusiness Supply Chain",
+        desc: "From farm gate to consumer plate",
+      },
     ],
   },
   {
@@ -345,6 +355,21 @@ const guideCategories = [
         title: "Companion Planting Introduction",
         desc: "Strategic plant combinations",
       },
+      {
+        slug: "intercropping-cereal-legume",
+        title: "Cereal-Legume Intercropping",
+        desc: "The most practical system for temperate farms",
+      },
+      {
+        slug: "intercropping-pest-management",
+        title: "Intercropping for Pest Management",
+        desc: "Reducing chemical inputs through diversity",
+      },
+      {
+        slug: "intercropping-climate-resilience",
+        title: "Intercropping for Climate Resilience",
+        desc: "Yield stability under weather extremes",
+      },
     ],
   },
   {
@@ -396,6 +421,38 @@ const guideCategories = [
         slug: "composting-nutrient-cycling-roi",
         title: "Composting & Nutrient Cycling ROI",
         desc: "On-farm composting that pays for itself",
+      },
+    ],
+  },
+  {
+    name: "Soil & Land Management",
+    description: "Data-driven soil health and strategic land use",
+    color: "#5A7247",
+    guides: [
+      {
+        slug: "soil-testing-guide",
+        title: "Complete Guide to Soil Testing",
+        desc: "What to test, when, and how to interpret results",
+      },
+      {
+        slug: "soil-organic-matter-building",
+        title: "Building Soil Organic Matter",
+        desc: "Practices, timelines, and economic returns",
+      },
+      {
+        slug: "nutrient-management-planning",
+        title: "Nutrient Management Planning",
+        desc: "Optimizing inputs and reducing waste",
+      },
+      {
+        slug: "erosion-control-strategies",
+        title: "Erosion Control Strategies",
+        desc: "Protecting your most valuable asset",
+      },
+      {
+        slug: "land-use-planning-farms",
+        title: "Strategic Land Use Planning",
+        desc: "Matching land capability to enterprise",
       },
     ],
   },
