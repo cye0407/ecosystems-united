@@ -419,6 +419,63 @@ const guideCategories = [
         title: "Agricultural Drainage",
         desc: "Managing water for soil health",
       },
+      {
+        slug: "precision-irrigation-technology",
+        title: "Precision Irrigation Technology",
+        desc: "Sensors, VRI, and the ROI of smart water",
+      },
+      {
+        slug: "rainwater-harvesting-agriculture",
+        title: "Rainwater Harvesting for Farms",
+        desc: "Collection, storage, and cost-benefit analysis",
+      },
+      {
+        slug: "drought-resilience-water-management",
+        title: "Drought Resilience Planning",
+        desc: "Water budgeting and adaptive management",
+      },
+      {
+        slug: "water-quality-management-farms",
+        title: "Water Quality Management",
+        desc: "Runoff, nutrients, and regulatory compliance",
+      },
+      {
+        slug: "subsurface-drainage-design",
+        title: "Subsurface Drainage Design",
+        desc: "Tile drainage costs, yield gains, and payback",
+      },
+    ],
+  },
+  {
+    name: "Resilience & Risk Management",
+    description: "Building adaptive capacity against climate, market, and supply chain risks",
+    color: "#9A8CD0",
+    guides: [
+      {
+        slug: "climate-risk-assessment-farms",
+        title: "Climate Risk Assessment for Farms",
+        desc: "Identify, quantify, and prepare for climate risks",
+      },
+      {
+        slug: "crop-diversification-risk",
+        title: "Crop Diversification as Risk Management",
+        desc: "Portfolio theory meets the field",
+      },
+      {
+        slug: "farm-insurance-climate-adaptation",
+        title: "Farm Insurance & Climate Adaptation",
+        desc: "The insurance-adaptation feedback loop",
+      },
+      {
+        slug: "supply-chain-resilience-agriculture",
+        title: "Supply Chain Resilience",
+        desc: "Reducing dependency and building redundancy",
+      },
+      {
+        slug: "financial-resilience-farm-operations",
+        title: "Financial Resilience for Farms",
+        desc: "Cash reserves, stress testing, and staying solvent",
+      },
     ],
   },
 ];
