@@ -9,6 +9,63 @@ export const metadata: Metadata = {
 
 const guideCategories = [
   {
+    name: "CSRD & ESG Compliance",
+    description: "Navigating sustainability reporting requirements for agricultural suppliers",
+    color: "#3D2E7C",
+    guides: [
+      {
+        slug: "first-esg-questionnaire",
+        title: "First ESG Questionnaire?",
+        desc: "Where agricultural suppliers start",
+      },
+      {
+        slug: "csrd-vsme-agricultural-suppliers",
+        title: "CSRD & VSME for Agriculture",
+        desc: "What the EU regulations mean for farms",
+      },
+      {
+        slug: "scope-1-2-3-agriculture",
+        title: "Scope 1, 2, 3 for Agriculture",
+        desc: "Emissions explained for farm operations",
+      },
+      {
+        slug: "buyer-scope-3-request",
+        title: "Buyer Scope 3 Request",
+        desc: "What to do when the carbon data request arrives",
+      },
+      {
+        slug: "esg-reporting-small-farms",
+        title: "ESG Reporting for Small Farms",
+        desc: "The 80/20 getting started guide",
+      },
+      {
+        slug: "lose-buyers-without-esg",
+        title: "Will You Lose Buyers?",
+        desc: "The real risk of ignoring ESG requests",
+      },
+      {
+        slug: "missing-esg-data",
+        title: "Missing ESG Data",
+        desc: "How to respond honestly with gaps",
+      },
+      {
+        slug: "building-esg-response-system",
+        title: "Building Your Response System",
+        desc: "Stop scrambling, start systematizing",
+      },
+      {
+        slug: "esg-competitive-advantage",
+        title: "ESG as Competitive Advantage",
+        desc: "Turn compliance into differentiation",
+      },
+      {
+        slug: "agricultural-sustainability-checklist",
+        title: "Sustainability Checklist",
+        desc: "Complete assessment prep for farms",
+      },
+    ],
+  },
+  {
     name: "Understanding Agribusiness",
     description: "How the agricultural system works and where you fit in it",
     color: "#1a1a2e",
