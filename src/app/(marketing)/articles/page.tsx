@@ -454,6 +454,21 @@ const guideCategories = [
         title: "Strategic Land Use Planning",
         desc: "Matching land capability to enterprise",
       },
+      {
+        slug: "soil-compaction-management",
+        title: "Soil Compaction Management",
+        desc: "Detection, prevention, and remediation economics",
+      },
+      {
+        slug: "cover-crop-selection-guide",
+        title: "Cover Crop Selection Guide",
+        desc: "Matching species to purpose",
+      },
+      {
+        slug: "tillage-systems-compared",
+        title: "Tillage Systems Compared",
+        desc: "Conventional, minimum, and no-till economics",
+      },
     ],
   },
   {
@@ -532,6 +547,48 @@ const guideCategories = [
         slug: "financial-resilience-farm-operations",
         title: "Financial Resilience for Farms",
         desc: "Cash reserves, stress testing, and staying solvent",
+      },
+      {
+        slug: "pest-disease-climate-change",
+        title: "Pest & Disease Under Climate Change",
+        desc: "What's shifting and how to prepare",
+      },
+      {
+        slug: "farm-succession-planning",
+        title: "Farm Succession Planning",
+        desc: "Business continuity across generations",
+      },
+      {
+        slug: "market-volatility-strategies",
+        title: "Managing Market Volatility",
+        desc: "Smoothing revenue and protecting margins",
+      },
+    ],
+  },
+  {
+    name: "Biodiversity & Habitat",
+    description: "Measuring, creating, and monetizing biodiversity on farm",
+    color: "#4A8B6F",
+    guides: [
+      {
+        slug: "biodiversity-assessment-farms",
+        title: "Biodiversity Assessment for Farms",
+        desc: "Survey methods, metrics, and CSRD reporting",
+      },
+      {
+        slug: "hedgerow-management-economics",
+        title: "Hedgerow Management & Economics",
+        desc: "Carbon, shelter effects, and wildlife corridors",
+      },
+      {
+        slug: "pollinator-habitat-farm",
+        title: "Pollinator Habitat on the Farm",
+        desc: "Creating habitat that pays through better yields",
+      },
+      {
+        slug: "biodiversity-net-gain-agriculture",
+        title: "Biodiversity Net Gain",
+        desc: "The new market for habitat on agricultural land",
       },
     ],
   },
