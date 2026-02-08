@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "7 Biofuel Trends Shaping the Industry in 2025",
   description: "From advanced feedstocks to sustainable aviation fuel, these biofuel trends are reshaping energy markets. What agricultural operations need to know.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "biofuel", "trends", "2025", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

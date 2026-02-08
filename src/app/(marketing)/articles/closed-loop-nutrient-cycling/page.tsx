@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Closed-Loop Nutrient Systems for Farms: Minimize Leakage, Maximize Cycling",
   description: "How to minimize nutrient leakage and maximize on-farm cycling. A practical guide to closing nitrogen, phosphorus, and potassium loops on your operation.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "closed", "loop", "nutrient", "cycling", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

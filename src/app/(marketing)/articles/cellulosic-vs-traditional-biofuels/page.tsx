@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cellulosic Ethanol vs. Traditional Biofuels: Comparing the Options",
   description: "How does cellulosic ethanol compare to corn ethanol and other traditional biofuels? A side-by-side look at efficiency, emissions, costs, and sustainability.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "cellulosic", "traditional", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

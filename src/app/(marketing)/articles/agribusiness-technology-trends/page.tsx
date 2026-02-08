@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Technology Trends Reshaping Agribusiness | Ecosystems United",
   description: "From precision agriculture to supply chain digitization. Which technologies are delivering ROI now, which are hype, and what smaller operations should actually invest in.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "technology", "trends", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Crop Diversification as Risk Management | Ecosystems United",
   description: "The economics of diversification vs specialization. How adding enterprises reduces volatility, the costs of diversification, and when it makes financial sense.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "crop", "diversification", "risk", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

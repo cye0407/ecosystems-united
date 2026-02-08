@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Complete Guide to Soil Testing for Farms | Ecosystems United",
   description: "What to test, when to test, how to interpret results, and how soil data feeds into both agronomic decisions and ESG reporting. The foundation of data-driven farming.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "soil", "testing", "guide", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

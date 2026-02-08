@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Creating Pollinator Habitat on the Farm | Ecosystems United",
   description: "Pollinators are worth £690M/year to UK agriculture alone. How to create and manage habitat that supports pollinators — and the direct economic returns from better pollination.",
+  keywords: ["biodiversity", "habitat creation", "pollinators", "biodiversity net gain", "pollinator", "habitat", "farm", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

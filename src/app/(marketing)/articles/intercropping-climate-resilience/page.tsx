@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Intercropping for Climate Resilience | Ecosystems United",
   description: "How crop diversity buffers against weather extremes. Yield stability under drought, heat, and excess rainfall when crops share the same field.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "climate", "resilience", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

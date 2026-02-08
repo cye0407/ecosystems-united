@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Are Advanced Biofuels? The Next Generation of Renewable Energy",
   description: "Advanced biofuels use waste materials, algae, and non-food sources. Learn how they differ from first-generation biofuels and what opportunities they create.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "advanced", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

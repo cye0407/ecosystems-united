@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Different Types of Ecolabels: Type I, II, and III Explained",
   description: "Understanding the three types of ecolabels—from third-party certified to self-declared claims. Know what level of verification backs the labels you see.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "different", "types", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

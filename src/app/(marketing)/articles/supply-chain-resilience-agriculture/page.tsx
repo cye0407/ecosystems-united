@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Building Supply Chain Resilience in Agriculture | Ecosystems United",
   description: "Reducing dependency on single buyers, input suppliers, and market channels. Practical strategies for building redundancy and flexibility into your farm's supply chain.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "supply", "chain", "resilience", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Agriculture vs. Agribusiness: Where Can You Actually Compete?",
   description: "Agriculture produces. Agribusiness captures value. Understanding the difference helps you find competitive positions the commodity system can't easily replicate.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

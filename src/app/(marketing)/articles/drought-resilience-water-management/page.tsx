@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Drought Resilience: Water Management Planning for Farms | Ecosystems United",
   description: "Building drought resilience through water budgeting, storage, crop selection, and soil moisture management. A practical planning framework for farms facing increasing water variability.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "drought", "resilience", "water", "management", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Agricultural Irrigation: Methods, Advantages, and Efficiency Trade-offs",
   description: "Irrigation supports 40% of global food production. Understanding different irrigation methods helps you choose systems that balance water efficiency with operational needs.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "agricultural", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

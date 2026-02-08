@@ -5,6 +5,7 @@ export const metadata = {
   title: "Your Buyer Sent a Scope 3 Request — Now What?",
   description:
     "Buyer wants your Scope 3 data? Here's what agricultural operations actually need to provide, from livestock emissions to fertilizer use, without a carbon accounting degree.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "buyer", "scope", "request", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

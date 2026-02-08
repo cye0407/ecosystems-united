@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Agroforestry: Adding Trees to Your Bottom Line",
   description: "The economics of integrating trees into farming operations. Multiple revenue streams, long-term asset building, and practical guidance for getting started.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "agroforestry", "economics", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

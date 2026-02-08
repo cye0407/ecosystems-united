@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Farm Insurance and Climate Adaptation Strategies | Ecosystems United",
   description: "Understanding crop insurance, parametric insurance, and how climate adaptation reduces both premiums and uninsured losses. The insurance-adaptation feedback loop.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "farm", "insurance", "climate", "adaptation", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

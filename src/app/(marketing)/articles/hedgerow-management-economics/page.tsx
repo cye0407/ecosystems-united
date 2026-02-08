@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Hedgerow Management: Ecology, Economics, and Carbon | Ecosystems United",
   description: "Hedgerows as productive farm infrastructure. Wildlife corridors, carbon storage, shelter effects on crop yields, and the economics of good hedgerow management.",
+  keywords: ["biodiversity", "habitat creation", "pollinators", "biodiversity net gain", "hedgerow", "management", "economics", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

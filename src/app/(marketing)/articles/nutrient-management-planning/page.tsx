@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Nutrient Management Planning for Farm Operations | Ecosystems United",
   description: "Building a nutrient management plan that optimizes inputs, reduces waste, meets regulatory requirements, and provides the data your buyers are asking for.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "nutrient", "management", "planning", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

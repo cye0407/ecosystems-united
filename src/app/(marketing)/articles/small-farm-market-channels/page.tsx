@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "5 Market Channels for Small Farms Beyond the Farmgate",
   description: "CSA, food hubs, farmers markets, restaurant partnerships, and online box schemes. A practical guide to diversifying market channels for small farm resilience.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "small", "farm", "market", "channels", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

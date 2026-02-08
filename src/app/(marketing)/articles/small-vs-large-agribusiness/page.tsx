@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Small vs. Large Agribusiness: Finding Your Competitive Position",
   description: "Small and large operations compete differently. Understanding where each has advantage helps you find positions where you can win.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "small", "large", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

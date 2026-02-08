@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "From Gut Feel to Data Defense: Building Your Operational Baseline",
   description: "The 90-day approach to building audit-defensible baseline data using utility bills, invoices, and production records you already have.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "building", "baseline", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Subsurface Drainage: Design, Costs, and Payback | Ecosystems United",
   description: "The economics of tile drainage and subsurface drainage systems. Design considerations, installation costs, yield improvements, and ROI calculations for waterlogged fields.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "subsurface", "design", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

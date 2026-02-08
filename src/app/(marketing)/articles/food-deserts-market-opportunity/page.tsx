@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Food Deserts: An Underserved Market Your Farm Can Reach",
   description: "Food deserts represent millions of underserved customers who want fresh produce but can't access it. Here's how small farms can fill the gap through direct channels, institutional partnerships, and subsidized programs.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "food", "deserts", "market", "opportunity", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

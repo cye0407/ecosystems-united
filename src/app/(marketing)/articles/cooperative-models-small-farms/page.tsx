@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cooperative Models for Small Farms: Strength in Numbers",
   description: "Small farms face structural disadvantages alone. Cooperative models solve many of these without sacrificing independence. A practical guide to types, governance, and getting started.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "cooperative", "models", "small", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

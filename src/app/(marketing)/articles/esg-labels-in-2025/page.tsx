@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "ESG Labels in 2025: Understanding the Certification Landscape",
   description: "ESG labels go beyond environmental certification to cover social and governance factors. Here's what matters for agricultural operations navigating this landscape.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "esg", "labels", "2025", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Pros and Cons of Advanced Biofuels: A Balanced Assessment",
   description: "Advanced biofuels offer emissions reduction and waste utilization, but face cost and scaling challenges. Here's what agricultural operations need to know.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "pros", "cons", "advanced", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

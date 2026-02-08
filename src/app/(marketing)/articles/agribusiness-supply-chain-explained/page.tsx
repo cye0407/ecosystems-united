@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Agribusiness Supply Chain Explained | Ecosystems United",
   description: "From farm gate to consumer plate. Understanding how value moves through the food supply chain, where margins are captured, and where agricultural producers fit.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "supply", "chain", "explained", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

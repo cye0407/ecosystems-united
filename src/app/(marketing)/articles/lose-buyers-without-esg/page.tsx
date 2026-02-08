@@ -5,6 +5,7 @@ export const metadata = {
   title: "Will You Lose Buyers Without ESG Data?",
   description:
     "You probably won't lose a buyer over one incomplete ESG response. But gradual marginalization is real: industry averages that make you look worse, non-responsive flags, and exclusion from premium programs.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "lose", "buyers", "without", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Small Farm Financial Planning: Cash Flow, Seasonality, and Investment",
   description: "A practical financial guide for agricultural SMEs covering cash flow management, cost structures, enterprise analysis, and where sustainability data overlaps with your bottom line.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "small", "farm", "financial", "planning", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Water Efficiency and Recycling on Farms: Practical Water Management for Agriculture",
   description: "Practical water management for agricultural operations. From irrigation efficiency to dairy parlor recycling, how to reduce water use and build circular reuse systems.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "water", "recycling", "efficiency", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Advantages and Disadvantages of Ecolabels for Your Business",
   description: "A strategic framework for evaluating ecolabel certification. Understand the real costs, benefits, and common pitfalls before investing in certification.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "advantages", "disadvantages", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

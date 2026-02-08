@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Biodiversity Net Gain: Opportunity for Agricultural Land | Ecosystems United",
   description: "England's mandatory BNG creates a market for habitat creation on farms. How the system works, what your land could be worth, and how to participate.",
+  keywords: ["biodiversity", "habitat creation", "pollinators", "biodiversity net gain", "net", "gain", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

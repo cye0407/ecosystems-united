@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Water Quality Management for Farm Operations | Ecosystems United",
   description: "Managing agricultural runoff, nutrient loading, and water quality. Buffer strips, cover crops, precision application, and the business case for proactive water quality management.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "water", "quality", "management", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

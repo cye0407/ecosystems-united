@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Energy from Agricultural Biomass: Turning Residues into Power",
   description: "Practical guide to on-farm energy from biomass. Wood chip boilers, anaerobic digestion, and small-scale options — what works, what doesn't, and whether the economics stack up.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "biomass", "energy", "farm", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Soil Compaction: Detection, Prevention, and Remediation | Ecosystems United",
   description: "How compaction costs you yield and money. Identifying compacted fields, prevention through traffic management, and remediation economics.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "soil", "compaction", "management", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

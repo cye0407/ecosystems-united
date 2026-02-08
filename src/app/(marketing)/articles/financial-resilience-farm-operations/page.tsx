@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Financial Resilience for Farm Operations | Ecosystems United",
   description: "Building financial buffers, managing cash flow volatility, and stress-testing your farm business against downside scenarios. The numbers behind staying solvent through bad years.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "financial", "resilience", "farm", "operations", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

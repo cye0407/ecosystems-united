@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Sustainability in Agribusiness: How Smart Practices Drive Long-Term Profitability",
   description: "Sustainability isn't just environmental—it's a driver of operational efficiency and profitability. Learn how to connect sustainable practices to your bottom line.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "sustainability", "agriculture"],
 };
 
 export default function ArticlePage() {

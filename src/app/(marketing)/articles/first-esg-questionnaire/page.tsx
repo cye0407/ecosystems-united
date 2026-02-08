@@ -5,6 +5,7 @@ export const metadata = {
   title: "First ESG Questionnaire? Where Agricultural Suppliers Start",
   description:
     "First ESG questionnaire from a buyer? Here's where agricultural operations start, what they're really asking for, and how to respond without prior sustainability reporting experience.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "first", "questionnaire", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

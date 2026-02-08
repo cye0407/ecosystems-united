@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Value-Added Products for Small Farms: From Raw to Revenue",
   description: "Selling raw commodities means competing on price. Value-added products let small farms capture margin, reduce waste, and build direct customer relationships.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "small", "farm", "value", "added", "products", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Biofuels Explained: Converting Organic Materials into Energy Value",
   description: "Biofuels transform renewable organic materials into fuel. Understanding biofuel basics helps evaluate opportunities for agricultural operations.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "explained", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

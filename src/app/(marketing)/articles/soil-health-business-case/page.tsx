@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Soil Health: The Business Case for Your Most Undervalued Asset",
   description: "Soil health isn't environmental idealism—it's operational economics. Here's how healthy soil reduces costs, stabilizes yields, and builds long-term asset value.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "soil", "health", "business", "case", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

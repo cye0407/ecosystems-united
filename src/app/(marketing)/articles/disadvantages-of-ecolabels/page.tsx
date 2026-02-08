@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Disadvantages of Ecolabels: What to Know Before Certifying",
   description: "Ecolabels aren't without problems. Understanding their limitations—from inconsistent standards to greenwashing risks—helps you make better certification decisions.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "disadvantages", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

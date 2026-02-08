@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cover Crop Selection Guide: Matching Species to Purpose | Ecosystems United",
   description: "Which cover crop for which goal? Nitrogen fixation, compaction relief, weed suppression, erosion control, and nutrient scavenging — the right species for each job.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "cover", "crop", "selection", "guide", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

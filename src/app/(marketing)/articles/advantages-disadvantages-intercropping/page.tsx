@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Advantages and Disadvantages of Intercropping: A Balanced Assessment",
   description: "Intercropping offers yield stability, improved soil health, and pest control—but requires more knowledge and labor. Here's a balanced look at the trade-offs.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "advantages", "disadvantages", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

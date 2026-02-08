@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Actually Gets Measured in Agricultural Sustainability",
   description: "The 5-7 core metrics that appear on every buyer questionnaire — Scope 3, ESG benchmarks, and what 'good' looks like for your operation type.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "gets", "measured", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

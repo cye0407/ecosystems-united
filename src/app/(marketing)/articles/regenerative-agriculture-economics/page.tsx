@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Economics of Regenerative Agriculture: A Financial Framework",
   description: "Regenerative practices show 15-25% ROI over 10 years and 70-120% higher profitability at steady state. Here's the financial framework for transition decisions.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "regenerative", "agriculture", "economics", "sustainability"],
 };
 
 export default function ArticlePage() {

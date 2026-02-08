@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Biochar: The Business Case for Soil Carbon",
   description: "Practical assessment of biochar for agricultural operations. What it is, what it costs, and when it makes sense for your soil and your bottom line.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "biochar", "soil", "amendment", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

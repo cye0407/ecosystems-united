@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Agricultural Drainage: Benefits for Soil Health and Operational Efficiency",
   description: "Proper drainage prevents waterlogging, improves soil health, and extends your working season. Learn how drainage systems contribute to operational efficiency.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "agricultural", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -5,6 +5,7 @@ export const metadata = {
   title: "Building Your Farm's ESG Response System",
   description:
     "Stop scrambling every time a buyer sends a questionnaire. Build a centralised data system tied to your farming calendar that turns ESG responses from crisis into routine.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "building", "response", "system", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

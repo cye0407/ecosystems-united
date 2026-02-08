@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Rainwater Harvesting for Agricultural Operations | Ecosystems United",
   description: "Economics and implementation of rainwater capture and storage for farms. Tank sizing, collection systems, cost-benefit analysis, and regulatory considerations.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "rainwater", "harvesting", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cellulosic Biofuels: Turning Agricultural Waste into Energy Value",
   description: "Cellulosic biofuels convert crop residues and plant waste into renewable fuel. Learn how this technology creates new value streams from agricultural byproducts.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "cellulosic", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

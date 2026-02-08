@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Intercropping for Integrated Pest Management | Ecosystems United",
   description: "How crop diversity reduces pest and disease pressure. Push-pull systems, trap cropping, habitat for beneficial insects, and the economics of reduced chemical inputs.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "pest", "management", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

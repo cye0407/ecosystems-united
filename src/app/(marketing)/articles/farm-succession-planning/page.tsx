@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Farm Succession and Business Continuity Planning | Ecosystems United",
   description: "The conversation most farm families avoid. Practical frameworks for succession planning, business structure, and ensuring the farm survives generational transfer.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "farm", "succession", "planning", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

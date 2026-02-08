@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Precision Irrigation Technology: Sensors, VRI, and ROI",
   description: "How precision irrigation pays for itself through water savings and yield improvement. Practical economics for farm operations considering the upgrade from soil moisture sensors to variable rate systems.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "precision", "technology", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

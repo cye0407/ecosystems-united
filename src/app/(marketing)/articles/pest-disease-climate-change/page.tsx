@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Pest and Disease Shifts Under Climate Change | Ecosystems United",
   description: "How warming temperatures, changing rainfall, and milder winters are altering pest and disease pressure. What's coming, what's already here, and how to prepare.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "pest", "disease", "climate", "change", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

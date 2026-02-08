@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Are Ecolabels? Understanding Sustainability Certifications",
   description: "Ecolabels certify environmental performance and open premium market access. Learn how certification fits into your sustainability measurement strategy.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

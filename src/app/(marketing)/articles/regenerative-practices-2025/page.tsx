@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "7 Regenerative Practices Delivering ROI in 2025",
   description: "These regenerative practices aren't just environmentally sound—they're delivering measurable financial returns. Here's what's working and why.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "regenerative", "practices", "2025", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

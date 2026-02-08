@@ -5,6 +5,7 @@ export const metadata = {
   title: "The Complete Agricultural Sustainability Assessment Checklist",
   description:
     "Every ESG datapoint buyers ask agricultural operations for, organised by Environment, Social, and Governance. Use this checklist for gap analysis and to build your farm's data infrastructure.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "agricultural", "sustainability", "checklist", "agriculture"],
 };
 
 export default function ArticlePage() {

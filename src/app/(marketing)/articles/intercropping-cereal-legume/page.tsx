@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cereal-Legume Intercropping: The Most Practical System | Ecosystems United",
   description: "Why cereal-legume combinations are the most widely adopted intercropping system. Nitrogen fixation economics, compatible combinations, and implementation for temperate farms.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "cereal", "legume", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

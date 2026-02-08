@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Direct Marketing for Small Farms: 7 Keys to Building Customer Relationships",
   description: "Direct marketing lets small farms bypass commodity pricing and build relationships that command premium prices. Here are the 7 keys to making it work.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "direct", "marketing", "small", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

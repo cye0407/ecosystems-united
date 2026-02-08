@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Carbon Credits and Carbon Markets for Agricultural Operations",
   description: "A practical, honest guide for farms considering carbon markets. What you can sell, what it pays, what the challenges are, and how to get started.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "carbon", "markets", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

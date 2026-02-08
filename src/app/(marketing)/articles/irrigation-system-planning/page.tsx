@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "8 Essential Questions Before Installing an Irrigation System",
   description: "Irrigation systems are major investments. Answer these essential questions about soil, climate, water source, and crops before committing to installation.",
+  keywords: ["irrigation", "water management", "drainage", "precision agriculture", "system", "planning", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

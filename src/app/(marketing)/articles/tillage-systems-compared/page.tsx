@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Tillage Systems Compared: Conventional, Minimum, and No-Till Economics | Ecosystems United",
   description: "The real costs and benefits of different tillage approaches. Fuel, labor, soil health, yield impacts, and transition economics — beyond the ideology.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "tillage", "systems", "compared", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

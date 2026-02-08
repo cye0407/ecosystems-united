@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Strategic Land Use Planning for Farm Operations | Ecosystems United",
   description: "Matching land capability to enterprise, optimizing field allocation, and integrating environmental features. The business case for treating land use as a strategic decision.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "land", "use", "planning", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

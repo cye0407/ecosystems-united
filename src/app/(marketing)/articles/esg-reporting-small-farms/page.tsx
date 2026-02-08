@@ -5,6 +5,7 @@ export const metadata = {
   title: "ESG Reporting for Small Farms: A Practical Getting Started Guide",
   description:
     "ESG reporting doesn't require consultants or software. Small farms can start with utility bills, spray records, and training certificates they already have. Here's the 80/20 approach.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "reporting", "small", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

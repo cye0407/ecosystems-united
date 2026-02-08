@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Most Trustworthy Ecolabels: 10 Certifications That Actually Mean Something",
   description: "Not all ecolabels are created equal. These 10 certifications have the independent verification, transparent criteria, and market recognition that matter.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "most", "trustworthy", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

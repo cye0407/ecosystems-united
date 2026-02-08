@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Biodiversity Assessment for Farm Operations | Ecosystems United",
   description: "How to measure and report biodiversity on your farm. Survey methods, indicator species, habitat mapping, and connecting biodiversity data to CSRD reporting requirements.",
+  keywords: ["biodiversity", "habitat creation", "pollinators", "biodiversity net gain", "assessment", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

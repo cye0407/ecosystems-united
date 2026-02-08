@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Surviving Buyer ESG Scrutiny: What Agricultural Operations Need to Know",
   description: "Why your buyers need your data for their CSRD reporting, what they actually ask for, and when to be ready.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "buyer", "scrutiny", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

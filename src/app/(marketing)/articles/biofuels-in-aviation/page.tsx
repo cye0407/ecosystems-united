@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Biofuels in Aviation: How SAF Is Creating New Feedstock Demand",
   description: "Sustainable Aviation Fuel is driving demand for agricultural feedstocks. Learn how this trend creates opportunities for farm waste streams.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "aviation", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

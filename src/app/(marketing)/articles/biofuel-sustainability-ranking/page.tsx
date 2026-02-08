@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Ranking Biofuel Sustainability: Comparing the 4 Generations",
   description: "Not all biofuels are equally sustainable. Compare first through fourth-generation biofuels on carbon footprint, land use, and scalability.",
+  keywords: ["biofuels", "renewable energy", "biomass", "sustainable fuel", "biofuel", "sustainability", "ranking", "agriculture"],
 };
 
 export default function ArticlePage() {

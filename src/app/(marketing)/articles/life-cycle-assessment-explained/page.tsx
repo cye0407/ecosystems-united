@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Is a Life Cycle Assessment? Understanding LCA for Agricultural Operations",
   description: "Life cycle assessments evaluate environmental impact from creation to end-of-life. Learn how LCA methodology connects to sustainability measurement and reporting.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "life", "cycle", "assessment", "explained", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

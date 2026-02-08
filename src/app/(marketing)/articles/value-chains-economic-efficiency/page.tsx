@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Value Chains: Understanding How Value Flows Through Your Operation",
   description: "Value chain analysis reveals where you add value and where you lose it. Learn how this framework helps identify operational efficiency opportunities.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "value", "chains", "economic", "efficiency", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

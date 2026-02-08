@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Circular Economy Explained: From Waste Streams to Value Streams",
   description: "How circular economy principles transform agricultural waste into margin. Understanding the shift from linear 'take-make-dispose' to circular value creation.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "circular", "economy", "explained", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

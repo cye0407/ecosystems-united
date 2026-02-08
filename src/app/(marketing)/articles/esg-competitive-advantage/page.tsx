@@ -6,6 +6,7 @@ export const metadata = {
     "Turning ESG Compliance Into Competitive Advantage for Agricultural Operations",
   description:
     "ESG doesn't have to be just a cost. Learn how agricultural operations use the Five Stacks Framework to turn sustainability data into market access, buyer loyalty, and premium pricing.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "competitive", "advantage", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

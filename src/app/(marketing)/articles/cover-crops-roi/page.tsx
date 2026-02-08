@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Cover Crops: Investment, Returns, and the Path to Positive ROI",
   description: "Cover crops typically cost $45-70/acre and break even by Year 2-3. Here's the detailed cost-benefit analysis for your operation.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "cover", "crops", "roi", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

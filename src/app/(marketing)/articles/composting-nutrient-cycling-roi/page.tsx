@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "On-Farm Composting: Turning Waste into Fertility",
   description: "Practical ROI analysis of on-farm composting for agricultural operations. Setup costs, nutrient value, payback timelines, and the circular connection to regenerative advantage.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "composting", "nutrient", "cycling", "roi", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

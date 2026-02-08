@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Introduction to Intercropping: Multi-Crop Systems for Better Land Use",
   description: "Intercropping grows two or more crops together to maximize land use, improve soil health, and reduce risk. Learn the basics of this sustainable practice.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "introduction", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

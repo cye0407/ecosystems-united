@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Intercropping in Organic Systems: Why Multi-Crop Approaches Fit Organic Principles",
   description: "Intercropping aligns naturally with organic agriculture's principles of ecology, health, fairness, and care. Here's how they work together.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "organic", "systems", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

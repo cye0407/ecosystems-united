@@ -5,6 +5,7 @@ export const metadata = {
   title: "Missing ESG Data: How Agricultural Operations Respond Honestly",
   description:
     "Not every ESG datapoint exists on your farm yet. Here's how to categorize what's missing, use accepted estimation methods, and respond credibly without fabricating numbers.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "missing", "data", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

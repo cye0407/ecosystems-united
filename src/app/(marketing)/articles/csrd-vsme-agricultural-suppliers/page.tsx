@@ -5,6 +5,7 @@ export const metadata = {
   title: "CSRD and VSME: What Agricultural Suppliers Need to Know",
   description:
     "How the EU's CSRD and Voluntary SME Standard affect agricultural suppliers. Key datapoints, timelines, and practical preparation for farm operations.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "agricultural", "suppliers", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

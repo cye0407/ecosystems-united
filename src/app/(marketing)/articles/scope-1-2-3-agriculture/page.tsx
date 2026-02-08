@@ -5,6 +5,7 @@ export const metadata = {
   title: "Scope 1, 2, and 3 Emissions Explained for Agricultural Operations",
   description:
     "Agricultural emissions work differently from manufacturing. Livestock methane, fertilizer N2O, and biological processes dominate farm carbon footprints. Here's what Scope 1, 2, and 3 actually mean for your operation.",
+  keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "scope", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

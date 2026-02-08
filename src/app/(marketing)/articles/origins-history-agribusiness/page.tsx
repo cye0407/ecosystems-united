@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Origins and History of Agribusiness: How the System Was Built",
   description: "Agribusiness wasn't inevitable—it was designed. Understanding how the system was built helps you see where opportunities exist today.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "origins", "history", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

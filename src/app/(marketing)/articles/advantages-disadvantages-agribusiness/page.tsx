@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Advantages and Disadvantages of Agribusiness: What It Gives You vs. What It Costs",
   description: "Agribusiness creates market access and efficiency but also dependency and margin pressure. Here's how to optimize your position within the system.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "advantages", "disadvantages", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Why Consumers Are Seeking Out Local Food (And What That Means for Your Farm)",
   description: "Consumer demand for local food is growing fast. Here's what's driving it, what buyers actually want, and how your farm can position itself to capture the premium.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "consumers", "want", "local", "food", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

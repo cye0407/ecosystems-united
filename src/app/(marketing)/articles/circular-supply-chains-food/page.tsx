@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Building Circular Supply Chains in Agriculture",
   description: "How farms can participate in and benefit from circular supply chain models. From by-product markets to packaging reduction, practical steps for closing the loop.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "circular", "supply", "chains", "food", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "The Industrial Food System: What Small Farms Are Up Against",
   description: "Four companies control 82% of beef processing. In 1920, half the population farmed; today it's under 2%. Understanding the industrial food system is the first step to competing outside it.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "industrial", "food", "system", "small", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

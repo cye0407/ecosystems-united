@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Erosion Control Strategies for Farmland | Ecosystems United",
   description: "Protecting your most valuable asset. Practical erosion control measures, their costs, and the long-term economics of soil conservation vs. soil loss.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "erosion", "control", "strategies", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

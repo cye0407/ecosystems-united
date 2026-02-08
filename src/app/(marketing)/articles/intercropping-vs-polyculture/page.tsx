@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Intercropping vs. Polyculture: Multi-Crop Systems That Reduce Risk and Build Margin",
   description: "Multi-crop systems spread risk, reduce inputs, and create operational resilience. Here's how to choose between intercropping and polyculture approaches.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

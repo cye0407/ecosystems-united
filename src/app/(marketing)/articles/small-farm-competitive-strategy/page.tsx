@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Small Farm Competitive Strategy: Differentiation, Specialization, and Diversification",
   description: "Small farms can't out-volume agribusiness. Here are three strategic approaches that build competitive advantage where scale isn't the determining factor.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "small", "farm", "competitive", "strategy", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

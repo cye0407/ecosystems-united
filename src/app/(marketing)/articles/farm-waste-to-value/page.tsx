@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Farm Waste Streams: Where Value Is Being Lost",
   description: "A practical audit of farm waste streams and circular opportunities. Identify organic, plastic, and biomass waste that could generate value instead of disposal costs.",
+  keywords: ["circular economy", "resource efficiency", "waste reduction", "life cycle assessment", "farm", "waste", "value", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

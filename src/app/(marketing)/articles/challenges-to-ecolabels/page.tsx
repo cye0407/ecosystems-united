@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Challenges to Ecolabels: The Devil's Triangle of Certification",
   description: "Ecolabels must balance credibility, accessibility, and improvement. Understanding these tensions helps you navigate certification strategically.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "challenges", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

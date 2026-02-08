@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Introduction to Companion Planting: Exploiting Plant Relationships",
   description: "Companion planting grows specific plants together for mutual benefit—pest control, improved growth, or enhanced flavor. Here's how it works.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "companion", "planting", "introduction", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

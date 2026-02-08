@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Regenerative Transition Actually Costs (And When It Pays Back)",
   description: "Honest financial analysis of regenerative transition costs, year-by-year economics, funding options, and realistic break-even timelines for farms considering the shift.",
+  keywords: ["regenerative agriculture", "soil health", "carbon credits", "farm economics", "regenerative", "transition", "costs", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Is Agribusiness? Understanding the System You Operate In",
   description: "Agribusiness is the network that captures value from farm production. Understanding how it works helps you position your operation to capture more value yourself.",
+  keywords: ["agribusiness", "agricultural economics", "food systems", "value chain", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

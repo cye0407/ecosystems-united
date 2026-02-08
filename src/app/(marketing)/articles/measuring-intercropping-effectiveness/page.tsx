@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Measuring Intercropping Effectiveness: Key Metrics and Methods",
   description: "Land Equivalent Ratio, Competitive Ratio, and other metrics help you objectively evaluate whether your intercropping system is actually delivering benefits.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "measuring", "effectiveness", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

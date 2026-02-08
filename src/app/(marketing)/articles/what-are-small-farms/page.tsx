@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "What Are Small Farms? The Business Case for Staying Small",
   description: "Small farms produce vast amounts of food globally despite structural disadvantages. Here's why staying small can be a strategic advantage, not a limitation.",
+  keywords: ["small farms", "farm strategy", "direct marketing", "local food", "small", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

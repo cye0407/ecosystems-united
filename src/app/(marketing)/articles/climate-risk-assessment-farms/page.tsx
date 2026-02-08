@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Climate Risk Assessment for Farm Operations | Ecosystems United",
   description: "How to identify, quantify, and prepare for climate risks affecting your farm. Heat stress, flooding, drought, frost changes, and pest/disease shifts — with a practical assessment framework.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "climate", "risk", "assessment", "farms", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

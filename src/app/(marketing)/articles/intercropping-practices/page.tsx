@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Intercropping Practices: From Push-Pull to Companion Planting",
   description: "Beyond basic intercropping patterns, specialized practices like push-pull, trap cropping, and companion planting offer targeted benefits. Here's how they work.",
+  keywords: ["intercropping", "polyculture", "crop diversity", "companion planting", "practices", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

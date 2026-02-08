@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Managing Market Price Volatility on the Farm | Ecosystems United",
   description: "Commodity prices swing. Input costs spike. How to build a marketing and risk management strategy that smooths revenue and protects margins.",
+  keywords: ["climate risk", "crop diversification", "farm resilience", "risk management", "market", "volatility", "strategies", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

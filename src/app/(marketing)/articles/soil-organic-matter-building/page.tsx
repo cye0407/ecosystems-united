@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Building Soil Organic Matter: Practices, Timelines, and Returns | Ecosystems United",
   description: "How to increase soil organic matter through cover crops, compost, reduced tillage, and residue management. The timeline to results and the economic payoff.",
+  keywords: ["soil testing", "nutrient management", "erosion control", "land management", "soil", "organic", "matter", "building", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {

@@ -4,6 +4,7 @@ import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 export const metadata = {
   title: "Drivers of Ecolabel Adoption: What Makes Certification Schemes Succeed",
   description: "For ecolabels to drive change, multiple factors must align. Understanding these drivers helps you evaluate which certifications are worth pursuing.",
+  keywords: ["ecolabels", "certification", "sustainability standards", "greenwashing", "drivers", "ecolabel", "adoption", "agriculture", "sustainability"],
 };
 
 export default function ArticlePage() {
