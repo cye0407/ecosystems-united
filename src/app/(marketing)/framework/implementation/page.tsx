@@ -459,6 +459,14 @@ export default function ImplementationPage() {
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Positioning claims without operational proof is greenwashing</span>
         </div>
+        <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center gap-2 min-w-[140px]">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#B8ADE3' }}>5</div>
+            <span className="font-medium text-gray-900">Regeneration</span>
+          </div>
+          <span className="text-gray-400">→</span>
+          <span className="text-gray-600 text-sm">Compounding advantage — proof becomes premium, premium funds further improvement</span>
+        </div>
       </div>
 
       <article className="prose prose-lg prose-gray max-w-none">
