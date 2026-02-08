@@ -27,17 +27,17 @@ const tools = [
   {
     name: "Response Generator",
     description:
-      "Upload sustainability questionnaires and generate answers from your operational data.",
-    href: "/dashboard",
-    status: "app",
+      "Upload sustainability questionnaires and generate answers from your operational data. Coming soon.",
+    href: "/tools",
+    status: "coming-soon",
     icon: "📝",
   },
   {
     name: "Baseline Calculator",
     description:
-      "Calculate baseline metrics for emissions, energy, water, and waste across your operation.",
-    href: "/dashboard",
-    status: "app",
+      "Calculate baseline metrics for emissions, energy, water, and waste across your operation. Coming soon.",
+    href: "/tools",
+    status: "coming-soon",
     icon: "🧮",
   },
 ];
@@ -67,9 +67,9 @@ export default function ToolsPage() {
                   <h2 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
                     {tool.name}
                   </h2>
-                  {tool.status === "app" && (
-                    <span className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded">
-                      In App
+                  {tool.status === "coming-soon" && (
+                    <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
+                      Coming Soon
                     </span>
                   )}
                 </div>
@@ -83,19 +83,13 @@ export default function ToolsPage() {
       {/* App CTA */}
       <div className="mt-16 p-8 bg-primary/5 rounded-lg">
         <h2 className="text-2xl font-bold text-gray-900 mb-3">
-          Full toolkit in the app
+          Full toolkit coming soon
         </h2>
-        <p className="text-gray-600 mb-6">
-          The Ecosystems United app includes the complete Response Generator,
+        <p className="text-gray-600">
+          The Ecosystems United app will include the complete Response Generator,
           data entry for all 8 operational domains, progress tracking, and
           export tools.
         </p>
-        <Link
-          href="/dashboard"
-          className="inline-block bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition-colors"
-        >
-          Launch the App →
-        </Link>
       </div>
     </div>
   );

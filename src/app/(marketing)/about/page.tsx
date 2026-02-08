@@ -103,12 +103,6 @@ export default function AboutPage() {
             >
               Explore the Framework
             </Link>
-            <Link
-              href="/dashboard"
-              className="inline-block border border-gray-300 text-gray-700 px-6 py-3 rounded font-semibold hover:bg-gray-50 transition-colors"
-            >
-              Launch the App
-            </Link>
           </div>
         </div>
       </div>

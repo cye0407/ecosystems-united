@@ -82,12 +82,6 @@ export default function Nav() {
           <Link href="/about" className="text-gray-600 hover:text-primary">
             About
           </Link>
-          <Link
-            href="/dashboard"
-            className="ml-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-          >
-            Launch App
-          </Link>
         </div>
       </div>
     </nav>
