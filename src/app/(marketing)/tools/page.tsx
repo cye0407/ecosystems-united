@@ -7,14 +7,56 @@ export const metadata: Metadata = {
     "Interactive tools to assess your sustainability position and build operational capability.",
 };
 
-const tools = [
+const stackAssessments = [
   {
-    name: "Stack Assessment",
+    name: "Stack 1: Metrics Assessment",
     description:
-      "Evaluate where your operation sits in the Five Stacks Framework. Identify gaps and prioritize next steps.",
+      "Do you have visibility into your operation? Evaluate your baseline data, tracking, and measurement capability.",
+    href: "/tools/metrics-assessment",
+    color: "#3D2E7C",
+    number: 1,
+  },
+  {
+    name: "Stack 2: Efficiency Assessment",
+    description:
+      "Where are you bleeding margin? Identify operational leaks, waste, and redundancy across your processes.",
+    href: "/tools/efficiency-assessment",
+    color: "#5B4A9E",
+    number: 2,
+  },
+  {
+    name: "Stack 3: Circularity Assessment",
+    description:
+      "What value is leaving your system uncaptured? Map waste streams, idle assets, and monetization opportunities.",
+    href: "/tools/circularity-assessment",
+    color: "#7B6BB8",
+    number: 3,
+  },
+  {
+    name: "Stack 4: Resilience Assessment",
+    description:
+      "How fragile is your operation? Evaluate single points of failure, concentration risk, and contingency planning.",
+    href: "/tools/resilience-assessment",
+    color: "#9A8CD0",
+    number: 4,
+  },
+  {
+    name: "Stack 5: Regeneration Assessment",
+    description:
+      "Can you prove your advantage? Assess your positioning, certifications, and ability to command premium pricing.",
+    href: "/tools/regeneration-assessment",
+    color: "#B8ADE3",
+    number: 5,
+  },
+];
+
+const otherTools = [
+  {
+    name: "Full Stack Assessment",
+    description:
+      "Evaluate where your operation sits across all five stacks. Get a complete picture and prioritize next steps.",
     href: "/tools/stack-assessment",
     status: "available",
-    icon: "📊",
   },
   {
     name: "Soil Health Checklist",
@@ -22,7 +64,6 @@ const tools = [
       "A practical checklist for assessing and tracking soil health indicators on your operation.",
     href: "/tools/soil-health-checklist",
     status: "available",
-    icon: "🌱",
   },
   {
     name: "Response Generator",
@@ -30,7 +71,6 @@ const tools = [
       "Upload sustainability questionnaires and generate answers from your operational data. Coming soon.",
     href: "/tools",
     status: "coming-soon",
-    icon: "📝",
   },
   {
     name: "Baseline Calculator",
@@ -38,7 +78,6 @@ const tools = [
       "Calculate baseline metrics for emissions, energy, water, and waste across your operation. Coming soon.",
     href: "/tools",
     status: "coming-soon",
-    icon: "🧮",
   },
 ];
 
@@ -53,29 +92,55 @@ export default function ToolsPage() {
         </p>
       </div>
 
+      {/* Stack Assessments */}
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        Stack Assessments
+      </h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+        {stackAssessments.map((tool) => (
+          <Link
+            key={tool.name}
+            href={tool.href}
+            className="block p-5 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors group"
+          >
+            <div className="flex items-start gap-3">
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5"
+                style={{ backgroundColor: tool.color }}
+              >
+                {tool.number}
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 group-hover:text-primary transition-colors mb-1">
+                  {tool.name}
+                </h3>
+                <p className="text-sm text-gray-600">{tool.description}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* Other Tools */}
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Other Tools</h2>
       <div className="grid md:grid-cols-2 gap-6">
-        {tools.map((tool) => (
+        {otherTools.map((tool) => (
           <Link
             key={tool.name}
             href={tool.href}
             className="block p-6 border border-gray-200 rounded-lg hover:border-primary transition-colors group"
           >
-            <div className="flex items-start gap-4">
-              <div className="text-3xl">{tool.icon}</div>
-              <div className="flex-grow">
-                <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                    {tool.name}
-                  </h2>
-                  {tool.status === "coming-soon" && (
-                    <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
-                      Coming Soon
-                    </span>
-                  )}
-                </div>
-                <p className="text-gray-600">{tool.description}</p>
-              </div>
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                {tool.name}
+              </h3>
+              {tool.status === "coming-soon" && (
+                <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
+                  Coming Soon
+                </span>
+              )}
             </div>
+            <p className="text-gray-600">{tool.description}</p>
           </Link>
         ))}
       </div>
