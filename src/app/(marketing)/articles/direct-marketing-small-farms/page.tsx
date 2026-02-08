@@ -183,7 +183,7 @@ export default function ArticlePage() {
             <span className="font-medium text-gray-900">What Are Small Farms? →</span>
             <span className="block text-sm text-gray-600">The business case for staying small</span>
           </Link>
-          <Link href="/framework/stack-5-regenerative" className="block p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
+          <Link href="/framework/stack-5-regeneration" className="block p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
             <span className="font-medium text-gray-900">Stack 5: Regenerative Advantage →</span>
             <span className="block text-sm text-gray-600">Turning operational advantages into market position</span>
           </Link>

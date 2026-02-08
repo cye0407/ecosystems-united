@@ -148,7 +148,7 @@ const stackInfo = [
     stack: 5,
     name: "Regeneration",
     color: "#B8ADE3",
-    slug: "stack-5-regenerative",
+    slug: "stack-5-regeneration",
     headline: "Compound improvement",
     description: "You've built a resilient, efficient, circular operation. Now design systems that improve as they operate — true regenerative advantage.",
     nextStep: "Build your navigation capability with the Strategic Navigation Framework.",

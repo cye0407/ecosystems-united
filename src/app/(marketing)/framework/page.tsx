@@ -43,7 +43,7 @@ const stacks = [
   {
     num: 5,
     title: "Regenerative Advantage",
-    slug: "stack-5-regenerative",
+    slug: "stack-5-regeneration",
     color: "#B8ADE3",
     principle: "Build systems that improve as they operate",
     outcome: "Organizational capability to steer dynamically",

@@ -12,7 +12,7 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-5-regenerative" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+        <Link href="/framework/stack-5-regeneration" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
           <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 5: Regenerative Advantage
         </Link>
       </nav>
@@ -165,7 +165,7 @@ export default function ArticlePage() {
         <p className="text-white/80 mb-6">
           Stack 5 focuses on turning operational economics into market positioning. The Five Stacks Framework helps you build documented financial performance that supports premium pricing, better financing terms, and stronger partnerships.
         </p>
-        <Link href="/framework/stack-5-regenerative" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
+        <Link href="/framework/stack-5-regeneration" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
           Get Started with Stack 5 →
         </Link>
       </div>

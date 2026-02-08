@@ -79,11 +79,11 @@ const stacks = {
     ],
     requirement:
       "Stack 3 implementations — you're layering additional value streams on top of transformed operations",
-    nextStack: "stack-5-regenerative",
+    nextStack: "stack-5-regeneration",
     prevStack: "stack-3-circularity",
     color: "#9A8CD0",
   },
-  "stack-5-regenerative": {
+  "stack-5-regeneration": {
     num: 5,
     title: "Regenerative Advantage",
     principle: "Build systems that improve as they operate",

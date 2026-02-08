@@ -12,7 +12,7 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circular" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
           <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 3: Circular Value Creation
         </Link>
       </nav>
@@ -144,7 +144,7 @@ export default function ArticlePage() {
         <p className="text-white/80 mb-6">
           Stack 3 focuses on systematically identifying waste streams and byproducts that can become revenue or cost savings. Understanding the biofuel landscape helps you evaluate whether your organic waste streams have untapped value.
         </p>
-        <Link href="/framework/stack-3-circular" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
+        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
           Get Started with Stack 3 →
         </Link>
       </div>
