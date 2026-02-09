@@ -132,6 +132,19 @@ export const wordpressRedirects: Redirect[] = [
   { source: '/review-and-analysis-of-of-the-benefits-purposes-and-motivations-associated-with-community-gardens-in-the-united-states', destination: '/articles/cooperative-models-small-farms', permanent: true },
   { source: '/the-influence-of-social-involvment-neighborhood-aesthetics-and-community-garden-participation-on-fruit-and-vegetable-conspumption', destination: '/articles/cooperative-models-small-farms', permanent: true },
 
+  // === CSRD PAGES (removed during restructure, still indexed by Google) ===
+  { source: '/csrd-for-smes', destination: '/articles/csrd-vsme-agricultural-suppliers', permanent: true },
+  { source: '/csrd-toolkits-for-smes', destination: '/tools', permanent: true },
+  { source: '/csrd-workshops-consulting', destination: '/framework/implementation', permanent: true },
+  { source: '/vsme-csrd-readiness-scorecard', destination: '/tools/stack-assessment', permanent: true },
+
+  // === WORDPRESS CATEGORY ARCHIVES (still indexed by Google) ===
+  { source: '/category/circularity', destination: '/framework/stack-3-circularity', permanent: true },
+  { source: '/category/energy', destination: '/framework/stack-2-efficiency', permanent: true },
+  { source: '/category/biodiversity', destination: '/framework/stack-4-resilience', permanent: true },
+  { source: '/category/market', destination: '/articles', permanent: true },
+  { source: '/category/questions', destination: '/articles', permanent: true },
+
   // === NO MATCH — redirect to articles index (79 entries) ===
   { source: '/question-how-can-transport-systems-be-redesigned-to-improve-energy-efficiency', destination: '/articles', permanent: false },
   { source: '/smart-electric-grids', destination: '/articles', permanent: false },

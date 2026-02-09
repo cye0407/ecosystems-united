@@ -21,7 +21,24 @@ const nextConfig: NextConfig = {
       destination: r.destination,
       permanent: r.permanent,
     }));
-    return [...wordpressRedirects, ...withTrailingSlash];
+
+    // Catch-all patterns (checked after specific redirects)
+    const catchAllRedirects = [
+      // WordPress date-based permalinks: /2019/11/15/slug → /slug (then caught by wordpress redirects)
+      {
+        source: '/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*',
+        destination: '/:slug*',
+        permanent: true as const,
+      },
+      // WordPress category pages including /page/N pagination
+      {
+        source: '/category/:path*',
+        destination: '/articles',
+        permanent: true as const,
+      },
+    ];
+
+    return [...wordpressRedirects, ...withTrailingSlash, ...catchAllRedirects];
   },
 };
 
