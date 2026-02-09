@@ -21,15 +21,15 @@ const exportOptions: ExportOption[] = [
     name: 'Scope 3 Data Pack',
     description: 'All upstream and downstream data formatted for GHG calculations',
     icon: Package,
-    format: 'xlsx',
+    format: 'csv',
     category: 'report',
   },
   {
     id: 'all-data',
     name: 'All Operational Data',
-    description: 'Complete export of all domains in a single workbook',
+    description: 'Complete export of all domains in a single file',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -37,7 +37,7 @@ const exportOptions: ExportOption[] = [
     name: 'Energy & Utilities',
     description: 'Electricity, fuel, and water consumption data',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -45,7 +45,7 @@ const exportOptions: ExportOption[] = [
     name: 'Materials & Packaging',
     description: 'Raw materials and packaging input data',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -53,7 +53,7 @@ const exportOptions: ExportOption[] = [
     name: 'Transport & Logistics',
     description: 'Inbound, outbound, and internal transport logs',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -61,7 +61,7 @@ const exportOptions: ExportOption[] = [
     name: 'Workforce & Safety',
     description: 'Headcount, health & safety, and training data',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -69,7 +69,7 @@ const exportOptions: ExportOption[] = [
     name: 'Outputs & Waste',
     description: 'Waste, product outputs, and emissions data',
     icon: FileXls,
-    format: 'xlsx',
+    format: 'csv',
     category: 'data',
   },
   {
@@ -160,11 +160,38 @@ export default function ExportsPage() {
         downloadCSV(energyData, fileName);
         break;
 
+      case 'materials-data':
+        const materialsData = generateMaterialsExport(dataStore, selectedYear, selectedSite);
+        fileName = `materials-packaging-${selectedYear}.csv`;
+        downloadCSV(materialsData, fileName);
+        break;
+
+      case 'transport-data':
+        const transportData = generateTransportExport(dataStore, selectedYear, selectedSite);
+        fileName = `transport-${selectedYear}.csv`;
+        downloadCSV(transportData, fileName);
+        break;
+
+      case 'workforce-data':
+        const workforceData = generateWorkforceExport(dataStore, selectedYear, selectedSite);
+        fileName = `workforce-safety-${selectedYear}.csv`;
+        downloadCSV(workforceData, fileName);
+        break;
+
+      case 'outputs-data':
+        const outputsData = generateOutputsExport(dataStore, selectedYear, selectedSite);
+        fileName = `outputs-waste-${selectedYear}.csv`;
+        downloadCSV(outputsData, fileName);
+        break;
+
+      case 'all-data':
+        const allData = generateAllDataExport(dataStore, selectedYear, selectedSite);
+        fileName = `all-operational-data-${selectedYear}.csv`;
+        downloadCSV(allData, fileName);
+        break;
+
       default:
-        // Generic CSV export
-        const genericData = generateGenericExport(exportOption.id, dataStore, sites, selectedYear, selectedSite);
-        fileName = `${exportOption.id}-${selectedYear}.csv`;
-        downloadCSV(genericData, fileName);
+        break;
     }
 
     // Add to history
@@ -191,8 +218,8 @@ export default function ExportsPage() {
   };
 
   const downloadCSV = (data: string[][], fileName: string) => {
-    const csv = data.map((row) => row.map((cell) => `"${cell || ''}"`).join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
+    const csv = data.map((row) => row.map((cell) => `"${(cell || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
     downloadBlob(blob, fileName);
   };
 
@@ -355,11 +382,177 @@ export default function ExportsPage() {
     return rows;
   };
 
-  const generateGenericExport = (type: string, _store: typeof dataStore, _sitesList: typeof sites, year: string, _siteId: string) => {
-    const headers = ['Type', 'Site', 'Period', 'Description', 'Value', 'Unit'];
+  const siteName = (siteId: string) => sites.find((s) => s.id === siteId)?.siteName || 'Unknown';
+  const filterPeriodSite = (period: string, recordSiteId: string, year: string, siteId: string) =>
+    period.startsWith(year) && (siteId === 'all' || recordSiteId === siteId);
+
+  const generateMaterialsExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const headers = ['Material', 'Category', 'Site', 'Period', 'Quantity', 'Unit', 'Virgin %', 'Recycled %', 'Supplier', 'Country', 'Cost', 'Hazardous', 'Data Source', 'Confidence'];
     const rows: string[][] = [headers];
 
-    rows.push(['Export', 'All', year, `${type} export`, 'Data available', '-']);
+    store.materialInputs.forEach((input) => {
+      if (!filterPeriodSite(input.period, input.siteId, year, siteId)) return;
+      const material = store.materials.find((m) => m.id === input.materialId);
+      rows.push([
+        material?.materialName || 'Unknown', material?.materialCategory || '',
+        siteName(input.siteId), input.period, input.quantity.toString(), input.unit,
+        input.virginContentPercent?.toString() || '', input.recycledContentPercent?.toString() || '',
+        input.supplierName || '', input.supplierCountry || '',
+        input.cost?.toString() || '', input.hazardous ? 'Yes' : 'No',
+        input.source, input.confidence,
+      ]);
+    });
+
+    store.packagingInputs.forEach((input) => {
+      if (!filterPeriodSite(input.period, input.siteId, year, siteId)) return;
+      const pkg = store.packaging.find((p) => p.id === input.packagingId);
+      rows.push([
+        pkg?.packagingName || 'Unknown', `packaging_${pkg?.packagingLevel || ''}`,
+        siteName(input.siteId), input.period, input.totalWeightKg.toString(), 'kg',
+        '', input.recycledContentPercent?.toString() || '',
+        input.supplierName || '', input.supplierCountry || '',
+        input.cost?.toString() || '', 'No',
+        input.source, input.confidence,
+      ]);
+    });
+
+    return rows;
+  };
+
+  const generateTransportExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const headers = ['Direction', 'Mode', 'Vehicle Type', 'Site', 'Period', 'Distance (km)', 'Weight (t)', 'tkm', 'Fuel Type', 'Fuel Qty', 'Carrier', 'Load %', 'Spend', 'Data Source', 'Confidence'];
+    const rows: string[][] = [headers];
+
+    store.transportLogs.forEach((log) => {
+      if (!filterPeriodSite(log.period, log.siteId, year, siteId)) return;
+      rows.push([
+        log.direction, log.mode, log.vehicleType || '',
+        siteName(log.siteId), log.period,
+        log.distanceKm?.toString() || '', log.weightT?.toString() || '', log.tkm?.toString() || '',
+        log.fuelType || '', log.fuelQuantity?.toString() || '',
+        log.carrierName || '', log.loadFactorPercent?.toString() || '',
+        log.spend?.toString() || '', log.source, log.confidence,
+      ]);
+    });
+
+    return rows;
+  };
+
+  const generateWorkforceExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const headers: string[] = [];
+    const rows: string[][] = [];
+
+    // Workforce headcount
+    const wfHeaders = ['Type', 'Site', 'Period', 'Total FTE', 'Headcount', 'Permanent', 'Temporary', 'Contractors', 'Female %', 'Male %', 'Hours Worked', 'Data Source', 'Confidence'];
+    rows.push(wfHeaders);
+
+    store.workforce.forEach((w) => {
+      if (!filterPeriodSite(w.period, w.siteId, year, siteId)) return;
+      rows.push([
+        'Workforce', siteName(w.siteId), w.period,
+        w.totalFte.toString(), w.totalHeadcount?.toString() || '',
+        w.permanentEmployees?.toString() || '', w.temporaryEmployees?.toString() || '',
+        w.contractors?.toString() || '', w.femalePercent?.toString() || '',
+        w.malePercent?.toString() || '', w.totalHoursWorked.toString(),
+        w.source, w.confidence,
+      ]);
+    });
+
+    store.healthSafety.forEach((hs) => {
+      if (!filterPeriodSite(hs.period, hs.siteId, year, siteId)) return;
+      rows.push([
+        'Health & Safety', siteName(hs.siteId), hs.period,
+        '', '', '', '', '', '', '',
+        `Incidents: ${hs.recordableIncidents}, LTI: ${hs.lostTimeIncidents}, Fatalities: ${hs.fatalities}`,
+        hs.source, hs.confidence,
+      ]);
+    });
+
+    store.training.forEach((t) => {
+      if (!filterPeriodSite(t.period, t.siteId, year, siteId)) return;
+      rows.push([
+        'Training', siteName(t.siteId), t.period,
+        '', '', '', '', '', '', '',
+        `Hours: ${t.totalTrainingHours || 0}, Employees: ${t.employeesTrained || 0}, Safety: ${t.safetyTrainingHours || 0}h`,
+        t.source, t.confidence,
+      ]);
+    });
+
+    return rows;
+  };
+
+  const generateOutputsExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const headers = ['Type', 'Category', 'Detail', 'Site', 'Period', 'Quantity', 'Unit', 'Disposal/Destination', 'Partner', 'Hazardous', 'Cost', 'Revenue', 'Data Source', 'Confidence'];
+    const rows: string[][] = [headers];
+
+    store.waste.forEach((w) => {
+      if (!filterPeriodSite(w.period, w.siteId, year, siteId)) return;
+      rows.push([
+        'Waste', w.wasteCategory, w.wasteType || '',
+        siteName(w.siteId), w.period, w.quantityKg.toString(), 'kg',
+        w.disposalRoute, w.disposalPartner || '', w.hazardous ? 'Yes' : 'No',
+        w.cost?.toString() || '', w.revenue?.toString() || '',
+        w.source, w.confidence,
+      ]);
+    });
+
+    store.productOutputs.forEach((p) => {
+      if (!filterPeriodSite(p.period, p.siteId, year, siteId)) return;
+      rows.push([
+        'Product Output', '', p.productName,
+        siteName(p.siteId), p.period, p.quantity.toString(), p.unit,
+        '', '', '', '', p.revenue?.toString() || '',
+        p.source, p.confidence,
+      ]);
+    });
+
+    store.directEmissions.forEach((e) => {
+      if (!filterPeriodSite(e.period, e.siteId, year, siteId)) return;
+      rows.push([
+        'Direct Emission', e.emissionSource, e.sourceDetail,
+        siteName(e.siteId), e.period, e.quantityKg.toString(), 'kg',
+        '', '', '', '', '',
+        e.source, e.confidence,
+      ]);
+    });
+
+    store.effluents.forEach((ef) => {
+      if (!filterPeriodSite(ef.period, ef.siteId, year, siteId)) return;
+      rows.push([
+        'Effluent', ef.effluentType, '',
+        siteName(ef.siteId), ef.period, ef.volumeM3.toString(), 'm\u00B3',
+        ef.destination, '', '', '', '',
+        ef.source, ef.confidence,
+      ]);
+    });
+
+    return rows;
+  };
+
+  const generateAllDataExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const rows: string[][] = [];
+
+    // Combine all domains with a domain column
+    const energy = generateEnergyExport(store, sites, year, siteId);
+    const materials = generateMaterialsExport(store, year, siteId);
+    const transport = generateTransportExport(store, year, siteId);
+    const workforce = generateWorkforceExport(store, year, siteId);
+    const outputs = generateOutputsExport(store, year, siteId);
+
+    rows.push(['=== ENERGY & UTILITIES ===']);
+    rows.push(...energy);
+    rows.push([]);
+    rows.push(['=== MATERIALS & PACKAGING ===']);
+    rows.push(...materials);
+    rows.push([]);
+    rows.push(['=== TRANSPORT & LOGISTICS ===']);
+    rows.push(...transport);
+    rows.push([]);
+    rows.push(['=== WORKFORCE & SAFETY ===']);
+    rows.push(...workforce);
+    rows.push([]);
+    rows.push(['=== OUTPUTS & WASTE ===']);
+    rows.push(...outputs);
 
     return rows;
   };

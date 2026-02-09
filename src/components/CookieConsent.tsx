@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui';
 
 const COOKIE_CONSENT_KEY = 'eu-cookie-consent';
@@ -36,25 +37,11 @@ export function CookieConsent() {
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1">
           <p className="text-sm text-gray-700">
-            We use cookies and local storage to improve your experience. Your ESG data stays in your browser.
-            By continuing, you agree to our{' '}
-            <a
-              href="https://ecosystemsunited.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline hover:text-primary-dark"
-            >
+            We use local storage to save your data. Your ESG data never leaves your browser — we don&apos;t
+            sell it, share it, or send it to third parties.{' '}
+            <Link href="/privacy" className="text-primary underline hover:text-primary-dark">
               Privacy Policy
-            </a>{' '}
-            and{' '}
-            <a
-              href="https://ecosystemsunited.com/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline hover:text-primary-dark"
-            >
-              Terms of Service
-            </a>.
+            </Link>
           </p>
         </div>
         <div className="flex gap-3 flex-shrink-0">
@@ -62,7 +49,7 @@ export function CookieConsent() {
             Decline
           </Button>
           <Button size="sm" onClick={handleAccept}>
-            Accept
+            Got it
           </Button>
         </div>
       </div>
