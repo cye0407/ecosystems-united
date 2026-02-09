@@ -232,20 +232,32 @@ export default function StackAssessment() {
           <p className="font-medium text-gray-900">{result.nextStep}</p>
         </div>
 
-        <div className="flex gap-4 mb-12">
+        <div className="flex flex-col gap-4 mb-8">
           <Link
-            href={`/framework/${result.slug}`}
-            className="flex-1 bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
+            href="/signup"
+            className="bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
           >
-            Learn about Stack {result.stack}
+            Start Your Baseline — Free Plan →
           </Link>
-          <button
-            onClick={restart}
-            className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-md font-medium hover:border-gray-400"
-          >
-            Retake Assessment
-          </button>
+          <div className="flex gap-4">
+            <Link
+              href={`/framework/${result.slug}`}
+              className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-md font-medium hover:bg-gray-50 text-center"
+            >
+              Learn about Stack {result.stack}
+            </Link>
+            <button
+              onClick={restart}
+              className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-md font-medium hover:border-gray-400"
+            >
+              Retake Assessment
+            </button>
+          </div>
         </div>
+
+        <p className="text-center text-sm text-gray-500 mb-12">
+          The free plan includes the full 8-domain tracker, CSV exports, and multi-site support.
+        </p>
 
         <NewsletterSignup />
       </div>

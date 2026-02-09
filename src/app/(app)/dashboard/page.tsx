@@ -337,6 +337,36 @@ export default function DashboardPage() {
         })}
       </div>
 
+      {/* Response Generator Teaser */}
+      {domainsWithData >= 1 && (
+        <div className="mb-8 p-6 rounded-2xl border border-stack-5/40 bg-gradient-to-r from-stack-5/5 to-primary-100/50">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stack-2 to-stack-4 flex items-center justify-center shrink-0">
+                <FileText className="w-6 h-6 text-white" weight="duotone" />
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900">
+                  Your data could auto-answer ~{Math.round(domainsWithData * 6)} EcoVadis questions
+                </p>
+                <p className="text-sm text-gray-600">
+                  {domainsWithData < 8
+                    ? `Fill ${8 - domainsWithData} more domain${8 - domainsWithData > 1 ? 's' : ''} to cover the full questionnaire.`
+                    : 'Full coverage across all 8 domains. Your baseline is response-ready.'}
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/see-it-in-action"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-stack-2 to-stack-4 text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm shrink-0"
+            >
+              <span>See how it works</span>
+              <ArrowRight className="w-4 h-4" weight="bold" />
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {!companyLogo ? (

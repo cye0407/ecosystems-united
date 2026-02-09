@@ -123,20 +123,32 @@ export default function ResilienceAssessmentPage() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link 
-            href="/framework/stack-4-resilience"
-            className="flex-1 text-center bg-[#9A8CD0] text-white px-6 py-3 rounded font-semibold hover:bg-[#8a7cc0] transition-colors"
+        <div className="flex flex-col gap-4">
+          <Link
+            href="/signup"
+            className="bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
           >
-            Learn more about Stack 4 →
+            Start Your Baseline — Free Plan →
           </Link>
-          <button
-            onClick={handleReset}
-            className="flex-1 text-center border border-gray-300 text-gray-700 px-6 py-3 rounded font-semibold hover:bg-gray-50 transition-colors"
-          >
-            Retake Assessment
-          </button>
+          <div className="flex gap-4">
+            <Link
+              href="/framework/stack-4-resilience"
+              className="flex-1 text-center border border-gray-300 text-gray-700 px-6 py-3 rounded font-semibold hover:bg-gray-50 transition-colors"
+            >
+              Learn about Stack 4
+            </Link>
+            <button
+              onClick={handleReset}
+              className="flex-1 text-center border border-gray-300 text-gray-700 px-6 py-3 rounded font-semibold hover:border-gray-400"
+            >
+              Retake Assessment
+            </button>
+          </div>
         </div>
+
+        <p className="text-center text-sm text-gray-500 mt-4">
+          The free plan includes the full 8-domain tracker, CSV exports, and multi-site support.
+        </p>
       </div>
     );
   }

@@ -306,7 +306,7 @@ export default function SeeItInActionPage() {
             Start Your Baseline →
           </Link>
           <p className="text-sm text-gray-500 mt-3">
-            Free to use. No credit card required.
+            The free plan includes all 8 domains, CSV exports, and multi-site support.
           </p>
         </div>
       </section>

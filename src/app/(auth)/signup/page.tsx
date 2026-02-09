@@ -42,9 +42,12 @@ export default function SignupPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-md">
         <Card padding="lg">
-          <h1 className="text-2xl font-semibold text-gray-900 text-center mb-6">
-            Create your account
+          <h1 className="text-2xl font-semibold text-gray-900 text-center mb-2">
+            Create your free account
           </h1>
+          <p className="text-sm text-gray-500 text-center mb-6">
+            Full 8-domain tracker, CSV exports, multi-site support.
+          </p>
 
           {submitted ? (
             <p className="text-sm text-gray-700 text-center">
