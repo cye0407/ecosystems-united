@@ -36,6 +36,24 @@ const nextConfig: NextConfig = {
         destination: '/articles',
         permanent: true as const,
       },
+      // WordPress tag archive pages (e.g. /tag/aquaculture, /tag/biofuels)
+      {
+        source: '/tag/:path*',
+        destination: '/articles',
+        permanent: true as const,
+      },
+      // WordPress author archive pages
+      {
+        source: '/author/:path*',
+        destination: '/',
+        permanent: true as const,
+      },
+      // WordPress top-level pagination (e.g. /page/2, /page/3)
+      {
+        source: '/page/:path*',
+        destination: '/articles',
+        permanent: true as const,
+      },
     ];
 
     return [...wordpressRedirects, ...withTrailingSlash, ...catchAllRedirects];
