@@ -76,6 +76,9 @@ export default function Nav() {
             )}
           </div>
 
+          <Link href="/articles" className="text-gray-600 hover:text-primary">
+            Guides
+          </Link>
           <Link href="/tools" className="text-gray-600 hover:text-primary">
             Tools
           </Link>

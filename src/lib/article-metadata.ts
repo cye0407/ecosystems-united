@@ -46,7 +46,7 @@ const categoryKeywords: Record<string, string[]> = {
 };
 
 // Category to Five Stacks mapping
-const categoryStack: Record<string, { name: string; number: number; color: string }> = {
+export const categoryStack: Record<string, { name: string; number: number; color: string }> = {
   "CSRD & ESG Compliance": { name: "Stack 1: The Defensible Baseline", number: 1, color: "#3D2E7C" },
   "Understanding Agribusiness": { name: "Stack 1: The Defensible Baseline", number: 1, color: "#3D2E7C" },
   "Small Farm Strategy": { name: "Stack 2: Operational Efficiency", number: 2, color: "#5B4A9E" },
