@@ -125,7 +125,7 @@ export default function MetricsAssessmentPage() {
 
         <div className="flex flex-col gap-4">
           <Link
-            href="/signup"
+            href="/signup?from=assessment&stack=1"
             className="bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
           >
             Start Your Baseline — Free Plan →

@@ -1,12 +1,15 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowRight, Clock, CheckCircle2 } from 'lucide-react';
 import { Button, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 
 export default function WelcomePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromAssessment = searchParams.get('from') === 'assessment';
+  const stack = searchParams.get('stack');
   const setOnboardingStep = useAppStore((state) => state.setOnboardingStep);
 
   const handleStart = () => {
@@ -16,6 +19,14 @@ export default function WelcomePage() {
 
   return (
     <div className="animate-fade-in">
+      {fromAssessment && stack && (
+        <div className="bg-forest-50 border border-forest-200 rounded-xl p-4 mb-6 text-center">
+          <p className="text-forest-800 font-medium">
+            Your Stack {stack} assessment is complete. Let&apos;s set up your tracker to start collecting baseline data.
+          </p>
+        </div>
+      )}
+
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-forest-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
           <span className="text-white font-bold text-2xl">5S</span>
