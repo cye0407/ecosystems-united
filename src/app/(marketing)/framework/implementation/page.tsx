@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import PageCTA from "@/components/marketing/PageCTA";
 
 const stackColors = {
   1: '#3D2E7C',
@@ -165,7 +166,7 @@ export default function ImplementationPage() {
       </article>
 
       {/* Stack 1 */}
-      <StackCard number={1} title="Metrics" subtitle="Build your baseline" slug="stack-1-metrics">
+      <StackCard number={1} title="The Defensible Baseline" subtitle="If it can't be measured, it can't be defended" slug="stack-1-metrics">
         <p className="text-gray-700 mb-4">
           You can't improve what you can't see. Stack 1 builds visibility — what you're doing, 
           what's happening around you, what resources you have to work with.
@@ -211,7 +212,7 @@ export default function ImplementationPage() {
       </StackCard>
 
       {/* Stack 2 */}
-      <StackCard number={2} title="Efficiency" subtitle="Stop the leaks" slug="stack-2-efficiency">
+      <StackCard number={2} title="Operational Efficiency" subtitle="Fix leaks before adding initiatives" slug="stack-2-efficiency">
         <p className="text-gray-700 mb-4">
           With visibility established, Stack 2 finds the leaks. Where are you spending more than 
           you need to? Where is effort producing less than it could?
@@ -257,7 +258,7 @@ export default function ImplementationPage() {
       </StackCard>
 
       {/* Stack 3 */}
-      <StackCard number={3} title="Circularity" subtitle="Capture the lost margin" slug="stack-3-circularity">
+      <StackCard number={3} title="Margin Recovery" subtitle="What you discard is lost margin" slug="stack-3-circularity">
         <p className="text-gray-700 mb-4">
           Every output can be an input. Stack 3 identifies what's leaving your system without 
           being monetized — physical waste, idle assets, data you're not using. The shift is from 
@@ -305,7 +306,7 @@ export default function ImplementationPage() {
       </StackCard>
 
       {/* Stack 4 */}
-      <StackCard number={4} title="Resilience" subtitle="Design for volatility" slug="stack-4-resilience">
+      <StackCard number={4} title="Structural Resilience" subtitle="Systems must absorb shocks without breaking" slug="stack-4-resilience">
         <p className="text-gray-700 mb-4">
           Efficiency without resilience is fragile. Stack 4 builds the capacity to flex — not just 
           survive disruptions, but adapt to shifts before they become crises.
@@ -370,7 +371,7 @@ export default function ImplementationPage() {
       </StackCard>
 
       {/* Stack 5 */}
-      <StackCard number={5} title="Regeneration" subtitle="Compound advantage" slug="stack-5-regeneration">
+      <StackCard number={5} title="The Compounding Engine" subtitle="Build systems that improve as they operate" slug="stack-5-regeneration">
         <p className="text-gray-700 mb-4">
           With operational capability built, Stack 5 turns it into market position. Premium pricing, 
           preferred partnerships, competitive differentiation — based on proof, not claims.
@@ -430,7 +431,7 @@ export default function ImplementationPage() {
         <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center gap-2 min-w-[140px]">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#3D2E7C' }}>1</div>
-            <span className="font-medium text-gray-900">Metrics</span>
+            <span className="font-medium text-gray-900">The Defensible Baseline</span>
           </div>
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Without visibility, you can't find leaks you can't see</span>
@@ -438,7 +439,7 @@ export default function ImplementationPage() {
         <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center gap-2 min-w-[140px]">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#5B4A9E' }}>2</div>
-            <span className="font-medium text-gray-900">Efficiency</span>
+            <span className="font-medium text-gray-900">Operational Efficiency</span>
           </div>
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Circular systems on a leaky operation just leak faster</span>
@@ -446,7 +447,7 @@ export default function ImplementationPage() {
         <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center gap-2 min-w-[140px]">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#7B6BB8' }}>3</div>
-            <span className="font-medium text-gray-900">Circularity</span>
+            <span className="font-medium text-gray-900">Margin Recovery</span>
           </div>
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Resilience without value capture is just cost</span>
@@ -454,7 +455,7 @@ export default function ImplementationPage() {
         <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center gap-2 min-w-[140px]">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#9A8CD0' }}>4</div>
-            <span className="font-medium text-gray-900">Resilience</span>
+            <span className="font-medium text-gray-900">Structural Resilience</span>
           </div>
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Positioning claims without operational proof is greenwashing</span>
@@ -462,7 +463,7 @@ export default function ImplementationPage() {
         <div className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex items-center gap-2 min-w-[140px]">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs" style={{ backgroundColor: '#B8ADE3' }}>5</div>
-            <span className="font-medium text-gray-900">Regeneration</span>
+            <span className="font-medium text-gray-900">The Compounding Engine</span>
           </div>
           <span className="text-gray-400">→</span>
           <span className="text-gray-600 text-sm">Compounding advantage — proof becomes premium, premium funds further improvement</span>
@@ -746,24 +747,13 @@ export default function ImplementationPage() {
       </article>
 
       {/* Bottom CTA */}
-      <div className="mt-16 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <p className="text-lg text-white/80 mb-6">
-          Ready to see how it works in practice?
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link 
-            href="/see-it-in-action" 
-            className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors"
-          >
-            See It In Action →
-          </Link>
-          <Link 
-            href="/tools" 
-            className="inline-block bg-white/10 text-white px-6 py-3 rounded font-semibold hover:bg-white/20 transition-colors"
-          >
-            Explore Tools →
-          </Link>
-        </div>
+      <div className="mt-16">
+        <PageCTA
+          heading="Ready to see how it works in practice?"
+          description="Try the tracker, run the assessment, and see the Five Stacks in action."
+          primaryButton={{ label: "See It In Action →", href: "/see-it-in-action" }}
+          secondaryButton={{ label: "Explore Tools →", href: "/tools" }}
+        />
       </div>
 
       {/* Last updated */}

@@ -3,11 +3,11 @@ import NewsletterSignup from "./NewsletterSignup";
 
 // Stack metadata
 const stackInfo: Record<string, { name: string; color: string; desc: string }> = {
-  "stack-1": { name: "Core Metrics", color: "#3D2E7C", desc: "Build your baseline" },
-  "stack-2": { name: "Efficiency", color: "#5B4A9E", desc: "Stop bleeding margin" },
-  "stack-3": { name: "Circularity", color: "#7B6BB8", desc: "Turn waste into revenue" },
-  "stack-4": { name: "Resilience", color: "#9A8CD0", desc: "Design for volatility" },
-  "stack-5": { name: "Regeneration", color: "#B8ADE3", desc: "Compound improvement" },
+  "stack-1": { name: "The Defensible Baseline", color: "#3D2E7C", desc: "If it can't be measured, it can't be defended" },
+  "stack-2": { name: "Operational Efficiency", color: "#5B4A9E", desc: "Fix leaks before adding initiatives" },
+  "stack-3": { name: "Margin Recovery", color: "#7B6BB8", desc: "What you discard is lost margin" },
+  "stack-4": { name: "Structural Resilience", color: "#9A8CD0", desc: "Systems must absorb shocks without breaking" },
+  "stack-5": { name: "The Compounding Engine", color: "#B8ADE3", desc: "Build systems that improve as they operate" },
   general: { name: "Foundation", color: "#6B7280", desc: "Agricultural fundamentals" },
 };
 

@@ -16,8 +16,8 @@ export default function Stack2Page() {
             2
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Efficiency</h1>
-            <p className="text-gray-500 italic">Stop the leaks</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Operational Efficiency</h1>
+            <p className="text-gray-500 italic">Fix leaks before adding initiatives</p>
           </div>
         </div>
         
@@ -263,7 +263,7 @@ export default function Stack2Page() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Previous</p>
-              <p className="font-medium text-gray-900">Metrics</p>
+              <p className="font-medium text-gray-900">The Defensible Baseline</p>
             </div>
           </div>
         </Link>
@@ -274,7 +274,7 @@ export default function Stack2Page() {
           <div className="flex items-center gap-3 justify-end text-right">
             <div>
               <p className="text-sm text-gray-500">Next</p>
-              <p className="font-medium text-gray-900">Circularity</p>
+              <p className="font-medium text-gray-900">Margin Recovery</p>
             </div>
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#7B6BB8' }}>
               3

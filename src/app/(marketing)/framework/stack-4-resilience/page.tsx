@@ -16,8 +16,8 @@ export default function Stack4Page() {
             4
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Resilience</h1>
-            <p className="text-gray-500 italic">Design for volatility</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Structural Resilience</h1>
+            <p className="text-gray-500 italic">Systems must absorb shocks without breaking</p>
           </div>
         </div>
         
@@ -280,7 +280,7 @@ export default function Stack4Page() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Previous</p>
-              <p className="font-medium text-gray-900">Circularity</p>
+              <p className="font-medium text-gray-900">Margin Recovery</p>
             </div>
           </div>
         </Link>
@@ -291,7 +291,7 @@ export default function Stack4Page() {
           <div className="flex items-center gap-3 justify-end text-right">
             <div>
               <p className="text-sm text-gray-500">Next</p>
-              <p className="font-medium text-gray-900">Regeneration</p>
+              <p className="font-medium text-gray-900">The Compounding Engine</p>
             </div>
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#B8ADE3' }}>
               5

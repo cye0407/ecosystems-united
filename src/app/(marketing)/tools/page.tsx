@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const stackAssessments = [
   {
-    name: "Stack 1: Metrics Assessment",
+    name: "Stack 1: The Defensible Baseline",
     description:
       "Do you have visibility into your operation? Evaluate your baseline data, tracking, and measurement capability.",
     href: "/tools/metrics-assessment",
@@ -17,7 +17,7 @@ const stackAssessments = [
     number: 1,
   },
   {
-    name: "Stack 2: Efficiency Assessment",
+    name: "Stack 2: Operational Efficiency",
     description:
       "Where are you bleeding margin? Identify operational leaks, waste, and redundancy across your processes.",
     href: "/tools/efficiency-assessment",
@@ -25,7 +25,7 @@ const stackAssessments = [
     number: 2,
   },
   {
-    name: "Stack 3: Circularity Assessment",
+    name: "Stack 3: Margin Recovery",
     description:
       "What value is leaving your system uncaptured? Map waste streams, idle assets, and monetization opportunities.",
     href: "/tools/circularity-assessment",
@@ -33,7 +33,7 @@ const stackAssessments = [
     number: 3,
   },
   {
-    name: "Stack 4: Resilience Assessment",
+    name: "Stack 4: Structural Resilience",
     description:
       "How fragile is your operation? Evaluate single points of failure, concentration risk, and contingency planning.",
     href: "/tools/resilience-assessment",
@@ -41,7 +41,7 @@ const stackAssessments = [
     number: 4,
   },
   {
-    name: "Stack 5: Regeneration Assessment",
+    name: "Stack 5: The Compounding Engine",
     description:
       "Can you prove your advantage? Assess your positioning, certifications, and ability to command premium pricing.",
     href: "/tools/regeneration-assessment",

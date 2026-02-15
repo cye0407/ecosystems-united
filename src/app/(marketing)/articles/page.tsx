@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { guideCategories } from "@/lib/article-metadata";
+import PageCTA from "@/components/marketing/PageCTA";
 
 export const metadata: Metadata = {
   title: "Guides",
@@ -101,19 +102,12 @@ export default function GuidesPage() {
       </div>
 
       {/* Framework CTA */}
-      <div className="mt-16 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-3">Looking for structure?</h2>
-        <p className="text-white/80 mb-6">
-          These guides provide depth on specific topics. The Five Stacks
-          Framework shows how they connect into a systematic approach to
-          sustainability that builds competitive advantage.
-        </p>
-        <Link
-          href="/framework"
-          className="inline-block bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition-colors"
-        >
-          Explore the Framework →
-        </Link>
+      <div className="mt-16">
+        <PageCTA
+          heading="Looking for structure?"
+          description="These guides provide depth on specific topics. The Five Stacks Framework shows how they connect into a systematic approach to sustainability that builds competitive advantage."
+          primaryButton={{ label: "Explore the Framework →", href: "/framework" }}
+        />
       </div>
     </div>
   );

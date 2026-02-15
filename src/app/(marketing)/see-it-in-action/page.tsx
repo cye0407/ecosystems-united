@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import PageCTA from "@/components/marketing/PageCTA";
 import {
   Cube,
   Package,
@@ -133,10 +134,19 @@ export default function SeeItInActionPage() {
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
           From Operational Data to Questionnaire Answers
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
           Enter the data you already have — energy bills, waste manifests,
           material invoices. Build a defensible baseline. Then let the tool draft
           your buyer questionnaire responses automatically.
+        </p>
+        <Link
+          href="/signup"
+          className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+        >
+          Start Your Baseline →
+        </Link>
+        <p className="text-sm text-gray-500 mt-3">
+          Free plan includes all 8 domains, CSV exports, and multi-site support.
         </p>
       </header>
 
@@ -297,18 +307,6 @@ export default function SeeItInActionPage() {
           </div>
         </div>
 
-        {/* Mid-page CTA */}
-        <div className="mt-14 text-center">
-          <Link
-            href="/signup"
-            className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
-          >
-            Start Your Baseline →
-          </Link>
-          <p className="text-sm text-gray-500 mt-3">
-            The free plan includes all 8 domains, CSV exports, and multi-site support.
-          </p>
-        </div>
       </section>
 
       <hr className="border-gray-200 mb-20" />
@@ -438,29 +436,12 @@ export default function SeeItInActionPage() {
       </section>
 
       {/* Bottom CTA */}
-      <div className="p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <p className="text-2xl font-bold mb-2">
-          Ready to build your baseline?
-        </p>
-        <p className="text-lg text-white/80 mb-6">
-          Start entering your operational data today. It takes 15 minutes to set
-          up your first domain.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/signup"
-            className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors"
-          >
-            Start Your Baseline →
-          </Link>
-          <Link
-            href="/tools/stack-assessment"
-            className="inline-block bg-white/10 text-white px-6 py-3 rounded font-semibold hover:bg-white/20 transition-colors"
-          >
-            Take the Assessment First →
-          </Link>
-        </div>
-      </div>
+      <PageCTA
+        heading="Ready to build your baseline?"
+        description="Start entering your operational data today. It takes 15 minutes to set up your first domain."
+        primaryButton={{ label: "Start Your Baseline →", href: "/signup" }}
+        secondaryButton={{ label: "Take the Assessment First →", href: "/tools/stack-assessment" }}
+      />
 
       <p className="mt-8 text-sm text-gray-500 text-center">
         Last updated: February 2026

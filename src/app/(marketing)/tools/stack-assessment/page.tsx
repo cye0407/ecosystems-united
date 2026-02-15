@@ -110,7 +110,7 @@ const questions = [
 const stackInfo = [
   {
     stack: 1,
-    name: "Core Metrics",
+    name: "The Defensible Baseline",
     color: "#3D2E7C",
     slug: "stack-1-metrics",
     headline: "Start with measurement",
@@ -128,7 +128,7 @@ const stackInfo = [
   },
   {
     stack: 3,
-    name: "Circular Value Creation",
+    name: "Margin Recovery",
     color: "#7B6BB8",
     slug: "stack-3-circularity",
     headline: "Turn waste into revenue",
@@ -137,7 +137,7 @@ const stackInfo = [
   },
   {
     stack: 4,
-    name: "Adaptive Resilience",
+    name: "Structural Resilience",
     color: "#9A8CD0",
     slug: "stack-4-resilience",
     headline: "Design for volatility",
@@ -146,7 +146,7 @@ const stackInfo = [
   },
   {
     stack: 5,
-    name: "Regeneration",
+    name: "The Compounding Engine",
     color: "#B8ADE3",
     slug: "stack-5-regeneration",
     headline: "Compound improvement",

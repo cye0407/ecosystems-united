@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "@/components/marketing/Nav";
 import Footer from "@/components/marketing/Footer";
+import PageCTA from "@/components/marketing/PageCTA";
 
 export default function HomePage() {
   return (
@@ -28,13 +29,13 @@ export default function HomePage() {
                 href="/tools/stack-assessment"
                 className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
               >
-                Start Your Assessment
+                Build Your Baseline
               </Link>
               <Link
                 href="/framework"
                 className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
               >
-                Learn About Five Stacks
+                Explore the 5 Stacks
               </Link>
             </div>
           </div>
@@ -54,31 +55,31 @@ export default function HomePage() {
               {[
                 {
                   num: 1,
-                  name: "Core Metrics",
+                  name: "The Defensible Baseline",
                   desc: "Baseline your operational data",
                   href: "/framework/stack-1-metrics",
                 },
                 {
                   num: 2,
-                  name: "Efficiency",
+                  name: "Operational Efficiency",
                   desc: "Fix the leaks in your operation",
                   href: "/framework/stack-2-efficiency",
                 },
                 {
                   num: 3,
-                  name: "Circularity",
+                  name: "Margin Recovery",
                   desc: "Turn waste into value",
                   href: "/framework/stack-3-circularity",
                 },
                 {
                   num: 4,
-                  name: "Resilience",
+                  name: "Structural Resilience",
                   desc: "Build adaptive capacity",
                   href: "/framework/stack-4-resilience",
                 },
                 {
                   num: 5,
-                  name: "Regeneration",
+                  name: "The Compounding Engine",
                   desc: "Create compound returns",
                   href: "/framework/stack-5-regeneration",
                 },
@@ -185,31 +186,13 @@ export default function HomePage() {
         {/* CTA */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
-            <div className="p-8 bg-[#1a1a2e] rounded-lg text-white text-center">
-              <h2 className="text-2xl font-bold mb-3">
-                Built for farms and agricultural SMEs
-              </h2>
-              <p className="text-white/70 mb-6 max-w-xl mx-auto">
-                CSRD is cascading through supply chains. Your buyers need your
-                data. The Five Stacks Framework turns that obligation into
-                operational advantage &mdash; starting with what you already
-                measure.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/articles"
-                  className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
-                >
-                  Read the Guides
-                </Link>
-                <Link
-                  href="/modern-sustainability"
-                  className="px-6 py-3 border border-white/30 text-white rounded-lg hover:bg-white/10 transition-colors font-medium"
-                >
-                  Why Modern Sustainability
-                </Link>
-              </div>
-            </div>
+            <PageCTA
+              heading="Built for farms and agricultural SMEs"
+              description="CSRD is cascading through supply chains. Your buyers need your data. The Five Stacks Framework turns that obligation into operational advantage — starting with what you already measure."
+              primaryButton={{ label: "Start Your Baseline", href: "/articles" }}
+              secondaryButton={{ label: "The Modern Playbook", href: "/modern-sustainability" }}
+              centered
+            />
           </div>
         </section>
       </main>

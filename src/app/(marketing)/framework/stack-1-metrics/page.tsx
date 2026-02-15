@@ -16,8 +16,8 @@ export default function Stack1Page() {
             1
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Metrics</h1>
-            <p className="text-gray-500 italic">Build your baseline</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">The Defensible Baseline</h1>
+            <p className="text-gray-500 italic">If it can&apos;t be measured, it can&apos;t be defended</p>
           </div>
         </div>
         
@@ -277,7 +277,7 @@ export default function Stack1Page() {
           </div>
           <div>
             <p className="text-sm text-gray-500">Next stack</p>
-            <p className="font-semibold text-gray-900">Efficiency — Stopping the leaks</p>
+            <p className="font-semibold text-gray-900">Operational Efficiency — Fix the leaks</p>
           </div>
         </div>
         <Link 

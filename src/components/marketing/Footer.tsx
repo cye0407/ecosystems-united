@@ -25,7 +25,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/framework/stack-1-metrics" className="text-gray-600 hover:text-primary">
-                  Stack 1: Metrics
+                  Stack 1: The Defensible Baseline
                 </Link>
               </li>
               <li>
@@ -65,6 +65,11 @@ export default function Footer() {
               <li>
                 <Link href="/about" className="text-gray-600 hover:text-primary">
                   About
+                </Link>
+              </li>
+              <li>
+                <Link href="/for-advisors" className="text-gray-600 hover:text-primary">
+                  For Advisors
                 </Link>
               </li>
               <li>

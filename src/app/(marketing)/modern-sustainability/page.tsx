@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageCTA from "@/components/marketing/PageCTA";
 
 export const metadata = {
   title: "Modern Sustainability | Ecosystems United",
@@ -192,35 +193,48 @@ export default function ModernSustainabilityPage() {
 
         <p>This is what we build toward. Not the leanest operation — the most capable one.</p>
 
-        <h2>The system</h2>
+        <h2>The Sharpened Five Stacks</h2>
 
-        <p>This isn't philosophy. It's operational.</p>
+        <p className="text-lg font-medium text-gray-900">Moving from &ldquo;Academic&rdquo; to &ldquo;Operational&rdquo;</p>
 
-        <p>
-          We've built a system — <strong>The Five Stacks</strong> — that develops adaptive capability progressively:
-        </p>
+        <p>This isn&rsquo;t philosophy. It&rsquo;s a playbook.</p>
 
         <ol>
-          <li><strong>Metrics</strong> — see your operation clearly</li>
-          <li><strong>Efficiency</strong> — stop the leaks</li>
-          <li><strong>Circularity</strong> — capture the value you're losing</li>
-          <li><strong>Resilience</strong> — build the capacity to absorb shocks</li>
-          <li><strong>Regenerative</strong> — position for premium markets</li>
+          <li>
+            <strong>The Defensible Baseline</strong> (formerly Core Metrics)<br />
+            <em>&ldquo;If it can&rsquo;t be measured, it can&rsquo;t be defended.&rdquo;</em><br />
+            Establish a hard-data foundation for emissions, energy, and land use. This is your source of truth that protects you against audit and buyer scrutiny.
+          </li>
+          <li>
+            <strong>Operational Efficiency</strong> (formerly Efficiency)<br />
+            <em>&ldquo;Fix leaks before adding initiatives.&rdquo;</em><br />
+            Stop the margin bleed. We use your baseline data to identify exactly where inputs are being wasted and where processes are underperforming.
+          </li>
+          <li>
+            <strong>Margin Recovery</strong> (formerly Circular Value Creation)<br />
+            <em>&ldquo;What you discard is lost margin.&rdquo;</em><br />
+            Identify waste streams that can be converted into revenue or cost-savings. This turns an environmental &ldquo;problem&rdquo; into a line item on your P&amp;L.
+          </li>
+          <li>
+            <strong>Structural Resilience</strong> (formerly Adaptive Resilience)<br />
+            <em>&ldquo;Systems must absorb shocks without breaking.&rdquo;</em><br />
+            Diversify your operational value streams so a single market shift or climate event doesn&rsquo;t tank the business. Build a farm that can pivot.
+          </li>
+          <li>
+            <strong>The Compounding Engine</strong> (formerly Regenerative Advantage)<br />
+            <em>&ldquo;Build systems that improve as they operate.&rdquo;</em><br />
+            The final stack is an automated feedback loop. Your business doesn&rsquo;t just &ldquo;sustain&rdquo;&mdash;it gets more efficient and more profitable with every cycle.
+          </li>
         </ol>
 
         <p>
-          Each stack creates the conditions for the next. Skip steps and it falls apart. Follow the 
+          Each stack creates the conditions for the next. Skip steps and it falls apart. Follow the
           sequence and each investment funds the next.
         </p>
 
-        <p>
-          The outcome isn't just "sustainability." It's compounding competitive advantage — lower costs, 
-          better positioning, and the ability to adapt as conditions change.
-        </p>
-
         <div className="not-prose my-8">
-          <Link 
-            href="/framework" 
+          <Link
+            href="/framework"
             className="inline-flex items-center gap-2 text-[#4AA88C] font-semibold hover:underline text-lg"
           >
             Explore The Five Stacks <span>→</span>
@@ -245,24 +259,13 @@ export default function ModernSustainabilityPage() {
       </article>
 
       {/* Bottom CTA */}
-      <div className="mt-16 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <p className="text-xl md:text-2xl font-medium mb-6 text-white/90">
-          Sustainability is good business. We prove it.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link 
-            href="/framework" 
-            className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors"
-          >
-            See The Five Stacks →
-          </Link>
-          <Link 
-            href="/see-it-in-action" 
-            className="inline-block bg-white/10 text-white px-6 py-3 rounded font-semibold hover:bg-white/20 transition-colors"
-          >
-            See It In Action →
-          </Link>
-        </div>
+      <div className="mt-16">
+        <PageCTA
+          heading="The Modern Sustainability Playbook"
+          description="The complete roadmap to operational advantage: economic data, case studies, and the 12-month transition timeline."
+          primaryButton={{ label: "Find Your Baseline →", href: "/tools/stack-assessment" }}
+          secondaryButton={{ label: "The Modern Playbook →", href: "/framework" }}
+        />
       </div>
 
       {/* Last updated */}

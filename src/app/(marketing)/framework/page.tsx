@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import PageCTA from "@/components/marketing/PageCTA";
 
 export const metadata: Metadata = {
   title: "The Five Stacks Framework",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 const stacks = [
   {
     num: 1,
-    title: "Core Metrics",
+    title: "The Defensible Baseline",
     slug: "stack-1-metrics",
     color: "#3D2E7C",
     principle: "If it can't be measured, it can't be defended",
@@ -26,15 +27,15 @@ const stacks = [
   },
   {
     num: 3,
-    title: "Circular Value Creation",
+    title: "Margin Recovery",
     slug: "stack-3-circularity",
     color: "#7B6BB8",
-    principle: "What you discard can become margin",
-    outcome: "Transform insights into strategic advantages",
+    principle: "What you discard is lost margin",
+    outcome: "Waste streams converted into revenue or cost-savings",
   },
   {
     num: 4,
-    title: "Adaptive Resilience",
+    title: "Structural Resilience",
     slug: "stack-4-resilience",
     color: "#9A8CD0",
     principle: "Systems must absorb shocks without breaking",
@@ -42,11 +43,11 @@ const stacks = [
   },
   {
     num: 5,
-    title: "Regenerative Advantage",
+    title: "The Compounding Engine",
     slug: "stack-5-regeneration",
     color: "#B8ADE3",
     principle: "Build systems that improve as they operate",
-    outcome: "Organizational capability to steer dynamically",
+    outcome: "Automated feedback loop — more efficient and more profitable with every cycle",
   },
 ];
 
@@ -118,28 +119,12 @@ export default function FrameworkPage() {
       </div>
 
       {/* Implementation CTA */}
-      <div className="bg-[#1a1a2e] rounded-lg p-8 text-white">
-        <h2 className="text-2xl font-bold mb-3">Ready to implement?</h2>
-        <p className="text-white/80 mb-6">
-          The Implementation Guide provides the complete roadmap: economic data,
-          case studies, decision frameworks, 12-month timeline, and funding
-          resources.
-        </p>
-        <div className="flex gap-4 flex-wrap">
-          <Link
-            href="/framework/implementation"
-            className="inline-block bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition-colors"
-          >
-            Read Implementation Guide →
-          </Link>
-          <Link
-            href="/tools/stack-assessment"
-            className="inline-block bg-white/10 text-white px-6 py-3 rounded font-semibold hover:bg-white/20 transition-colors"
-          >
-            Take the Assessment
-          </Link>
-        </div>
-      </div>
+      <PageCTA
+        heading="Ready to implement?"
+        description="The Implementation Guide provides the complete roadmap: economic data, case studies, decision frameworks, 12-month timeline, and funding resources."
+        primaryButton={{ label: "Read Implementation Guide →", href: "/framework/implementation" }}
+        secondaryButton={{ label: "Find Your Baseline", href: "/tools/stack-assessment" }}
+      />
     </div>
   );
 }

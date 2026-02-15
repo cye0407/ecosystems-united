@@ -47,18 +47,18 @@ const categoryKeywords: Record<string, string[]> = {
 
 // Category to Five Stacks mapping
 const categoryStack: Record<string, { name: string; number: number; color: string }> = {
-  "CSRD & ESG Compliance": { name: "Stack 1: Core Metrics", number: 1, color: "#3D2E7C" },
-  "Understanding Agribusiness": { name: "Stack 1: Core Metrics", number: 1, color: "#3D2E7C" },
-  "Small Farm Strategy": { name: "Stack 2: Efficiency", number: 2, color: "#5B4A9E" },
-  "Ecolabels & Certification": { name: "Stack 2: Efficiency", number: 2, color: "#5B4A9E" },
-  "Biofuels & Energy": { name: "Stack 3: Circularity", number: 3, color: "#7B6BB8" },
-  "Circular Economy & Efficiency": { name: "Stack 3: Circularity", number: 3, color: "#7B6BB8" },
-  "Intercropping & Multi-Crop Systems": { name: "Stack 4: Resilience", number: 4, color: "#9A8CD0" },
-  "Regenerative Agriculture Economics": { name: "Stack 5: Regeneration", number: 5, color: "#B8ADE3" },
-  "Soil & Land Management": { name: "Stack 1: Core Metrics", number: 1, color: "#3D2E7C" },
-  "Water & Infrastructure": { name: "Stack 2: Efficiency", number: 2, color: "#5B4A9E" },
-  "Resilience & Risk Management": { name: "Stack 4: Resilience", number: 4, color: "#9A8CD0" },
-  "Biodiversity & Habitat": { name: "Stack 5: Regeneration", number: 5, color: "#B8ADE3" },
+  "CSRD & ESG Compliance": { name: "Stack 1: The Defensible Baseline", number: 1, color: "#3D2E7C" },
+  "Understanding Agribusiness": { name: "Stack 1: The Defensible Baseline", number: 1, color: "#3D2E7C" },
+  "Small Farm Strategy": { name: "Stack 2: Operational Efficiency", number: 2, color: "#5B4A9E" },
+  "Ecolabels & Certification": { name: "Stack 2: Operational Efficiency", number: 2, color: "#5B4A9E" },
+  "Biofuels & Energy": { name: "Stack 3: Margin Recovery", number: 3, color: "#7B6BB8" },
+  "Circular Economy & Efficiency": { name: "Stack 3: Margin Recovery", number: 3, color: "#7B6BB8" },
+  "Intercropping & Multi-Crop Systems": { name: "Stack 4: Structural Resilience", number: 4, color: "#9A8CD0" },
+  "Regenerative Agriculture Economics": { name: "Stack 5: The Compounding Engine", number: 5, color: "#B8ADE3" },
+  "Soil & Land Management": { name: "Stack 1: The Defensible Baseline", number: 1, color: "#3D2E7C" },
+  "Water & Infrastructure": { name: "Stack 2: Operational Efficiency", number: 2, color: "#5B4A9E" },
+  "Resilience & Risk Management": { name: "Stack 4: Structural Resilience", number: 4, color: "#9A8CD0" },
+  "Biodiversity & Habitat": { name: "Stack 5: The Compounding Engine", number: 5, color: "#B8ADE3" },
 };
 
 // Stop words to filter from slug-derived keywords

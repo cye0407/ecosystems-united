@@ -5,11 +5,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 const stackItems = [
-  { num: 1, title: "Metrics", slug: "stack-1-metrics", color: "#3D2E7C" },
-  { num: 2, title: "Efficiency", slug: "stack-2-efficiency", color: "#5B4A9E" },
-  { num: 3, title: "Circularity", slug: "stack-3-circularity", color: "#7B6BB8" },
-  { num: 4, title: "Resilience", slug: "stack-4-resilience", color: "#9A8CD0" },
-  { num: 5, title: "Regeneration", slug: "stack-5-regeneration", color: "#B8ADE3" },
+  { num: 1, title: "The Defensible Baseline", slug: "stack-1-metrics", color: "#3D2E7C" },
+  { num: 2, title: "Operational Efficiency", slug: "stack-2-efficiency", color: "#5B4A9E" },
+  { num: 3, title: "Margin Recovery", slug: "stack-3-circularity", color: "#7B6BB8" },
+  { num: 4, title: "Structural Resilience", slug: "stack-4-resilience", color: "#9A8CD0" },
+  { num: 5, title: "The Compounding Engine", slug: "stack-5-regeneration", color: "#B8ADE3" },
 ];
 
 export default function Nav() {
@@ -78,6 +78,9 @@ export default function Nav() {
 
           <Link href="/tools" className="text-gray-600 hover:text-primary">
             Tools
+          </Link>
+          <Link href="/for-advisors" className="text-gray-600 hover:text-primary">
+            For Advisors
           </Link>
           <Link href="/about" className="text-gray-600 hover:text-primary">
             About

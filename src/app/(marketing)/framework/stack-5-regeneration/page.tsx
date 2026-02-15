@@ -16,8 +16,8 @@ export default function Stack5Page() {
             5
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Regeneration</h1>
-            <p className="text-gray-500 italic">Compound advantage</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">The Compounding Engine</h1>
+            <p className="text-gray-500 italic">Build systems that improve as they operate</p>
           </div>
         </div>
         
@@ -263,7 +263,7 @@ export default function Stack5Page() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Previous</p>
-              <p className="font-medium text-gray-900">Resilience</p>
+              <p className="font-medium text-gray-900">Structural Resilience</p>
             </div>
           </div>
         </Link>

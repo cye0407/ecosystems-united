@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 const stacks = {
   "stack-1-metrics": {
     num: 1,
-    title: "Core Metrics",
+    title: "The Defensible Baseline",
     principle: "If it can't be measured, it can't be defended",
     outcome:
       "Know your baseline + understand the external landscape you're operating in",
@@ -44,7 +44,7 @@ const stacks = {
   },
   "stack-3-circularity": {
     num: 3,
-    title: "Circular Value Creation",
+    title: "Margin Recovery",
     principle: "What you discard can become margin",
     outcome: "Transform what Stack 2 revealed into strategic advantages",
     description: `You implement based on insights. This could be: waste streams → revenue (byproduct markets), efficiency strength → competitive positioning, social practices → brand advantage, underutilized capacity → new offerings.`,
@@ -64,7 +64,7 @@ const stacks = {
   },
   "stack-4-resilience": {
     num: 4,
-    title: "Adaptive Resilience",
+    title: "Structural Resilience",
     principle: "Systems must absorb shocks without breaking",
     outcome:
       "Layer multiple value streams so you're not dependent on single crops/products/markets",
@@ -85,7 +85,7 @@ const stacks = {
   },
   "stack-5-regeneration": {
     num: 5,
-    title: "Regenerative Advantage",
+    title: "The Compounding Engine",
     principle: "Build systems that improve as they operate",
     outcome:
       "Organizational capability to steer dynamically across your value portfolio",

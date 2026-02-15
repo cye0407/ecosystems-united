@@ -16,8 +16,8 @@ export default function Stack3Page() {
             3
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Circularity</h1>
-            <p className="text-gray-500 italic">Capture the lost margin</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Margin Recovery</h1>
+            <p className="text-gray-500 italic">What you discard is lost margin</p>
           </div>
         </div>
         
@@ -266,7 +266,7 @@ export default function Stack3Page() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Previous</p>
-              <p className="font-medium text-gray-900">Efficiency</p>
+              <p className="font-medium text-gray-900">Operational Efficiency</p>
             </div>
           </div>
         </Link>
@@ -277,7 +277,7 @@ export default function Stack3Page() {
           <div className="flex items-center gap-3 justify-end text-right">
             <div>
               <p className="text-sm text-gray-500">Next</p>
-              <p className="font-medium text-gray-900">Resilience</p>
+              <p className="font-medium text-gray-900">Structural Resilience</p>
             </div>
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: '#9A8CD0' }}>
               4
