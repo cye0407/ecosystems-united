@@ -67,8 +67,15 @@ export function useSupabaseSync(): { syncComplete: boolean } {
           if (ob.completedSteps) {
             for (const step of ob.completedSteps) appState.completeOnboardingStep(step);
           }
-          if (ob.completedSteps?.length >= ob.totalSteps) {
+          if (ob.isOnboardingComplete || ob.completedSteps?.length >= ob.totalSteps) {
             appState.setIsOnboardingComplete(true);
+          }
+          // Restore FTUE dismissals
+          if (ob.ftueDismissedItems) {
+            for (const itemId of ob.ftueDismissedItems) appState.dismissFtueItem(itemId);
+          }
+          if (ob.ftueDismissedAll) {
+            appState.dismissAllFtue();
           }
         }
 
@@ -164,11 +171,18 @@ export function useSupabaseSync(): { syncComplete: boolean } {
         );
       }
 
-      if (state.onboarding !== prevState.onboarding) {
+      if (
+        state.onboarding !== prevState.onboarding ||
+        state.isOnboardingComplete !== prevState.isOnboardingComplete ||
+        state.ftue !== prevState.ftue
+      ) {
         debouncedSave('onboarding', () =>
           saveSingleton(TABLES.onboardingState, userId, {
             id: userId,
             ...state.onboarding,
+            isOnboardingComplete: state.isOnboardingComplete,
+            ftueDismissedItems: state.ftue.dismissedItems,
+            ftueDismissedAll: state.ftue.dismissedAll,
           }),
         );
       }

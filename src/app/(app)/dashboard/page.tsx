@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   Database,
@@ -14,11 +15,12 @@ import {
   Grains,
   Drop,
 } from '@phosphor-icons/react';
-import { Card } from '@/components/ui';
+import { Card, ConfirmDialog } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { useDataStore } from '@/stores/dataStore';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import { FtueChecklist } from '@/components/app/FtueChecklist';
+import { seedMockData } from '@/lib/mockData';
 
 // Helper to format numbers
 function formatNumber(n: number): string {
@@ -29,6 +31,7 @@ function formatNumber(n: number): string {
 }
 
 export default function DashboardPage() {
+  const [showDemoConfirm, setShowDemoConfirm] = useState(false);
   const { company, sites } = useAppStore();
   const {
     materialInputs,
@@ -289,7 +292,7 @@ export default function DashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/settings" className="group">
+        <button onClick={() => setShowDemoConfirm(true)} className="group text-left">
           <Card className="!p-5 rounded-xl border-2 border-transparent hover:border-primary transition-all hover:shadow-md">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stack-4 to-stack-5 flex items-center justify-center">
@@ -302,8 +305,22 @@ export default function DashboardPage() {
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all" weight="bold" />
             </div>
           </Card>
-        </Link>
+        </button>
       </div>
+
+      <ConfirmDialog
+        isOpen={showDemoConfirm}
+        onClose={() => setShowDemoConfirm(false)}
+        onConfirm={() => {
+          seedMockData();
+          setShowDemoConfirm(false);
+          window.location.reload();
+        }}
+        title="Load Demo Data?"
+        message="This will populate your tracker with sample data from a fictional company (GreenTech Manufacturing GmbH). Your existing data will be overwritten."
+        confirmLabel="Load Demo Data"
+        variant="warning"
+      />
     </div>
   );
 }
