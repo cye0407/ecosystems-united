@@ -13,6 +13,7 @@ import {
 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: SquaresFour },
@@ -23,11 +24,12 @@ const navLinks = [
 export function AppNavbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { signOut } = useAuth();
 
   const isActive = (path: string) => pathname?.startsWith(path);
 
   const handleSignOut = async () => {
-    // TODO: Implement sign out with Supabase
+    await signOut();
     window.location.href = "/login";
   };
 
