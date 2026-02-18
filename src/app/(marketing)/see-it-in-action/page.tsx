@@ -317,8 +317,8 @@ export default function SeeItInActionPage() {
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wide">
             Response Generator
           </h2>
-          <span className="text-xs font-medium text-stack-3 bg-stack-5/30 px-2.5 py-0.5 rounded-full">
-            Paid feature
+          <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full">
+            Coming Soon
           </span>
         </div>
         <p className="text-2xl font-bold text-gray-900 mb-2">
@@ -326,8 +326,7 @@ export default function SeeItInActionPage() {
         </p>
         <p className="text-gray-600 mb-8">
           Each answer is drafted from your actual operational records — with a
-          confidence score so you know what needs review. The response generator
-          is available with a paid plan.
+          confidence score so you know what needs review.
         </p>
 
         {/* Mockup upload bar */}

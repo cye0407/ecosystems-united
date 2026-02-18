@@ -486,6 +486,102 @@ export interface Reflection {
 }
 
 // ============================================
+// Agricultural Data
+// ============================================
+
+export type LandType = 'arable' | 'pasture' | 'woodland' | 'orchard' | 'set_aside' | 'buildings_yards' | 'other';
+export type FertiliserType = 'synthetic_n' | 'synthetic_p' | 'synthetic_k' | 'organic_manure' | 'organic_compost' | 'organic_slurry' | 'lime' | 'other';
+export type LivestockType = 'dairy_cattle' | 'beef_cattle' | 'sheep' | 'pigs' | 'poultry_layers' | 'poultry_broilers' | 'goats' | 'horses' | 'other';
+export type CropType = 'cereals' | 'oilseeds' | 'pulses' | 'root_crops' | 'vegetables' | 'fruit' | 'forage' | 'other';
+
+export interface LandUse {
+  id: string;
+  siteId: string;
+  landType: LandType;
+  areaHa: number;
+  fieldName?: string;
+  soilOrganicMatterPercent?: number;
+  soilPh?: number;
+  irrigated?: boolean;
+  notes?: string;
+  updatedAt: string;
+}
+
+export interface FertiliserApplication extends DataQuality {
+  id: string;
+  siteId: string;
+  period: string;
+  fertiliserType: FertiliserType;
+  productName?: string;
+  quantityKg: number;
+  areaAppliedHa?: number;
+  nitrogenContentPercent?: number;
+  phosphorusContentPercent?: number;
+  potassiumContentPercent?: number;
+  cost?: number;
+}
+
+export interface LivestockRecord extends DataQuality {
+  id: string;
+  siteId: string;
+  period: string;
+  livestockType: LivestockType;
+  headcount: number;
+  livestockUnits?: number; // calculated: headcount × LU factor
+  averageWeightKg?: number;
+  grazingMonths?: number;
+  notes?: string;
+}
+
+export interface CropOutput extends DataQuality {
+  id: string;
+  siteId: string;
+  period: string;
+  cropType: CropType;
+  cropName: string;
+  areaHa: number;
+  yieldTonnes: number;
+  yieldPerHa?: number; // calculated: yieldTonnes / areaHa
+  nitrogenRemovedKg?: number; // calculated from crop type factors
+  revenue?: number;
+  destination?: 'sold' | 'stored' | 'feed' | 'waste' | 'other';
+}
+
+// Agricultural calculation constants
+export const LIVESTOCK_EMISSION_FACTORS: Record<LivestockType, { ch4EntericKgPerHead: number; ch4ManureKgPerHead: number; n2oManureKgPerHead: number; luFactor: number }> = {
+  dairy_cattle: { ch4EntericKgPerHead: 128, ch4ManureKgPerHead: 16, n2oManureKgPerHead: 0.6, luFactor: 1.0 },
+  beef_cattle: { ch4EntericKgPerHead: 50, ch4ManureKgPerHead: 6, n2oManureKgPerHead: 0.4, luFactor: 0.8 },
+  sheep: { ch4EntericKgPerHead: 8, ch4ManureKgPerHead: 0.2, n2oManureKgPerHead: 0.1, luFactor: 0.15 },
+  pigs: { ch4EntericKgPerHead: 1.5, ch4ManureKgPerHead: 7, n2oManureKgPerHead: 0.3, luFactor: 0.3 },
+  poultry_layers: { ch4EntericKgPerHead: 0, ch4ManureKgPerHead: 0.02, n2oManureKgPerHead: 0.01, luFactor: 0.014 },
+  poultry_broilers: { ch4EntericKgPerHead: 0, ch4ManureKgPerHead: 0.02, n2oManureKgPerHead: 0.01, luFactor: 0.007 },
+  goats: { ch4EntericKgPerHead: 5, ch4ManureKgPerHead: 0.2, n2oManureKgPerHead: 0.1, luFactor: 0.15 },
+  horses: { ch4EntericKgPerHead: 18, ch4ManureKgPerHead: 1.6, n2oManureKgPerHead: 0.2, luFactor: 1.0 },
+  other: { ch4EntericKgPerHead: 10, ch4ManureKgPerHead: 2, n2oManureKgPerHead: 0.2, luFactor: 0.5 },
+};
+
+// GWP factors (AR5)
+export const GWP_CH4 = 28;
+export const GWP_N2O = 265;
+
+// N₂O emission factor from fertiliser (IPCC Tier 1: 1% of N applied → N₂O-N)
+export const FERTILISER_N2O_FACTOR = 0.01;
+// Conversion: N₂O-N to N₂O = 44/28
+export const N2O_N_TO_N2O = 44 / 28;
+
+// Crop nitrogen removal factors (kg N per tonne of harvested crop)
+export const CROP_N_REMOVAL: Record<CropType, number> = {
+  cereals: 18,
+  oilseeds: 35,
+  pulses: 40,
+  root_crops: 3.5,
+  vegetables: 4,
+  fruit: 2,
+  forage: 25,
+  other: 15,
+};
+
+// ============================================
 // Response Generator
 // ============================================
 

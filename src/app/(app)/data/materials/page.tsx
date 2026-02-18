@@ -4,15 +4,17 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Cube, Stack, Package, Wrench, DotsThree, Check, ArrowLeft,
-  ChartBar, TrendUp, Calendar, Plus, PencilSimple, Trash
+  ChartBar, TrendUp, Calendar, Plus, PencilSimple, Trash, Plant
 } from '@phosphor-icons/react';
 import { Card, Button, ProgressBar, Modal, Input, Select, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { calculateFertiliserEmissions, calculateNBalance } from '@/lib/agricultural-calculations';
 import type { Material, MaterialInput, MaterialCategory, UnitOfMeasure } from '@/types';
+import type { FertiliserApplication, FertiliserType } from '@/types';
 
-type MaterialTab = 'all' | 'raw_material' | 'component' | 'consumable' | 'other';
+type MaterialTab = 'all' | 'raw_material' | 'component' | 'consumable' | 'other' | 'fertiliser';
 
 const MONTHS_SHORT = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
@@ -29,6 +31,17 @@ const unitOptions = [
   { value: 'L', label: 'Litres (L)' },
   { value: 'm3', label: 'Cubic metres (m³)' },
   { value: 'units', label: 'Units' },
+];
+
+const fertiliserTypeOptions: { value: FertiliserType; label: string }[] = [
+  { value: 'synthetic_n', label: 'Synthetic N' },
+  { value: 'synthetic_p', label: 'Synthetic P' },
+  { value: 'synthetic_k', label: 'Synthetic K' },
+  { value: 'organic_manure', label: 'Organic Manure' },
+  { value: 'organic_compost', label: 'Organic Compost' },
+  { value: 'organic_slurry', label: 'Organic Slurry' },
+  { value: 'lime', label: 'Lime' },
+  { value: 'other', label: 'Other' },
 ];
 
 
@@ -256,7 +269,7 @@ function AllInsightsTab({
             <TrendUp className="w-4 h-4" weight="duotone" />
             <span className="text-xs font-medium">Total Spend</span>
           </div>
-          <div className="text-2xl font-bold text-amber-800 mt-1">€{formatNumber(totals.totalSpend)}</div>
+          <div className="text-2xl font-bold text-amber-800 mt-1">{formatNumber(totals.totalSpend)}</div>
           <div className="text-xs text-amber-600">recorded</div>
         </Card>
       </div>
@@ -632,6 +645,641 @@ function CategoryTab({
   );
 }
 
+// ============ FERTILISER TAB CONTENT ============
+function FertiliserTab({
+  sites,
+  selectedSiteId,
+  setSelectedSiteId,
+  selectedYear,
+  setSelectedYear,
+  showToast,
+}: {
+  sites: { id: string; siteName: string }[];
+  selectedSiteId: string;
+  setSelectedSiteId: (id: string) => void;
+  selectedYear: number;
+  setSelectedYear: (year: number) => void;
+  showToast: (message: string) => void;
+}) {
+  const {
+    fertiliserApplications,
+    addFertiliserApplication,
+    updateFertiliserApplication,
+    removeFertiliserApplication,
+    cropOutputs,
+  } = useDataStore();
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [editingApplication, setEditingApplication] = useState<FertiliserApplication | null>(null);
+  const [form, setForm] = useState<Partial<FertiliserApplication>>({
+    fertiliserType: 'synthetic_n',
+    productName: '',
+    quantityKg: 0,
+    areaAppliedHa: undefined,
+    nitrogenContentPercent: undefined,
+    phosphorusContentPercent: undefined,
+    potassiumContentPercent: undefined,
+    cost: undefined,
+  });
+  const [formPeriod, setFormPeriod] = useState(`${selectedYear}-${String(new Date().getMonth() + 1).padStart(2, '0')}`);
+
+  // Filter applications for selected site
+  const siteApplications = useMemo(() => {
+    return fertiliserApplications.filter(a => a.siteId === selectedSiteId);
+  }, [fertiliserApplications, selectedSiteId]);
+
+  // Filter crop outputs for selected site (for N-balance)
+  const siteCropOutputs = useMemo(() => {
+    return cropOutputs.filter(c => c.siteId === selectedSiteId);
+  }, [cropOutputs, selectedSiteId]);
+
+  // Applications for the selected year
+  const yearApplications = useMemo(() => {
+    return siteApplications.filter(a => a.period.startsWith(`${selectedYear}`));
+  }, [siteApplications, selectedYear]);
+
+  // Crop outputs for the selected year
+  const yearCropOutputs = useMemo(() => {
+    return siteCropOutputs.filter(c => c.period.startsWith(`${selectedYear}`));
+  }, [siteCropOutputs, selectedYear]);
+
+  // Emissions and N-balance calculations
+  const emissions = useMemo(() => {
+    return calculateFertiliserEmissions(yearApplications);
+  }, [yearApplications]);
+
+  const nBalance = useMemo(() => {
+    return calculateNBalance(yearApplications, yearCropOutputs);
+  }, [yearApplications, yearCropOutputs]);
+
+  // Monthly periods
+  const periods = useMemo(() => {
+    return MONTHS_SHORT.map((short, i) => ({
+      short,
+      period: `${selectedYear}-${String(i + 1).padStart(2, '0')}`,
+      isFuture: selectedYear === currentYear && i > currentMonth,
+    }));
+  }, [selectedYear, currentYear, currentMonth]);
+
+  // Group applications by period for the grid
+  const monthlyTotals = useMemo(() => {
+    const totals: Record<string, { quantityKg: number; nKg: number; pKg: number; kKg: number; cost: number; count: number }> = {};
+    periods.forEach(({ period }) => {
+      const apps = yearApplications.filter(a => a.period === period);
+      totals[period] = {
+        quantityKg: apps.reduce((s, a) => s + a.quantityKg, 0),
+        nKg: apps.reduce((s, a) => s + (a.quantityKg * (a.nitrogenContentPercent || 0)) / 100, 0),
+        pKg: apps.reduce((s, a) => s + (a.quantityKg * (a.phosphorusContentPercent || 0)) / 100, 0),
+        kKg: apps.reduce((s, a) => s + (a.quantityKg * (a.potassiumContentPercent || 0)) / 100, 0),
+        cost: apps.reduce((s, a) => s + (a.cost || 0), 0),
+        count: apps.length,
+      };
+    });
+    return totals;
+  }, [yearApplications, periods]);
+
+  // Summary totals for N/P/K
+  const npkTotals = useMemo(() => {
+    return {
+      totalN: yearApplications.reduce((s, a) => s + (a.quantityKg * (a.nitrogenContentPercent || 0)) / 100, 0),
+      totalP: yearApplications.reduce((s, a) => s + (a.quantityKg * (a.phosphorusContentPercent || 0)) / 100, 0),
+      totalK: yearApplications.reduce((s, a) => s + (a.quantityKg * (a.potassiumContentPercent || 0)) / 100, 0),
+      totalQuantity: yearApplications.reduce((s, a) => s + a.quantityKg, 0),
+      totalCost: yearApplications.reduce((s, a) => s + (a.cost || 0), 0),
+    };
+  }, [yearApplications]);
+
+  const handleOpenAdd = () => {
+    setEditingApplication(null);
+    setForm({
+      fertiliserType: 'synthetic_n',
+      productName: '',
+      quantityKg: 0,
+      areaAppliedHa: undefined,
+      nitrogenContentPercent: undefined,
+      phosphorusContentPercent: undefined,
+      potassiumContentPercent: undefined,
+      cost: undefined,
+    });
+    setFormPeriod(`${selectedYear}-${String(new Date().getMonth() + 1).padStart(2, '0')}`);
+    setShowAddModal(true);
+  };
+
+  const handleOpenEdit = (app: FertiliserApplication) => {
+    setEditingApplication(app);
+    setForm({
+      fertiliserType: app.fertiliserType,
+      productName: app.productName || '',
+      quantityKg: app.quantityKg,
+      areaAppliedHa: app.areaAppliedHa,
+      nitrogenContentPercent: app.nitrogenContentPercent,
+      phosphorusContentPercent: app.phosphorusContentPercent,
+      potassiumContentPercent: app.potassiumContentPercent,
+      cost: app.cost,
+    });
+    setFormPeriod(app.period);
+    setShowAddModal(true);
+  };
+
+  const handleSave = () => {
+    const now = new Date().toISOString();
+    if (editingApplication) {
+      updateFertiliserApplication(editingApplication.id, {
+        ...form,
+        period: formPeriod,
+        lastUpdated: now,
+      });
+      showToast('Fertiliser application updated');
+    } else {
+      addFertiliserApplication({
+        id: crypto.randomUUID(),
+        siteId: selectedSiteId,
+        period: formPeriod,
+        fertiliserType: form.fertiliserType as FertiliserType,
+        productName: form.productName || undefined,
+        quantityKg: form.quantityKg || 0,
+        areaAppliedHa: form.areaAppliedHa,
+        nitrogenContentPercent: form.nitrogenContentPercent,
+        phosphorusContentPercent: form.phosphorusContentPercent,
+        potassiumContentPercent: form.potassiumContentPercent,
+        cost: form.cost,
+        source: 'estimate',
+        confidence: 'medium',
+        lastUpdated: now,
+      } as FertiliserApplication);
+      showToast('Fertiliser application added');
+    }
+    setShowAddModal(false);
+  };
+
+  const handleDelete = (id: string) => {
+    removeFertiliserApplication(id);
+    showToast('Fertiliser application removed');
+  };
+
+  // Get a label for fertiliser type
+  const getFertiliserLabel = (type: FertiliserType): string => {
+    return fertiliserTypeOptions.find(o => o.value === type)?.label || type;
+  };
+
+  // Period options for the modal
+  const periodOptions = useMemo(() => {
+    return MONTHS_SHORT.map((short, i) => {
+      const month = String(i + 1).padStart(2, '0');
+      const fullNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      return { value: `${selectedYear}-${month}`, label: `${fullNames[i]} ${selectedYear}` };
+    });
+  }, [selectedYear]);
+
+  // Grid rows: show individual fertiliser types that have data, plus summary
+  const gridRows = useMemo(() => {
+    const typesUsed = new Set(yearApplications.map(a => a.fertiliserType));
+    return fertiliserTypeOptions.filter(o => typesUsed.has(o.value));
+  }, [yearApplications]);
+
+  return (
+    <div className="space-y-4">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-4 gap-4">
+        <Card className="bg-green-50 border-green-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-green-700">
+            <Plant className="w-4 h-4" weight="duotone" />
+            <span className="text-xs font-medium">N Applied</span>
+          </div>
+          <div className="text-2xl font-bold text-green-800 mt-1">{formatNumber(Math.round(npkTotals.totalN))}</div>
+          <div className="text-xs text-green-600">kg nitrogen</div>
+        </Card>
+        <Card className="bg-orange-50 border-orange-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-orange-700">
+            <TrendUp className="w-4 h-4" weight="duotone" />
+            <span className="text-xs font-medium">N&#x2082;O Emissions</span>
+          </div>
+          <div className="text-2xl font-bold text-orange-800 mt-1">{emissions.n2oEmissionsTco2e.toFixed(2)}</div>
+          <div className="text-xs text-orange-600">tCO&#x2082;e</div>
+        </Card>
+        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-blue-700">
+            <ChartBar className="w-4 h-4" weight="duotone" />
+            <span className="text-xs font-medium">N Balance</span>
+          </div>
+          <div className={cn(
+            'text-2xl font-bold mt-1',
+            nBalance.nBalanceKg > 0 ? 'text-amber-800' : 'text-blue-800'
+          )}>
+            {nBalance.nBalanceKg > 0 ? '+' : ''}{formatNumber(Math.round(nBalance.nBalanceKg))}
+          </div>
+          <div className="text-xs text-blue-600">
+            kg (applied {formatNumber(Math.round(nBalance.nAppliedKg))} - removed {formatNumber(Math.round(nBalance.nRemovedKg))})
+          </div>
+        </Card>
+        <Card className="bg-purple-50 border-purple-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-purple-700">
+            <Calendar className="w-4 h-4" weight="duotone" />
+            <span className="text-xs font-medium">Applications</span>
+          </div>
+          <div className="text-2xl font-bold text-purple-800 mt-1">{yearApplications.length}</div>
+          <div className="text-xs text-purple-600">{formatNumber(Math.round(npkTotals.totalQuantity))} kg total</div>
+        </Card>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <select
+            value={selectedSiteId}
+            onChange={(e) => setSelectedSiteId(e.target.value)}
+            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white"
+          >
+            {sites.map((site) => (
+              <option key={site.id} value={site.id}>{site.siteName}</option>
+            ))}
+          </select>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white"
+          >
+            {[currentYear - 1, currentYear, currentYear + 1].map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+        </div>
+        <Button onClick={handleOpenAdd} variant="outline" size="sm">
+          <Plus className="w-4 h-4 mr-1" weight="bold" />
+          Add Application
+        </Button>
+      </div>
+
+      {/* Monthly Data Grid */}
+      <Card className="overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-200 bg-gray-50">
+                <th className="text-left py-3 px-4 font-medium text-gray-600 w-48">Metric</th>
+                {periods.map(({ short, isFuture }, i) => (
+                  <th
+                    key={i}
+                    className={cn(
+                      'text-center py-3 px-1 font-medium w-16',
+                      isFuture ? 'text-gray-300' : 'text-gray-600'
+                    )}
+                  >
+                    {short}
+                  </th>
+                ))}
+                <th className="text-right py-3 px-4 font-medium text-gray-600 w-24">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Quantity row */}
+              <tr className="border-b border-gray-100 hover:bg-gray-50">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600">
+                      <Plant className="w-3.5 h-3.5 text-white" weight="duotone" />
+                    </div>
+                    <span className="font-medium text-gray-900">Total Applied (kg)</span>
+                  </div>
+                </td>
+                {periods.map(({ period, isFuture }, i) => {
+                  const val = monthlyTotals[period]?.quantityKg || 0;
+                  return (
+                    <td key={i} className="text-center py-2 px-1">
+                      <div
+                        className={cn(
+                          'inline-flex items-center justify-center min-w-[44px] px-2 py-1 rounded border text-xs font-medium',
+                          isFuture
+                            ? 'bg-gray-50 border-gray-100 text-gray-300'
+                            : val > 0
+                            ? 'bg-green-100 border-green-200 text-gray-900'
+                            : 'bg-white border-gray-200 text-gray-400'
+                        )}
+                      >
+                        {isFuture ? '—' : val > 0 ? formatNumber(Math.round(val)) : '—'}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="text-right py-3 px-4">
+                  <span className="font-semibold text-gray-900">{formatNumber(Math.round(npkTotals.totalQuantity))}</span>
+                </td>
+              </tr>
+
+              {/* N row */}
+              <tr className="border-b border-gray-100 hover:bg-gray-50">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600">
+                      <span className="text-[10px] font-bold text-white">N</span>
+                    </div>
+                    <span className="font-medium text-gray-900">Nitrogen (kg)</span>
+                  </div>
+                </td>
+                {periods.map(({ period, isFuture }, i) => {
+                  const val = monthlyTotals[period]?.nKg || 0;
+                  return (
+                    <td key={i} className="text-center py-2 px-1">
+                      <div
+                        className={cn(
+                          'inline-flex items-center justify-center min-w-[44px] px-2 py-1 rounded border text-xs font-medium',
+                          isFuture
+                            ? 'bg-gray-50 border-gray-100 text-gray-300'
+                            : val > 0
+                            ? 'bg-blue-100 border-blue-200 text-gray-900'
+                            : 'bg-white border-gray-200 text-gray-400'
+                        )}
+                      >
+                        {isFuture ? '—' : val > 0 ? formatNumber(Math.round(val)) : '—'}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="text-right py-3 px-4">
+                  <span className="font-semibold text-blue-700">{formatNumber(Math.round(npkTotals.totalN))}</span>
+                </td>
+              </tr>
+
+              {/* P row */}
+              <tr className="border-b border-gray-100 hover:bg-gray-50">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br from-amber-500 to-amber-600">
+                      <span className="text-[10px] font-bold text-white">P</span>
+                    </div>
+                    <span className="font-medium text-gray-900">Phosphorus (kg)</span>
+                  </div>
+                </td>
+                {periods.map(({ period, isFuture }, i) => {
+                  const val = monthlyTotals[period]?.pKg || 0;
+                  return (
+                    <td key={i} className="text-center py-2 px-1">
+                      <div
+                        className={cn(
+                          'inline-flex items-center justify-center min-w-[44px] px-2 py-1 rounded border text-xs font-medium',
+                          isFuture
+                            ? 'bg-gray-50 border-gray-100 text-gray-300'
+                            : val > 0
+                            ? 'bg-amber-100 border-amber-200 text-gray-900'
+                            : 'bg-white border-gray-200 text-gray-400'
+                        )}
+                      >
+                        {isFuture ? '—' : val > 0 ? formatNumber(Math.round(val)) : '—'}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="text-right py-3 px-4">
+                  <span className="font-semibold text-amber-700">{formatNumber(Math.round(npkTotals.totalP))}</span>
+                </td>
+              </tr>
+
+              {/* K row */}
+              <tr className="border-b border-gray-100 hover:bg-gray-50">
+                <td className="py-3 px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br from-purple-500 to-purple-600">
+                      <span className="text-[10px] font-bold text-white">K</span>
+                    </div>
+                    <span className="font-medium text-gray-900">Potassium (kg)</span>
+                  </div>
+                </td>
+                {periods.map(({ period, isFuture }, i) => {
+                  const val = monthlyTotals[period]?.kKg || 0;
+                  return (
+                    <td key={i} className="text-center py-2 px-1">
+                      <div
+                        className={cn(
+                          'inline-flex items-center justify-center min-w-[44px] px-2 py-1 rounded border text-xs font-medium',
+                          isFuture
+                            ? 'bg-gray-50 border-gray-100 text-gray-300'
+                            : val > 0
+                            ? 'bg-purple-100 border-purple-200 text-gray-900'
+                            : 'bg-white border-gray-200 text-gray-400'
+                        )}
+                      >
+                        {isFuture ? '—' : val > 0 ? formatNumber(Math.round(val)) : '—'}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="text-right py-3 px-4">
+                  <span className="font-semibold text-purple-700">{formatNumber(Math.round(npkTotals.totalK))}</span>
+                </td>
+              </tr>
+
+              {/* Summary row */}
+              <tr className="bg-gray-50 font-medium">
+                <td className="py-3 px-4">
+                  <span className="font-semibold text-gray-700">Total N/P/K (kg)</span>
+                </td>
+                {periods.map(({ period, isFuture }, i) => {
+                  const mt = monthlyTotals[period];
+                  const val = mt ? mt.nKg + mt.pKg + mt.kKg : 0;
+                  return (
+                    <td key={i} className="text-center py-2 px-1">
+                      <div
+                        className={cn(
+                          'inline-flex items-center justify-center min-w-[44px] px-2 py-1 rounded border text-xs font-semibold',
+                          isFuture
+                            ? 'bg-gray-50 border-gray-100 text-gray-300'
+                            : val > 0
+                            ? 'bg-gray-200 border-gray-300 text-gray-900'
+                            : 'bg-white border-gray-200 text-gray-400'
+                        )}
+                      >
+                        {isFuture ? '—' : val > 0 ? formatNumber(Math.round(val)) : '—'}
+                      </div>
+                    </td>
+                  );
+                })}
+                <td className="text-right py-3 px-4">
+                  <span className="font-bold text-gray-900">
+                    {formatNumber(Math.round(npkTotals.totalN + npkTotals.totalP + npkTotals.totalK))}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      {/* Application Records List */}
+      {yearApplications.length > 0 ? (
+        <Card className="overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+            <h3 className="font-semibold text-gray-900 text-sm">Application Records ({selectedYear})</h3>
+          </div>
+          <div className="divide-y divide-gray-100">
+            {yearApplications
+              .sort((a, b) => a.period.localeCompare(b.period))
+              .map((app) => (
+                <div key={app.id} className="flex items-center justify-between px-4 py-3 hover:bg-gray-50">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600">
+                      <Plant className="w-4 h-4 text-white" weight="duotone" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {getFertiliserLabel(app.fertiliserType)}
+                        {app.productName && <span className="text-gray-500 font-normal"> — {app.productName}</span>}
+                      </div>
+                      <div className="text-xs text-gray-500 flex items-center gap-2">
+                        <span>{app.period}</span>
+                        <span>·</span>
+                        <span>{app.quantityKg} kg</span>
+                        {app.areaAppliedHa && (
+                          <>
+                            <span>·</span>
+                            <span>{app.areaAppliedHa} ha</span>
+                          </>
+                        )}
+                        {app.nitrogenContentPercent != null && app.nitrogenContentPercent > 0 && (
+                          <>
+                            <span>·</span>
+                            <span className="text-blue-600">N {app.nitrogenContentPercent}%</span>
+                          </>
+                        )}
+                        {app.phosphorusContentPercent != null && app.phosphorusContentPercent > 0 && (
+                          <>
+                            <span>·</span>
+                            <span className="text-amber-600">P {app.phosphorusContentPercent}%</span>
+                          </>
+                        )}
+                        {app.potassiumContentPercent != null && app.potassiumContentPercent > 0 && (
+                          <>
+                            <span>·</span>
+                            <span className="text-purple-600">K {app.potassiumContentPercent}%</span>
+                          </>
+                        )}
+                        {app.cost != null && app.cost > 0 && (
+                          <>
+                            <span>·</span>
+                            <span>{formatNumber(app.cost)}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => handleOpenEdit(app)}
+                      className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                    >
+                      <PencilSimple className="w-3.5 h-3.5" weight="duotone" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(app.id)}
+                      className="p-1 text-gray-400 hover:text-red-500 rounded"
+                    >
+                      <Trash className="w-3.5 h-3.5" weight="duotone" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </Card>
+      ) : (
+        <EmptyState
+          icon={Plant}
+          title="No fertiliser applications recorded"
+          description="Add your first fertiliser or input application to start tracking nutrient usage and emissions."
+          actionLabel="Add Application"
+          onAction={handleOpenAdd}
+        />
+      )}
+
+      {/* Add/Edit Fertiliser Application Modal */}
+      <Modal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        title={editingApplication ? 'Edit Fertiliser Application' : 'Add Fertiliser Application'}
+      >
+        <div className="space-y-4">
+          <Select
+            label="Period"
+            value={formPeriod}
+            onChange={(e) => setFormPeriod(e.target.value)}
+            options={periodOptions}
+          />
+          <Select
+            label="Fertiliser Type"
+            value={form.fertiliserType}
+            onChange={(e) => setForm({ ...form, fertiliserType: e.target.value as FertiliserType })}
+            options={fertiliserTypeOptions}
+          />
+          <Input
+            label="Product Name (optional)"
+            value={form.productName || ''}
+            onChange={(e) => setForm({ ...form, productName: e.target.value })}
+            placeholder="e.g., CAN 27%, Farmyard Manure"
+          />
+          <Input
+            label="Quantity (kg)"
+            type="number"
+            value={form.quantityKg || ''}
+            onChange={(e) => setForm({ ...form, quantityKg: parseFloat(e.target.value) || 0 })}
+            placeholder="0"
+          />
+          <Input
+            label="Area Applied (ha) — optional"
+            type="number"
+            value={form.areaAppliedHa ?? ''}
+            onChange={(e) => setForm({ ...form, areaAppliedHa: e.target.value ? parseFloat(e.target.value) : undefined })}
+            placeholder="0"
+          />
+          <div className="grid grid-cols-3 gap-3">
+            <Input
+              label="N %"
+              type="number"
+              value={form.nitrogenContentPercent ?? ''}
+              onChange={(e) => setForm({ ...form, nitrogenContentPercent: e.target.value ? parseFloat(e.target.value) : undefined })}
+              placeholder="0"
+              hint="Nitrogen"
+            />
+            <Input
+              label="P %"
+              type="number"
+              value={form.phosphorusContentPercent ?? ''}
+              onChange={(e) => setForm({ ...form, phosphorusContentPercent: e.target.value ? parseFloat(e.target.value) : undefined })}
+              placeholder="0"
+              hint="Phosphorus"
+            />
+            <Input
+              label="K %"
+              type="number"
+              value={form.potassiumContentPercent ?? ''}
+              onChange={(e) => setForm({ ...form, potassiumContentPercent: e.target.value ? parseFloat(e.target.value) : undefined })}
+              placeholder="0"
+              hint="Potassium"
+            />
+          </div>
+          <Input
+            label="Cost (optional)"
+            type="number"
+            value={form.cost ?? ''}
+            onChange={(e) => setForm({ ...form, cost: e.target.value ? parseFloat(e.target.value) : undefined })}
+            placeholder="0.00"
+            hint="In your local currency"
+          />
+        </div>
+
+        <div className="flex justify-end gap-3 mt-6">
+          <Button variant="outline" onClick={() => setShowAddModal(false)}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave} disabled={!form.quantityKg || form.quantityKg <= 0}>
+            {editingApplication ? 'Update' : 'Add Application'}
+          </Button>
+        </div>
+      </Modal>
+    </div>
+  );
+}
+
 // ============ MAIN PAGE ============
 export default function MaterialsPage() {
   const { sites, company } = useAppStore();
@@ -686,7 +1334,7 @@ export default function MaterialsPage() {
     setEditingMaterial(null);
     setMaterialForm({
       materialName: '',
-      materialCategory: category || (activeTab !== 'all' ? activeTab as MaterialCategory : 'raw_material'),
+      materialCategory: category || (activeTab !== 'all' && activeTab !== 'fertiliser' ? activeTab as MaterialCategory : 'raw_material'),
       materialType: '',
       unitOfMeasure: 'kg',
     });
@@ -754,6 +1402,7 @@ export default function MaterialsPage() {
     { id: 'component' as MaterialTab, label: 'Components', icon: Package },
     { id: 'consumable' as MaterialTab, label: 'Consumables', icon: Wrench },
     { id: 'other' as MaterialTab, label: 'Other', icon: DotsThree },
+    { id: 'fertiliser' as MaterialTab, label: 'Fertiliser & Inputs', icon: Plant },
   ];
 
   return (
@@ -833,6 +1482,15 @@ export default function MaterialsPage() {
           selectedSiteId={selectedSiteId}
           setSelectedSiteId={setSelectedSiteId}
           onAddMaterial={() => handleAddMaterial()}
+        />
+      ) : activeTab === 'fertiliser' ? (
+        <FertiliserTab
+          sites={sites}
+          selectedSiteId={selectedSiteId}
+          setSelectedSiteId={setSelectedSiteId}
+          selectedYear={selectedYear}
+          setSelectedYear={setSelectedYear}
+          showToast={showToast}
         />
       ) : (
         <CategoryTab

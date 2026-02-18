@@ -4,15 +4,15 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Buildings, Factory, Wind, Truck, Monitor, DotsThree, Check, ArrowLeft,
-  ChartBar, TrendUp, Plus, PencilSimple, Trash, Lightning
+  ChartBar, TrendUp, Plus, PencilSimple, Trash, Lightning, Tree, Drop
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, Badge, EmptyState } from '@/components/ui';
+import { Card, Button, ProgressBar, Modal, Input, Select, TextArea, Badge, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
-import type { Asset, AssetCategory, Criticality, MaintenanceFrequency } from '@/types';
+import type { Asset, AssetCategory, Criticality, MaintenanceFrequency, LandUse, LandType } from '@/types';
 
-type InfrastructureTab = 'all' | 'production_equipment' | 'hvac' | 'vehicles' | 'it' | 'other';
+type InfrastructureTab = 'all' | 'production_equipment' | 'hvac' | 'vehicles' | 'it' | 'other' | 'land_use';
 
 const categoryOptions = [
   { value: 'production_equipment', label: 'Production Equipment' },
@@ -35,6 +35,31 @@ const maintenanceOptions = [
   { value: 'annual', label: 'Annual' },
   { value: 'as_needed', label: 'As Needed' },
 ];
+
+const landTypeOptions = [
+  { value: 'arable', label: 'Arable' },
+  { value: 'pasture', label: 'Pasture' },
+  { value: 'woodland', label: 'Woodland' },
+  { value: 'orchard', label: 'Orchard' },
+  { value: 'set_aside', label: 'Set Aside' },
+  { value: 'buildings_yards', label: 'Buildings & Yards' },
+  { value: 'other', label: 'Other' },
+];
+
+const landTypeColors: Record<LandType, { bg: string; text: string; border: string }> = {
+  arable: { bg: 'bg-amber-100', text: 'text-amber-700', border: 'border-amber-300' },
+  pasture: { bg: 'bg-green-100', text: 'text-green-700', border: 'border-green-300' },
+  woodland: { bg: 'bg-emerald-100', text: 'text-emerald-700', border: 'border-emerald-300' },
+  orchard: { bg: 'bg-orange-100', text: 'text-orange-700', border: 'border-orange-300' },
+  set_aside: { bg: 'bg-violet-100', text: 'text-violet-700', border: 'border-violet-300' },
+  buildings_yards: { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-300' },
+  other: { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-300' },
+};
+
+function landTypeLabel(lt: LandType): string {
+  const found = landTypeOptions.find(o => o.value === lt);
+  return found ? found.label : lt;
+}
 
 // Toast component
 function Toast({ message, show, onClose }: { message: string; show: boolean; onClose: () => void }) {
@@ -461,16 +486,199 @@ function CategoryTab({
   );
 }
 
+// ============ LAND USE TAB CONTENT ============
+function LandUseTab({
+  landUse,
+  sites,
+  selectedSiteId,
+  setSelectedSiteId,
+  onAddParcel,
+  onEditParcel,
+  onDeleteParcel,
+}: {
+  landUse: LandUse[];
+  sites: { id: string; siteName: string }[];
+  selectedSiteId: string;
+  setSelectedSiteId: (id: string) => void;
+  onAddParcel: () => void;
+  onEditParcel: (parcel: LandUse) => void;
+  onDeleteParcel: (id: string) => void;
+}) {
+  const siteParcels = useMemo(() => {
+    return landUse.filter(l => l.siteId === selectedSiteId);
+  }, [landUse, selectedSiteId]);
+
+  // Summary: total hectares by land type
+  const summaryByType = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const parcel of siteParcels) {
+      map[parcel.landType] = (map[parcel.landType] || 0) + parcel.areaHa;
+    }
+    return Object.entries(map)
+      .map(([type, total]) => ({ type: type as LandType, total }))
+      .sort((a, b) => b.total - a.total);
+  }, [siteParcels]);
+
+  const totalHa = useMemo(() => {
+    return siteParcels.reduce((sum, p) => sum + p.areaHa, 0);
+  }, [siteParcels]);
+
+  if (siteParcels.length === 0) {
+    return (
+      <div className="space-y-4">
+        {/* Controls */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <select
+              value={selectedSiteId}
+              onChange={(e) => setSelectedSiteId(e.target.value)}
+              className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white"
+            >
+              {sites.map((site) => (
+                <option key={site.id} value={site.id}>{site.siteName}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <EmptyState
+          icon={Tree}
+          title="No land parcels recorded yet"
+          description="Add your land parcels to track land use across your site."
+          actionLabel="Add First Parcel"
+          onAction={onAddParcel}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Summary Card */}
+      <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center">
+            <Tree className="w-5 h-5" weight="duotone" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900">Land Use Summary</h3>
+            <p className="text-sm text-gray-500">
+              {siteParcels.length} parcel{siteParcels.length !== 1 ? 's' : ''} — {totalHa.toFixed(1)} ha total
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {summaryByType.map(({ type, total }) => {
+            const colors = landTypeColors[type];
+            return (
+              <div
+                key={type}
+                className={cn(
+                  'rounded-xl border px-3 py-2',
+                  colors.bg,
+                  colors.border
+                )}
+              >
+                <div className={cn('text-xs font-medium', colors.text)}>
+                  {landTypeLabel(type)}
+                </div>
+                <div className="text-lg font-bold text-gray-900 mt-0.5">
+                  {total.toFixed(1)}
+                  <span className="text-xs font-normal text-gray-500 ml-1">ha</span>
+                </div>
+                <div className="text-xs text-gray-400">
+                  {totalHa > 0 ? ((total / totalHa) * 100).toFixed(0) : 0}% of total
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+
+      {/* Controls */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <select
+            value={selectedSiteId}
+            onChange={(e) => setSelectedSiteId(e.target.value)}
+            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white"
+          >
+            {sites.map((site) => (
+              <option key={site.id} value={site.id}>{site.siteName}</option>
+            ))}
+          </select>
+        </div>
+        <Button onClick={onAddParcel} variant="outline" size="sm">
+          <Plus className="w-4 h-4 mr-1" />
+          Add Parcel
+        </Button>
+      </div>
+
+      {/* Parcel List */}
+      <div className="space-y-3">
+        {siteParcels.map((parcel) => {
+          const colors = landTypeColors[parcel.landType];
+          return (
+            <Card key={parcel.id} className="hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center', colors.bg, colors.text)}>
+                    <Tree className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-gray-900">
+                        {parcel.fieldName || landTypeLabel(parcel.landType)}
+                      </span>
+                      <Badge variant="high">
+                        {landTypeLabel(parcel.landType)}
+                      </Badge>
+                      {parcel.irrigated && (
+                        <span className="inline-flex items-center gap-1 text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+                          <Drop className="w-3 h-3" />
+                          Irrigated
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {parcel.areaHa} ha
+                      {parcel.soilOrganicMatterPercent != null && ` • SOM ${parcel.soilOrganicMatterPercent}%`}
+                      {parcel.soilPh != null && ` • pH ${parcel.soilPh}`}
+                    </p>
+                    {parcel.notes && (
+                      <p className="text-xs text-gray-400 mt-1 line-clamp-1">{parcel.notes}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => onEditParcel(parcel)}>
+                    <PencilSimple className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => onDeleteParcel(parcel.id)}>
+                    <Trash className="w-4 h-4 text-red-500" />
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ============ MAIN PAGE ============
 export default function InfrastructurePage() {
   const { sites } = useAppStore();
-  const { assets, addAsset, updateAsset, removeAsset } = useDataStore();
+  const { assets, addAsset, updateAsset, removeAsset, landUse, addLandUse, updateLandUse, removeLandUse } = useDataStore();
 
   const [activeTab, setActiveTab] = useState<InfrastructureTab>('all');
   const [selectedSiteId, setSelectedSiteId] = useState(sites[0]?.id || '');
 
   const [showAssetModal, setShowAssetModal] = useState(false);
   const [editingAsset, setEditingAsset] = useState<Asset | null>(null);
+
+  const [showLandUseModal, setShowLandUseModal] = useState(false);
+  const [editingParcel, setEditingParcel] = useState<LandUse | null>(null);
 
   const [toastMessage, setToastMessage] = useState('');
   const [showToastState, setShowToastState] = useState(false);
@@ -484,9 +692,20 @@ export default function InfrastructurePage() {
     criticality: 'medium',
   });
 
+  const [landUseForm, setLandUseForm] = useState<Partial<LandUse>>({
+    siteId: sites[0]?.id || '',
+    landType: 'arable',
+    areaHa: 0,
+    fieldName: '',
+    soilOrganicMatterPercent: undefined,
+    soilPh: undefined,
+    irrigated: false,
+    notes: '',
+  });
+
   const progress = useMemo(() => {
-    return Math.min(100, assets.length * 15);
-  }, [assets]);
+    return Math.min(100, (assets.length + landUse.length) * 15);
+  }, [assets, landUse]);
 
   const showToast = useCallback((message: string) => {
     setToastMessage(message);
@@ -498,7 +717,7 @@ export default function InfrastructurePage() {
     setAssetForm({
       siteId: selectedSiteId,
       assetName: '',
-      assetCategory: category || (activeTab !== 'all' ? activeTab as AssetCategory : 'production_equipment'),
+      assetCategory: category || (activeTab !== 'all' && activeTab !== 'land_use' ? activeTab as AssetCategory : 'production_equipment'),
       assetType: '',
       quantity: 1,
       criticality: 'medium',
@@ -534,6 +753,70 @@ export default function InfrastructurePage() {
     showToast('Asset deleted');
   };
 
+  // Land Use handlers
+  const handleAddParcel = () => {
+    setEditingParcel(null);
+    setLandUseForm({
+      siteId: selectedSiteId,
+      landType: 'arable',
+      areaHa: 0,
+      fieldName: '',
+      soilOrganicMatterPercent: undefined,
+      soilPh: undefined,
+      irrigated: false,
+      notes: '',
+    });
+    setShowLandUseModal(true);
+  };
+
+  const handleEditParcel = (parcel: LandUse) => {
+    setEditingParcel(parcel);
+    setLandUseForm({
+      siteId: parcel.siteId,
+      landType: parcel.landType,
+      areaHa: parcel.areaHa,
+      fieldName: parcel.fieldName || '',
+      soilOrganicMatterPercent: parcel.soilOrganicMatterPercent,
+      soilPh: parcel.soilPh,
+      irrigated: parcel.irrigated || false,
+      notes: parcel.notes || '',
+    });
+    setShowLandUseModal(true);
+  };
+
+  const handleSaveParcel = () => {
+    const now = new Date().toISOString();
+    const data: Partial<LandUse> = {
+      siteId: landUseForm.siteId,
+      landType: landUseForm.landType,
+      areaHa: landUseForm.areaHa,
+      fieldName: landUseForm.fieldName || undefined,
+      soilOrganicMatterPercent: landUseForm.soilOrganicMatterPercent,
+      soilPh: landUseForm.soilPh,
+      irrigated: landUseForm.irrigated,
+      notes: landUseForm.notes || undefined,
+      updatedAt: now,
+    };
+
+    if (editingParcel) {
+      updateLandUse(editingParcel.id, data);
+      showToast('Land parcel updated');
+    } else {
+      addLandUse({
+        ...data,
+        id: crypto.randomUUID(),
+        updatedAt: now,
+      } as LandUse);
+      showToast('Land parcel added');
+    }
+    setShowLandUseModal(false);
+  };
+
+  const handleDeleteParcel = (id: string) => {
+    removeLandUse(id);
+    showToast('Land parcel deleted');
+  };
+
   const tabs = [
     { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
     { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
@@ -541,6 +824,7 @@ export default function InfrastructurePage() {
     { id: 'vehicles' as InfrastructureTab, label: 'Vehicles', icon: Truck },
     { id: 'it' as InfrastructureTab, label: 'IT', icon: Monitor },
     { id: 'other' as InfrastructureTab, label: 'Other', icon: DotsThree },
+    { id: 'land_use' as InfrastructureTab, label: 'Land Use', icon: Tree },
   ];
 
   return (
@@ -563,7 +847,7 @@ export default function InfrastructurePage() {
               </div>
               <h1 className="text-2xl font-bold text-deep-forest">Infrastructure</h1>
             </div>
-            <p className="text-gray-500 ml-13">Track sites, buildings, and equipment assets</p>
+            <p className="text-gray-500 ml-13">Track sites, buildings, equipment assets, and land use</p>
           </div>
         </div>
       </div>
@@ -574,7 +858,7 @@ export default function InfrastructurePage() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-1">
               <span className="text-xs font-medium text-gray-600">Data Completeness</span>
-              <span className="text-xs text-gray-400">{assets.length} assets</span>
+              <span className="text-xs text-gray-400">{assets.length} assets, {landUse.length} parcels</span>
             </div>
             <ProgressBar value={progress} size="sm" className="max-w-xs" />
           </div>
@@ -586,7 +870,7 @@ export default function InfrastructurePage() {
       </Card>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 border-b border-gray-200">
+      <div className="flex gap-1 mb-6 border-b border-gray-200 overflow-x-auto">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -595,7 +879,7 @@ export default function InfrastructurePage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                'flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
+                'flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap',
                 isActive
                   ? 'border-primary text-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -617,6 +901,16 @@ export default function InfrastructurePage() {
           selectedSiteId={selectedSiteId}
           setSelectedSiteId={setSelectedSiteId}
           onAddAsset={() => handleAddAsset()}
+        />
+      ) : activeTab === 'land_use' ? (
+        <LandUseTab
+          landUse={landUse}
+          sites={sites}
+          selectedSiteId={selectedSiteId}
+          setSelectedSiteId={setSelectedSiteId}
+          onAddParcel={handleAddParcel}
+          onEditParcel={handleEditParcel}
+          onDeleteParcel={handleDeleteParcel}
         />
       ) : (
         <CategoryTab
@@ -742,6 +1036,111 @@ export default function InfrastructurePage() {
         </div>
       </Modal>
 
+      {/* Land Use Modal */}
+      <Modal
+        isOpen={showLandUseModal}
+        onClose={() => setShowLandUseModal(false)}
+        title={editingParcel ? 'Edit Land Parcel' : 'Add Land Parcel'}
+        size="lg"
+      >
+        <div className="space-y-4">
+          <Select
+            label="Site"
+            value={landUseForm.siteId}
+            onChange={(e) => setLandUseForm({ ...landUseForm, siteId: e.target.value })}
+            options={sites.map((s) => ({ value: s.id, label: s.siteName }))}
+          />
+          <div className="grid grid-cols-2 gap-4">
+            <Select
+              label="Land Type"
+              value={landUseForm.landType}
+              onChange={(e) => setLandUseForm({ ...landUseForm, landType: e.target.value as LandType })}
+              options={landTypeOptions}
+            />
+            <Input
+              label="Area (ha)"
+              type="number"
+              min={0}
+              step={0.1}
+              value={landUseForm.areaHa || ''}
+              onChange={(e) => setLandUseForm({ ...landUseForm, areaHa: parseFloat(e.target.value) || 0 })}
+              placeholder="e.g., 12.5"
+            />
+          </div>
+          <Input
+            label="Field Name (Optional)"
+            value={landUseForm.fieldName || ''}
+            onChange={(e) => setLandUseForm({ ...landUseForm, fieldName: e.target.value })}
+            placeholder="e.g., North Field, Top Meadow"
+          />
+
+          <div className="border-t pt-4">
+            <h4 className="font-medium text-gray-900 mb-3">Soil & Conditions (Optional)</h4>
+            <div className="grid grid-cols-2 gap-4">
+              <Input
+                label="Soil Organic Matter (%)"
+                type="number"
+                min={0}
+                max={100}
+                step={0.1}
+                value={landUseForm.soilOrganicMatterPercent ?? ''}
+                onChange={(e) =>
+                  setLandUseForm({
+                    ...landUseForm,
+                    soilOrganicMatterPercent: e.target.value ? parseFloat(e.target.value) : undefined,
+                  })
+                }
+                hint="Typical range: 1-10%"
+              />
+              <Input
+                label="Soil pH"
+                type="number"
+                min={0}
+                max={14}
+                step={0.1}
+                value={landUseForm.soilPh ?? ''}
+                onChange={(e) =>
+                  setLandUseForm({
+                    ...landUseForm,
+                    soilPh: e.target.value ? parseFloat(e.target.value) : undefined,
+                  })
+                }
+                hint="Typical range: 4.5-8.5"
+              />
+            </div>
+            <div className="mt-4">
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={landUseForm.irrigated || false}
+                  onChange={(e) => setLandUseForm({ ...landUseForm, irrigated: e.target.checked })}
+                  className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
+                />
+                <span className="text-sm font-medium text-gray-700">Irrigated</span>
+              </label>
+            </div>
+            <div className="mt-4">
+              <TextArea
+                label="Notes (Optional)"
+                value={landUseForm.notes || ''}
+                onChange={(e) => setLandUseForm({ ...landUseForm, notes: e.target.value })}
+                placeholder="Any additional details about this parcel..."
+                rows={3}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-3 mt-6">
+          <Button variant="outline" onClick={() => setShowLandUseModal(false)}>
+            Cancel
+          </Button>
+          <Button onClick={handleSaveParcel} disabled={!landUseForm.areaHa || landUseForm.areaHa <= 0}>
+            {editingParcel ? 'Update' : 'Add Parcel'}
+          </Button>
+        </div>
+      </Modal>
+
       {/* Tips Card */}
       <Card className="mt-8 bg-cream border-forest-300">
         <div className="font-semibold text-forest-700 mb-3">Tips for Better Data</div>
@@ -755,8 +1154,8 @@ export default function InfrastructurePage() {
             <p className="text-gray-600">Equipment age helps plan for replacements and efficiency upgrades.</p>
           </div>
           <div>
-            <p className="font-medium text-gray-900 mb-1">Note energy consumption</p>
-            <p className="text-gray-600">Estimated annual energy use helps identify efficiency opportunities.</p>
+            <p className="font-medium text-gray-900 mb-1">Record land parcels</p>
+            <p className="text-gray-600">Tracking land use by type helps calculate agricultural emissions and plan carbon sequestration.</p>
           </div>
         </div>
       </Card>

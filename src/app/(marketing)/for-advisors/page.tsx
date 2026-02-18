@@ -254,10 +254,10 @@ export default function ForAdvisorsPage() {
             No per-seat fees, no volume pricing, no hidden costs.
           </p>
           <p>
-            The response generator&mdash;which auto-drafts answers to buyer
-            questionnaires from client data&mdash;is a paid upgrade. Your
-            clients build data with the free tracker. When they need the
-            response generator, the upgrade sells itself.
+            As clients build their baselines, the data reveals where they&apos;re
+            bleeding margin &mdash; energy waste, input inefficiency, transport
+            costs. Advanced analysis and response tools are on the roadmap,
+            shaped by what advisors like you actually need.
           </p>
           <p>
             You get a tool that makes every client engagement more productive.

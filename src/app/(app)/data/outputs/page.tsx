@@ -4,9 +4,10 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Trash, Package, Question, Check, ArrowLeft,
-  ChartBar, TrendUp, Calendar, Recycle, CurrencyDollar
+  ChartBar, TrendUp, Calendar, Recycle, CurrencyDollar,
+  Plant, Cow, PencilSimple, Plus, TrashSimple
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar } from '@/components/ui';
+import { Card, Button, Modal, EmptyState, ProgressBar } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -17,9 +18,15 @@ import type {
   DisposalRoute,
   ConfidenceLevel,
   DataSource,
+  CropOutput,
+  CropType,
+  LivestockRecord,
+  LivestockType,
 } from '@/types';
+import { LIVESTOCK_EMISSION_FACTORS } from '@/types';
+import { calculateLivestockEmissions, calculateLivestockUnits } from '@/lib/agricultural-calculations';
 
-type OutputsTab = 'all' | 'waste' | 'products';
+type OutputsTab = 'all' | 'waste' | 'products' | 'crops' | 'livestock';
 
 const MONTHS_SHORT = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
@@ -34,6 +41,37 @@ const confidenceOptions = [
   { value: 'high', label: 'High' },
   { value: 'medium', label: 'Med' },
   { value: 'low', label: 'Low' },
+];
+
+const cropTypeOptions: { value: CropType; label: string }[] = [
+  { value: 'cereals', label: 'Cereals' },
+  { value: 'oilseeds', label: 'Oilseeds' },
+  { value: 'pulses', label: 'Pulses' },
+  { value: 'root_crops', label: 'Root Crops' },
+  { value: 'vegetables', label: 'Vegetables' },
+  { value: 'fruit', label: 'Fruit' },
+  { value: 'forage', label: 'Forage' },
+  { value: 'other', label: 'Other' },
+];
+
+const cropDestinationOptions: { value: NonNullable<CropOutput['destination']>; label: string }[] = [
+  { value: 'sold', label: 'Sold' },
+  { value: 'stored', label: 'Stored' },
+  { value: 'feed', label: 'Feed' },
+  { value: 'waste', label: 'Waste' },
+  { value: 'other', label: 'Other' },
+];
+
+const livestockTypeOptions: { value: LivestockType; label: string }[] = [
+  { value: 'dairy_cattle', label: 'Dairy Cattle' },
+  { value: 'beef_cattle', label: 'Beef Cattle' },
+  { value: 'sheep', label: 'Sheep' },
+  { value: 'pigs', label: 'Pigs' },
+  { value: 'poultry_layers', label: 'Poultry (Layers)' },
+  { value: 'poultry_broilers', label: 'Poultry (Broilers)' },
+  { value: 'goats', label: 'Goats' },
+  { value: 'horses', label: 'Horses' },
+  { value: 'other', label: 'Other' },
 ];
 
 // Row definitions
@@ -54,7 +92,7 @@ const wasteRows: RowConfig[] = [
 const productRows: RowConfig[] = [
   { id: 'units', label: 'Units Produced', unit: '', tip: 'Number of units produced' },
   { id: 'weight', label: 'Output Weight', unit: 'kg', tip: 'Weight of goods produced' },
-  { id: 'revenue', label: 'Revenue', unit: '€', tip: 'Sales revenue for products' },
+  { id: 'revenue', label: 'Revenue', unit: '\u20ac', tip: 'Sales revenue for products' },
 ];
 
 // Emission factors for waste disposal (kg CO2e per kg waste)
@@ -99,6 +137,8 @@ function formatNumber(n: number): string {
 function AllInsightsTab({
   waste,
   productOutputs,
+  cropOutputs,
+  livestockRecords,
   onNavigate,
   selectedYear,
   setSelectedYear,
@@ -108,6 +148,8 @@ function AllInsightsTab({
 }: {
   waste: Waste[];
   productOutputs: ProductOutput[];
+  cropOutputs: CropOutput[];
+  livestockRecords: LivestockRecord[];
   onNavigate: (tab: OutputsTab) => void;
   selectedYear: number;
   setSelectedYear: (year: number) => void;
@@ -135,11 +177,21 @@ function AllInsightsTab({
     const totalRevenue = productOutputs.reduce((sum, p) => sum + (p.revenue || 0), 0);
     const totalUnits = productOutputs.reduce((sum, p) => sum + (p.quantity || 0), 0);
 
+    // Crop totals
+    const totalCropArea = cropOutputs.reduce((sum, c) => sum + (c.areaHa || 0), 0);
+    const totalCropYield = cropOutputs.reduce((sum, c) => sum + (c.yieldTonnes || 0), 0);
+
+    // Livestock totals
+    const totalHead = livestockRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
+    const totalLU = calculateLivestockUnits(livestockRecords);
+
     return {
       waste: { entries: waste.length, totalKg: totalWasteKg, recycledKg, diversionRate, emissions: wasteEmissions },
       products: { entries: productOutputs.length, totalUnits, totalRevenue },
+      crops: { entries: cropOutputs.length, totalArea: totalCropArea, totalYield: totalCropYield },
+      livestock: { entries: livestockRecords.length, totalHead, totalLU },
     };
-  }, [waste, productOutputs]);
+  }, [waste, productOutputs, cropOutputs, livestockRecords]);
 
   // Coverage by month
   const coverage = useMemo(() => {
@@ -153,10 +205,12 @@ function AllInsightsTab({
     const coveredMonths = new Set([
       ...waste.map(w => w.period),
       ...productOutputs.map(p => p.period),
+      ...cropOutputs.map(c => c.period),
+      ...livestockRecords.map(l => l.period),
     ]);
     const covered = months.filter(m => coveredMonths.has(m)).length;
     return { covered, total: 12, percent: Math.round((covered / 12) * 100) };
-  }, [waste, productOutputs]);
+  }, [waste, productOutputs, cropOutputs, livestockRecords]);
 
   // Periods for table
   const periods = useMemo(() => {
@@ -229,6 +283,30 @@ function AllInsightsTab({
       entries: totals.products.entries,
       subtitle: 'Production output',
     },
+    {
+      id: 'crops' as OutputsTab,
+      title: 'Crops',
+      icon: Plant,
+      color: 'bg-emerald-100 text-emerald-700',
+      borderColor: 'border-emerald-300',
+      hoverBorder: 'hover:border-emerald-400',
+      value: formatNumber(totals.crops.totalYield),
+      unit: 't',
+      entries: totals.crops.entries,
+      subtitle: 'Crop outputs',
+    },
+    {
+      id: 'livestock' as OutputsTab,
+      title: 'Livestock',
+      icon: Cow,
+      color: 'bg-amber-100 text-amber-700',
+      borderColor: 'border-amber-300',
+      hoverBorder: 'hover:border-amber-400',
+      value: formatNumber(totals.livestock.totalHead),
+      unit: 'head',
+      entries: totals.livestock.entries,
+      subtitle: 'Livestock records',
+    },
   ];
 
   // Combined table rows with icons
@@ -237,7 +315,7 @@ function AllInsightsTab({
     { id: 'diverted', label: 'Diverted', unit: 'kg', icon: Recycle, iconColor: 'text-green-600' },
     { id: 'landfill', label: 'Landfill', unit: 'kg', icon: Trash, iconColor: 'text-gray-600' },
     { id: 'production', label: 'Production', unit: '', icon: Package, iconColor: 'text-green-600' },
-    { id: 'emissions', label: 'Emissions', unit: 'tCO₂e', icon: TrendUp, iconColor: 'text-primary' },
+    { id: 'emissions', label: 'Emissions', unit: 'tCO\u2082e', icon: TrendUp, iconColor: 'text-primary' },
   ];
 
   return (
@@ -268,7 +346,7 @@ function AllInsightsTab({
             <span className="text-xs text-gray-500">Waste Emissions</span>
           </div>
           <div className="text-lg font-bold text-primary">{totals.waste.emissions.toFixed(1)}</div>
-          <div className="text-xs text-gray-400">tCO₂e from waste</div>
+          <div className="text-xs text-gray-400">tCO\u2082e from waste</div>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-lg p-2.5">
@@ -276,13 +354,13 @@ function AllInsightsTab({
             <CurrencyDollar className="w-3.5 h-3.5 text-gray-400" />
             <span className="text-xs text-gray-500">Product Revenue</span>
           </div>
-          <div className="text-lg font-bold text-gray-900">€{formatNumber(totals.products.totalRevenue)}</div>
+          <div className="text-lg font-bold text-gray-900">\u20ac{formatNumber(totals.products.totalRevenue)}</div>
           <div className="text-xs text-gray-400">YTD output value</div>
         </div>
       </div>
 
       {/* Category Cards */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {categories.map((cat) => {
           const Icon = cat.icon;
           return (
@@ -314,7 +392,7 @@ function AllInsightsTab({
               </div>
 
               <div className="mt-2 pt-2 border-t border-gray-100">
-                <span className="text-xs text-primary font-medium">Click to enter data →</span>
+                <span className="text-xs text-primary font-medium">Click to enter data &rarr;</span>
               </div>
             </button>
           );
@@ -342,7 +420,7 @@ function AllInsightsTab({
             disabled={selectedYear <= currentYear - 5}
             className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50"
           >
-            ←
+            &larr;
           </button>
           <span className="text-sm font-semibold text-primary w-12 text-center">{selectedYear}</span>
           <button
@@ -350,7 +428,7 @@ function AllInsightsTab({
             disabled={selectedYear >= currentYear}
             className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50"
           >
-            →
+            &rarr;
           </button>
         </div>
       </div>
@@ -415,7 +493,7 @@ function AllInsightsTab({
       </Card>
 
       {/* Getting Started */}
-      {waste.length + productOutputs.length === 0 && (
+      {waste.length + productOutputs.length + cropOutputs.length + livestockRecords.length === 0 && (
         <Card className="bg-primary-100 border-primary border-l-4">
           <h3 className="font-semibold text-gray-900 mb-1">Getting Started</h3>
           <p className="text-sm text-gray-600">
@@ -509,7 +587,7 @@ function DataEntryGrid({
             {showEmissions && calculateEmissions && (
               <tr className="bg-primary-100 border-t border-primary">
                 <td className="py-1.5 px-3 text-primary font-medium text-xs">
-                  Emissions <span className="text-primary/70 ml-1">(tCO₂e)</span>
+                  Emissions <span className="text-primary/70 ml-1">(tCO\u2082e)</span>
                 </td>
                 {periods.map(({ period, isFuture }) => {
                   const emissions = calculateEmissions(period);
@@ -531,12 +609,758 @@ function DataEntryGrid({
   );
 }
 
+// ============ CROP OUTPUTS TAB ============
+function CropOutputsTab({
+  sites,
+  selectedSiteId,
+  setSelectedSiteId,
+}: {
+  sites: { id: string; siteName: string }[];
+  selectedSiteId: string;
+  setSelectedSiteId: (id: string) => void;
+}) {
+  const {
+    cropOutputs,
+    addCropOutput,
+    updateCropOutput,
+    removeCropOutput,
+  } = useDataStore();
+
+  const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  // Form state
+  const emptyForm = {
+    cropType: 'cereals' as CropType,
+    cropName: '',
+    areaHa: '',
+    yieldTonnes: '',
+    revenue: '',
+    destination: 'sold' as NonNullable<CropOutput['destination']>,
+    period: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`,
+    source: 'invoice' as DataSource,
+    confidence: 'high' as ConfidenceLevel,
+  };
+  const [form, setForm] = useState(emptyForm);
+
+  const filteredRecords = useMemo(
+    () => cropOutputs.filter(c => c.siteId === selectedSiteId),
+    [cropOutputs, selectedSiteId]
+  );
+
+  // Summary stats
+  const summary = useMemo(() => {
+    const totalArea = filteredRecords.reduce((sum, c) => sum + (c.areaHa || 0), 0);
+    const totalYield = filteredRecords.reduce((sum, c) => sum + (c.yieldTonnes || 0), 0);
+    const avgYieldPerHa = totalArea > 0 ? totalYield / totalArea : 0;
+    return { totalArea, totalYield, avgYieldPerHa };
+  }, [filteredRecords]);
+
+  const openAddModal = () => {
+    setEditingId(null);
+    setForm(emptyForm);
+    setShowModal(true);
+  };
+
+  const openEditModal = (record: CropOutput) => {
+    setEditingId(record.id);
+    setForm({
+      cropType: record.cropType,
+      cropName: record.cropName,
+      areaHa: String(record.areaHa),
+      yieldTonnes: String(record.yieldTonnes),
+      revenue: record.revenue != null ? String(record.revenue) : '',
+      destination: record.destination || 'sold',
+      period: record.period,
+      source: record.source,
+      confidence: record.confidence,
+    });
+    setShowModal(true);
+  };
+
+  const handleSave = () => {
+    const areaHa = parseFloat(form.areaHa) || 0;
+    const yieldTonnes = parseFloat(form.yieldTonnes) || 0;
+    const revenue = form.revenue ? parseFloat(form.revenue) : undefined;
+    const yieldPerHa = areaHa > 0 ? yieldTonnes / areaHa : undefined;
+    const now = new Date().toISOString();
+
+    if (!form.cropName.trim() || areaHa <= 0 || yieldTonnes <= 0) return;
+
+    const record: Omit<CropOutput, 'id'> = {
+      siteId: selectedSiteId,
+      period: form.period,
+      cropType: form.cropType,
+      cropName: form.cropName.trim(),
+      areaHa,
+      yieldTonnes,
+      yieldPerHa,
+      revenue,
+      destination: form.destination,
+      source: form.source,
+      confidence: form.confidence,
+      lastUpdated: now,
+    };
+
+    if (editingId) {
+      updateCropOutput(editingId, record);
+      setToastMessage('Crop record updated');
+    } else {
+      addCropOutput({ ...record, id: crypto.randomUUID() } as CropOutput);
+      setToastMessage('Crop record added');
+    }
+
+    setShowModal(false);
+    setShowToast(true);
+  };
+
+  const handleDelete = (id: string) => {
+    removeCropOutput(id);
+    setToastMessage('Crop record deleted');
+    setShowToast(true);
+  };
+
+  const yieldPerHaDisplay = useMemo(() => {
+    const area = parseFloat(form.areaHa) || 0;
+    const yieldT = parseFloat(form.yieldTonnes) || 0;
+    if (area > 0 && yieldT > 0) return (yieldT / area).toFixed(2);
+    return '-';
+  }, [form.areaHa, form.yieldTonnes]);
+
+  return (
+    <>
+      <Toast message={toastMessage} show={showToast} onClose={() => setShowToast(false)} />
+
+      {/* Controls */}
+      <div className="flex items-center gap-3 mb-3 flex-wrap text-sm">
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs text-gray-500">Site:</span>
+          <select
+            value={selectedSiteId}
+            onChange={e => setSelectedSiteId(e.target.value)}
+            className="text-sm border border-gray-200 rounded-md px-2 py-1 bg-white focus:border-primary focus:outline-none"
+          >
+            {sites.map(s => <option key={s.id} value={s.id}>{s.siteName}</option>)}
+          </select>
+        </div>
+        <div className="flex-1" />
+        <Button size="sm" onClick={openAddModal}>
+          <Plus className="w-4 h-4 mr-1" />
+          Add Crop
+        </Button>
+      </div>
+
+      {/* Summary Card */}
+      {filteredRecords.length > 0 && (
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="bg-white border border-emerald-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Total Area</div>
+            <div className="text-lg font-bold text-gray-900">{summary.totalArea.toFixed(1)} <span className="text-xs font-normal text-gray-500">ha</span></div>
+          </div>
+          <div className="bg-white border border-emerald-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Total Yield</div>
+            <div className="text-lg font-bold text-gray-900">{summary.totalYield.toFixed(1)} <span className="text-xs font-normal text-gray-500">t</span></div>
+          </div>
+          <div className="bg-white border border-emerald-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Avg Yield/ha</div>
+            <div className="text-lg font-bold text-emerald-700">{summary.avgYieldPerHa.toFixed(2)} <span className="text-xs font-normal text-gray-500">t/ha</span></div>
+          </div>
+        </div>
+      )}
+
+      {/* Records List */}
+      {filteredRecords.length === 0 ? (
+        <Card>
+          <EmptyState
+            icon={Plant}
+            title="No crop records yet"
+            description="Add crop output records to track yields, revenue and destinations."
+            actionLabel="Add Crop Record"
+            onAction={openAddModal}
+          />
+        </Card>
+      ) : (
+        <Card className="overflow-hidden p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Period</th>
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Type</th>
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Crop Name</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Area (ha)</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Yield (t)</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Yield/ha</th>
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Dest.</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Revenue</th>
+                  <th className="py-2 px-3 font-medium text-gray-600 w-20"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredRecords.map((record, idx) => {
+                  const yph = record.areaHa > 0 ? (record.yieldTonnes / record.areaHa).toFixed(2) : '-';
+                  return (
+                    <tr key={record.id} className={cn('border-b border-gray-50', idx % 2 === 1 && 'bg-gray-50/30')}>
+                      <td className="py-1.5 px-3 text-gray-600 text-xs">{record.period}</td>
+                      <td className="py-1.5 px-3">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                          {cropTypeOptions.find(o => o.value === record.cropType)?.label || record.cropType}
+                        </span>
+                      </td>
+                      <td className="py-1.5 px-3 text-gray-900 font-medium">{record.cropName}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{record.areaHa}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{record.yieldTonnes}</td>
+                      <td className="py-1.5 px-3 text-right text-emerald-700 font-medium">{yph}</td>
+                      <td className="py-1.5 px-3 text-gray-600 text-xs capitalize">{record.destination || '-'}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{record.revenue != null ? `\u20ac${formatNumber(record.revenue)}` : '-'}</td>
+                      <td className="py-1.5 px-3">
+                        <div className="flex items-center gap-1 justify-end">
+                          <button onClick={() => openEditModal(record)} className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors">
+                            <PencilSimple className="w-3.5 h-3.5" />
+                          </button>
+                          <button onClick={() => handleDelete(record.id)} className="p-1 rounded hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors">
+                            <TrashSimple className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      )}
+
+      {/* Add/Edit Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title={editingId ? 'Edit Crop Record' : 'Add Crop Record'}
+        size="lg"
+      >
+        <div className="space-y-4">
+          {/* Period + Source + Confidence */}
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Period</label>
+              <input
+                type="month"
+                value={form.period}
+                onChange={e => setForm(f => ({ ...f, period: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Source</label>
+              <select
+                value={form.source}
+                onChange={e => setForm(f => ({ ...f, source: e.target.value as DataSource }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {dataSourceOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Confidence</label>
+              <select
+                value={form.confidence}
+                onChange={e => setForm(f => ({ ...f, confidence: e.target.value as ConfidenceLevel }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {confidenceOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Crop Type + Crop Name */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Crop Type</label>
+              <select
+                value={form.cropType}
+                onChange={e => setForm(f => ({ ...f, cropType: e.target.value as CropType }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {cropTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Crop Name</label>
+              <input
+                type="text"
+                placeholder="e.g. Winter Wheat"
+                value={form.cropName}
+                onChange={e => setForm(f => ({ ...f, cropName: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Area + Yield + Yield/ha (readonly) */}
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Area (ha)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="0"
+                value={form.areaHa}
+                onChange={e => setForm(f => ({ ...f, areaHa: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Yield (tonnes)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="0"
+                value={form.yieldTonnes}
+                onChange={e => setForm(f => ({ ...f, yieldTonnes: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Yield/ha (auto)</label>
+              <div className="w-full text-sm border border-gray-100 rounded-md px-2 py-1.5 bg-gray-50 text-emerald-700 font-medium">
+                {yieldPerHaDisplay} <span className="text-gray-400 text-xs font-normal">t/ha</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Revenue + Destination */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Revenue (\u20ac) <span className="text-gray-400">optional</span></label>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                placeholder="0"
+                value={form.revenue}
+                onChange={e => setForm(f => ({ ...f, revenue: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Destination</label>
+              <select
+                value={form.destination}
+                onChange={e => setForm(f => ({ ...f, destination: e.target.value as NonNullable<CropOutput['destination']> }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {cropDestinationOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+            <Button
+              onClick={handleSave}
+              disabled={!form.cropName.trim() || !(parseFloat(form.areaHa) > 0) || !(parseFloat(form.yieldTonnes) > 0)}
+            >
+              {editingId ? 'Update' : 'Add'} Record
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
+}
+
+// ============ LIVESTOCK TAB ============
+function LivestockTab({
+  sites,
+  selectedSiteId,
+  setSelectedSiteId,
+}: {
+  sites: { id: string; siteName: string }[];
+  selectedSiteId: string;
+  setSelectedSiteId: (id: string) => void;
+}) {
+  const {
+    livestockRecords,
+    addLivestockRecord,
+    updateLivestockRecord,
+    removeLivestockRecord,
+  } = useDataStore();
+
+  const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const emptyForm = {
+    livestockType: 'dairy_cattle' as LivestockType,
+    headcount: '',
+    averageWeightKg: '',
+    grazingMonths: '',
+    notes: '',
+    period: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`,
+    source: 'invoice' as DataSource,
+    confidence: 'high' as ConfidenceLevel,
+  };
+  const [form, setForm] = useState(emptyForm);
+
+  const filteredRecords = useMemo(
+    () => livestockRecords.filter(l => l.siteId === selectedSiteId),
+    [livestockRecords, selectedSiteId]
+  );
+
+  // Summary stats
+  const summary = useMemo(() => {
+    const totalHead = filteredRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
+    const totalLU = calculateLivestockUnits(filteredRecords);
+    const emissions = calculateLivestockEmissions(filteredRecords);
+    return { totalHead, totalLU, totalEmissions: emissions.totalTco2e };
+  }, [filteredRecords]);
+
+  const openAddModal = () => {
+    setEditingId(null);
+    setForm(emptyForm);
+    setShowModal(true);
+  };
+
+  const openEditModal = (record: LivestockRecord) => {
+    setEditingId(record.id);
+    setForm({
+      livestockType: record.livestockType,
+      headcount: String(record.headcount),
+      averageWeightKg: record.averageWeightKg != null ? String(record.averageWeightKg) : '',
+      grazingMonths: record.grazingMonths != null ? String(record.grazingMonths) : '',
+      notes: record.notes || '',
+      period: record.period,
+      source: record.source,
+      confidence: record.confidence,
+    });
+    setShowModal(true);
+  };
+
+  const handleSave = () => {
+    const headcount = parseInt(form.headcount) || 0;
+    const averageWeightKg = form.averageWeightKg ? parseFloat(form.averageWeightKg) : undefined;
+    const grazingMonths = form.grazingMonths ? parseFloat(form.grazingMonths) : undefined;
+    const now = new Date().toISOString();
+
+    if (headcount <= 0) return;
+
+    const luFactor = LIVESTOCK_EMISSION_FACTORS[form.livestockType].luFactor;
+    const livestockUnits = headcount * luFactor;
+
+    const record: Omit<LivestockRecord, 'id'> = {
+      siteId: selectedSiteId,
+      period: form.period,
+      livestockType: form.livestockType,
+      headcount,
+      livestockUnits,
+      averageWeightKg,
+      grazingMonths,
+      notes: form.notes.trim() || undefined,
+      source: form.source,
+      confidence: form.confidence,
+      lastUpdated: now,
+    };
+
+    if (editingId) {
+      updateLivestockRecord(editingId, record);
+      setToastMessage('Livestock record updated');
+    } else {
+      addLivestockRecord({ ...record, id: crypto.randomUUID() } as LivestockRecord);
+      setToastMessage('Livestock record added');
+    }
+
+    setShowModal(false);
+    setShowToast(true);
+  };
+
+  const handleDelete = (id: string) => {
+    removeLivestockRecord(id);
+    setToastMessage('Livestock record deleted');
+    setShowToast(true);
+  };
+
+  // Auto-calculated LU display for modal
+  const luDisplay = useMemo(() => {
+    const headcount = parseInt(form.headcount) || 0;
+    if (headcount <= 0) return '-';
+    const factor = LIVESTOCK_EMISSION_FACTORS[form.livestockType].luFactor;
+    return (headcount * factor).toFixed(2);
+  }, [form.headcount, form.livestockType]);
+
+  // Auto-calculated emissions display for modal
+  const emissionsDisplay = useMemo(() => {
+    const headcount = parseInt(form.headcount) || 0;
+    if (headcount <= 0) return '-';
+    const mockRecord = {
+      livestockType: form.livestockType,
+      headcount,
+    } as LivestockRecord;
+    const result = calculateLivestockEmissions([mockRecord]);
+    return result.totalTco2e.toFixed(2);
+  }, [form.headcount, form.livestockType]);
+
+  return (
+    <>
+      <Toast message={toastMessage} show={showToast} onClose={() => setShowToast(false)} />
+
+      {/* Controls */}
+      <div className="flex items-center gap-3 mb-3 flex-wrap text-sm">
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs text-gray-500">Site:</span>
+          <select
+            value={selectedSiteId}
+            onChange={e => setSelectedSiteId(e.target.value)}
+            className="text-sm border border-gray-200 rounded-md px-2 py-1 bg-white focus:border-primary focus:outline-none"
+          >
+            {sites.map(s => <option key={s.id} value={s.id}>{s.siteName}</option>)}
+          </select>
+        </div>
+        <div className="flex-1" />
+        <Button size="sm" onClick={openAddModal}>
+          <Plus className="w-4 h-4 mr-1" />
+          Add Livestock
+        </Button>
+      </div>
+
+      {/* Summary Card */}
+      {filteredRecords.length > 0 && (
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="bg-white border border-amber-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Total Head</div>
+            <div className="text-lg font-bold text-gray-900">{formatNumber(summary.totalHead)} <span className="text-xs font-normal text-gray-500">head</span></div>
+          </div>
+          <div className="bg-white border border-amber-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Total LU</div>
+            <div className="text-lg font-bold text-gray-900">{summary.totalLU.toFixed(1)} <span className="text-xs font-normal text-gray-500">LU</span></div>
+          </div>
+          <div className="bg-white border border-amber-200 rounded-lg p-3">
+            <div className="text-xs text-gray-500 mb-0.5">Total Emissions</div>
+            <div className="text-lg font-bold text-amber-700">{summary.totalEmissions.toFixed(1)} <span className="text-xs font-normal text-gray-500">tCO&#x2082;e</span></div>
+          </div>
+        </div>
+      )}
+
+      {/* Records List */}
+      {filteredRecords.length === 0 ? (
+        <Card>
+          <EmptyState
+            icon={Cow}
+            title="No livestock records yet"
+            description="Add livestock records to track headcount, livestock units, and estimated emissions."
+            actionLabel="Add Livestock Record"
+            onAction={openAddModal}
+          />
+        </Card>
+      ) : (
+        <Card className="overflow-hidden p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Period</th>
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Type</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Headcount</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">LU</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Avg Wt (kg)</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Grazing (mo)</th>
+                  <th className="text-right py-2 px-3 font-medium text-gray-600">Emissions (tCO&#x2082;e)</th>
+                  <th className="text-left py-2 px-3 font-medium text-gray-600">Notes</th>
+                  <th className="py-2 px-3 font-medium text-gray-600 w-20"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredRecords.map((record, idx) => {
+                  const luFactor = LIVESTOCK_EMISSION_FACTORS[record.livestockType].luFactor;
+                  const lu = (record.headcount * luFactor).toFixed(1);
+                  const emissions = calculateLivestockEmissions([record]);
+                  return (
+                    <tr key={record.id} className={cn('border-b border-gray-50', idx % 2 === 1 && 'bg-gray-50/30')}>
+                      <td className="py-1.5 px-3 text-gray-600 text-xs">{record.period}</td>
+                      <td className="py-1.5 px-3">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                          {livestockTypeOptions.find(o => o.value === record.livestockType)?.label || record.livestockType}
+                        </span>
+                      </td>
+                      <td className="py-1.5 px-3 text-right text-gray-900 font-medium">{formatNumber(record.headcount)}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{lu}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{record.averageWeightKg != null ? record.averageWeightKg : '-'}</td>
+                      <td className="py-1.5 px-3 text-right text-gray-700">{record.grazingMonths != null ? record.grazingMonths : '-'}</td>
+                      <td className="py-1.5 px-3 text-right text-amber-700 font-medium">{emissions.totalTco2e.toFixed(2)}</td>
+                      <td className="py-1.5 px-3 text-gray-500 text-xs truncate max-w-[120px]">{record.notes || '-'}</td>
+                      <td className="py-1.5 px-3">
+                        <div className="flex items-center gap-1 justify-end">
+                          <button onClick={() => openEditModal(record)} className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors">
+                            <PencilSimple className="w-3.5 h-3.5" />
+                          </button>
+                          <button onClick={() => handleDelete(record.id)} className="p-1 rounded hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors">
+                            <TrashSimple className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+      )}
+
+      {/* Add/Edit Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title={editingId ? 'Edit Livestock Record' : 'Add Livestock Record'}
+        size="lg"
+      >
+        <div className="space-y-4">
+          {/* Period + Source + Confidence */}
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Period</label>
+              <input
+                type="month"
+                value={form.period}
+                onChange={e => setForm(f => ({ ...f, period: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Source</label>
+              <select
+                value={form.source}
+                onChange={e => setForm(f => ({ ...f, source: e.target.value as DataSource }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {dataSourceOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Confidence</label>
+              <select
+                value={form.confidence}
+                onChange={e => setForm(f => ({ ...f, confidence: e.target.value as ConfidenceLevel }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {confidenceOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Livestock Type + Headcount */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Livestock Type</label>
+              <select
+                value={form.livestockType}
+                onChange={e => setForm(f => ({ ...f, livestockType: e.target.value as LivestockType }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              >
+                {livestockTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Headcount</label>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                placeholder="0"
+                value={form.headcount}
+                onChange={e => setForm(f => ({ ...f, headcount: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Auto-calculated: LU + Emissions */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Livestock Units (auto)</label>
+              <div className="w-full text-sm border border-gray-100 rounded-md px-2 py-1.5 bg-gray-50 text-amber-700 font-medium">
+                {luDisplay} <span className="text-gray-400 text-xs font-normal">LU</span>
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Est. Emissions (auto)</label>
+              <div className="w-full text-sm border border-gray-100 rounded-md px-2 py-1.5 bg-gray-50 text-amber-700 font-medium">
+                {emissionsDisplay} <span className="text-gray-400 text-xs font-normal">tCO&#x2082;e</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Average Weight + Grazing Months */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Avg Weight (kg) <span className="text-gray-400">optional</span></label>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                placeholder="0"
+                value={form.averageWeightKg}
+                onChange={e => setForm(f => ({ ...f, averageWeightKg: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Grazing Months (0-12) <span className="text-gray-400">optional</span></label>
+              <input
+                type="number"
+                min="0"
+                max="12"
+                step="1"
+                placeholder="0"
+                value={form.grazingMonths}
+                onChange={e => setForm(f => ({ ...f, grazingMonths: e.target.value }))}
+                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Notes <span className="text-gray-400">optional</span></label>
+            <textarea
+              rows={2}
+              placeholder="Any additional notes..."
+              value={form.notes}
+              onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
+              className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none resize-none"
+            />
+          </div>
+
+          {/* Actions */}
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+            <Button
+              onClick={handleSave}
+              disabled={!(parseInt(form.headcount) > 0)}
+            >
+              {editingId ? 'Update' : 'Add'} Record
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
+}
+
 // ============ MAIN COMPONENT ============
 export default function OutputsPage() {
   const { sites } = useAppStore();
   const {
     waste,
     productOutputs,
+    cropOutputs,
+    livestockRecords,
     addWaste,
     updateWaste,
     addProductOutput,
@@ -632,7 +1456,7 @@ export default function OutputsPage() {
 
   // Save handler
   const handleSave = async () => {
-    if (activeTab === 'all') return;
+    if (activeTab === 'all' || activeTab === 'crops' || activeTab === 'livestock') return;
 
     const now = new Date().toISOString();
 
@@ -723,13 +1547,15 @@ export default function OutputsPage() {
     setShowToast(true);
   };
 
-  const totalEntries = waste.length + productOutputs.length;
+  const totalEntries = waste.length + productOutputs.length + cropOutputs.length + livestockRecords.length;
   const progress = Math.min(100, totalEntries * 5);
 
   const tabs = [
     { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
     { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
     { id: 'products' as OutputsTab, label: 'Products', icon: Package },
+    { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
+    { id: 'livestock' as OutputsTab, label: 'Livestock', icon: Cow },
   ];
 
   const handleTabChange = (tab: OutputsTab) => {
@@ -755,7 +1581,7 @@ export default function OutputsPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">Outputs</h1>
-                <p className="text-sm text-gray-500">Waste and product outputs</p>
+                <p className="text-sm text-gray-500">Waste, products, crops and livestock</p>
               </div>
             </div>
           </div>
@@ -772,7 +1598,7 @@ export default function OutputsPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-4 border-b border-gray-200">
+        <div className="flex gap-1 mb-4 border-b border-gray-200 overflow-x-auto">
           {tabs.map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -781,7 +1607,7 @@ export default function OutputsPage() {
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
                 className={cn(
-                  'flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
+                  'flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap',
                   isActive ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'
                 )}
               >
@@ -797,9 +1623,23 @@ export default function OutputsPage() {
           <AllInsightsTab
             waste={waste}
             productOutputs={productOutputs}
+            cropOutputs={cropOutputs}
+            livestockRecords={livestockRecords}
             onNavigate={handleTabChange}
             selectedYear={selectedYear}
             setSelectedYear={setSelectedYear}
+            sites={sites}
+            selectedSiteId={selectedSiteId}
+            setSelectedSiteId={setSelectedSiteId}
+          />
+        ) : activeTab === 'crops' ? (
+          <CropOutputsTab
+            sites={sites}
+            selectedSiteId={selectedSiteId}
+            setSelectedSiteId={setSelectedSiteId}
+          />
+        ) : activeTab === 'livestock' ? (
+          <LivestockTab
             sites={sites}
             selectedSiteId={selectedSiteId}
             setSelectedSiteId={setSelectedSiteId}
@@ -820,9 +1660,9 @@ export default function OutputsPage() {
               </div>
 
               <div className="flex items-center gap-1">
-                <button onClick={() => setSelectedYear(y => y - 1)} disabled={selectedYear <= currentYear - 5} className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50">←</button>
+                <button onClick={() => setSelectedYear(y => y - 1)} disabled={selectedYear <= currentYear - 5} className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50">&larr;</button>
                 <span className="text-sm font-semibold text-primary w-12 text-center">{selectedYear}</span>
-                <button onClick={() => setSelectedYear(y => y + 1)} disabled={selectedYear >= currentYear} className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50">→</button>
+                <button onClick={() => setSelectedYear(y => y + 1)} disabled={selectedYear >= currentYear} className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50">&rarr;</button>
               </div>
 
               <div className="flex items-center gap-1.5">

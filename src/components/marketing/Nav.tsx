@@ -88,6 +88,12 @@ export default function Nav() {
           <Link href="/about" className="text-gray-600 hover:text-primary">
             About
           </Link>
+          <Link
+            href="/tracker"
+            className="ml-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
+          >
+            Free Tracker
+          </Link>
         </div>
       </div>
     </nav>

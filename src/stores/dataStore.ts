@@ -23,6 +23,10 @@ import type {
   FinancialContext,
   BuyerRequirement,
   Reflection,
+  LandUse,
+  FertiliserApplication,
+  LivestockRecord,
+  CropOutput,
 } from '@/types';
 
 interface DataStore {
@@ -124,6 +128,28 @@ interface DataStore {
   addEffluent: (data: Effluent) => void;
   updateEffluent: (id: string, updates: Partial<Effluent>) => void;
   removeEffluent: (id: string) => void;
+
+  // Agricultural
+  landUse: LandUse[];
+  fertiliserApplications: FertiliserApplication[];
+  livestockRecords: LivestockRecord[];
+  cropOutputs: CropOutput[];
+  setLandUse: (data: LandUse[]) => void;
+  addLandUse: (data: LandUse) => void;
+  updateLandUse: (id: string, updates: Partial<LandUse>) => void;
+  removeLandUse: (id: string) => void;
+  setFertiliserApplications: (data: FertiliserApplication[]) => void;
+  addFertiliserApplication: (data: FertiliserApplication) => void;
+  updateFertiliserApplication: (id: string, updates: Partial<FertiliserApplication>) => void;
+  removeFertiliserApplication: (id: string) => void;
+  setLivestockRecords: (data: LivestockRecord[]) => void;
+  addLivestockRecord: (data: LivestockRecord) => void;
+  updateLivestockRecord: (id: string, updates: Partial<LivestockRecord>) => void;
+  removeLivestockRecord: (id: string) => void;
+  setCropOutputs: (data: CropOutput[]) => void;
+  addCropOutput: (data: CropOutput) => void;
+  updateCropOutput: (id: string, updates: Partial<CropOutput>) => void;
+  removeCropOutput: (id: string) => void;
 
   // Context
   externalContext: ExternalContext | null;
@@ -326,6 +352,53 @@ export const useDataStore = create<DataStore>()(
       removeEffluent: (id) =>
         set((state) => ({ effluents: state.effluents.filter((e) => e.id !== id) })),
 
+      // Agricultural
+      landUse: [],
+      fertiliserApplications: [],
+      livestockRecords: [],
+      cropOutputs: [],
+      setLandUse: (landUse) => set({ landUse }),
+      addLandUse: (data) => set((state) => ({ landUse: [...state.landUse, data] })),
+      updateLandUse: (id, updates) =>
+        set((state) => ({
+          landUse: state.landUse.map((l) => (l.id === id ? { ...l, ...updates } : l)),
+        })),
+      removeLandUse: (id) =>
+        set((state) => ({ landUse: state.landUse.filter((l) => l.id !== id) })),
+      setFertiliserApplications: (fertiliserApplications) => set({ fertiliserApplications }),
+      addFertiliserApplication: (data) =>
+        set((state) => ({ fertiliserApplications: [...state.fertiliserApplications, data] })),
+      updateFertiliserApplication: (id, updates) =>
+        set((state) => ({
+          fertiliserApplications: state.fertiliserApplications.map((f) =>
+            f.id === id ? { ...f, ...updates } : f
+          ),
+        })),
+      removeFertiliserApplication: (id) =>
+        set((state) => ({
+          fertiliserApplications: state.fertiliserApplications.filter((f) => f.id !== id),
+        })),
+      setLivestockRecords: (livestockRecords) => set({ livestockRecords }),
+      addLivestockRecord: (data) =>
+        set((state) => ({ livestockRecords: [...state.livestockRecords, data] })),
+      updateLivestockRecord: (id, updates) =>
+        set((state) => ({
+          livestockRecords: state.livestockRecords.map((l) =>
+            l.id === id ? { ...l, ...updates } : l
+          ),
+        })),
+      removeLivestockRecord: (id) =>
+        set((state) => ({ livestockRecords: state.livestockRecords.filter((l) => l.id !== id) })),
+      setCropOutputs: (cropOutputs) => set({ cropOutputs }),
+      addCropOutput: (data) =>
+        set((state) => ({ cropOutputs: [...state.cropOutputs, data] })),
+      updateCropOutput: (id, updates) =>
+        set((state) => ({
+          cropOutputs: state.cropOutputs.map((c) => (c.id === id ? { ...c, ...updates } : c)),
+        })),
+      removeCropOutput: (id) =>
+        set((state) => ({ cropOutputs: state.cropOutputs.filter((c) => c.id !== id) })),
+
       // Context
       externalContext: null,
       financialContext: null,
@@ -369,6 +442,10 @@ export const useDataStore = create<DataStore>()(
           productOutputs: [],
           directEmissions: [],
           effluents: [],
+          landUse: [],
+          fertiliserApplications: [],
+          livestockRecords: [],
+          cropOutputs: [],
           externalContext: null,
           financialContext: null,
           buyerRequirements: [],

@@ -106,8 +106,8 @@ export default function AboutPage() {
             your verified data&mdash;with confidence scores.
           </p>
           <p className="mt-3">
-            <span className="text-xs font-medium text-stack-3 bg-stack-5/30 px-2.5 py-1 rounded-full">
-              Paid upgrade
+            <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-1 rounded-full">
+              Coming Soon
             </span>
             <span className="text-sm font-semibold text-primary ml-2">
               See preview &rarr;
