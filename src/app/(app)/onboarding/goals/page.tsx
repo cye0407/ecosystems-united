@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { v4 as uuid } from 'uuid';
 import { Button, Select, TextArea, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
@@ -28,7 +28,7 @@ const motivationOptions: { value: PrimaryMotivation; label: string; description:
 
 export default function GoalsSetupPage() {
   const router = useRouter();
-  const { company, setGoals, setOnboardingStep, completeOnboardingStep } = useAppStore();
+  const { company, setGoals, completeOnboardingStep } = useAppStore();
 
   const [formData, setFormData] = useState({
     primaryGoal: '',
@@ -88,8 +88,7 @@ export default function GoalsSetupPage() {
 
     setGoals(goals);
     completeOnboardingStep(3);
-    setOnboardingStep(4);
-    router.push('/onboarding/complete');
+    router.push('/dashboard');
   };
 
   return (
@@ -208,17 +207,13 @@ export default function GoalsSetupPage() {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => {
-              setOnboardingStep(2);
-              router.push('/onboarding/swot');
-            }}
+            onClick={() => router.push('/dashboard')}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           <Button type="submit" className="flex-1">
-            Continue
-            <ArrowRight className="w-4 h-4 ml-2" />
+            Save & Return
           </Button>
         </div>
       </form>

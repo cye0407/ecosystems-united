@@ -18,6 +18,7 @@ import { Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { useDataStore } from '@/stores/dataStore';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
+import { FtueChecklist } from '@/components/app/FtueChecklist';
 
 // Helper to format numbers
 function formatNumber(n: number): string {
@@ -106,6 +107,9 @@ export default function DashboardPage() {
           </p>
         </div>
       </div>
+
+      {/* FTUE Checklist */}
+      <FtueChecklist />
 
       {/* Section B: Key Metrics Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

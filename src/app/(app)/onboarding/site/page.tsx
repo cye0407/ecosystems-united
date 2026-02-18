@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { v4 as uuid } from 'uuid';
 import { Button, Input, Select, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
@@ -30,7 +30,7 @@ const ownershipOptions = [
 
 export default function SiteSetupPage() {
   const router = useRouter();
-  const { company, addSite, setOnboardingStep, completeOnboardingStep } = useAppStore();
+  const { company, addSite, completeOnboardingStep } = useAppStore();
 
   const [formData, setFormData] = useState({
     siteName: company?.tradingName ? `${company.tradingName} - Main Site` : 'Main Site',
@@ -85,8 +85,7 @@ export default function SiteSetupPage() {
 
     addSite(site);
     completeOnboardingStep(1);
-    setOnboardingStep(2);
-    router.push('/onboarding/swot');
+    router.push('/dashboard');
   };
 
   return (
@@ -190,17 +189,13 @@ export default function SiteSetupPage() {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => {
-              setOnboardingStep(0);
-              router.push('/onboarding/company');
-            }}
+            onClick={() => router.push('/dashboard')}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           <Button type="submit" className="flex-1">
-            Continue
-            <ArrowRight className="w-4 h-4 ml-2" />
+            Save & Return
           </Button>
         </div>
       </form>

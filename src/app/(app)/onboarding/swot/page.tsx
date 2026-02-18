@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Lightbulb } from 'lucide-react';
 import { v4 as uuid } from 'uuid';
 import { Button, TextArea, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
@@ -105,7 +105,7 @@ function SwotField({ label, value, onChange, guidance, color, error }: SwotField
 
 export default function SwotAnalysisPage() {
   const router = useRouter();
-  const { company, setSwot, setOnboardingStep, completeOnboardingStep } = useAppStore();
+  const { company, setSwot, completeOnboardingStep } = useAppStore();
   const isAgri = isAgriculturalIndustry(company?.industryCode);
   const swotGuidance = isAgri ? agriculturalGuidance : genericGuidance;
 
@@ -152,8 +152,7 @@ export default function SwotAnalysisPage() {
 
     setSwot(swot);
     completeOnboardingStep(2);
-    setOnboardingStep(3);
-    router.push('/onboarding/goals');
+    router.push('/dashboard');
   };
 
   return (
@@ -208,17 +207,13 @@ export default function SwotAnalysisPage() {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => {
-              setOnboardingStep(1);
-              router.push('/onboarding/site');
-            }}
+            onClick={() => router.push('/dashboard')}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           <Button type="submit" className="flex-1">
-            Continue
-            <ArrowRight className="w-4 h-4 ml-2" />
+            Save & Return
           </Button>
         </div>
       </form>

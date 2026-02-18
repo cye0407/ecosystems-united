@@ -10,10 +10,12 @@ import {
   List,
   X,
   SignOut,
+  Question,
 } from "@phosphor-icons/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { useAuth } from "@/contexts/AuthContext";
+import { HelpGuide } from "@/components/app/HelpGuide";
 
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: SquaresFour },
@@ -25,10 +27,12 @@ function SidebarContent({
   isActive,
   handleSignOut,
   onLinkClick,
+  onHelpClick,
 }: {
   isActive: (path: string) => boolean;
   handleSignOut: () => void;
   onLinkClick?: () => void;
+  onHelpClick: () => void;
 }) {
   return (
     <>
@@ -80,6 +84,20 @@ function SidebarContent({
         </Link>
       </nav>
 
+      {/* Help */}
+      <div className="px-3 pb-1">
+        <button
+          onClick={() => {
+            onLinkClick?.();
+            onHelpClick();
+          }}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-primary w-full transition-colors"
+        >
+          <Question className="w-5 h-5" weight="duotone" />
+          Help
+        </button>
+      </div>
+
       {/* Sign out */}
       <div className="px-3 py-4 border-t border-gray-200">
         <button
@@ -100,6 +118,7 @@ function SidebarContent({
 export function AppNavbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const { signOut } = useAuth();
 
   const isActive = (path: string) => pathname?.startsWith(path);
@@ -113,7 +132,7 @@ export function AppNavbar() {
     <>
       {/* Desktop sidebar */}
       <aside className="hidden md:flex md:flex-col md:w-64 bg-white border-r border-gray-200 fixed inset-y-0 left-0 z-40">
-        <SidebarContent isActive={isActive} handleSignOut={handleSignOut} />
+        <SidebarContent isActive={isActive} handleSignOut={handleSignOut} onHelpClick={() => setIsHelpOpen(true)} />
       </aside>
 
       {/* Mobile top bar */}
@@ -150,10 +169,13 @@ export function AppNavbar() {
               isActive={isActive}
               handleSignOut={handleSignOut}
               onLinkClick={() => setIsMobileMenuOpen(false)}
+              onHelpClick={() => setIsHelpOpen(true)}
             />
           </div>
         </div>
       )}
+
+      <HelpGuide isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </>
   );
 }

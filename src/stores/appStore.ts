@@ -62,6 +62,11 @@ interface AppStore {
   isOnboardingComplete: boolean;
   setIsOnboardingComplete: (complete: boolean) => void;
 
+  // FTUE
+  ftue: { dismissedItems: string[]; dismissedAll: boolean };
+  dismissFtueItem: (itemId: string) => void;
+  dismissAllFtue: () => void;
+
   // Computed/alias properties
   onboardingComplete: boolean;
 
@@ -71,7 +76,7 @@ interface AppStore {
 
 const initialOnboarding: OnboardingState = {
   currentStep: 0,
-  totalSteps: 5,
+  totalSteps: 1,
   completedSteps: [],
 };
 
@@ -156,6 +161,20 @@ export const useAppStore = create<AppStore>()(
         })),
       resetOnboarding: () => set({ onboarding: initialOnboarding }),
 
+      // FTUE
+      ftue: { dismissedItems: [], dismissedAll: false },
+      dismissFtueItem: (itemId) =>
+        set((state) => ({
+          ftue: {
+            ...state.ftue,
+            dismissedItems: [...new Set([...state.ftue.dismissedItems, itemId])],
+          },
+        })),
+      dismissAllFtue: () =>
+        set((state) => ({
+          ftue: { ...state.ftue, dismissedAll: true },
+        })),
+
       // Progress
       progressMetrics: initialProgressMetrics,
       setProgressMetrics: (progressMetrics) => set({ progressMetrics }),
@@ -185,6 +204,7 @@ export const useAppStore = create<AppStore>()(
           progressMetrics: initialProgressMetrics,
           isLoading: false,
           isOnboardingComplete: false,
+          ftue: { dismissedItems: [], dismissedAll: false },
         }),
     }),
     {
@@ -206,6 +226,7 @@ export const useAppStore = create<AppStore>()(
         regulatoryContext: state.regulatoryContext,
         onboarding: state.onboarding,
         isOnboardingComplete: state.isOnboardingComplete,
+        ftue: state.ftue,
       }),
     }
   )

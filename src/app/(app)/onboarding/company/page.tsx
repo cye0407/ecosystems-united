@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { v4 as uuid } from 'uuid';
 import { Button, Input, Select, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
@@ -55,7 +55,7 @@ const industryOptions = [
 
 export default function CompanyProfilePage() {
   const router = useRouter();
-  const { setCompany, setOnboardingStep, completeOnboardingStep } = useAppStore();
+  const { setCompany, setIsOnboardingComplete, completeOnboardingStep } = useAppStore();
 
   const [formData, setFormData] = useState({
     legalEntityName: '',
@@ -124,8 +124,8 @@ export default function CompanyProfilePage() {
 
     setCompany(company);
     completeOnboardingStep(0);
-    setOnboardingStep(1);
-    router.push('/onboarding/site');
+    setIsOnboardingComplete(true);
+    router.push('/dashboard');
   };
 
   return (
@@ -300,8 +300,7 @@ export default function CompanyProfilePage() {
             Back
           </Button>
           <Button type="submit" className="flex-1">
-            Continue
-            <ArrowRight className="w-4 h-4 ml-2" />
+            Go to Dashboard
           </Button>
         </div>
       </form>
