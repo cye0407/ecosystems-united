@@ -10,6 +10,7 @@ import { Card, Button, ProgressBar, Modal, Input, Select, TextArea, Badge, Empty
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import type { Asset, AssetCategory, Criticality, MaintenanceFrequency, LandUse, LandType } from '@/types';
 
 type InfrastructureTab = 'all' | 'production_equipment' | 'hvac' | 'vehicles' | 'it' | 'other' | 'land_use';
@@ -504,6 +505,15 @@ function LandUseTab({
   onEditParcel: (parcel: LandUse) => void;
   onDeleteParcel: (id: string) => void;
 }) {
+  const { company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
+  const { addLandUse } = useDataStore();
+  const [quickForm, setQuickForm] = useState({
+    landType: 'arable' as LandType,
+    areaHa: '',
+    fieldName: '',
+  });
+
   const siteParcels = useMemo(() => {
     return landUse.filter(l => l.siteId === selectedSiteId);
   }, [landUse, selectedSiteId]);
@@ -540,13 +550,69 @@ function LandUseTab({
             </select>
           </div>
         </div>
-        <EmptyState
-          icon={Tree}
-          title="No land parcels recorded yet"
-          description="Add your land parcels to track land use across your site."
-          actionLabel="Add First Parcel"
-          onAction={onAddParcel}
-        />
+        {isAgri ? (
+          <div className="border-2 border-dashed border-primary/30 bg-primary-100/20 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Land Parcel</h3>
+            <p className="text-sm text-gray-500 mb-4">Add your first field with just the basics. You can add detail later.</p>
+            <div className="space-y-4">
+              <Select
+                label="Land Type"
+                value={quickForm.landType}
+                onChange={(e) => setQuickForm({ ...quickForm, landType: e.target.value as LandType })}
+                options={landTypeOptions}
+              />
+              <Input
+                label="Area (hectares)"
+                type="number"
+                min={0}
+                step={0.1}
+                value={quickForm.areaHa}
+                onChange={(e) => setQuickForm({ ...quickForm, areaHa: e.target.value })}
+                placeholder="e.g., 12.5"
+              />
+              <Input
+                label="Field Name (optional)"
+                value={quickForm.fieldName}
+                onChange={(e) => setQuickForm({ ...quickForm, fieldName: e.target.value })}
+                placeholder="e.g., North Field"
+              />
+              <div className="flex items-center justify-between pt-2">
+                <button
+                  type="button"
+                  onClick={() => onAddParcel()}
+                  className="text-sm text-primary hover:text-primary/80 underline underline-offset-2"
+                >
+                  Use full form instead
+                </button>
+                <Button
+                  onClick={() => {
+                    addLandUse({
+                      id: crypto.randomUUID(),
+                      siteId: selectedSiteId,
+                      landType: quickForm.landType,
+                      areaHa: parseFloat(quickForm.areaHa) || 0,
+                      fieldName: quickForm.fieldName || undefined,
+                      irrigated: false,
+                      updatedAt: new Date().toISOString(),
+                    } as LandUse);
+                    setQuickForm({ landType: 'arable', areaHa: '', fieldName: '' });
+                  }}
+                  disabled={!quickForm.areaHa || parseFloat(quickForm.areaHa) === 0}
+                >
+                  Save & Add More
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <EmptyState
+            icon={Tree}
+            title="No land parcels recorded yet"
+            description="Add your land parcels to track land use across your site."
+            actionLabel="Add First Parcel"
+            onAction={onAddParcel}
+          />
+        )}
       </div>
     );
   }
@@ -668,7 +734,8 @@ function LandUseTab({
 
 // ============ MAIN PAGE ============
 export default function InfrastructurePage() {
-  const { sites } = useAppStore();
+  const { sites, company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
   const { assets, addAsset, updateAsset, removeAsset, landUse, addLandUse, updateLandUse, removeLandUse } = useDataStore();
 
   const [activeTab, setActiveTab] = useState<InfrastructureTab>('all');
@@ -817,15 +884,28 @@ export default function InfrastructurePage() {
     showToast('Land parcel deleted');
   };
 
-  const tabs = [
-    { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
-    { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
-    { id: 'hvac' as InfrastructureTab, label: 'HVAC', icon: Wind },
-    { id: 'vehicles' as InfrastructureTab, label: 'Vehicles', icon: Truck },
-    { id: 'it' as InfrastructureTab, label: 'IT', icon: Monitor },
-    { id: 'other' as InfrastructureTab, label: 'Other', icon: DotsThree },
-    { id: 'land_use' as InfrastructureTab, label: 'Land Use', icon: Tree },
-  ];
+  const tabs = useMemo(() => {
+    if (isAgri) {
+      return [
+        { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'land_use' as InfrastructureTab, label: 'Land Use', icon: Tree },
+        { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
+        { id: 'hvac' as InfrastructureTab, label: 'HVAC', icon: Wind },
+        { id: 'vehicles' as InfrastructureTab, label: 'Vehicles', icon: Truck },
+        { id: 'it' as InfrastructureTab, label: 'IT', icon: Monitor },
+        { id: 'other' as InfrastructureTab, label: 'Other', icon: DotsThree },
+      ];
+    }
+    return [
+      { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
+      { id: 'hvac' as InfrastructureTab, label: 'HVAC', icon: Wind },
+      { id: 'vehicles' as InfrastructureTab, label: 'Vehicles', icon: Truck },
+      { id: 'it' as InfrastructureTab, label: 'IT', icon: Monitor },
+      { id: 'other' as InfrastructureTab, label: 'Other', icon: DotsThree },
+      { id: 'land_use' as InfrastructureTab, label: 'Land Use', icon: Tree },
+    ];
+  }, [isAgri]);
 
   return (
     <div className="animate-fade-in">

@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 // Reusable enums
 const ownershipType = z.enum(['private', 'public', 'cooperative', 'non-profit', 'other']);
-const siteType = z.enum(['hq', 'production', 'warehouse', 'office', 'retail', 'mixed', 'other']);
+const siteType = z.enum(['hq', 'production', 'warehouse', 'office', 'retail', 'mixed', 'farm', 'field', 'processing', 'other']);
 const siteOwnership = z.enum(['owned', 'leased', 'shared']);
 const confidenceLevel = z.enum(['high', 'medium', 'low']);
 const revenueBand = z.enum(['<500k', '500k-1m', '1m-5m', '5m-10m', '10m-50m', '50m-100m', '>100m', 'prefer_not_to_say']);
@@ -43,6 +43,7 @@ export const siteSchema = z.object({
   country: z.string().min(1, 'Country is required'),
   city: z.string().max(100).optional().or(z.literal('')),
   floorAreaM2: z.coerce.number().min(0).optional(),
+  landAreaHa: z.coerce.number().min(0).optional(),
   ownership: siteOwnership,
   operationalSince: z.string().optional().or(z.literal('')),
 });

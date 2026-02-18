@@ -12,6 +12,9 @@ import type { Site, SiteType, SiteOwnership } from '@/types';
 const siteTypeOptions = [
   { value: 'hq', label: 'Headquarters' },
   { value: 'production', label: 'Production Facility' },
+  { value: 'farm', label: 'Farm' },
+  { value: 'field', label: 'Field / Land Parcel' },
+  { value: 'processing', label: 'Processing Unit' },
   { value: 'warehouse', label: 'Warehouse' },
   { value: 'office', label: 'Office' },
   { value: 'retail', label: 'Retail' },
@@ -35,6 +38,7 @@ export default function SiteSetupPage() {
     country: company?.headquartersCountry || '',
     city: company?.headquartersCity || '',
     floorAreaM2: '',
+    landAreaHa: '',
     ownership: 'leased' as SiteOwnership,
     operationalSince: '',
   });
@@ -71,6 +75,7 @@ export default function SiteSetupPage() {
       country: formData.country,
       city: formData.city || undefined,
       floorAreaM2: formData.floorAreaM2 ? parseFloat(formData.floorAreaM2) : undefined,
+      landAreaHa: formData.landAreaHa ? parseFloat(formData.landAreaHa) : undefined,
       ownership: formData.ownership,
       operationalSince: formData.operationalSince || undefined,
       isPrimary: true,
@@ -140,15 +145,28 @@ export default function SiteSetupPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label="Floor Area (m²)"
-                type="number"
-                min="0"
-                value={formData.floorAreaM2}
-                onChange={(e) => handleChange('floorAreaM2', e.target.value)}
-                placeholder="Square meters"
-                hint="Approximate is fine"
-              />
+              {formData.siteType === 'farm' || formData.siteType === 'field' ? (
+                <Input
+                  label="Land Area (hectares)"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={formData.landAreaHa}
+                  onChange={(e) => handleChange('landAreaHa', e.target.value)}
+                  placeholder="Hectares"
+                  hint="Total land area managed"
+                />
+              ) : (
+                <Input
+                  label="Floor Area (m²)"
+                  type="number"
+                  min="0"
+                  value={formData.floorAreaM2}
+                  onChange={(e) => handleChange('floorAreaM2', e.target.value)}
+                  placeholder="Square meters"
+                  hint="Approximate is fine"
+                />
+              )}
 
               <Input
                 label="Operational Since"

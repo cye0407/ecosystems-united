@@ -7,9 +7,10 @@ import { v4 as uuid } from 'uuid';
 import { Button, TextArea, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { swotSchema, validateForm } from '@/lib/validation/schemas';
+import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import type { SWOT } from '@/types';
 
-const swotGuidance = {
+const genericGuidance = {
   strengths: [
     'What do you do better than competitors?',
     'What resources or capabilities set you apart?',
@@ -29,6 +30,29 @@ const swotGuidance = {
     'What keeps you up at night?',
     'What\'s changing that could hurt you?',
     'What are competitors doing that worries you?',
+  ],
+};
+
+const agriculturalGuidance = {
+  strengths: [
+    'What is your soil quality like?',
+    'Do you have water access advantages?',
+    'What certifications do you hold (organic, regenerative)?',
+  ],
+  weaknesses: [
+    'Where are your biggest input costs?',
+    'What weather risks do you face?',
+    'Where do you lose yield?',
+  ],
+  opportunities: [
+    'Which markets are growing for your products?',
+    'Could you add value (processing, direct sales)?',
+    'Are there grants or subsidies available?',
+  ],
+  threats: [
+    'How exposed are you to input price changes?',
+    'What regulatory changes are coming?',
+    'How are weather patterns shifting?',
   ],
 };
 
@@ -82,6 +106,8 @@ function SwotField({ label, value, onChange, guidance, color, error }: SwotField
 export default function SwotAnalysisPage() {
   const router = useRouter();
   const { company, setSwot, setOnboardingStep, completeOnboardingStep } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
+  const swotGuidance = isAgri ? agriculturalGuidance : genericGuidance;
 
   const [formData, setFormData] = useState({
     strengths: '',
@@ -135,8 +161,9 @@ export default function SwotAnalysisPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-deep-forest mb-2">Strategic Reflection</h1>
         <p className="text-gray-600">
-          A quick SWOT analysis helps us understand your context. Be brief — gut-level
-          thoughts are fine here.
+          {isAgri
+            ? 'A quick reflection on your farm\u2019s position. Think about your land, resources, and markets.'
+            : 'A quick SWOT analysis helps us understand your context. Be brief \u2014 gut-level thoughts are fine here.'}
         </p>
       </div>
 

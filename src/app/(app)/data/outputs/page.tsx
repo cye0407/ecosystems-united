@@ -11,6 +11,7 @@ import { Card, Button, Modal, EmptyState, ProgressBar } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import type {
   Waste,
   ProductOutput,
@@ -626,10 +627,20 @@ function CropOutputsTab({
     removeCropOutput,
   } = useDataStore();
 
+  const { company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
+
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  const [quickForm, setQuickForm] = useState({
+    cropType: 'cereals' as CropType,
+    cropName: '',
+    areaHa: '',
+    yieldTonnes: '',
+  });
 
   // Form state
   const emptyForm = {
@@ -772,15 +783,107 @@ function CropOutputsTab({
 
       {/* Records List */}
       {filteredRecords.length === 0 ? (
-        <Card>
-          <EmptyState
-            icon={Plant}
-            title="No crop records yet"
-            description="Add crop output records to track yields, revenue and destinations."
-            actionLabel="Add Crop Record"
-            onAction={openAddModal}
-          />
-        </Card>
+        isAgri ? (
+          <div className="border-2 border-dashed border-primary/30 bg-primary-100/20 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Crop Record</h3>
+            <p className="text-sm text-gray-500 mb-4">Add your first crop with just the basics. You can add detail later.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Crop Type</label>
+                <select
+                  value={quickForm.cropType}
+                  onChange={e => setQuickForm(prev => ({ ...prev, cropType: e.target.value as CropType }))}
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                >
+                  {cropTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Crop Name <span className="text-red-400">*</span></label>
+                <input
+                  type="text"
+                  value={quickForm.cropName}
+                  onChange={e => setQuickForm(prev => ({ ...prev, cropName: e.target.value }))}
+                  placeholder="e.g. Winter Wheat"
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Area (hectares)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={quickForm.areaHa}
+                  onChange={e => setQuickForm(prev => ({ ...prev, areaHa: e.target.value }))}
+                  placeholder="0"
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Yield (tonnes)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={quickForm.yieldTonnes}
+                  onChange={e => setQuickForm(prev => ({ ...prev, yieldTonnes: e.target.value }))}
+                  placeholder="0"
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                />
+              </div>
+            </div>
+            {parseFloat(quickForm.areaHa) > 0 && parseFloat(quickForm.yieldTonnes) > 0 && (
+              <p className="text-xs text-gray-400 mb-3">
+                Yield/ha: {(parseFloat(quickForm.yieldTonnes) / parseFloat(quickForm.areaHa)).toFixed(2)} t/ha
+              </p>
+            )}
+            <div className="flex items-center gap-3">
+              <Button
+                size="sm"
+                disabled={!quickForm.cropName.trim() || parseFloat(quickForm.areaHa) === 0 || !quickForm.areaHa}
+                onClick={() => {
+                  const areaHa = parseFloat(quickForm.areaHa) || 0;
+                  const yieldTonnes = parseFloat(quickForm.yieldTonnes) || 0;
+                  const yieldPerHa = areaHa > 0 && yieldTonnes > 0 ? yieldTonnes / areaHa : undefined;
+                  addCropOutput({
+                    id: crypto.randomUUID(),
+                    siteId: selectedSiteId,
+                    period: new Date().toISOString().slice(0, 7),
+                    cropType: quickForm.cropType,
+                    cropName: quickForm.cropName.trim(),
+                    areaHa,
+                    yieldTonnes,
+                    yieldPerHa,
+                    source: 'estimate' as DataSource,
+                    confidence: 'medium' as ConfidenceLevel,
+                    lastUpdated: new Date().toISOString(),
+                  } as CropOutput);
+                  setQuickForm({ cropType: 'cereals', cropName: '', areaHa: '', yieldTonnes: '' });
+                  setToastMessage('Crop record added');
+                  setShowToast(true);
+                }}
+              >
+                Save & Add More
+              </Button>
+              <button
+                type="button"
+                onClick={openAddModal}
+                className="text-sm text-primary hover:underline"
+              >
+                Use full form instead
+              </button>
+            </div>
+          </div>
+        ) : (
+          <Card>
+            <EmptyState
+              icon={Plant}
+              title="No crop records yet"
+              description="Add crop output records to track yields, revenue and destinations."
+              actionLabel="Add Crop Record"
+              onAction={openAddModal}
+            />
+          </Card>
+        )
       ) : (
         <Card className="overflow-hidden p-0">
           <div className="overflow-x-auto">
@@ -992,10 +1095,18 @@ function LivestockTab({
     removeLivestockRecord,
   } = useDataStore();
 
+  const { company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
+
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  const [quickForm, setQuickForm] = useState({
+    livestockType: 'dairy_cattle' as LivestockType,
+    headcount: '',
+  });
 
   const emptyForm = {
     livestockType: 'dairy_cattle' as LivestockType,
@@ -1149,15 +1260,84 @@ function LivestockTab({
 
       {/* Records List */}
       {filteredRecords.length === 0 ? (
-        <Card>
-          <EmptyState
-            icon={Cow}
-            title="No livestock records yet"
-            description="Add livestock records to track headcount, livestock units, and estimated emissions."
-            actionLabel="Add Livestock Record"
-            onAction={openAddModal}
-          />
-        </Card>
+        isAgri ? (
+          <div className="border-2 border-dashed border-primary/30 bg-primary-100/20 rounded-2xl p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Livestock Record</h3>
+            <p className="text-sm text-gray-500 mb-4">Add your first livestock entry. Emissions are calculated automatically.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Species</label>
+                <select
+                  value={quickForm.livestockType}
+                  onChange={e => setQuickForm(prev => ({ ...prev, livestockType: e.target.value as LivestockType }))}
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                >
+                  {livestockTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Headcount</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={quickForm.headcount}
+                  onChange={e => setQuickForm(prev => ({ ...prev, headcount: e.target.value }))}
+                  placeholder="0"
+                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
+                />
+              </div>
+            </div>
+            {parseInt(quickForm.headcount) > 0 && (
+              <p className="text-xs text-gray-400 mb-3">
+                LU: {(parseInt(quickForm.headcount) * LIVESTOCK_EMISSION_FACTORS[quickForm.livestockType].luFactor).toFixed(2)} | Est. emissions: {calculateLivestockEmissions([{ livestockType: quickForm.livestockType, headcount: parseInt(quickForm.headcount) } as LivestockRecord]).totalTco2e.toFixed(2)} tCO2e
+              </p>
+            )}
+            <div className="flex items-center gap-3">
+              <Button
+                size="sm"
+                disabled={!quickForm.headcount || parseInt(quickForm.headcount) <= 0}
+                onClick={() => {
+                  const headcount = parseInt(quickForm.headcount) || 0;
+                  const luFactor = LIVESTOCK_EMISSION_FACTORS[quickForm.livestockType].luFactor;
+                  const livestockUnits = headcount * luFactor;
+                  addLivestockRecord({
+                    id: crypto.randomUUID(),
+                    siteId: selectedSiteId,
+                    period: new Date().toISOString().slice(0, 7),
+                    livestockType: quickForm.livestockType,
+                    headcount,
+                    livestockUnits,
+                    source: 'estimate' as DataSource,
+                    confidence: 'medium' as ConfidenceLevel,
+                    lastUpdated: new Date().toISOString(),
+                  } as LivestockRecord);
+                  setQuickForm({ livestockType: 'dairy_cattle', headcount: '' });
+                  setToastMessage('Livestock record added');
+                  setShowToast(true);
+                }}
+              >
+                Save & Add More
+              </Button>
+              <button
+                type="button"
+                onClick={openAddModal}
+                className="text-sm text-primary hover:underline"
+              >
+                Use full form instead
+              </button>
+            </div>
+          </div>
+        ) : (
+          <Card>
+            <EmptyState
+              icon={Cow}
+              title="No livestock records yet"
+              description="Add livestock records to track headcount, livestock units, and estimated emissions."
+              actionLabel="Add Livestock Record"
+              onAction={openAddModal}
+            />
+          </Card>
+        )
       ) : (
         <Card className="overflow-hidden p-0">
           <div className="overflow-x-auto">
@@ -1355,7 +1535,7 @@ function LivestockTab({
 
 // ============ MAIN COMPONENT ============
 export default function OutputsPage() {
-  const { sites } = useAppStore();
+  const { sites, company } = useAppStore();
   const {
     waste,
     productOutputs,
@@ -1366,6 +1546,8 @@ export default function OutputsPage() {
     addProductOutput,
     updateProductOutput,
   } = useDataStore();
+
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
 
   const [activeTab, setActiveTab] = useState<OutputsTab>('all');
   const [selectedSiteId, setSelectedSiteId] = useState(sites[0]?.id || '');
@@ -1550,13 +1732,24 @@ export default function OutputsPage() {
   const totalEntries = waste.length + productOutputs.length + cropOutputs.length + livestockRecords.length;
   const progress = Math.min(100, totalEntries * 5);
 
-  const tabs = [
-    { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
-    { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
-    { id: 'products' as OutputsTab, label: 'Products', icon: Package },
-    { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
-    { id: 'livestock' as OutputsTab, label: 'Livestock', icon: Cow },
-  ];
+  const tabs = useMemo(() => {
+    if (isAgri) {
+      return [
+        { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
+        { id: 'livestock' as OutputsTab, label: 'Livestock', icon: Cow },
+        { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
+        { id: 'products' as OutputsTab, label: 'Products', icon: Package },
+      ];
+    }
+    return [
+      { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
+      { id: 'products' as OutputsTab, label: 'Products', icon: Package },
+      { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
+      { id: 'livestock' as OutputsTab, label: 'Livestock', icon: Cow },
+    ];
+  }, [isAgri]);
 
   const handleTabChange = (tab: OutputsTab) => {
     setActiveTab(tab);

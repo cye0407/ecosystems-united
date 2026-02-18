@@ -20,7 +20,7 @@ export interface DataQuality {
 // ============================================
 
 export type OwnershipType = 'private' | 'public' | 'cooperative' | 'non-profit' | 'other';
-export type SiteType = 'hq' | 'production' | 'warehouse' | 'office' | 'retail' | 'mixed' | 'other';
+export type SiteType = 'hq' | 'production' | 'warehouse' | 'office' | 'retail' | 'mixed' | 'farm' | 'field' | 'processing' | 'other';
 export type SiteOwnership = 'owned' | 'leased' | 'shared';
 export type TimeHorizon = '1-year' | '2-3-years' | '5-years';
 export type PrimaryMotivation = 'compliance' | 'cost' | 'customers' | 'values' | 'competitive' | 'financing' | 'risk' | 'other';
@@ -59,6 +59,7 @@ export interface Site {
   country: string;
   city?: string;
   floorAreaM2?: number;
+  landAreaHa?: number;
   ownership: SiteOwnership;
   operationalSince?: string;
   isPrimary: boolean;

@@ -10,6 +10,7 @@ import { Card, Button, ProgressBar, Modal, Input, Select, EmptyState } from '@/c
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import { calculateFertiliserEmissions, calculateNBalance } from '@/lib/agricultural-calculations';
 import type { Material, MaterialInput, MaterialCategory, UnitOfMeasure } from '@/types';
 import type { FertiliserApplication, FertiliserType } from '@/types';
@@ -686,6 +687,14 @@ function FertiliserTab({
   });
   const [formPeriod, setFormPeriod] = useState(`${selectedYear}-${String(new Date().getMonth() + 1).padStart(2, '0')}`);
 
+  const { company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
+  const [quickForm, setQuickForm] = useState({
+    fertiliserType: 'synthetic_n' as FertiliserType,
+    quantityKg: '',
+    nitrogenContentPercent: '',
+  });
+
   // Filter applications for selected site
   const siteApplications = useMemo(() => {
     return fertiliserApplications.filter(a => a.siteId === selectedSiteId);
@@ -1182,6 +1191,83 @@ function FertiliserTab({
               ))}
           </div>
         </Card>
+      ) : isAgri ? (
+        <div className="border-2 border-dashed border-primary/30 bg-primary-100/20 rounded-2xl p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Fertiliser Application</h3>
+          <p className="text-sm text-gray-500 mb-4">Add your first application. N&#x2082;O emissions are calculated automatically.</p>
+          <div className="space-y-3">
+            <Select
+              label="Fertiliser Type"
+              value={quickForm.fertiliserType}
+              onChange={(e) => setQuickForm({ ...quickForm, fertiliserType: e.target.value as FertiliserType })}
+              options={fertiliserTypeOptions}
+            />
+            <Input
+              label="Quantity (kg)"
+              type="number"
+              min={0}
+              value={quickForm.quantityKg}
+              onChange={(e) => setQuickForm({ ...quickForm, quantityKg: e.target.value })}
+              placeholder="0"
+            />
+            <Input
+              label="Nitrogen content (%)"
+              type="number"
+              min={0}
+              max={100}
+              step={0.1}
+              value={quickForm.nitrogenContentPercent}
+              onChange={(e) => setQuickForm({ ...quickForm, nitrogenContentPercent: e.target.value })}
+              placeholder="e.g., 34"
+            />
+            {parseFloat(quickForm.quantityKg) > 0 && parseFloat(quickForm.nitrogenContentPercent) > 0 && (
+              <p className="text-xs text-gray-400">
+                Estimated N&#x2082;O emissions:{' '}
+                {calculateFertiliserEmissions([{
+                  id: 'preview',
+                  siteId: '',
+                  period: '',
+                  fertiliserType: quickForm.fertiliserType,
+                  quantityKg: parseFloat(quickForm.quantityKg),
+                  nitrogenContentPercent: parseFloat(quickForm.nitrogenContentPercent),
+                  source: 'estimate' as const,
+                  confidence: 'medium' as const,
+                  lastUpdated: '',
+                }]).n2oEmissionsTco2e.toFixed(4)}{' '}
+                tCO₂e
+              </p>
+            )}
+          </div>
+          <div className="flex items-center gap-3 mt-4">
+            <Button
+              onClick={() => {
+                addFertiliserApplication({
+                  id: crypto.randomUUID(),
+                  siteId: selectedSiteId,
+                  period: new Date().toISOString().slice(0, 7),
+                  fertiliserType: quickForm.fertiliserType,
+                  quantityKg: parseFloat(quickForm.quantityKg) || 0,
+                  nitrogenContentPercent: parseFloat(quickForm.nitrogenContentPercent) || 0,
+                  source: 'estimate',
+                  confidence: 'medium',
+                  lastUpdated: new Date().toISOString(),
+                });
+                showToast('Fertiliser application added');
+                setQuickForm({ fertiliserType: 'synthetic_n', quantityKg: '', nitrogenContentPercent: '' });
+              }}
+              disabled={!quickForm.quantityKg || parseFloat(quickForm.quantityKg) === 0}
+            >
+              Save & Add More
+            </Button>
+            <button
+              type="button"
+              onClick={handleOpenAdd}
+              className="text-sm text-primary hover:underline"
+            >
+              Use full form instead
+            </button>
+          </div>
+        </div>
       ) : (
         <EmptyState
           icon={Plant}
@@ -1283,6 +1369,7 @@ function FertiliserTab({
 // ============ MAIN PAGE ============
 export default function MaterialsPage() {
   const { sites, company } = useAppStore();
+  const isAgri = isAgriculturalIndustry(company?.industryCode);
   const {
     materials,
     materialInputs,
@@ -1396,14 +1483,26 @@ export default function MaterialsPage() {
     }
   };
 
-  const tabs = [
-    { id: 'all' as MaterialTab, label: 'All + Insights', icon: ChartBar },
-    { id: 'raw_material' as MaterialTab, label: 'Raw Materials', icon: Stack },
-    { id: 'component' as MaterialTab, label: 'Components', icon: Package },
-    { id: 'consumable' as MaterialTab, label: 'Consumables', icon: Wrench },
-    { id: 'other' as MaterialTab, label: 'Other', icon: DotsThree },
-    { id: 'fertiliser' as MaterialTab, label: 'Fertiliser & Inputs', icon: Plant },
-  ];
+  const tabs = useMemo(() => {
+    if (isAgri) {
+      return [
+        { id: 'all' as MaterialTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'fertiliser' as MaterialTab, label: 'Fertiliser & Inputs', icon: Plant },
+        { id: 'raw_material' as MaterialTab, label: 'Raw Materials', icon: Stack },
+        { id: 'component' as MaterialTab, label: 'Components', icon: Package },
+        { id: 'consumable' as MaterialTab, label: 'Consumables', icon: Wrench },
+        { id: 'other' as MaterialTab, label: 'Other', icon: DotsThree },
+      ];
+    }
+    return [
+      { id: 'all' as MaterialTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'raw_material' as MaterialTab, label: 'Raw Materials', icon: Stack },
+      { id: 'component' as MaterialTab, label: 'Components', icon: Package },
+      { id: 'consumable' as MaterialTab, label: 'Consumables', icon: Wrench },
+      { id: 'other' as MaterialTab, label: 'Other', icon: DotsThree },
+      { id: 'fertiliser' as MaterialTab, label: 'Fertiliser & Inputs', icon: Plant },
+    ];
+  }, [isAgri]);
 
   return (
     <div className="animate-fade-in">
