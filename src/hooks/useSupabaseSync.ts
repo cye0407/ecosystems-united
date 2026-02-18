@@ -7,7 +7,7 @@
  *  3. Silently no-ops when Supabase is not configured.
  */
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppStore } from '@/stores/appStore';
 import { useDataStore } from '@/stores/dataStore';
@@ -22,11 +22,13 @@ import { TABLES } from '@/lib/supabase/tables';
 
 const DEBOUNCE_MS = 2000;
 
-export function useSupabaseSync() {
+export function useSupabaseSync(): { syncComplete: boolean } {
   const { session } = useAuth();
   const userId = session?.user?.id;
   const initialLoadDone = useRef(false);
   const saveTimeouts = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  // If Supabase is not configured, sync is already "complete" (nothing to load)
+  const [syncComplete, setSyncComplete] = useState(() => !isSupabaseConfigured());
 
   // -----------------------------------------------------------------------
   // Debounced save helper
@@ -109,11 +111,13 @@ export function useSupabaseSync() {
         }
 
         initialLoadDone.current = true;
+        setSyncComplete(true);
       })
       .catch((err) => {
         console.error('Failed to load data from Supabase:', err);
         // Fall back to localStorage data already present in stores
         initialLoadDone.current = true;
+        setSyncComplete(true);
       });
   }, [userId]);
 
@@ -235,4 +239,6 @@ export function useSupabaseSync() {
       }
     };
   }, [userId]);
+
+  return { syncComplete };
 }

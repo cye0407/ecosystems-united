@@ -1,29 +1,35 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 
 const COOKIE_CONSENT_KEY = 'eu-cookie-consent';
 
-export function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+function getConsentSnapshot() {
+  return localStorage.getItem(COOKIE_CONSENT_KEY);
+}
 
-  useEffect(() => {
-    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (!consent) {
-      setVisible(true);
-    }
-  }, []);
+function getServerSnapshot() {
+  return 'pending';
+}
+
+const subscribe = () => () => {};
+
+export function CookieConsent() {
+  const consent = useSyncExternalStore(subscribe, getConsentSnapshot, getServerSnapshot);
+  const [dismissed, setDismissed] = useState(false);
+
+  const visible = !consent && !dismissed;
 
   const handleAccept = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-    setVisible(false);
+    setDismissed(true);
   };
 
   const handleDecline = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, 'declined');
-    setVisible(false);
+    setDismissed(true);
   };
 
   if (!visible) return null;

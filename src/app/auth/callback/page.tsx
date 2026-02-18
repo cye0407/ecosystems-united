@@ -11,8 +11,12 @@ export default function AuthCallbackPage() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_IN" || event === "PASSWORD_RECOVERY") {
+      if (event === "PASSWORD_RECOVERY") {
         router.replace("/dashboard");
+      } else if (event === "SIGNED_IN") {
+        // New users from email confirmation go to onboarding;
+        // AppShell will redirect to dashboard if already onboarded.
+        router.replace("/onboarding");
       }
     });
 

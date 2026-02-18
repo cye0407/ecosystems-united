@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowRight, Clock, CheckCircle2 } from 'lucide-react';
 import { Button, Card } from '@/components/ui';
@@ -11,6 +12,15 @@ export default function WelcomePage() {
   const fromAssessment = searchParams.get('from') === 'assessment';
   const stack = searchParams.get('stack');
   const setOnboardingStep = useAppStore((state) => state.setOnboardingStep);
+  const company = useAppStore((state) => state.company);
+  const isOnboardingComplete = useAppStore((state) => state.isOnboardingComplete);
+
+  // Already completed onboarding — go to dashboard
+  useEffect(() => {
+    if (company && isOnboardingComplete) {
+      router.replace('/dashboard');
+    }
+  }, [company, isOnboardingComplete, router]);
 
   const handleStart = () => {
     setOnboardingStep(0);
