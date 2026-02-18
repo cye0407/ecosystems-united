@@ -1705,53 +1705,56 @@ export default function OutputsPage() {
 
       <div className="animate-fade-in">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <Link href="/data" className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+          <div className="flex items-start gap-4">
+            <Link href="/data" className="mt-1 p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
-                <Trash className="w-5 h-5 text-red-700" />
+            <div>
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
+                  <Trash className="w-5 h-5 text-red-700" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900">Outputs</h1>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Outputs</h1>
-                <p className="text-sm text-gray-500">Waste, products, crops and livestock</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Compact stats row */}
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="text-xs font-medium text-gray-500">Completeness</span>
-              <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
-              </div>
-              <span className="text-xs font-bold text-primary">{progress}%</span>
-            </div>
-            <span className="text-gray-300">|</span>
-            <div className="flex items-center gap-1.5">
-              <Trash className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{waste.length}</strong> waste</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Package className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{productOutputs.length}</strong> products</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Plant className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{cropOutputs.length}</strong> crops</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Cow className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{livestockRecords.length}</strong> livestock</span>
+              <p className="text-gray-500 ml-13">Waste, products, crops and livestock</p>
             </div>
           </div>
         </div>
 
+        {/* Compact stats row */}
+        <div className="flex items-center gap-4 mb-6 flex-wrap">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xs font-medium text-gray-500">Completeness</span>
+            <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+            </div>
+            <span className="text-xs font-bold text-primary">{progress}%</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <Trash className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{waste.length}</span> waste</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <Package className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{productOutputs.length}</span> products</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <Plant className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{cropOutputs.length}</span> crops</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <Cow className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{livestockRecords.length}</span> livestock</span>
+          </div>
+        </div>
+
         {/* Tabs */}
-        <div className="flex gap-1 mb-4 border-b border-gray-200 overflow-x-auto">
+        <div className="flex gap-1 mb-6 border-b border-gray-200 overflow-x-auto">
           {tabs.map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;

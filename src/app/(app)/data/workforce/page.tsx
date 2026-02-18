@@ -256,45 +256,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-4">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Calendar className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Monthly Coverage</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">{coverage.percent}%</div>
-          <div className="text-xs text-gray-400">{coverage.covered} of {coverage.total} months</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <TrendUp className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">TRIR</span>
-          </div>
-          <div className="text-lg font-bold text-primary">{totals.safety.trir.toFixed(2)}</div>
-          <div className="text-xs text-gray-400">recordable rate</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <GraduationCap className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Training/FTE</span>
-          </div>
-          <div className="text-lg font-bold text-blue-600">{totals.training.perFte.toFixed(1)}</div>
-          <div className="text-xs text-gray-400">hours per employee</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Users className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Gender Diversity</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">{totals.avgFemalePercent.toFixed(0)}%</div>
-          <div className="text-xs text-gray-400">female employees</div>
-        </div>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-3 gap-3">
         {categories.map((cat) => {
@@ -795,53 +756,56 @@ export default function WorkforcePage() {
 
       <div className="animate-fade-in">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <Link href="/data" className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+          <div className="flex items-start gap-4">
+            <Link href="/data" className="mt-1 p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center">
-                <Users className="w-5 h-5 text-pink-700" />
+            <div>
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-pink-700" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900">Workforce</h1>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Workforce</h1>
-                <p className="text-sm text-gray-500">Employees, safety, and training</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="text-xs font-medium text-gray-500">Completeness</span>
-              <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
-              </div>
-              <span className="text-xs font-bold text-primary">{progress}%</span>
-            </div>
-            <span className="text-gray-300">|</span>
-            <div className="flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{workforce.length}</strong> workforce</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{healthSafety.length}</strong> H&S</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <GraduationCap className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{training.length}</strong> training</span>
-            </div>
-            <span className="text-gray-300">|</span>
-            <div className="flex items-center gap-1.5">
-              <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-              <span className="text-xs text-gray-600"><strong>{totalEntries}</strong> total</span>
+              <p className="text-gray-500 ml-13">Employees, safety, and training</p>
             </div>
           </div>
         </div>
 
+        {/* Compact stats row */}
+        <div className="flex items-center gap-4 mb-6 flex-wrap">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xs font-medium text-gray-500">Completeness</span>
+            <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+            </div>
+            <span className="text-xs font-bold text-primary">{progress}%</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <Users className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{workforce.length}</span> workforce</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{healthSafety.length}</span> H&S</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <GraduationCap className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{training.length}</span> training</span>
+          </div>
+          <span className="text-gray-300">|</span>
+          <div className="flex items-center gap-1.5">
+            <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+            <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totalEntries}</span> total</span>
+          </div>
+        </div>
+
         {/* Tabs */}
-        <div className="flex gap-1 mb-4 border-b border-gray-200">
+        <div className="flex gap-1 mb-6 border-b border-gray-200">
           {tabs.map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;

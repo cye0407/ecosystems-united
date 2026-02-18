@@ -908,17 +908,17 @@ export default function InfrastructurePage() {
         <span className="text-gray-300">|</span>
         <div className="flex items-center gap-1.5">
           <Buildings className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-700"><span className="font-semibold">{assets.length}</span> assets</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{assets.length}</span> assets</span>
         </div>
         <span className="text-gray-300">|</span>
         <div className="flex items-center gap-1.5">
           <Factory className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-700"><span className="font-semibold">{sites.length}</span> sites</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{sites.length}</span> sites</span>
         </div>
         <span className="text-gray-300">|</span>
         <div className="flex items-center gap-1.5">
           <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-700"><span className="font-semibold">{assets.length + landUse.length}</span> records</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{assets.length + landUse.length}</span> records</span>
         </div>
       </div>
 

@@ -1486,19 +1486,19 @@ export default function MaterialsPage() {
           <span className="text-xs font-bold text-primary">{progress}%</span>
         </div>
         <span className="text-gray-300">|</span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <Cube className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-600"><strong>{materials.length}</strong> materials</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{materials.length}</span> materials</span>
         </div>
         <span className="text-gray-300">|</span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-600"><strong>{formatNumber(materialInputs.reduce((s, i) => s + (i.quantity || 0), 0))}</strong> kg total</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{formatNumber(materialInputs.reduce((s, i) => s + (i.quantity || 0), 0))}</span> kg total</span>
         </div>
         <span className="text-gray-300">|</span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <Calendar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
-          <span className="text-xs text-gray-600"><strong>{materialInputs.length}</strong> records</span>
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{materialInputs.length}</span> records</span>
         </div>
       </div>
 

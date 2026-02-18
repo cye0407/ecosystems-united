@@ -155,20 +155,22 @@ export default function EnergyLandingPage() {
           <Lightning className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
           <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.electricity.entries}</span> electricity</span>
         </div>
+        <span className="text-gray-300">|</span>
         <div className="flex items-center gap-1.5">
           <Flame className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
           <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.fuels.entries}</span> fuel</span>
         </div>
+        <span className="text-gray-300">|</span>
         <div className="flex items-center gap-1.5">
           <Drop className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
           <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.water.entries}</span> water</span>
         </div>
         <span className="text-gray-300">|</span>
         <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{formatNumber(totals.electricity.total)}</span> kWh</span>
-        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.scope2.toFixed(1)}</span> tCO₂e</span>
-        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">€{formatNumber(totals.totalCost)}</span> cost</span>
         <span className="text-gray-300">|</span>
-        <span className="text-xs text-gray-500">{coverage.covered}/{coverage.total} months covered</span>
+        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.scope2.toFixed(1)}</span> tCO₂e</span>
+        <span className="text-gray-300">|</span>
+        <span className="text-xs text-gray-500">{coverage.covered}/{coverage.total} months</span>
       </div>
 
       {/* Category Cards */}
