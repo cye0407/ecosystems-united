@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -13,8 +13,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, session, loading } = useAuth();
   const router = useRouter();
+
+  // Redirect to dashboard if already authenticated
+  useEffect(() => {
+    if (!loading && session) {
+      router.replace('/dashboard');
+    }
+  }, [session, loading, router]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -26,9 +33,8 @@ export default function LoginPage() {
     if (error) {
       setError(error.message);
       setIsLoading(false);
-    } else {
-      router.push('/dashboard');
     }
+    // Navigation handled by the useEffect above once session updates
   }
 
   return (
