@@ -6,7 +6,7 @@ import {
   Cube, Stack, Package, Wrench, DotsThree, Check, ArrowLeft,
   ChartBar, TrendUp, Calendar, Plus, PencilSimple, Trash, Plant
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
+import { Card, Button, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -129,20 +129,6 @@ function AllInsightsTab({
     };
   }, [materials, materialInputs, selectedSiteId]);
 
-  // Coverage by month
-  const coverage = useMemo(() => {
-    const now = new Date();
-    const months: string[] = [];
-    for (let i = 11; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-    }
-
-    const coveredMonths = new Set(materialInputs.filter(i => i.siteId === selectedSiteId).map(i => i.period));
-    const covered = months.filter(m => coveredMonths.has(m)).length;
-    return { covered, total: 12, percent: Math.round((covered / 12) * 100) };
-  }, [materialInputs, selectedSiteId]);
-
   // Periods for table
   const periods = useMemo(() => {
     return MONTHS_SHORT.map((short, i) => ({
@@ -234,42 +220,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-6">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-blue-700">
-            <Calendar className="w-4 h-4" weight="duotone" />
-            <span className="text-xs font-medium">Coverage</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-800 mt-1">{coverage.percent}%</div>
-          <div className="text-xs text-blue-600">{coverage.covered}/12 months</div>
-        </Card>
-        <Card className="bg-green-50 border-green-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-green-700">
-            <Cube className="w-4 h-4" weight="duotone" />
-            <span className="text-xs font-medium">Materials</span>
-          </div>
-          <div className="text-2xl font-bold text-green-800 mt-1">{materials.length}</div>
-          <div className="text-xs text-green-600">defined</div>
-        </Card>
-        <Card className="bg-purple-50 border-purple-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-purple-700">
-            <ChartBar className="w-4 h-4" weight="duotone" />
-            <span className="text-xs font-medium">Total Quantity</span>
-          </div>
-          <div className="text-2xl font-bold text-purple-800 mt-1">{formatNumber(totals.totalQuantity)}</div>
-          <div className="text-xs text-purple-600">all materials</div>
-        </Card>
-        <Card className="bg-amber-50 border-amber-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-amber-700">
-            <TrendUp className="w-4 h-4" weight="duotone" />
-            <span className="text-xs font-medium">Total Spend</span>
-          </div>
-          <div className="text-2xl font-bold text-amber-800 mt-1">{formatNumber(totals.totalSpend)}</div>
-          <div className="text-xs text-amber-600">recorded</div>
-        </Card>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-4 gap-4">
         {categories.map((cat) => {
@@ -1526,22 +1476,31 @@ export default function MaterialsPage() {
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <Card className="bg-cream py-3 px-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-xs font-medium text-gray-600">Data Completeness</span>
-              <span className="text-xs text-gray-400">{materials.length} materials</span>
-            </div>
-            <ProgressBar value={progress} size="sm" className="max-w-xs" />
+      {/* Compact stats row */}
+      <div className="flex items-center gap-4 mb-6 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-gray-500">Completeness</span>
+          <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
-          <div className="text-center border border-gray-200 rounded-lg px-3 py-2 bg-white min-w-[70px] ml-4">
-            <div className="text-base font-bold text-primary">{progress}%</div>
-            <div className="text-xs text-gray-500">done</div>
-          </div>
+          <span className="text-xs font-bold text-primary">{progress}%</span>
         </div>
-      </Card>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1">
+          <Cube className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><strong>{materials.length}</strong> materials</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1">
+          <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><strong>{formatNumber(materialInputs.reduce((s, i) => s + (i.quantity || 0), 0))}</strong> kg total</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1">
+          <Calendar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><strong>{materialInputs.length}</strong> records</span>
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200">
