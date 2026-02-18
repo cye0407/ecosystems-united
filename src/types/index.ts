@@ -106,7 +106,7 @@ export interface RegulatoryContext {
 // ============================================
 
 // Domain 1: Materials
-export type MaterialCategory = 'raw_material' | 'component' | 'consumable' | 'other';
+export type MaterialCategory = 'raw_material' | 'component' | 'consumable' | 'other' | (string & {});
 export type UnitOfMeasure = 'kg' | 't' | 'L' | 'm3' | 'units';
 
 export interface Material {
@@ -140,7 +140,7 @@ export interface MaterialInput extends DataQuality {
 
 // Domain 2: Packaging
 export type PackagingLevel = 'primary' | 'secondary' | 'tertiary';
-export type PackagingMaterial = 'paper' | 'cardboard' | 'plastic' | 'metal' | 'glass' | 'wood' | 'composite' | 'other';
+export type PackagingMaterial = 'paper' | 'cardboard' | 'plastic' | 'metal' | 'glass' | 'wood' | 'composite' | 'other' | (string & {});
 export type RecyclabilityClass = 'recyclable' | 'partially' | 'not_recyclable' | 'unknown';
 
 export interface Packaging {
@@ -264,7 +264,7 @@ export interface Asset {
 
 // Domain 5: Transport
 export type TransportDirection = 'inbound' | 'outbound' | 'internal';
-export type TransportMode = 'road' | 'rail' | 'sea' | 'air' | 'multimodal';
+export type TransportMode = 'road' | 'rail' | 'sea' | 'air' | 'multimodal' | (string & {});
 export type TransportFuelType = 'diesel' | 'petrol' | 'electric' | 'lng' | 'unknown';
 export type TransportDataType = 'activity_based' | 'spend_based';
 
@@ -490,10 +490,10 @@ export interface Reflection {
 // Agricultural Data
 // ============================================
 
-export type LandType = 'arable' | 'pasture' | 'woodland' | 'orchard' | 'set_aside' | 'buildings_yards' | 'other';
-export type FertiliserType = 'synthetic_n' | 'synthetic_p' | 'synthetic_k' | 'organic_manure' | 'organic_compost' | 'organic_slurry' | 'lime' | 'other';
-export type LivestockType = 'dairy_cattle' | 'beef_cattle' | 'sheep' | 'pigs' | 'poultry_layers' | 'poultry_broilers' | 'goats' | 'horses' | 'other';
-export type CropType = 'cereals' | 'oilseeds' | 'pulses' | 'root_crops' | 'vegetables' | 'fruit' | 'forage' | 'other';
+export type LandType = 'arable' | 'pasture' | 'woodland' | 'orchard' | 'set_aside' | 'buildings_yards' | 'other' | (string & {});
+export type FertiliserType = 'synthetic_n' | 'synthetic_p' | 'synthetic_k' | 'organic_manure' | 'organic_compost' | 'organic_slurry' | 'lime' | 'other' | (string & {});
+export type LivestockType = 'dairy_cattle' | 'beef_cattle' | 'sheep' | 'pigs' | 'poultry_layers' | 'poultry_broilers' | 'goats' | 'horses' | 'other' | (string & {});
+export type CropType = 'cereals' | 'oilseeds' | 'pulses' | 'root_crops' | 'vegetables' | 'fruit' | 'forage' | 'other' | (string & {});
 
 export interface LandUse {
   id: string;
@@ -548,8 +548,11 @@ export interface CropOutput extends DataQuality {
   destination?: 'sold' | 'stored' | 'feed' | 'waste' | 'other';
 }
 
+// Known livestock types for emission factors
+type KnownLivestockType = 'dairy_cattle' | 'beef_cattle' | 'sheep' | 'pigs' | 'poultry_layers' | 'poultry_broilers' | 'goats' | 'horses' | 'other';
+
 // Agricultural calculation constants
-export const LIVESTOCK_EMISSION_FACTORS: Record<LivestockType, { ch4EntericKgPerHead: number; ch4ManureKgPerHead: number; n2oManureKgPerHead: number; luFactor: number }> = {
+export const LIVESTOCK_EMISSION_FACTORS: Record<KnownLivestockType, { ch4EntericKgPerHead: number; ch4ManureKgPerHead: number; n2oManureKgPerHead: number; luFactor: number }> = {
   dairy_cattle: { ch4EntericKgPerHead: 128, ch4ManureKgPerHead: 16, n2oManureKgPerHead: 0.6, luFactor: 1.0 },
   beef_cattle: { ch4EntericKgPerHead: 50, ch4ManureKgPerHead: 6, n2oManureKgPerHead: 0.4, luFactor: 0.8 },
   sheep: { ch4EntericKgPerHead: 8, ch4ManureKgPerHead: 0.2, n2oManureKgPerHead: 0.1, luFactor: 0.15 },
@@ -561,6 +564,11 @@ export const LIVESTOCK_EMISSION_FACTORS: Record<LivestockType, { ch4EntericKgPer
   other: { ch4EntericKgPerHead: 10, ch4ManureKgPerHead: 2, n2oManureKgPerHead: 0.2, luFactor: 0.5 },
 };
 
+/** Get emission factors for a livestock type, falling back to 'other' for custom types */
+export function getLivestockEmissionFactors(type: LivestockType) {
+  return LIVESTOCK_EMISSION_FACTORS[type as KnownLivestockType] || LIVESTOCK_EMISSION_FACTORS.other;
+}
+
 // GWP factors (AR5)
 export const GWP_CH4 = 28;
 export const GWP_N2O = 265;
@@ -570,8 +578,11 @@ export const FERTILISER_N2O_FACTOR = 0.01;
 // Conversion: N₂O-N to N₂O = 44/28
 export const N2O_N_TO_N2O = 44 / 28;
 
+// Known crop types for N-removal factors
+type KnownCropType = 'cereals' | 'oilseeds' | 'pulses' | 'root_crops' | 'vegetables' | 'fruit' | 'forage' | 'other';
+
 // Crop nitrogen removal factors (kg N per tonne of harvested crop)
-export const CROP_N_REMOVAL: Record<CropType, number> = {
+export const CROP_N_REMOVAL: Record<KnownCropType, number> = {
   cereals: 18,
   oilseeds: 35,
   pulses: 40,
@@ -581,6 +592,11 @@ export const CROP_N_REMOVAL: Record<CropType, number> = {
   forage: 25,
   other: 15,
 };
+
+/** Get N-removal factor for a crop type, falling back to 'other' for custom types */
+export function getCropNRemoval(type: CropType): number {
+  return CROP_N_REMOVAL[type as KnownCropType] ?? CROP_N_REMOVAL.other;
+}
 
 // ============================================
 // Response Generator

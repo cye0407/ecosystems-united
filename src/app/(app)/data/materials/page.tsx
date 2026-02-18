@@ -6,12 +6,16 @@ import {
   Cube, Stack, Package, Wrench, DotsThree, Check, ArrowLeft,
   ChartBar, TrendUp, Calendar, Plus, PencilSimple, Trash, Plant
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, EmptyState } from '@/components/ui';
+import { Card, Button, ProgressBar, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
 import { calculateFertiliserEmissions, calculateNBalance } from '@/lib/agricultural-calculations';
+import {
+  fertiliserTypeOptions as centralFertiliserTypeOptions,
+  materialCategoryOptions as centralMaterialCategoryOptions,
+} from '@/lib/options';
 import type { Material, MaterialInput, MaterialCategory, UnitOfMeasure } from '@/types';
 import type { FertiliserApplication, FertiliserType } from '@/types';
 
@@ -34,16 +38,7 @@ const unitOptions = [
   { value: 'units', label: 'Units' },
 ];
 
-const fertiliserTypeOptions: { value: FertiliserType; label: string }[] = [
-  { value: 'synthetic_n', label: 'Synthetic N' },
-  { value: 'synthetic_p', label: 'Synthetic P' },
-  { value: 'synthetic_k', label: 'Synthetic K' },
-  { value: 'organic_manure', label: 'Organic Manure' },
-  { value: 'organic_compost', label: 'Organic Compost' },
-  { value: 'organic_slurry', label: 'Organic Slurry' },
-  { value: 'lime', label: 'Lime' },
-  { value: 'other', label: 'Other' },
-];
+const fertiliserTypeOptions = centralFertiliserTypeOptions;
 
 
 // Toast component
@@ -676,7 +671,7 @@ function FertiliserTab({
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingApplication, setEditingApplication] = useState<FertiliserApplication | null>(null);
   const [form, setForm] = useState<Partial<FertiliserApplication>>({
-    fertiliserType: 'synthetic_n',
+    fertiliserType: 'urea',
     productName: '',
     quantityKg: 0,
     areaAppliedHa: undefined,
@@ -690,7 +685,7 @@ function FertiliserTab({
   const { company } = useAppStore();
   const isAgri = isAgriculturalIndustry(company?.industryCode);
   const [quickForm, setQuickForm] = useState({
-    fertiliserType: 'synthetic_n' as FertiliserType,
+    fertiliserType: 'urea' as FertiliserType,
     quantityKg: '',
     nitrogenContentPercent: '',
   });
@@ -764,7 +759,7 @@ function FertiliserTab({
   const handleOpenAdd = () => {
     setEditingApplication(null);
     setForm({
-      fertiliserType: 'synthetic_n',
+      fertiliserType: 'urea',
       productName: '',
       quantityKg: 0,
       areaAppliedHa: undefined,
@@ -1196,11 +1191,12 @@ function FertiliserTab({
           <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Fertiliser Application</h3>
           <p className="text-sm text-gray-500 mb-4">Add your first application. N&#x2082;O emissions are calculated automatically.</p>
           <div className="space-y-3">
-            <Select
+            <Combobox
               label="Fertiliser Type"
               value={quickForm.fertiliserType}
-              onChange={(e) => setQuickForm({ ...quickForm, fertiliserType: e.target.value as FertiliserType })}
+              onChange={(value) => setQuickForm({ ...quickForm, fertiliserType: value as FertiliserType })}
               options={fertiliserTypeOptions}
+              placeholder="Search or type a fertiliser..."
             />
             <Input
               label="Quantity (kg)"
@@ -1253,7 +1249,7 @@ function FertiliserTab({
                   lastUpdated: new Date().toISOString(),
                 });
                 showToast('Fertiliser application added');
-                setQuickForm({ fertiliserType: 'synthetic_n', quantityKg: '', nitrogenContentPercent: '' });
+                setQuickForm({ fertiliserType: 'urea', quantityKg: '', nitrogenContentPercent: '' });
               }}
               disabled={!quickForm.quantityKg || parseFloat(quickForm.quantityKg) === 0}
             >
@@ -1291,11 +1287,12 @@ function FertiliserTab({
             onChange={(e) => setFormPeriod(e.target.value)}
             options={periodOptions}
           />
-          <Select
+          <Combobox
             label="Fertiliser Type"
-            value={form.fertiliserType}
-            onChange={(e) => setForm({ ...form, fertiliserType: e.target.value as FertiliserType })}
+            value={form.fertiliserType as string}
+            onChange={(value) => setForm({ ...form, fertiliserType: value as FertiliserType })}
             options={fertiliserTypeOptions}
+            placeholder="Search or type a fertiliser..."
           />
           <Input
             label="Product Name (optional)"
@@ -1628,10 +1625,11 @@ export default function MaterialsPage() {
             onChange={(e) => setMaterialForm({ ...materialForm, materialCategory: e.target.value as MaterialCategory })}
             options={categoryOptions}
           />
-          <Input
+          <Combobox
             label="Material Type"
             value={materialForm.materialType || ''}
-            onChange={(e) => setMaterialForm({ ...materialForm, materialType: e.target.value })}
+            onChange={(value) => setMaterialForm({ ...materialForm, materialType: value })}
+            options={centralMaterialCategoryOptions}
             placeholder="e.g., Carbon steel, HDPE"
             hint="Specific type or grade"
           />

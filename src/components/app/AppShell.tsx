@@ -32,12 +32,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
         </div>
       ) : (
-        <div className="min-h-screen bg-white flex flex-col">
+        <div className="min-h-screen bg-gray-50">
           <AppNavbar />
-          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
-            {children}
-          </main>
-          <AppFooter />
+          <div className="flex flex-col min-h-screen md:ml-64">
+            <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+              {children}
+            </main>
+            <AppFooter />
+          </div>
         </div>
       )}
     </AuthGuard>

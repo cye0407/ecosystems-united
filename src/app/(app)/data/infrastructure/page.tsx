@@ -6,11 +6,12 @@ import {
   Buildings, Factory, Wind, Truck, Monitor, DotsThree, Check, ArrowLeft,
   ChartBar, TrendUp, Plus, PencilSimple, Trash, Lightning, Tree, Drop
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, TextArea, Badge, EmptyState } from '@/components/ui';
+import { Card, Button, ProgressBar, Modal, Input, Select, TextArea, Badge, EmptyState, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
+import { landUseTypeOptions as centralLandUseTypeOptions } from '@/lib/options';
 import type { Asset, AssetCategory, Criticality, MaintenanceFrequency, LandUse, LandType } from '@/types';
 
 type InfrastructureTab = 'all' | 'production_equipment' | 'hvac' | 'vehicles' | 'it' | 'other' | 'land_use';
@@ -37,17 +38,9 @@ const maintenanceOptions = [
   { value: 'as_needed', label: 'As Needed' },
 ];
 
-const landTypeOptions = [
-  { value: 'arable', label: 'Arable' },
-  { value: 'pasture', label: 'Pasture' },
-  { value: 'woodland', label: 'Woodland' },
-  { value: 'orchard', label: 'Orchard' },
-  { value: 'set_aside', label: 'Set Aside' },
-  { value: 'buildings_yards', label: 'Buildings & Yards' },
-  { value: 'other', label: 'Other' },
-];
+const landTypeOptions = centralLandUseTypeOptions;
 
-const landTypeColors: Record<LandType, { bg: string; text: string; border: string }> = {
+const landTypeColorsMap: Record<string, { bg: string; text: string; border: string }> = {
   arable: { bg: 'bg-amber-100', text: 'text-amber-700', border: 'border-amber-300' },
   pasture: { bg: 'bg-green-100', text: 'text-green-700', border: 'border-green-300' },
   woodland: { bg: 'bg-emerald-100', text: 'text-emerald-700', border: 'border-emerald-300' },
@@ -56,6 +49,12 @@ const landTypeColors: Record<LandType, { bg: string; text: string; border: strin
   buildings_yards: { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-300' },
   other: { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-300' },
 };
+
+const defaultLandTypeColor = { bg: 'bg-slate-100', text: 'text-slate-700', border: 'border-slate-300' };
+
+function getLandTypeColors(lt: LandType): { bg: string; text: string; border: string } {
+  return landTypeColorsMap[lt] || defaultLandTypeColor;
+}
 
 function landTypeLabel(lt: LandType): string {
   const found = landTypeOptions.find(o => o.value === lt);
@@ -509,7 +508,7 @@ function LandUseTab({
   const isAgri = isAgriculturalIndustry(company?.industryCode);
   const { addLandUse } = useDataStore();
   const [quickForm, setQuickForm] = useState({
-    landType: 'arable' as LandType,
+    landType: 'arable-cropland' as LandType,
     areaHa: '',
     fieldName: '',
   });
@@ -555,11 +554,12 @@ function LandUseTab({
             <h3 className="text-lg font-semibold text-gray-900 mb-1">Quick Add — Land Parcel</h3>
             <p className="text-sm text-gray-500 mb-4">Add your first field with just the basics. You can add detail later.</p>
             <div className="space-y-4">
-              <Select
+              <Combobox
                 label="Land Type"
                 value={quickForm.landType}
-                onChange={(e) => setQuickForm({ ...quickForm, landType: e.target.value as LandType })}
+                onChange={(value) => setQuickForm({ ...quickForm, landType: value as LandType })}
                 options={landTypeOptions}
+                placeholder="Search or type a land use..."
               />
               <Input
                 label="Area (hectares)"
@@ -595,7 +595,7 @@ function LandUseTab({
                       irrigated: false,
                       updatedAt: new Date().toISOString(),
                     } as LandUse);
-                    setQuickForm({ landType: 'arable', areaHa: '', fieldName: '' });
+                    setQuickForm({ landType: 'arable-cropland', areaHa: '', fieldName: '' });
                   }}
                   disabled={!quickForm.areaHa || parseFloat(quickForm.areaHa) === 0}
                 >
@@ -634,7 +634,7 @@ function LandUseTab({
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {summaryByType.map(({ type, total }) => {
-            const colors = landTypeColors[type];
+            const colors = getLandTypeColors(type);
             return (
               <div
                 key={type}
@@ -682,7 +682,7 @@ function LandUseTab({
       {/* Parcel List */}
       <div className="space-y-3">
         {siteParcels.map((parcel) => {
-          const colors = landTypeColors[parcel.landType];
+          const colors = getLandTypeColors(parcel.landType);
           return (
             <Card key={parcel.id} className="hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
@@ -761,7 +761,7 @@ export default function InfrastructurePage() {
 
   const [landUseForm, setLandUseForm] = useState<Partial<LandUse>>({
     siteId: sites[0]?.id || '',
-    landType: 'arable',
+    landType: 'arable-cropland',
     areaHa: 0,
     fieldName: '',
     soilOrganicMatterPercent: undefined,
@@ -825,7 +825,7 @@ export default function InfrastructurePage() {
     setEditingParcel(null);
     setLandUseForm({
       siteId: selectedSiteId,
-      landType: 'arable',
+      landType: 'arable-cropland',
       areaHa: 0,
       fieldName: '',
       soilOrganicMatterPercent: undefined,
@@ -1131,11 +1131,12 @@ export default function InfrastructurePage() {
             options={sites.map((s) => ({ value: s.id, label: s.siteName }))}
           />
           <div className="grid grid-cols-2 gap-4">
-            <Select
+            <Combobox
               label="Land Type"
-              value={landUseForm.landType}
-              onChange={(e) => setLandUseForm({ ...landUseForm, landType: e.target.value as LandType })}
+              value={landUseForm.landType as string}
+              onChange={(value) => setLandUseForm({ ...landUseForm, landType: value as LandType })}
               options={landTypeOptions}
+              placeholder="Search or type a land use..."
             />
             <Input
               label="Area (ha)"

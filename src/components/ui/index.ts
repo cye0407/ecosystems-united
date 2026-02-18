@@ -1,6 +1,7 @@
 export { Button, type ButtonProps } from './Button';
 export { Input, type InputProps } from './Input';
 export { Select, type SelectProps, type SelectOption } from './Select';
+export { Combobox, type ComboboxProps } from './Combobox';
 export { TextArea, type TextAreaProps } from './TextArea';
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, type CardProps } from './Card';
 export { ProgressBar, type ProgressBarProps } from './ProgressBar';

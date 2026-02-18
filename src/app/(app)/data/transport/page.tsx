@@ -6,10 +6,11 @@ import {
   Truck, ArrowDownLeft, ArrowUpRight, ArrowsLeftRight, Question, Check, ArrowLeft,
   ChartBar, TrendUp, Calendar, CurrencyDollar, Path
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar } from '@/components/ui';
+import { Card, Button, ProgressBar, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { transportModeOptions as centralTransportModeOptions } from '@/lib/options';
 import type {
   TransportLog,
   TransportDirection,
@@ -23,7 +24,7 @@ type TransportTab = 'all' | 'inbound' | 'outbound' | 'internal';
 const MONTHS_SHORT = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 
 // Emission factors (kg CO2e per tkm) - simplified
-const EMISSION_FACTORS: Record<TransportMode, number> = {
+const EMISSION_FACTORS: Record<string, number> = {
   road: 0.1,
   rail: 0.03,
   sea: 0.02,
@@ -44,13 +45,7 @@ const confidenceOptions = [
   { value: 'low', label: 'Low' },
 ];
 
-const modeOptions = [
-  { value: 'road', label: 'Road' },
-  { value: 'rail', label: 'Rail' },
-  { value: 'sea', label: 'Sea' },
-  { value: 'air', label: 'Air' },
-  { value: 'multimodal', label: 'Multi' },
-];
+const modeOptions = centralTransportModeOptions;
 
 // Row definitions
 interface RowConfig {
@@ -537,7 +532,7 @@ export default function TransportPage() {
   const [activeTab, setActiveTab] = useState<TransportTab>('all');
   const [selectedSiteId, setSelectedSiteId] = useState(sites[0]?.id || '');
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [selectedMode, setSelectedMode] = useState<TransportMode>('road');
+  const [selectedMode, setSelectedMode] = useState<TransportMode>('road-hgv');
   const [dataSource, setDataSource] = useState<DataSource>('invoice');
   const [confidence, setConfidence] = useState<ConfidenceLevel>('medium');
   const [hasChanges, setHasChanges] = useState(false);
@@ -770,11 +765,16 @@ export default function TransportPage() {
                 <button onClick={() => setSelectedYear(y => y + 1)} disabled={selectedYear >= currentYear} className="px-2 py-1 text-sm border border-gray-200 rounded-md hover:bg-gray-50 disabled:opacity-50">→</button>
               </div>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 min-w-[200px]">
                 <span className="text-xs text-gray-500">Mode:</span>
-                <select value={selectedMode} onChange={e => setSelectedMode(e.target.value as TransportMode)} className="text-sm border border-gray-200 rounded-md px-2 py-1 bg-white focus:border-primary focus:outline-none">
-                  {modeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+                <div className="flex-1">
+                  <Combobox
+                    value={selectedMode}
+                    onChange={value => setSelectedMode(value as TransportMode)}
+                    options={modeOptions}
+                    placeholder="Search transport mode..."
+                  />
+                </div>
               </div>
 
               <div className="flex items-center gap-1.5">

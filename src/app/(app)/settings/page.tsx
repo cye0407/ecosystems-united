@@ -466,7 +466,7 @@ export default function SettingsPage() {
               <Card className="rounded-2xl">
                 <CardTitle>Demo Data</CardTitle>
                 <p className="text-sm text-gray-500 mt-2 mb-4">
-                  Load sample data to test the application features including the Response Generator.
+                  Load sample data to explore the application with realistic example data.
                 </p>
                 <Button variant="outline" onClick={() => { seedMockData(); window.location.reload(); }}>
                   <Sparkle className="w-4 h-4 mr-2" weight="duotone" />

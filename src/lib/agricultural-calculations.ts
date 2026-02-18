@@ -8,12 +8,12 @@
 
 import type { LivestockRecord, FertiliserApplication, CropOutput } from '@/types';
 import {
-  LIVESTOCK_EMISSION_FACTORS,
+  getLivestockEmissionFactors,
   GWP_CH4,
   GWP_N2O,
   FERTILISER_N2O_FACTOR,
   N2O_N_TO_N2O,
-  CROP_N_REMOVAL,
+  getCropNRemoval,
 } from '@/types';
 
 /** Calculate livestock emissions in tCO₂e for a set of records */
@@ -28,7 +28,7 @@ export function calculateLivestockEmissions(records: LivestockRecord[]): {
   let manureN2oKg = 0;
 
   for (const record of records) {
-    const factors = LIVESTOCK_EMISSION_FACTORS[record.livestockType];
+    const factors = getLivestockEmissionFactors(record.livestockType);
     entericCh4Kg += record.headcount * factors.ch4EntericKgPerHead;
     manureCh4Kg += record.headcount * factors.ch4ManureKgPerHead;
     manureN2oKg += record.headcount * factors.n2oManureKgPerHead;
@@ -49,7 +49,7 @@ export function calculateLivestockEmissions(records: LivestockRecord[]): {
 /** Calculate total livestock units */
 export function calculateLivestockUnits(records: LivestockRecord[]): number {
   return records.reduce((sum, r) => {
-    const factor = LIVESTOCK_EMISSION_FACTORS[r.livestockType].luFactor;
+    const factor = getLivestockEmissionFactors(r.livestockType).luFactor;
     return sum + r.headcount * factor;
   }, 0);
 }
@@ -88,7 +88,7 @@ export function calculateNBalance(
   }, 0);
 
   const nRemovedKg = cropOutputs.reduce((sum, crop) => {
-    const removalFactor = CROP_N_REMOVAL[crop.cropType];
+    const removalFactor = getCropNRemoval(crop.cropType);
     return sum + crop.yieldTonnes * removalFactor;
   }, 0);
 

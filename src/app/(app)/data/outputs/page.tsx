@@ -7,11 +7,15 @@ import {
   ChartBar, TrendUp, Calendar, Recycle, CurrencyDollar,
   Plant, Cow, PencilSimple, Plus, TrashSimple
 } from '@phosphor-icons/react';
-import { Card, Button, Modal, EmptyState, ProgressBar } from '@/components/ui';
+import { Card, Button, Modal, EmptyState, ProgressBar, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
+import {
+  cropTypeOptions as centralCropTypeOptions,
+  livestockTypeOptions as centralLivestockTypeOptions,
+} from '@/lib/options';
 import type {
   Waste,
   ProductOutput,
@@ -24,7 +28,7 @@ import type {
   LivestockRecord,
   LivestockType,
 } from '@/types';
-import { LIVESTOCK_EMISSION_FACTORS } from '@/types';
+import { getLivestockEmissionFactors } from '@/types';
 import { calculateLivestockEmissions, calculateLivestockUnits } from '@/lib/agricultural-calculations';
 
 type OutputsTab = 'all' | 'waste' | 'products' | 'crops' | 'livestock';
@@ -44,16 +48,7 @@ const confidenceOptions = [
   { value: 'low', label: 'Low' },
 ];
 
-const cropTypeOptions: { value: CropType; label: string }[] = [
-  { value: 'cereals', label: 'Cereals' },
-  { value: 'oilseeds', label: 'Oilseeds' },
-  { value: 'pulses', label: 'Pulses' },
-  { value: 'root_crops', label: 'Root Crops' },
-  { value: 'vegetables', label: 'Vegetables' },
-  { value: 'fruit', label: 'Fruit' },
-  { value: 'forage', label: 'Forage' },
-  { value: 'other', label: 'Other' },
-];
+const cropTypeOptions = centralCropTypeOptions;
 
 const cropDestinationOptions: { value: NonNullable<CropOutput['destination']>; label: string }[] = [
   { value: 'sold', label: 'Sold' },
@@ -63,17 +58,7 @@ const cropDestinationOptions: { value: NonNullable<CropOutput['destination']>; l
   { value: 'other', label: 'Other' },
 ];
 
-const livestockTypeOptions: { value: LivestockType; label: string }[] = [
-  { value: 'dairy_cattle', label: 'Dairy Cattle' },
-  { value: 'beef_cattle', label: 'Beef Cattle' },
-  { value: 'sheep', label: 'Sheep' },
-  { value: 'pigs', label: 'Pigs' },
-  { value: 'poultry_layers', label: 'Poultry (Layers)' },
-  { value: 'poultry_broilers', label: 'Poultry (Broilers)' },
-  { value: 'goats', label: 'Goats' },
-  { value: 'horses', label: 'Horses' },
-  { value: 'other', label: 'Other' },
-];
+const livestockTypeOptions = centralLivestockTypeOptions;
 
 // Row definitions
 interface RowConfig {
@@ -636,7 +621,7 @@ function CropOutputsTab({
   const [toastMessage, setToastMessage] = useState('');
 
   const [quickForm, setQuickForm] = useState({
-    cropType: 'cereals' as CropType,
+    cropType: 'wheat' as CropType,
     cropName: '',
     areaHa: '',
     yieldTonnes: '',
@@ -644,7 +629,7 @@ function CropOutputsTab({
 
   // Form state
   const emptyForm = {
-    cropType: 'cereals' as CropType,
+    cropType: 'wheat' as CropType,
     cropName: '',
     areaHa: '',
     yieldTonnes: '',
@@ -789,14 +774,13 @@ function CropOutputsTab({
             <p className="text-sm text-gray-500 mb-4">Add your first crop with just the basics. You can add detail later.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Crop Type</label>
-                <select
+                <Combobox
+                  label="Crop Type"
                   value={quickForm.cropType}
-                  onChange={e => setQuickForm(prev => ({ ...prev, cropType: e.target.value as CropType }))}
-                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
-                >
-                  {cropTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+                  onChange={value => setQuickForm(prev => ({ ...prev, cropType: value as CropType }))}
+                  options={cropTypeOptions}
+                  placeholder="Search or type a crop..."
+                />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Crop Name <span className="text-red-400">*</span></label>
@@ -857,7 +841,7 @@ function CropOutputsTab({
                     confidence: 'medium' as ConfidenceLevel,
                     lastUpdated: new Date().toISOString(),
                   } as CropOutput);
-                  setQuickForm({ cropType: 'cereals', cropName: '', areaHa: '', yieldTonnes: '' });
+                  setQuickForm({ cropType: 'wheat', cropName: '', areaHa: '', yieldTonnes: '' });
                   setToastMessage('Crop record added');
                   setShowToast(true);
                 }}
@@ -981,14 +965,13 @@ function CropOutputsTab({
           {/* Crop Type + Crop Name */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Crop Type</label>
-              <select
+              <Combobox
+                label="Crop Type"
                 value={form.cropType}
-                onChange={e => setForm(f => ({ ...f, cropType: e.target.value as CropType }))}
-                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
-              >
-                {cropTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+                onChange={value => setForm(f => ({ ...f, cropType: value as CropType }))}
+                options={cropTypeOptions}
+                placeholder="Search or type a crop..."
+              />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Crop Name</label>
@@ -1104,12 +1087,12 @@ function LivestockTab({
   const [toastMessage, setToastMessage] = useState('');
 
   const [quickForm, setQuickForm] = useState({
-    livestockType: 'dairy_cattle' as LivestockType,
+    livestockType: 'cattle-dairy' as LivestockType,
     headcount: '',
   });
 
   const emptyForm = {
-    livestockType: 'dairy_cattle' as LivestockType,
+    livestockType: 'cattle-dairy' as LivestockType,
     headcount: '',
     averageWeightKg: '',
     grazingMonths: '',
@@ -1162,7 +1145,7 @@ function LivestockTab({
 
     if (headcount <= 0) return;
 
-    const luFactor = LIVESTOCK_EMISSION_FACTORS[form.livestockType].luFactor;
+    const luFactor = getLivestockEmissionFactors(form.livestockType).luFactor;
     const livestockUnits = headcount * luFactor;
 
     const record: Omit<LivestockRecord, 'id'> = {
@@ -1201,7 +1184,7 @@ function LivestockTab({
   const luDisplay = useMemo(() => {
     const headcount = parseInt(form.headcount) || 0;
     if (headcount <= 0) return '-';
-    const factor = LIVESTOCK_EMISSION_FACTORS[form.livestockType].luFactor;
+    const factor = getLivestockEmissionFactors(form.livestockType).luFactor;
     return (headcount * factor).toFixed(2);
   }, [form.headcount, form.livestockType]);
 
@@ -1266,14 +1249,13 @@ function LivestockTab({
             <p className="text-sm text-gray-500 mb-4">Add your first livestock entry. Emissions are calculated automatically.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Species</label>
-                <select
+                <Combobox
+                  label="Species"
                   value={quickForm.livestockType}
-                  onChange={e => setQuickForm(prev => ({ ...prev, livestockType: e.target.value as LivestockType }))}
-                  className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
-                >
-                  {livestockTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
+                  onChange={value => setQuickForm(prev => ({ ...prev, livestockType: value as LivestockType }))}
+                  options={livestockTypeOptions}
+                  placeholder="Search or type a species..."
+                />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Headcount</label>
@@ -1289,7 +1271,7 @@ function LivestockTab({
             </div>
             {parseInt(quickForm.headcount) > 0 && (
               <p className="text-xs text-gray-400 mb-3">
-                LU: {(parseInt(quickForm.headcount) * LIVESTOCK_EMISSION_FACTORS[quickForm.livestockType].luFactor).toFixed(2)} | Est. emissions: {calculateLivestockEmissions([{ livestockType: quickForm.livestockType, headcount: parseInt(quickForm.headcount) } as LivestockRecord]).totalTco2e.toFixed(2)} tCO2e
+                LU: {(parseInt(quickForm.headcount) * getLivestockEmissionFactors(quickForm.livestockType).luFactor).toFixed(2)} | Est. emissions: {calculateLivestockEmissions([{ livestockType: quickForm.livestockType, headcount: parseInt(quickForm.headcount) } as LivestockRecord]).totalTco2e.toFixed(2)} tCO2e
               </p>
             )}
             <div className="flex items-center gap-3">
@@ -1298,7 +1280,7 @@ function LivestockTab({
                 disabled={!quickForm.headcount || parseInt(quickForm.headcount) <= 0}
                 onClick={() => {
                   const headcount = parseInt(quickForm.headcount) || 0;
-                  const luFactor = LIVESTOCK_EMISSION_FACTORS[quickForm.livestockType].luFactor;
+                  const luFactor = getLivestockEmissionFactors(quickForm.livestockType).luFactor;
                   const livestockUnits = headcount * luFactor;
                   addLivestockRecord({
                     id: crypto.randomUUID(),
@@ -1311,7 +1293,7 @@ function LivestockTab({
                     confidence: 'medium' as ConfidenceLevel,
                     lastUpdated: new Date().toISOString(),
                   } as LivestockRecord);
-                  setQuickForm({ livestockType: 'dairy_cattle', headcount: '' });
+                  setQuickForm({ livestockType: 'cattle-dairy', headcount: '' });
                   setToastMessage('Livestock record added');
                   setShowToast(true);
                 }}
@@ -1357,7 +1339,7 @@ function LivestockTab({
               </thead>
               <tbody>
                 {filteredRecords.map((record, idx) => {
-                  const luFactor = LIVESTOCK_EMISSION_FACTORS[record.livestockType].luFactor;
+                  const luFactor = getLivestockEmissionFactors(record.livestockType).luFactor;
                   const lu = (record.headcount * luFactor).toFixed(1);
                   const emissions = calculateLivestockEmissions([record]);
                   return (
@@ -1437,14 +1419,13 @@ function LivestockTab({
           {/* Livestock Type + Headcount */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Livestock Type</label>
-              <select
+              <Combobox
+                label="Livestock Type"
                 value={form.livestockType}
-                onChange={e => setForm(f => ({ ...f, livestockType: e.target.value as LivestockType }))}
-                className="w-full text-sm border border-gray-200 rounded-md px-2 py-1.5 bg-white focus:border-primary focus:outline-none"
-              >
-                {livestockTypeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
+                onChange={value => setForm(f => ({ ...f, livestockType: value as LivestockType }))}
+                options={livestockTypeOptions}
+                placeholder="Search or type a species..."
+              />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Headcount</label>

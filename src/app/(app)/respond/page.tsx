@@ -106,10 +106,21 @@ export default function ResponseGeneratorPage() {
 
   return (
     <div className="animate-fade-in">
+      {/* Coming Soon Banner */}
+      <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-3">
+        <Info className="w-5 h-5 text-amber-600 flex-shrink-0" weight="duotone" />
+        <div>
+          <p className="font-medium text-amber-800">Coming Soon</p>
+          <p className="text-sm text-amber-700">
+            The Response Generator is under development. You can explore the interface below, but answer generation is not yet available.
+          </p>
+        </div>
+      </div>
+
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">Response Generator</h1>
         <p className="text-gray-500">
-          Upload a questionnaire and get auto-generated answers from your data.
+          Draft answers from your tracked data. (Coming soon)
         </p>
       </div>
 
@@ -128,7 +139,7 @@ export default function ResponseGeneratorPage() {
 
       {/* Step: Upload */}
       {(step === 'idle' || step === 'parsing') && (
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto opacity-60 pointer-events-none">
           <Card className="mb-6">
             <CardTitle className="mb-4">Upload Questionnaire</CardTitle>
 

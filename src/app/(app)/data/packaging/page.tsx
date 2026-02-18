@@ -6,10 +6,11 @@ import {
   Tag, Package, Stack, Check, ArrowLeft,
   ChartBar, Calendar, Plus, PencilSimple, Trash, Recycle, BoundingBox
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, EmptyState } from '@/components/ui';
+import { Card, Button, ProgressBar, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
+import { packagingMaterialOptions as centralPackagingMaterialOptions } from '@/lib/options';
 import type { Packaging, PackagingInput, PackagingLevel, PackagingMaterial } from '@/types';
 
 type PackagingTab = 'all' | 'primary' | 'secondary' | 'tertiary';
@@ -22,16 +23,7 @@ const levelOptions = [
   { value: 'tertiary', label: 'Tertiary' },
 ];
 
-const materialOptions = [
-  { value: 'paper', label: 'Paper' },
-  { value: 'cardboard', label: 'Cardboard' },
-  { value: 'plastic', label: 'Plastic' },
-  { value: 'metal', label: 'Metal' },
-  { value: 'glass', label: 'Glass' },
-  { value: 'wood', label: 'Wood' },
-  { value: 'composite', label: 'Composite' },
-  { value: 'other', label: 'Other' },
-];
+const materialOptions = centralPackagingMaterialOptions;
 
 
 // Toast component
@@ -871,11 +863,12 @@ export default function PackagingPage() {
             onChange={(e) => setPackagingForm({ ...packagingForm, packagingLevel: e.target.value as PackagingLevel })}
             options={levelOptions}
           />
-          <Select
+          <Combobox
             label="Material Type"
-            value={packagingForm.materialType}
-            onChange={(e) => setPackagingForm({ ...packagingForm, materialType: e.target.value as PackagingMaterial })}
+            value={packagingForm.materialType as string}
+            onChange={(value) => setPackagingForm({ ...packagingForm, materialType: value as PackagingMaterial })}
             options={materialOptions}
+            placeholder="Search or type a material..."
           />
           <Input
             label="Material Detail"
