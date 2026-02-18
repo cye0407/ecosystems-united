@@ -45,7 +45,7 @@ const domains = [
   {
     name: "Materials & Inputs",
     description:
-      "Raw materials, fertilizers, seed, feed. Track virgin vs recycled content and supplier sourcing.",
+      "Raw materials, components, consumables, and fertiliser inputs. Track N/P/K content, N₂O emissions, and nitrogen balance.",
     icon: Cube,
     gradient: "from-stack-2 to-stack-3",
   },
@@ -59,7 +59,7 @@ const domains = [
   {
     name: "Outputs & Waste",
     description:
-      "Crop yields, product volumes, waste by category. Auto-calculated disposal emissions and diversion rate.",
+      "Crop yields by type and area, livestock headcount with auto-calculated emissions, product volumes, and waste by disposal route.",
     icon: Recycle,
     gradient: "from-stack-4 to-stack-5",
   },
@@ -80,7 +80,7 @@ const domains = [
   {
     name: "Infrastructure & Land",
     description:
-      "Sites, buildings, equipment, and land use by type. Asset inventory with energy estimates.",
+      "Sites, buildings, equipment, and land use by type. Track parcels with area, soil organic matter, pH, and irrigation status.",
     icon: Buildings,
     gradient: "from-stack-3 to-stack-5",
   },
@@ -99,6 +99,24 @@ const calculations = [
     description:
       "Auto-calculated from fuel consumption and grid electricity using country-specific emission factors.",
     icon: ChartLineUp,
+  },
+  {
+    name: "Livestock Emissions",
+    description:
+      "Enteric CH₄ and manure N₂O per species using IPCC Tier 1 factors. Livestock units auto-calculated.",
+    icon: Plant,
+  },
+  {
+    name: "Fertiliser N₂O & N-Balance",
+    description:
+      "N₂O emissions from applied nitrogen (IPCC Tier 1). Nitrogen balance: applied vs crop removal per hectare.",
+    icon: Drop,
+  },
+  {
+    name: "Per-Hectare Intensity",
+    description:
+      "Emissions per hectare, emissions per tonne of output, and yield per hectare — the metrics buyers ask for.",
+    icon: Leaf,
   },
   {
     name: "Transport Emissions",
@@ -261,13 +279,14 @@ export default function TrackerPage() {
             <Plant className="w-8 h-8 text-primary shrink-0" weight="duotone" />
             <div>
               <h3 className="font-semibold text-gray-900 mb-1">
-                Agricultural Metrics Coming Soon
+                Agricultural Metrics Included
               </h3>
               <p className="text-sm text-gray-600">
-                We&apos;re adding fertiliser N-balance, livestock emissions
-                (IPCC Tier 1), per-hectare intensity metrics, and crop yield
-                tracking. Built specifically for farms and food businesses
-                &mdash; not retrofitted from a manufacturing template.
+                Fertiliser N₂O emissions and nitrogen balance, livestock
+                emissions (IPCC Tier 1 CH₄ and N₂O), per-hectare intensity
+                metrics, crop yield tracking, and land use classification.
+                Built specifically for farms and food businesses &mdash; not
+                retrofitted from a manufacturing template.
               </p>
             </div>
           </div>
@@ -459,12 +478,6 @@ export default function TrackerPage() {
         </p>
 
         <div className="space-y-4">
-          <ComingSoonCard
-            featureId="ag-metrics"
-            title="Agricultural Metrics"
-            description="Fertiliser N-balance, livestock emissions, per-hectare intensity metrics, crop yield tracking, and soil health indicators."
-            page="tracker"
-          />
           <ComingSoonCard
             featureId="efficiency-analysis"
             title="Efficiency Analysis"
