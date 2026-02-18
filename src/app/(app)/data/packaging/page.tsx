@@ -6,7 +6,7 @@ import {
   Tag, Package, Stack, Check, ArrowLeft,
   ChartBar, Calendar, Plus, PencilSimple, Trash, Recycle, BoundingBox
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
+import { Card, Button, Modal, Input, Select, Combobox, EmptyState } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -217,42 +217,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-6">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-purple-50 border-purple-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-purple-700">
-            <Calendar className="w-4 h-4" />
-            <span className="text-xs font-medium">Coverage</span>
-          </div>
-          <div className="text-2xl font-bold text-purple-800 mt-1">{coverage.percent}%</div>
-          <div className="text-xs text-purple-600">{coverage.covered}/12 months</div>
-        </Card>
-        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-blue-700">
-            <Tag className="w-4 h-4" />
-            <span className="text-xs font-medium">Types</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-800 mt-1">{packaging.length}</div>
-          <div className="text-xs text-blue-600">defined</div>
-        </Card>
-        <Card className="bg-amber-50 border-amber-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-amber-700">
-            <ChartBar className="w-4 h-4" />
-            <span className="text-xs font-medium">Total Weight</span>
-          </div>
-          <div className="text-2xl font-bold text-amber-800 mt-1">{formatNumber(totals.totalWeight)}</div>
-          <div className="text-xs text-amber-600">kg</div>
-        </Card>
-        <Card className="bg-green-50 border-green-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-green-700">
-            <Recycle className="w-4 h-4" />
-            <span className="text-xs font-medium">Recyclable</span>
-          </div>
-          <div className="text-2xl font-bold text-green-800 mt-1">{totals.recyclablePercent}%</div>
-          <div className="text-xs text-green-600">by weight</div>
-        </Card>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-3 gap-4">
         {categories.map((cat) => {
@@ -337,11 +301,11 @@ function AllInsightsTab({
                 const Icon = row.icon;
                 const rowTotal = getRowTotal(row.level);
                 return (
-                  <tr key={row.level} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={row.level} className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onClick={() => onNavigate(row.level as PackagingTab)}>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <Icon className={cn('w-4 h-4', row.iconColor)} />
-                        <span className="font-medium text-gray-900">{row.label}</span>
+                        <span className="font-medium text-gray-900 hover:text-primary transition-colors">{row.label}</span>
                       </div>
                     </td>
                     {periods.map(({ period, isFuture }, i) => {
@@ -742,7 +706,7 @@ export default function PackagingPage() {
   };
 
   const tabs = [
-    { id: 'all' as PackagingTab, label: 'All + Insights', icon: ChartBar },
+    { id: 'all' as PackagingTab, label: 'All', icon: ChartBar },
     { id: 'primary' as PackagingTab, label: 'Primary', icon: Package },
     { id: 'secondary' as PackagingTab, label: 'Secondary', icon: BoundingBox },
     { id: 'tertiary' as PackagingTab, label: 'Tertiary', icon: Stack },
@@ -773,22 +737,31 @@ export default function PackagingPage() {
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <Card className="bg-cream py-3 px-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-xs font-medium text-gray-600">Data Completeness</span>
-              <span className="text-xs text-gray-400">{packaging.length} types</span>
-            </div>
-            <ProgressBar value={progress} size="sm" className="max-w-xs" />
+      {/* Compact stats row */}
+      <div className="flex items-center gap-4 mb-6 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-gray-500">Completeness</span>
+          <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
-          <div className="text-center border border-gray-200 rounded-lg px-3 py-2 bg-white min-w-[70px] ml-4">
-            <div className="text-base font-bold text-primary">{progress}%</div>
-            <div className="text-xs text-gray-500">done</div>
-          </div>
+          <span className="text-xs font-bold text-primary">{progress}%</span>
         </div>
-      </Card>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <Tag className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{packaging.length}</span> types</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{formatNumber(packagingInputs.reduce((s, i) => s + (i.totalWeightKg || 0), 0))}</span> kg total</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <Calendar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{packagingInputs.length}</span> records</span>
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200">

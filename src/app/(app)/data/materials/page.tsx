@@ -303,13 +303,13 @@ function AllInsightsTab({
                 const Icon = row.icon;
                 const rowTotal = getRowTotal(row.category);
                 return (
-                  <tr key={row.category} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={row.category} className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onClick={() => onNavigate(row.category as MaterialTab)}>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <div className={cn('w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br', row.gradient)}>
                           <Icon className="w-3.5 h-3.5 text-white" weight="duotone" />
                         </div>
-                        <span className="font-medium text-gray-900">{row.label}</span>
+                        <span className="font-medium text-gray-900 hover:text-primary transition-colors">{row.label}</span>
                       </div>
                     </td>
                     {periods.map(({ period, isFuture }, i) => {
@@ -1433,7 +1433,7 @@ export default function MaterialsPage() {
   const tabs = useMemo(() => {
     if (isAgri) {
       return [
-        { id: 'all' as MaterialTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'all' as MaterialTab, label: 'All', icon: ChartBar },
         { id: 'fertiliser' as MaterialTab, label: 'Fertiliser & Inputs', icon: Plant },
         { id: 'raw_material' as MaterialTab, label: 'Raw Materials', icon: Stack },
         { id: 'component' as MaterialTab, label: 'Components', icon: Package },
@@ -1442,7 +1442,7 @@ export default function MaterialsPage() {
       ];
     }
     return [
-      { id: 'all' as MaterialTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'all' as MaterialTab, label: 'All', icon: ChartBar },
       { id: 'raw_material' as MaterialTab, label: 'Raw Materials', icon: Stack },
       { id: 'component' as MaterialTab, label: 'Components', icon: Package },
       { id: 'consumable' as MaterialTab, label: 'Consumables', icon: Wrench },

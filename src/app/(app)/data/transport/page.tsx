@@ -4,9 +4,9 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Truck, ArrowDownLeft, ArrowUpRight, ArrowsLeftRight, Question, Check, ArrowLeft,
-  ChartBar, TrendUp, Calendar, CurrencyDollar, Path
+  ChartBar, TrendUp, Path
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Combobox } from '@/components/ui';
+import { Card, Button, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -137,20 +137,6 @@ function AllInsightsTab({
     };
   }, [transportLogs]);
 
-  // Coverage by month
-  const coverage = useMemo(() => {
-    const now = new Date();
-    const months: string[] = [];
-    for (let i = 11; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
-    }
-
-    const coveredMonths = new Set(transportLogs.map(l => l.period));
-    const covered = months.filter(m => coveredMonths.has(m)).length;
-    return { covered, total: 12, percent: Math.round((covered / 12) * 100) };
-  }, [transportLogs]);
-
   // Periods for table
   const periods = useMemo(() => {
     return MONTHS_SHORT.map((short, i) => ({
@@ -230,45 +216,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-4">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Calendar className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Monthly Coverage</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">{coverage.percent}%</div>
-          <div className="text-xs text-gray-400">{coverage.covered} of {coverage.total} months</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Path className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Total Transport</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">{formatNumber(totals.totalTkm)}</div>
-          <div className="text-xs text-gray-400">tonne-kilometres</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <TrendUp className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Scope 3 Estimate</span>
-          </div>
-          <div className="text-lg font-bold text-primary">{totals.emissions.toFixed(1)}</div>
-          <div className="text-xs text-gray-400">tCO₂e from transport</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <CurrencyDollar className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Total Spend</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">€{formatNumber(totals.totalSpend)}</div>
-          <div className="text-xs text-gray-400">logistics YTD</div>
-        </div>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-3 gap-3">
         {categories.map((cat) => {
@@ -364,12 +311,18 @@ function AllInsightsTab({
                 const rowTotal = row.id === 'emissions'
                   ? (['inbound', 'outbound', 'internal'] as TransportDirection[]).reduce((s, d) => s + getRowTotal(d, 'emissions'), 0)
                   : getRowTotal(row.id as TransportDirection, row.field);
+                const isClickable = row.id !== 'emissions';
                 return (
-                  <tr key={row.id} className={cn(
-                    'border-b border-gray-50',
-                    idx % 2 === 1 && 'bg-gray-50/30',
-                    row.id === 'emissions' && 'bg-primary-100 border-t border-primary'
-                  )}>
+                  <tr
+                    key={row.id}
+                    onClick={isClickable ? () => onNavigate(row.id as TransportTab) : undefined}
+                    className={cn(
+                      'border-b border-gray-50',
+                      idx % 2 === 1 && 'bg-gray-50/30',
+                      row.id === 'emissions' && 'bg-primary-100 border-t border-primary',
+                      isClickable && 'cursor-pointer hover:bg-gray-50/70 transition-colors'
+                    )}
+                  >
                     <td className="py-1 px-3 text-gray-700">
                       <div className="flex items-center gap-2">
                         <Icon className={cn('w-4 h-4', row.iconColor)} />
@@ -667,7 +620,7 @@ export default function TransportPage() {
   const progress = Math.min(100, totalEntries * 5);
 
   const tabs = [
-    { id: 'all' as TransportTab, label: 'All + Insights', icon: ChartBar },
+    { id: 'all' as TransportTab, label: 'All', icon: ChartBar },
     { id: 'inbound' as TransportTab, label: 'Inbound', icon: ArrowDownLeft },
     { id: 'outbound' as TransportTab, label: 'Outbound', icon: ArrowUpRight },
     { id: 'internal' as TransportTab, label: 'Internal', icon: ArrowsLeftRight },
@@ -701,13 +654,28 @@ export default function TransportPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-xs text-gray-500">{totalEntries} entries</div>
-              <div className="text-sm font-semibold text-primary">{progress}% complete</div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs font-medium text-gray-500">Completeness</span>
+              <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="text-xs font-bold text-primary">{progress}%</span>
             </div>
-            <div className="w-24">
-              <ProgressBar value={progress} size="sm" />
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <Truck className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><span className="font-semibold">{totalEntries}</span> logs</span>
+            </div>
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <Path className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><span className="font-semibold">{formatNumber(transportLogs.reduce((s, l) => s + (l.tkm || 0), 0))}</span> tkm</span>
+            </div>
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <TrendUp className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><span className="font-semibold">{transportLogs.reduce((s, l) => { const tkm = l.tkm || 0; const factor = EMISSION_FACTORS[l.mode] || 0.1; return s + (tkm * factor / 1000); }, 0).toFixed(1)}</span> tCO₂e</span>
             </div>
           </div>
         </div>

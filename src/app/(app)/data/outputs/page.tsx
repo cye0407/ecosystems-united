@@ -7,7 +7,7 @@ import {
   ChartBar, TrendUp, Calendar, Recycle, CurrencyDollar,
   Plant, Cow, PencilSimple, Plus, TrashSimple
 } from '@phosphor-icons/react';
-import { Card, Button, Modal, EmptyState, ProgressBar, Combobox } from '@/components/ui';
+import { Card, Button, Modal, EmptyState, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -306,45 +306,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-4">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Calendar className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Monthly Coverage</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">{coverage.percent}%</div>
-          <div className="text-xs text-gray-400">{coverage.covered} of {coverage.total} months</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <Recycle className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Diversion Rate</span>
-          </div>
-          <div className="text-lg font-bold text-green-600">{totals.waste.diversionRate.toFixed(0)}%</div>
-          <div className="text-xs text-gray-400">recycled/composted</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <TrendUp className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Waste Emissions</span>
-          </div>
-          <div className="text-lg font-bold text-primary">{totals.waste.emissions.toFixed(1)}</div>
-          <div className="text-xs text-gray-400">tCO\u2082e from waste</div>
-        </div>
-
-        <div className="bg-white border border-gray-200 rounded-lg p-2.5">
-          <div className="flex items-center gap-2 mb-0.5">
-            <CurrencyDollar className="w-3.5 h-3.5 text-gray-400" />
-            <span className="text-xs text-gray-500">Product Revenue</span>
-          </div>
-          <div className="text-lg font-bold text-gray-900">\u20ac{formatNumber(totals.products.totalRevenue)}</div>
-          <div className="text-xs text-gray-400">YTD output value</div>
-        </div>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {categories.map((cat) => {
@@ -354,7 +315,7 @@ function AllInsightsTab({
               key={cat.id}
               onClick={() => onNavigate(cat.id)}
               className={cn(
-                'text-left bg-white border-2 rounded-lg p-3 transition-all',
+                'text-left bg-white border-2 rounded-lg p-3 transition-all cursor-pointer',
                 cat.borderColor,
                 cat.hoverBorder,
                 'hover:shadow-sm'
@@ -367,7 +328,7 @@ function AllInsightsTab({
                 <span className="text-xs text-gray-400">{cat.entries} entries</span>
               </div>
 
-              <h3 className="font-medium text-gray-900 text-sm">{cat.title}</h3>
+              <h3 className="font-medium text-gray-900 text-sm hover:text-primary transition-colors">{cat.title}</h3>
               <p className="text-xs text-gray-500">{cat.subtitle}</p>
 
               <div className="flex items-end justify-between mt-1">
@@ -1716,7 +1677,7 @@ export default function OutputsPage() {
   const tabs = useMemo(() => {
     if (isAgri) {
       return [
-        { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'all' as OutputsTab, label: 'All', icon: ChartBar },
         { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
         { id: 'livestock' as OutputsTab, label: 'Livestock', icon: Cow },
         { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
@@ -1724,7 +1685,7 @@ export default function OutputsPage() {
       ];
     }
     return [
-      { id: 'all' as OutputsTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'all' as OutputsTab, label: 'All', icon: ChartBar },
       { id: 'waste' as OutputsTab, label: 'Waste', icon: Trash },
       { id: 'products' as OutputsTab, label: 'Products', icon: Package },
       { id: 'crops' as OutputsTab, label: 'Crops', icon: Plant },
@@ -1760,13 +1721,31 @@ export default function OutputsPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-xs text-gray-500">{totalEntries} entries</div>
-              <div className="text-sm font-semibold text-primary">{progress}% complete</div>
+          {/* Compact stats row */}
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs font-medium text-gray-500">Completeness</span>
+              <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="text-xs font-bold text-primary">{progress}%</span>
             </div>
-            <div className="w-24">
-              <ProgressBar value={progress} size="sm" />
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <Trash className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{waste.length}</strong> waste</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Package className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{productOutputs.length}</strong> products</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Plant className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{cropOutputs.length}</strong> crops</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Cow className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{livestockRecords.length}</strong> livestock</span>
             </div>
           </div>
         </div>

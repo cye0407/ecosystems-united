@@ -6,7 +6,7 @@ import {
   Users, ShieldCheck, GraduationCap, Question, Check, ArrowLeft,
   ChartBar, TrendUp, Calendar, Warning
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -246,12 +246,12 @@ function AllInsightsTab({
 
   // Combined table rows with icons
   const combinedRows = [
-    { id: 'totalFte', label: 'Total FTE', unit: '', icon: Users, iconColor: 'text-pink-600' },
-    { id: 'totalHoursWorked', label: 'Hours Worked', unit: 'hrs', icon: Users, iconColor: 'text-pink-600' },
-    { id: 'recordableIncidents', label: 'Incidents', unit: '', icon: ShieldCheck, iconColor: 'text-yellow-600' },
-    { id: 'lostTimeIncidents', label: 'Lost Time', unit: '', icon: Warning, iconColor: 'text-red-600' },
-    { id: 'totalTrainingHours', label: 'Training', unit: 'hrs', icon: GraduationCap, iconColor: 'text-blue-600' },
-    { id: 'trir', label: 'TRIR', unit: '', icon: TrendUp, iconColor: 'text-primary' },
+    { id: 'totalFte', label: 'Total FTE', unit: '', icon: Users, iconColor: 'text-pink-600', tab: 'headcount' as WorkforceTab },
+    { id: 'totalHoursWorked', label: 'Hours Worked', unit: 'hrs', icon: Users, iconColor: 'text-pink-600', tab: 'headcount' as WorkforceTab },
+    { id: 'recordableIncidents', label: 'Incidents', unit: '', icon: ShieldCheck, iconColor: 'text-yellow-600', tab: 'safety' as WorkforceTab },
+    { id: 'lostTimeIncidents', label: 'Lost Time', unit: '', icon: Warning, iconColor: 'text-red-600', tab: 'safety' as WorkforceTab },
+    { id: 'totalTrainingHours', label: 'Training', unit: 'hrs', icon: GraduationCap, iconColor: 'text-blue-600', tab: 'training' as WorkforceTab },
+    { id: 'trir', label: 'TRIR', unit: '', icon: TrendUp, iconColor: 'text-primary', tab: 'safety' as WorkforceTab },
   ];
 
   return (
@@ -391,10 +391,13 @@ function AllInsightsTab({
                   ? totals.safety.trir
                   : getRowTotal(row.id);
                 return (
-                  <tr key={row.id} className={cn(
-                    'border-b border-gray-50',
+                  <tr
+                    key={row.id}
+                    onClick={() => onNavigate(row.tab)}
+                    className={cn(
+                    'border-b border-gray-50 cursor-pointer hover:bg-gray-50/60 transition-colors',
                     idx % 2 === 1 && 'bg-gray-50/30',
-                    row.id === 'trir' && 'bg-primary-100 border-t border-primary'
+                    row.id === 'trir' && 'bg-primary-100 border-t border-primary hover:bg-primary-200/60'
                   )}>
                     <td className="py-1 px-3 text-gray-700">
                       <div className="flex items-center gap-2">
@@ -774,7 +777,7 @@ export default function WorkforcePage() {
   const progress = Math.min(100, totalEntries * 5);
 
   const tabs = [
-    { id: 'all' as WorkforceTab, label: 'All + Insights', icon: ChartBar },
+    { id: 'all' as WorkforceTab, label: 'All', icon: ChartBar },
     { id: 'headcount' as WorkforceTab, label: 'Headcount', icon: Users },
     { id: 'safety' as WorkforceTab, label: 'Health & Safety', icon: ShieldCheck },
     { id: 'training' as WorkforceTab, label: 'Training', icon: GraduationCap },
@@ -808,13 +811,31 @@ export default function WorkforcePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-xs text-gray-500">{totalEntries} entries</div>
-              <div className="text-sm font-semibold text-primary">{progress}% complete</div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-xs font-medium text-gray-500">Completeness</span>
+              <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="text-xs font-bold text-primary">{progress}%</span>
             </div>
-            <div className="w-24">
-              <ProgressBar value={progress} size="sm" />
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{workforce.length}</strong> workforce</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{healthSafety.length}</strong> H&S</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <GraduationCap className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{training.length}</strong> training</span>
+            </div>
+            <span className="text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+              <span className="text-xs text-gray-600"><strong>{totalEntries}</strong> total</span>
             </div>
           </div>
         </div>

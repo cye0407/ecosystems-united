@@ -9,7 +9,7 @@ import {
   ArrowRight,
   FileXls
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -141,63 +141,34 @@ export default function EnergyLandingPage() {
         </Link>
       </div>
 
-      {/* Overview Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        {/* Progress Card */}
-        <Card className="bg-primary-100 py-3 px-4 rounded-2xl">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <div className="text-xs font-medium text-gray-600 mb-1">Data Completeness</div>
-              <ProgressBar value={progress} size="sm" className="max-w-[120px]" />
-            </div>
-            <div className="text-center border border-gray-200 rounded-xl px-3 py-2 bg-white min-w-[60px] ml-3">
-              <div className="text-base font-bold text-primary">{progress}%</div>
-              <div className="text-xs text-gray-500">done</div>
-            </div>
+      {/* Compact Inline Stats */}
+      <div className="flex items-center gap-4 mb-6 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-gray-500">Completeness</span>
+          <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
-        </Card>
-
-        {/* Coverage Card */}
-        <Card className="bg-gray-50 py-3 px-4 rounded-2xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-xs font-medium text-gray-600">Monthly Coverage</div>
-              <div className="text-sm text-gray-500">{coverage.covered} of {coverage.total} months</div>
-            </div>
-            <div className="text-center border border-gray-200 rounded-xl px-3 py-2 bg-white min-w-[60px]">
-              <div className="text-base font-bold text-primary">{coverage.percent}%</div>
-              <div className="text-xs text-gray-500">covered</div>
-            </div>
-          </div>
-        </Card>
-
-        {/* Scope 2 Card */}
-        <Card className="bg-gray-50 py-3 px-4 rounded-2xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-xs font-medium text-gray-600">Scope 2 Estimate</div>
-              <div className="text-sm text-gray-500">From electricity</div>
-            </div>
-            <div className="text-center border border-gray-200 rounded-xl px-3 py-2 bg-white min-w-[70px]">
-              <div className="text-base font-bold text-primary">{totals.scope2.toFixed(1)}</div>
-              <div className="text-xs text-gray-500">tCO₂e</div>
-            </div>
-          </div>
-        </Card>
-
-        {/* Total Cost Card */}
-        <Card className="bg-gray-50 py-3 px-4 rounded-2xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-xs font-medium text-gray-600">Total Cost</div>
-              <div className="text-sm text-gray-500">All utilities</div>
-            </div>
-            <div className="text-center border border-gray-200 rounded-xl px-3 py-2 bg-white min-w-[70px]">
-              <div className="text-base font-bold text-primary">€{formatNumber(totals.totalCost)}</div>
-              <div className="text-xs text-gray-500">YTD</div>
-            </div>
-          </div>
-        </Card>
+          <span className="text-xs font-bold text-primary">{progress}%</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <Lightning className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.electricity.entries}</span> electricity</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Flame className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.fuels.entries}</span> fuel</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Drop className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.water.entries}</span> water</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{formatNumber(totals.electricity.total)}</span> kWh</span>
+        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{totals.scope2.toFixed(1)}</span> tCO₂e</span>
+        <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">€{formatNumber(totals.totalCost)}</span> cost</span>
+        <span className="text-gray-300">|</span>
+        <span className="text-xs text-gray-500">{coverage.covered}/{coverage.total} months covered</span>
       </div>
 
       {/* Category Cards */}

@@ -6,7 +6,7 @@ import {
   Buildings, Factory, Wind, Truck, Monitor, DotsThree, Check, ArrowLeft,
   ChartBar, TrendUp, Plus, PencilSimple, Trash, Lightning, Tree, Drop
 } from '@phosphor-icons/react';
-import { Card, Button, ProgressBar, Modal, Input, Select, TextArea, Badge, EmptyState, Combobox } from '@/components/ui';
+import { Card, Button, Modal, Input, Select, TextArea, Badge, EmptyState, Combobox } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils/cn';
@@ -228,42 +228,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-6">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-blue-700">
-            <Buildings className="w-4 h-4" />
-            <span className="text-xs font-medium">Total Assets</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-800 mt-1">{siteAssets.length}</div>
-          <div className="text-xs text-blue-600">defined</div>
-        </Card>
-        <Card className="bg-green-50 border-green-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-green-700">
-            <ChartBar className="w-4 h-4" />
-            <span className="text-xs font-medium">Total Units</span>
-          </div>
-          <div className="text-2xl font-bold text-green-800 mt-1">{totals.totalUnits}</div>
-          <div className="text-xs text-green-600">equipment items</div>
-        </Card>
-        <Card className="bg-amber-50 border-amber-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-amber-700">
-            <Lightning className="w-4 h-4" />
-            <span className="text-xs font-medium">Est. Energy</span>
-          </div>
-          <div className="text-2xl font-bold text-amber-800 mt-1">{formatNumber(totals.totalEnergy)}</div>
-          <div className="text-xs text-amber-600">kWh/year</div>
-        </Card>
-        <Card className="bg-red-50 border-red-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-red-700">
-            <TrendUp className="w-4 h-4" />
-            <span className="text-xs font-medium">Critical</span>
-          </div>
-          <div className="text-2xl font-bold text-red-800 mt-1">{totals.criticalCount}</div>
-          <div className="text-xs text-red-600">assets</div>
-        </Card>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-5 gap-4">
         {categories.map((cat) => {
@@ -331,11 +295,11 @@ function AllInsightsTab({
                 const criticalCount = categoryAssets.filter(a => a.criticality === 'critical').length;
                 const energy = categoryAssets.reduce((s, a) => s + (a.energyConsumptionKwhYear || 0), 0);
                 return (
-                  <tr key={row.category} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={row.category} className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onClick={() => onNavigate(row.category as InfrastructureTab)}>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <Icon className={cn('w-4 h-4', row.iconColor)} />
-                        <span className="font-medium text-gray-900">{row.label}</span>
+                        <span className="font-medium text-gray-900 hover:text-primary transition-colors">{row.label}</span>
                       </div>
                     </td>
                     <td className="text-center py-3 px-4">
@@ -887,7 +851,7 @@ export default function InfrastructurePage() {
   const tabs = useMemo(() => {
     if (isAgri) {
       return [
-        { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
+        { id: 'all' as InfrastructureTab, label: 'All', icon: ChartBar },
         { id: 'land_use' as InfrastructureTab, label: 'Land Use', icon: Tree },
         { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
         { id: 'hvac' as InfrastructureTab, label: 'HVAC', icon: Wind },
@@ -897,7 +861,7 @@ export default function InfrastructurePage() {
       ];
     }
     return [
-      { id: 'all' as InfrastructureTab, label: 'All + Insights', icon: ChartBar },
+      { id: 'all' as InfrastructureTab, label: 'All', icon: ChartBar },
       { id: 'production_equipment' as InfrastructureTab, label: 'Production', icon: Factory },
       { id: 'hvac' as InfrastructureTab, label: 'HVAC', icon: Wind },
       { id: 'vehicles' as InfrastructureTab, label: 'Vehicles', icon: Truck },
@@ -932,22 +896,31 @@ export default function InfrastructurePage() {
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <Card className="bg-cream py-3 px-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-xs font-medium text-gray-600">Data Completeness</span>
-              <span className="text-xs text-gray-400">{assets.length} assets, {landUse.length} parcels</span>
-            </div>
-            <ProgressBar value={progress} size="sm" className="max-w-xs" />
+      {/* Compact stats row */}
+      <div className="flex items-center gap-4 mb-6 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-gray-500">Completeness</span>
+          <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
-          <div className="text-center border border-gray-200 rounded-lg px-3 py-2 bg-white min-w-[70px] ml-4">
-            <div className="text-base font-bold text-primary">{progress}%</div>
-            <div className="text-xs text-gray-500">done</div>
-          </div>
+          <span className="text-xs font-bold text-primary">{progress}%</span>
         </div>
-      </Card>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <Buildings className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-700"><span className="font-semibold">{assets.length}</span> assets</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <Factory className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-700"><span className="font-semibold">{sites.length}</span> sites</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <ChartBar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-700"><span className="font-semibold">{assets.length + landUse.length}</span> records</span>
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200 overflow-x-auto">
