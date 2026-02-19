@@ -162,9 +162,7 @@ function AllInsightsTab({
       id: 'primary' as PackagingTab,
       title: 'Primary',
       icon: Package,
-      color: 'bg-purple-100 text-purple-700',
-      borderColor: 'border-purple-300',
-      hoverBorder: 'hover:border-purple-400',
+      gradient: 'from-stack-2 to-stack-3',
       value: formatNumber(totals.primary.weight),
       unit: 'kg',
       entries: totals.primary.count,
@@ -174,9 +172,7 @@ function AllInsightsTab({
       id: 'secondary' as PackagingTab,
       title: 'Secondary',
       icon: BoundingBox,
-      color: 'bg-blue-100 text-blue-700',
-      borderColor: 'border-blue-300',
-      hoverBorder: 'hover:border-blue-400',
+      gradient: 'from-stack-2 to-stack-3',
       value: formatNumber(totals.secondary.weight),
       unit: 'kg',
       entries: totals.secondary.count,
@@ -186,9 +182,7 @@ function AllInsightsTab({
       id: 'tertiary' as PackagingTab,
       title: 'Tertiary',
       icon: Stack,
-      color: 'bg-amber-100 text-amber-700',
-      borderColor: 'border-amber-300',
-      hoverBorder: 'hover:border-amber-400',
+      gradient: 'from-stack-2 to-stack-3',
       value: formatNumber(totals.tertiary.weight),
       unit: 'kg',
       entries: totals.tertiary.count,
@@ -198,9 +192,9 @@ function AllInsightsTab({
 
   // Combined table rows
   const tableRows = [
-    { level: 'primary' as PackagingLevel, label: 'Primary', icon: Package, iconColor: 'text-purple-600' },
-    { level: 'secondary' as PackagingLevel, label: 'Secondary', icon: BoundingBox, iconColor: 'text-blue-600' },
-    { level: 'tertiary' as PackagingLevel, label: 'Tertiary', icon: Stack, iconColor: 'text-amber-600' },
+    { level: 'primary' as PackagingLevel, label: 'Primary', icon: Package, iconColor: 'text-gray-400' },
+    { level: 'secondary' as PackagingLevel, label: 'Secondary', icon: BoundingBox, iconColor: 'text-gray-400' },
+    { level: 'tertiary' as PackagingLevel, label: 'Tertiary', icon: Stack, iconColor: 'text-gray-400' },
   ];
 
   if (packaging.length === 0) {
@@ -227,14 +221,13 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left p-4 rounded-xl border-2 transition-all',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-md'
               )}
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center', cat.color)}>
-                  <Icon className="w-5 h-5" />
+                <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                  <Icon className="w-5 h-5 text-white" weight="duotone" />
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">{cat.title}</div>
@@ -727,10 +720,10 @@ export default function PackagingPage() {
           </Link>
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center">
-                <Tag className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stack-2 to-stack-3 shadow-sm flex items-center justify-center">
+                <Tag className="w-5 h-5 text-white" weight="duotone" />
               </div>
-              <h1 className="text-2xl font-bold text-deep-forest">Packaging</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Packaging</h1>
             </div>
             <p className="text-gray-500 ml-13">Track primary, secondary, and tertiary packaging materials</p>
           </div>

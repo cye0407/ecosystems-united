@@ -172,9 +172,7 @@ function AllInsightsTab({
       id: 'inbound' as TransportTab,
       title: 'Inbound',
       icon: ArrowDownLeft,
-      color: 'bg-blue-100 text-blue-700',
-      borderColor: 'border-blue-300',
-      hoverBorder: 'hover:border-blue-400',
+      gradient: 'from-stack-1 to-stack-3',
       value: formatNumber(totals.inbound.tkm),
       unit: 'tkm',
       entries: totals.inbound.entries,
@@ -184,9 +182,7 @@ function AllInsightsTab({
       id: 'outbound' as TransportTab,
       title: 'Outbound',
       icon: ArrowUpRight,
-      color: 'bg-green-100 text-green-700',
-      borderColor: 'border-green-300',
-      hoverBorder: 'hover:border-green-400',
+      gradient: 'from-stack-1 to-stack-3',
       value: formatNumber(totals.outbound.tkm),
       unit: 'tkm',
       entries: totals.outbound.entries,
@@ -196,9 +192,7 @@ function AllInsightsTab({
       id: 'internal' as TransportTab,
       title: 'Internal',
       icon: ArrowsLeftRight,
-      color: 'bg-purple-100 text-purple-700',
-      borderColor: 'border-purple-300',
-      hoverBorder: 'hover:border-purple-400',
+      gradient: 'from-stack-1 to-stack-3',
       value: formatNumber(totals.internal.tkm),
       unit: 'tkm',
       entries: totals.internal.entries,
@@ -208,9 +202,9 @@ function AllInsightsTab({
 
   // Combined table rows with icons
   const combinedRows = [
-    { id: 'inbound', label: 'Inbound', field: 'tkm', unit: 'tkm', icon: ArrowDownLeft, iconColor: 'text-blue-600' },
-    { id: 'outbound', label: 'Outbound', field: 'tkm', unit: 'tkm', icon: ArrowUpRight, iconColor: 'text-green-600' },
-    { id: 'internal', label: 'Internal', field: 'tkm', unit: 'tkm', icon: ArrowsLeftRight, iconColor: 'text-purple-600' },
+    { id: 'inbound', label: 'Inbound', field: 'tkm', unit: 'tkm', icon: ArrowDownLeft, iconColor: 'text-gray-400' },
+    { id: 'outbound', label: 'Outbound', field: 'tkm', unit: 'tkm', icon: ArrowUpRight, iconColor: 'text-gray-400' },
+    { id: 'internal', label: 'Internal', field: 'tkm', unit: 'tkm', icon: ArrowsLeftRight, iconColor: 'text-gray-400' },
     { id: 'emissions', label: 'Emissions', field: 'emissions', unit: 'tCO₂e', icon: TrendUp, iconColor: 'text-primary' },
   ];
 
@@ -226,14 +220,13 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left bg-white border-2 rounded-lg p-3 transition-all',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-sm'
               )}
             >
               <div className="flex items-center justify-between mb-2">
-                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', cat.color)}>
-                  <Icon className="w-4 h-4" />
+                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                  <Icon className="w-4 h-4 text-white" weight="duotone" />
                 </div>
                 <span className="text-xs text-gray-400">{cat.entries} entries</span>
               </div>
@@ -645,8 +638,8 @@ export default function TransportPage() {
             </Link>
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center">
-                  <Truck className="w-5 h-5 text-orange-700" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stack-1 to-stack-3 shadow-sm flex items-center justify-center">
+                  <Truck className="w-5 h-5 text-white" weight="duotone" />
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900">Transport & Logistics</h1>
               </div>

@@ -798,44 +798,44 @@ function FertiliserTab({
     <div className="space-y-4">
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-green-50 border-green-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-green-700">
+        <Card className="bg-gray-50 border-gray-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-gray-600">
             <Plant className="w-4 h-4" weight="duotone" />
             <span className="text-xs font-medium">N Applied</span>
           </div>
-          <div className="text-2xl font-bold text-green-800 mt-1">{formatNumber(Math.round(npkTotals.totalN))}</div>
-          <div className="text-xs text-green-600">kg nitrogen</div>
+          <div className="text-2xl font-bold text-gray-900 mt-1">{formatNumber(Math.round(npkTotals.totalN))}</div>
+          <div className="text-xs text-gray-500">kg nitrogen</div>
         </Card>
-        <Card className="bg-orange-50 border-orange-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-orange-700">
+        <Card className="bg-gray-50 border-gray-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-gray-600">
             <TrendUp className="w-4 h-4" weight="duotone" />
             <span className="text-xs font-medium">N&#x2082;O Emissions</span>
           </div>
-          <div className="text-2xl font-bold text-orange-800 mt-1">{emissions.n2oEmissionsTco2e.toFixed(2)}</div>
-          <div className="text-xs text-orange-600">tCO&#x2082;e</div>
+          <div className="text-2xl font-bold text-gray-900 mt-1">{emissions.n2oEmissionsTco2e.toFixed(2)}</div>
+          <div className="text-xs text-gray-500">tCO&#x2082;e</div>
         </Card>
-        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-blue-700">
+        <Card className="bg-gray-50 border-gray-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-gray-600">
             <ChartBar className="w-4 h-4" weight="duotone" />
             <span className="text-xs font-medium">N Balance</span>
           </div>
           <div className={cn(
             'text-2xl font-bold mt-1',
-            nBalance.nBalanceKg > 0 ? 'text-amber-800' : 'text-blue-800'
+            nBalance.nBalanceKg > 0 ? 'text-amber-800' : 'text-gray-900'
           )}>
             {nBalance.nBalanceKg > 0 ? '+' : ''}{formatNumber(Math.round(nBalance.nBalanceKg))}
           </div>
-          <div className="text-xs text-blue-600">
+          <div className="text-xs text-gray-500">
             kg (applied {formatNumber(Math.round(nBalance.nAppliedKg))} - removed {formatNumber(Math.round(nBalance.nRemovedKg))})
           </div>
         </Card>
-        <Card className="bg-purple-50 border-purple-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-purple-700">
+        <Card className="bg-gray-50 border-gray-200 py-3 px-4">
+          <div className="flex items-center gap-2 text-gray-600">
             <Calendar className="w-4 h-4" weight="duotone" />
             <span className="text-xs font-medium">Applications</span>
           </div>
-          <div className="text-2xl font-bold text-purple-800 mt-1">{yearApplications.length}</div>
-          <div className="text-xs text-purple-600">{formatNumber(Math.round(npkTotals.totalQuantity))} kg total</div>
+          <div className="text-2xl font-bold text-gray-900 mt-1">{yearApplications.length}</div>
+          <div className="text-xs text-gray-500">{formatNumber(Math.round(npkTotals.totalQuantity))} kg total</div>
         </Card>
       </div>
 
@@ -909,7 +909,7 @@ function FertiliserTab({
                           isFuture
                             ? 'bg-gray-50 border-gray-100 text-gray-300'
                             : val > 0
-                            ? 'bg-green-100 border-green-200 text-gray-900'
+                            ? 'bg-primary-100 border-primary-light text-gray-900'
                             : 'bg-white border-gray-200 text-gray-400'
                         )}
                       >
@@ -943,7 +943,7 @@ function FertiliserTab({
                           isFuture
                             ? 'bg-gray-50 border-gray-100 text-gray-300'
                             : val > 0
-                            ? 'bg-blue-100 border-blue-200 text-gray-900'
+                            ? 'bg-primary-100 border-primary-light text-gray-900'
                             : 'bg-white border-gray-200 text-gray-400'
                         )}
                       >
@@ -953,7 +953,7 @@ function FertiliserTab({
                   );
                 })}
                 <td className="text-right py-3 px-4">
-                  <span className="font-semibold text-blue-700">{formatNumber(Math.round(npkTotals.totalN))}</span>
+                  <span className="font-semibold text-gray-700">{formatNumber(Math.round(npkTotals.totalN))}</span>
                 </td>
               </tr>
 
@@ -977,7 +977,7 @@ function FertiliserTab({
                           isFuture
                             ? 'bg-gray-50 border-gray-100 text-gray-300'
                             : val > 0
-                            ? 'bg-amber-100 border-amber-200 text-gray-900'
+                            ? 'bg-primary-100 border-primary-light text-gray-900'
                             : 'bg-white border-gray-200 text-gray-400'
                         )}
                       >
@@ -987,7 +987,7 @@ function FertiliserTab({
                   );
                 })}
                 <td className="text-right py-3 px-4">
-                  <span className="font-semibold text-amber-700">{formatNumber(Math.round(npkTotals.totalP))}</span>
+                  <span className="font-semibold text-gray-700">{formatNumber(Math.round(npkTotals.totalP))}</span>
                 </td>
               </tr>
 
@@ -1011,7 +1011,7 @@ function FertiliserTab({
                           isFuture
                             ? 'bg-gray-50 border-gray-100 text-gray-300'
                             : val > 0
-                            ? 'bg-purple-100 border-purple-200 text-gray-900'
+                            ? 'bg-primary-100 border-primary-light text-gray-900'
                             : 'bg-white border-gray-200 text-gray-400'
                         )}
                       >
@@ -1021,7 +1021,7 @@ function FertiliserTab({
                   );
                 })}
                 <td className="text-right py-3 px-4">
-                  <span className="font-semibold text-purple-700">{formatNumber(Math.round(npkTotals.totalK))}</span>
+                  <span className="font-semibold text-gray-700">{formatNumber(Math.round(npkTotals.totalK))}</span>
                 </td>
               </tr>
 
@@ -1608,24 +1608,6 @@ export default function MaterialsPage() {
         </div>
       </Modal>
 
-      {/* Tips Card */}
-      <Card className="mt-8 bg-primary-100 border-primary rounded-2xl">
-        <div className="font-semibold text-primary mb-3">Tips for Better Data</div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Start with your top 5 materials</p>
-            <p className="text-gray-600">Focus on materials that make up the largest share of your purchases by weight or value.</p>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Track supplier origins</p>
-            <p className="text-gray-600">Knowing where your materials come from helps calculate transport emissions.</p>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Note recycled content</p>
-            <p className="text-gray-600">Materials with recycled content may have lower embodied emissions.</p>
-          </div>
-        </div>
-      </Card>
     </div>
   );
 }

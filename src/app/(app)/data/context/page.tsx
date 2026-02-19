@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import { GlobeHemisphereWest, CurrencyDollar, Check, ArrowLeft, ChartBar, UsersThree, ShieldCheck } from '@phosphor-icons/react';
+import { GlobeHemisphereWest, CurrencyDollar, Check, ArrowLeft, ChartBar } from '@phosphor-icons/react';
 import {
   Card,
   CardTitle,
@@ -10,7 +10,6 @@ import {
   Input,
   Select,
   Badge,
-  ProgressBar,
 } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
@@ -224,9 +223,7 @@ function AllInsightsTab({
       id: 'external' as ContextTab,
       title: 'External Context',
       icon: GlobeHemisphereWest,
-      color: 'bg-green-100 text-green-700',
-      borderColor: 'border-green-300',
-      hoverBorder: 'hover:border-green-400',
+      gradient: 'from-primary-dark to-primary',
       complete: externalComplete,
       subtitle: 'Market & regulatory environment',
       items: externalContext ? [
@@ -239,9 +236,7 @@ function AllInsightsTab({
       id: 'financial' as ContextTab,
       title: 'Financial Context',
       icon: CurrencyDollar,
-      color: 'bg-blue-100 text-blue-700',
-      borderColor: 'border-blue-300',
-      hoverBorder: 'hover:border-blue-400',
+      gradient: 'from-primary-dark to-primary',
       complete: financialComplete,
       subtitle: 'Budget & investment capacity',
       items: financialContext ? [
@@ -254,46 +249,6 @@ function AllInsightsTab({
 
   return (
     <div className="space-y-6">
-      {/* Key Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-green-50 border-green-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-green-700">
-            <GlobeHemisphereWest className="w-4 h-4" />
-            <span className="text-xs font-medium">External</span>
-          </div>
-          <div className="text-2xl font-bold text-green-800 mt-1">{externalComplete ? 'Complete' : 'Incomplete'}</div>
-          <div className="text-xs text-green-600">{externalComplete ? 'All fields saved' : 'Click to add'}</div>
-        </Card>
-        <Card className="bg-blue-50 border-blue-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-blue-700">
-            <CurrencyDollar className="w-4 h-4" />
-            <span className="text-xs font-medium">Financial</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-800 mt-1">{financialComplete ? 'Complete' : 'Incomplete'}</div>
-          <div className="text-xs text-blue-600">{financialComplete ? 'All fields saved' : 'Click to add'}</div>
-        </Card>
-        <Card className="bg-purple-50 border-purple-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-purple-700">
-            <UsersThree className="w-4 h-4" />
-            <span className="text-xs font-medium">Customers</span>
-          </div>
-          <div className="text-2xl font-bold text-purple-800 mt-1">
-            {externalContext?.keyCustomerIndustries?.length || 0}
-          </div>
-          <div className="text-xs text-purple-600">industries served</div>
-        </Card>
-        <Card className="bg-amber-50 border-amber-200 py-3 px-4">
-          <div className="flex items-center gap-2 text-amber-700">
-            <ShieldCheck className="w-4 h-4" />
-            <span className="text-xs font-medium">Compliance</span>
-          </div>
-          <div className="text-2xl font-bold text-amber-800 mt-1">
-            {externalContext?.csrdStatus === 'currently_applies' ? 'CSRD' : externalContext?.csrdStatus === 'will_apply' ? 'Upcoming' : 'N/A'}
-          </div>
-          <div className="text-xs text-amber-600">regulatory status</div>
-        </Card>
-      </div>
-
       {/* Category Cards */}
       <div className="grid grid-cols-2 gap-4">
         {categories.map((cat) => {
@@ -304,15 +259,14 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left p-4 rounded-xl border-2 transition-all',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-md'
               )}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center', cat.color)}>
-                    <Icon className="w-5 h-5" />
+                  <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                    <Icon className="w-5 h-5 text-white" weight="duotone" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">{cat.title}</div>
@@ -870,32 +824,36 @@ export default function ContextPage() {
           </Link>
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center">
-                <GlobeHemisphereWest className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-dark to-primary shadow-sm flex items-center justify-center">
+                <GlobeHemisphereWest className="w-5 h-5 text-white" weight="duotone" />
               </div>
-              <h1 className="text-2xl font-bold text-deep-forest">Context</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Context</h1>
             </div>
             <p className="text-gray-500 ml-13">Provide external and financial context to personalize recommendations</p>
           </div>
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <Card className="bg-cream py-3 px-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-xs font-medium text-gray-600">Data Completeness</span>
-              <span className="text-xs text-gray-400">{progress === 100 ? '2 sections' : progress === 50 ? '1 section' : '0 sections'}</span>
-            </div>
-            <ProgressBar value={progress} size="sm" className="max-w-xs" />
+      {/* Compact Inline Stats */}
+      <div className="flex items-center gap-4 mb-6 flex-wrap">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-medium text-gray-500">Completeness</span>
+          <div className="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
-          <div className="text-center border border-gray-200 rounded-lg px-3 py-2 bg-white min-w-[70px] ml-4">
-            <div className="text-base font-bold text-primary">{progress}%</div>
-            <div className="text-xs text-gray-500">done</div>
-          </div>
+          <span className="text-xs font-bold text-primary">{progress}%</span>
         </div>
-      </Card>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <GlobeHemisphereWest className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{externalContext ? 'Complete' : 'Incomplete'}</span> external</span>
+        </div>
+        <span className="text-gray-300">|</span>
+        <div className="flex items-center gap-1.5">
+          <CurrencyDollar className="w-3.5 h-3.5 text-gray-400" weight="duotone" />
+          <span className="text-xs text-gray-600"><span className="font-semibold text-gray-900">{financialContext ? 'Complete' : 'Incomplete'}</span> financial</span>
+        </div>
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200">
@@ -915,9 +873,6 @@ export default function ContextPage() {
             >
               <Icon className="w-4 h-4" />
               {tab.label}
-              {'complete' in tab && tab.complete && (
-                <Check className="w-3.5 h-3.5 text-green-600" />
-              )}
             </button>
           );
         })}
@@ -948,24 +903,6 @@ export default function ContextPage() {
         />
       )}
 
-      {/* Tips Card */}
-      <Card className="mt-8 bg-cream border-forest-300">
-        <div className="font-semibold text-forest-700 mb-3">Tips for Better Data</div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Be honest about finances</p>
-            <p className="text-gray-600">This data helps tailor recommendations to what's achievable for your business.</p>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Note regulatory context</p>
-            <p className="text-gray-600">CSRD applicability affects what reporting you need to prepare for.</p>
-          </div>
-          <div>
-            <p className="font-medium text-gray-900 mb-1">Consider supply chain pressure</p>
-            <p className="text-gray-600">Buyer requirements often drive sustainability investments.</p>
-          </div>
-        </div>
-      </Card>
     </div>
   );
 }

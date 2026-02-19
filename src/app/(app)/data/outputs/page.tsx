@@ -249,9 +249,7 @@ function AllInsightsTab({
       id: 'waste' as OutputsTab,
       title: 'Waste',
       icon: Trash,
-      color: 'bg-red-100 text-red-700',
-      borderColor: 'border-red-300',
-      hoverBorder: 'hover:border-red-400',
+      gradient: 'from-stack-3 to-stack-5',
       value: formatNumber(totals.waste.totalKg),
       unit: 'kg',
       entries: totals.waste.entries,
@@ -261,9 +259,7 @@ function AllInsightsTab({
       id: 'products' as OutputsTab,
       title: 'Products',
       icon: Package,
-      color: 'bg-green-100 text-green-700',
-      borderColor: 'border-green-300',
-      hoverBorder: 'hover:border-green-400',
+      gradient: 'from-stack-3 to-stack-5',
       value: formatNumber(totals.products.totalUnits),
       unit: 'units',
       entries: totals.products.entries,
@@ -273,9 +269,7 @@ function AllInsightsTab({
       id: 'crops' as OutputsTab,
       title: 'Crops',
       icon: Plant,
-      color: 'bg-emerald-100 text-emerald-700',
-      borderColor: 'border-emerald-300',
-      hoverBorder: 'hover:border-emerald-400',
+      gradient: 'from-stack-3 to-stack-5',
       value: formatNumber(totals.crops.totalYield),
       unit: 't',
       entries: totals.crops.entries,
@@ -285,9 +279,7 @@ function AllInsightsTab({
       id: 'livestock' as OutputsTab,
       title: 'Livestock',
       icon: Cow,
-      color: 'bg-amber-100 text-amber-700',
-      borderColor: 'border-amber-300',
-      hoverBorder: 'hover:border-amber-400',
+      gradient: 'from-stack-3 to-stack-5',
       value: formatNumber(totals.livestock.totalHead),
       unit: 'head',
       entries: totals.livestock.entries,
@@ -297,10 +289,10 @@ function AllInsightsTab({
 
   // Combined table rows with icons
   const combinedRows = [
-    { id: 'totalWaste', label: 'Total Waste', unit: 'kg', icon: Trash, iconColor: 'text-red-600' },
-    { id: 'diverted', label: 'Diverted', unit: 'kg', icon: Recycle, iconColor: 'text-green-600' },
-    { id: 'landfill', label: 'Landfill', unit: 'kg', icon: Trash, iconColor: 'text-gray-600' },
-    { id: 'production', label: 'Production', unit: '', icon: Package, iconColor: 'text-green-600' },
+    { id: 'totalWaste', label: 'Total Waste', unit: 'kg', icon: Trash, iconColor: 'text-gray-400' },
+    { id: 'diverted', label: 'Diverted', unit: 'kg', icon: Recycle, iconColor: 'text-gray-400' },
+    { id: 'landfill', label: 'Landfill', unit: 'kg', icon: Trash, iconColor: 'text-gray-400' },
+    { id: 'production', label: 'Production', unit: '', icon: Package, iconColor: 'text-gray-400' },
     { id: 'emissions', label: 'Emissions', unit: 'tCO\u2082e', icon: TrendUp, iconColor: 'text-primary' },
   ];
 
@@ -316,14 +308,13 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left bg-white border-2 rounded-lg p-3 transition-all cursor-pointer',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-sm'
               )}
             >
               <div className="flex items-center justify-between mb-2">
-                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', cat.color)}>
-                  <Icon className="w-4 h-4" />
+                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                  <Icon className="w-4 h-4 text-white" weight="duotone" />
                 </div>
                 <span className="text-xs text-gray-400">{cat.entries} entries</span>
               </div>
@@ -1712,8 +1703,8 @@ export default function OutputsPage() {
             </Link>
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center">
-                  <Trash className="w-5 h-5 text-red-700" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stack-3 to-stack-5 shadow-sm flex items-center justify-center">
+                  <Trash className="w-5 h-5 text-white" weight="duotone" />
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900">Outputs</h1>
               </div>

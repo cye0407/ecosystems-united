@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   SquaresFour,
   Database,
+  ListChecks,
   Export,
   GearSix,
   List,
@@ -20,6 +21,7 @@ import { HelpGuide } from "@/components/app/HelpGuide";
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: SquaresFour },
   { href: "/data", label: "Data", icon: Database },
+  { href: "/full-view", label: "Full View", icon: ListChecks },
   { href: "/exports", label: "Exports", icon: Export },
 ];
 

@@ -210,9 +210,7 @@ function AllInsightsTab({
       id: 'headcount' as WorkforceTab,
       title: 'Headcount',
       icon: Users,
-      color: 'bg-pink-100 text-pink-700',
-      borderColor: 'border-pink-300',
-      hoverBorder: 'hover:border-pink-400',
+      gradient: 'from-stack-2 to-stack-4',
       value: formatNumber(totals.headcount.avgFte),
       unit: 'FTE',
       entries: totals.headcount.entries,
@@ -222,9 +220,7 @@ function AllInsightsTab({
       id: 'safety' as WorkforceTab,
       title: 'Health & Safety',
       icon: ShieldCheck,
-      color: 'bg-yellow-100 text-yellow-700',
-      borderColor: 'border-yellow-300',
-      hoverBorder: 'hover:border-yellow-400',
+      gradient: 'from-stack-2 to-stack-4',
       value: totals.safety.totalIncidents.toString(),
       unit: 'incidents',
       entries: totals.safety.entries,
@@ -234,9 +230,7 @@ function AllInsightsTab({
       id: 'training' as WorkforceTab,
       title: 'Training',
       icon: GraduationCap,
-      color: 'bg-blue-100 text-blue-700',
-      borderColor: 'border-blue-300',
-      hoverBorder: 'hover:border-blue-400',
+      gradient: 'from-stack-2 to-stack-4',
       value: formatNumber(totals.training.totalHours),
       unit: 'hours',
       entries: totals.training.entries,
@@ -246,11 +240,11 @@ function AllInsightsTab({
 
   // Combined table rows with icons
   const combinedRows = [
-    { id: 'totalFte', label: 'Total FTE', unit: '', icon: Users, iconColor: 'text-pink-600', tab: 'headcount' as WorkforceTab },
-    { id: 'totalHoursWorked', label: 'Hours Worked', unit: 'hrs', icon: Users, iconColor: 'text-pink-600', tab: 'headcount' as WorkforceTab },
-    { id: 'recordableIncidents', label: 'Incidents', unit: '', icon: ShieldCheck, iconColor: 'text-yellow-600', tab: 'safety' as WorkforceTab },
-    { id: 'lostTimeIncidents', label: 'Lost Time', unit: '', icon: Warning, iconColor: 'text-red-600', tab: 'safety' as WorkforceTab },
-    { id: 'totalTrainingHours', label: 'Training', unit: 'hrs', icon: GraduationCap, iconColor: 'text-blue-600', tab: 'training' as WorkforceTab },
+    { id: 'totalFte', label: 'Total FTE', unit: '', icon: Users, iconColor: 'text-gray-400', tab: 'headcount' as WorkforceTab },
+    { id: 'totalHoursWorked', label: 'Hours Worked', unit: 'hrs', icon: Users, iconColor: 'text-gray-400', tab: 'headcount' as WorkforceTab },
+    { id: 'recordableIncidents', label: 'Incidents', unit: '', icon: ShieldCheck, iconColor: 'text-gray-400', tab: 'safety' as WorkforceTab },
+    { id: 'lostTimeIncidents', label: 'Lost Time', unit: '', icon: Warning, iconColor: 'text-gray-400', tab: 'safety' as WorkforceTab },
+    { id: 'totalTrainingHours', label: 'Training', unit: 'hrs', icon: GraduationCap, iconColor: 'text-gray-400', tab: 'training' as WorkforceTab },
     { id: 'trir', label: 'TRIR', unit: '', icon: TrendUp, iconColor: 'text-primary', tab: 'safety' as WorkforceTab },
   ];
 
@@ -266,14 +260,13 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left bg-white border-2 rounded-lg p-3 transition-all',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-sm'
               )}
             >
               <div className="flex items-center justify-between mb-2">
-                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', cat.color)}>
-                  <Icon className="w-4 h-4" />
+                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                  <Icon className="w-4 h-4 text-white" weight="duotone" />
                 </div>
                 <span className="text-xs text-gray-400">{cat.entries} entries</span>
               </div>
@@ -763,8 +756,8 @@ export default function WorkforcePage() {
             </Link>
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <div className="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-pink-700" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stack-2 to-stack-4 shadow-sm flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" weight="duotone" />
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900">Workforce</h1>
               </div>

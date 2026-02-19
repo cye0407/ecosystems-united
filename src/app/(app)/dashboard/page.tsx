@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {
   Database,
   Export,
+  ListChecks,
   ArrowRight,
   ChartBar,
   MapPin,
@@ -257,7 +258,7 @@ export default function DashboardPage() {
       </Card>
 
       {/* Section E: Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link href="/data" className="group">
           <Card className="!p-5 rounded-xl border-2 border-transparent hover:border-primary transition-all hover:shadow-md">
             <div className="flex items-center gap-4">
@@ -267,6 +268,21 @@ export default function DashboardPage() {
               <div className="flex-1">
                 <div className="font-semibold text-gray-900 group-hover:text-primary transition-colors">Enter Data</div>
                 <div className="text-sm text-gray-500">Add records across all domains</div>
+              </div>
+              <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all" weight="bold" />
+            </div>
+          </Card>
+        </Link>
+
+        <Link href="/full-view" className="group">
+          <Card className="!p-5 rounded-xl border-2 border-transparent hover:border-primary transition-all hover:shadow-md">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stack-2 to-stack-4 flex items-center justify-center">
+                <ListChecks className="w-6 h-6 text-white" weight="duotone" />
+              </div>
+              <div className="flex-1">
+                <div className="font-semibold text-gray-900 group-hover:text-primary transition-colors">Full View</div>
+                <div className="text-sm text-gray-500">See all your data in one place</div>
               </div>
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all" weight="bold" />
             </div>

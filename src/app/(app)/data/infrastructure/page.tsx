@@ -142,9 +142,7 @@ function AllInsightsTab({
       id: 'production_equipment' as InfrastructureTab,
       title: 'Production',
       icon: Factory,
-      color: 'bg-blue-100 text-blue-700',
-      borderColor: 'border-blue-300',
-      hoverBorder: 'hover:border-blue-400',
+      gradient: 'from-stack-4 to-stack-5',
       value: totals.production.count,
       unit: 'units',
       assets: totals.production.assets,
@@ -155,9 +153,7 @@ function AllInsightsTab({
       id: 'hvac' as InfrastructureTab,
       title: 'HVAC',
       icon: Wind,
-      color: 'bg-cyan-100 text-cyan-700',
-      borderColor: 'border-cyan-300',
-      hoverBorder: 'hover:border-cyan-400',
+      gradient: 'from-stack-4 to-stack-5',
       value: totals.hvac.count,
       unit: 'units',
       assets: totals.hvac.assets,
@@ -168,9 +164,7 @@ function AllInsightsTab({
       id: 'vehicles' as InfrastructureTab,
       title: 'Vehicles',
       icon: Truck,
-      color: 'bg-amber-100 text-amber-700',
-      borderColor: 'border-amber-300',
-      hoverBorder: 'hover:border-amber-400',
+      gradient: 'from-stack-4 to-stack-5',
       value: totals.vehicles.count,
       unit: 'units',
       assets: totals.vehicles.assets,
@@ -181,9 +175,7 @@ function AllInsightsTab({
       id: 'it' as InfrastructureTab,
       title: 'IT',
       icon: Monitor,
-      color: 'bg-purple-100 text-purple-700',
-      borderColor: 'border-purple-300',
-      hoverBorder: 'hover:border-purple-400',
+      gradient: 'from-stack-4 to-stack-5',
       value: totals.it.count,
       unit: 'units',
       assets: totals.it.assets,
@@ -194,9 +186,7 @@ function AllInsightsTab({
       id: 'other' as InfrastructureTab,
       title: 'Other',
       icon: DotsThree,
-      color: 'bg-gray-100 text-gray-700',
-      borderColor: 'border-gray-300',
-      hoverBorder: 'hover:border-gray-400',
+      gradient: 'from-stack-4 to-stack-5',
       value: totals.other.count,
       unit: 'units',
       assets: totals.other.assets,
@@ -207,11 +197,11 @@ function AllInsightsTab({
 
   // Table rows for assets by category
   const tableRows = [
-    { category: 'production_equipment' as AssetCategory, label: 'Production Equipment', icon: Factory, iconColor: 'text-blue-600' },
-    { category: 'hvac' as AssetCategory, label: 'HVAC Systems', icon: Wind, iconColor: 'text-cyan-600' },
-    { category: 'vehicles' as AssetCategory, label: 'Vehicles', icon: Truck, iconColor: 'text-amber-600' },
-    { category: 'it' as AssetCategory, label: 'IT Equipment', icon: Monitor, iconColor: 'text-purple-600' },
-    { category: 'other' as AssetCategory, label: 'Other', icon: DotsThree, iconColor: 'text-gray-600' },
+    { category: 'production_equipment' as AssetCategory, label: 'Production Equipment', icon: Factory, iconColor: 'text-gray-400' },
+    { category: 'hvac' as AssetCategory, label: 'HVAC Systems', icon: Wind, iconColor: 'text-gray-400' },
+    { category: 'vehicles' as AssetCategory, label: 'Vehicles', icon: Truck, iconColor: 'text-gray-400' },
+    { category: 'it' as AssetCategory, label: 'IT Equipment', icon: Monitor, iconColor: 'text-gray-400' },
+    { category: 'other' as AssetCategory, label: 'Other', icon: DotsThree, iconColor: 'text-gray-400' },
   ];
 
   if (assets.length === 0) {
@@ -238,14 +228,13 @@ function AllInsightsTab({
               onClick={() => onNavigate(cat.id)}
               className={cn(
                 'text-left p-4 rounded-xl border-2 transition-all',
-                cat.borderColor,
-                cat.hoverBorder,
+                'border-gray-200 hover:border-primary/40',
                 'hover:shadow-md'
               )}
             >
               <div className="flex items-center gap-2 mb-2">
-                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center', cat.color)}>
-                  <Icon className="w-4 h-4" />
+                <div className={cn('w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br', cat.gradient)}>
+                  <Icon className="w-4 h-4 text-white" weight="duotone" />
                 </div>
                 <div className="font-semibold text-gray-900 text-sm">{cat.title}</div>
               </div>
@@ -886,10 +875,10 @@ export default function InfrastructurePage() {
           </Link>
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center">
-                <Buildings className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stack-4 to-stack-5 shadow-sm flex items-center justify-center">
+                <Buildings className="w-5 h-5 text-white" weight="duotone" />
               </div>
-              <h1 className="text-2xl font-bold text-deep-forest">Infrastructure</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Infrastructure</h1>
             </div>
             <p className="text-gray-500 ml-13">Track sites, buildings, equipment assets, and land use</p>
           </div>
