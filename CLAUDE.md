@@ -11,7 +11,9 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 ## Current State
 - Unified Next.js app on main branch — build passes with 159 routes, 0 lint errors, 31/31 tests pass
 - 360 View page (/360-view) — read-only collation of all data with year/site filters, sticky nav, 11 domain sections
+- 360 View section order matches data hub flow: Company, SWOT, [Agricultural], Infrastructure, Outputs, Materials, Energy, Transport, Workforce, Packaging, Context
 - All 8 data pages follow consistent structure: gradient header badge, inline stats row, tabbed content
+- Agricultural features: land use (infrastructure), fertiliser (materials), livestock+crops (outputs) — gated by isAgriculturalIndustry()
 - Energy page merged from 2-page (landing + entry) into single tabbed page; /data/energy/entry redirects
 - Visual consistency: no rainbow multicolor — all category cards use gradient+neutral, table icons use gray-400
 - Context page cleaned up: inline stats row (no ProgressBar), no tips card, no tab checkmarks
