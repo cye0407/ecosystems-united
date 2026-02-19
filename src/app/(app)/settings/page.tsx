@@ -9,7 +9,6 @@ import {
   Trash,
   Plus,
   PencilSimple,
-  Sparkle,
   Image,
   UploadSimple,
   X
@@ -19,7 +18,6 @@ import { useAppStore } from '@/stores/appStore';
 import { useDataStore } from '@/stores/dataStore';
 import { cn } from '@/lib/utils/cn';
 import type { Site, SiteType, SiteOwnership } from '@/types';
-import { seedMockData } from '@/lib/mockData';
 
 type SettingsTab = 'profile' | 'company' | 'sites' | 'goals' | 'data';
 
@@ -461,17 +459,6 @@ export default function SettingsPage() {
                   <Badge variant="info">Local Storage</Badge>
                   <span className="text-sm text-gray-500">Data persists across browser sessions</span>
                 </div>
-              </Card>
-
-              <Card className="rounded-2xl">
-                <CardTitle>Demo Data</CardTitle>
-                <p className="text-sm text-gray-500 mt-2 mb-4">
-                  Load sample data to explore the application with realistic example data.
-                </p>
-                <Button variant="outline" onClick={() => { seedMockData(); window.location.reload(); }}>
-                  <Sparkle className="w-4 h-4 mr-2" weight="duotone" />
-                  Load Mock Data
-                </Button>
               </Card>
 
               <Card className="border-red-200 rounded-2xl">
