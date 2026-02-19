@@ -274,14 +274,14 @@ export default function DashboardPage() {
           </Card>
         </Link>
 
-        <Link href="/full-view" className="group">
+        <Link href="/360-view" className="group">
           <Card className="!p-5 rounded-xl border-2 border-transparent hover:border-primary transition-all hover:shadow-md">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stack-2 to-stack-4 flex items-center justify-center">
                 <ListChecks className="w-6 h-6 text-white" weight="duotone" />
               </div>
               <div className="flex-1">
-                <div className="font-semibold text-gray-900 group-hover:text-primary transition-colors">Full View</div>
+                <div className="font-semibold text-gray-900 group-hover:text-primary transition-colors">360 View</div>
                 <div className="text-sm text-gray-500">See all your data in one place</div>
               </div>
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all" weight="bold" />

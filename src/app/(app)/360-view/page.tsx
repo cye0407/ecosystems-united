@@ -323,7 +323,7 @@ export default function FullViewPage() {
       {/* ── Header ── */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">Full View</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">360 View</h1>
           <p className="text-gray-500">Complete read-only overview of all your data</p>
         </div>
         <div className="flex items-center gap-3">
@@ -430,7 +430,7 @@ export default function FullViewPage() {
               <KeyValue label="Industry" value={company.industryDescription} />
               <KeyValue label="Headquarters" value={[company.headquartersCity, company.headquartersCountry].filter(Boolean).join(', ')} />
               <KeyValue label="Ownership" value={company.ownershipType} />
-              <KeyValue label="Founded" value={company.foundingYear} />
+              <KeyValue label="Founded" value={company.foundingYear != null ? String(company.foundingYear) : null} />
               <KeyValue label="Reporting Start" value={company.reportingPeriodStart} />
               <KeyValue label="Reporting End" value={company.reportingPeriodEnd} />
               <KeyValue label="Revenue Band" value={company.revenueBand} />

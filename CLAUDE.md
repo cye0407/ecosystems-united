@@ -10,12 +10,12 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 
 ## Current State
 - Unified Next.js app on main branch — build passes with 159 routes, 0 lint errors, 31/31 tests pass
-- Full View page (/full-view) — read-only collation of all data with year/site filters, sticky nav, 11 domain sections
+- 360 View page (/360-view) — read-only collation of all data with year/site filters, sticky nav, 11 domain sections
 - All 8 data pages follow consistent structure: gradient header badge, inline stats row, tabbed content
 - Energy page merged from 2-page (landing + entry) into single tabbed page; /data/energy/entry redirects
 - Visual consistency: no rainbow multicolor — all category cards use gradient+neutral, table icons use gray-400
 - Context page cleaned up: inline stats row (no ProgressBar), no tips card, no tab checkmarks
-- Sidebar nav: Dashboard → Data → Full View → Exports → Settings
+- Sidebar nav: Dashboard → Data → 360 View → Exports → Settings
 - Phosphor Icons (@phosphor-icons/react) with weight="duotone" used consistently throughout
 
 ## Architecture
