@@ -292,16 +292,18 @@ export default function FullViewPage() {
     const base = [
       { id: 'company', label: 'Company & Sites' },
       { id: 'swot-goals', label: 'SWOT & Goals' },
-      { id: 'materials', label: 'Materials' },
-      { id: 'packaging', label: 'Packaging' },
-      { id: 'energy', label: 'Energy' },
-      { id: 'infrastructure', label: 'Infrastructure' },
-      { id: 'transport', label: 'Transport' },
-      { id: 'workforce', label: 'Workforce' },
-      { id: 'outputs', label: 'Outputs' },
     ];
     if (isAg) base.push({ id: 'agricultural', label: 'Agricultural' });
-    base.push({ id: 'context', label: 'Context' });
+    base.push(
+      { id: 'infrastructure', label: 'Infrastructure' },
+      { id: 'outputs', label: 'Outputs' },
+      { id: 'materials', label: 'Materials' },
+      { id: 'energy', label: 'Energy' },
+      { id: 'transport', label: 'Transport' },
+      { id: 'workforce', label: 'Workforce' },
+      { id: 'packaging', label: 'Packaging' },
+      { id: 'context', label: 'Context' },
+    );
     return base;
   }, [isAg]);
 
@@ -513,356 +515,7 @@ export default function FullViewPage() {
           </div>
         </section>
 
-        {/* ═══════ 3. Materials ═══════ */}
-        <section>
-          <SectionHeader id="materials" icon={Cube} title="Materials" count={filteredMaterialInputs.length + (isAg ? filteredFertiliser.length : 0)} gradient="from-stack-1 to-stack-2" />
-
-          {filteredMaterialInputs.length > 0 ? (
-            <DataTable headers={['Material', 'Category', 'Site', 'Period', 'Quantity', 'Unit', 'Recycled %', 'Supplier', 'Confidence']}>
-              {filteredMaterialInputs.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getMaterialName(r.materialId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{getMaterialCategory(r.materialId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.recycledContentPercent)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.supplierName)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Cube} domain="materials" />
-          )}
-
-          {isAg && filteredFertiliser.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">Fertiliser Applications</h3>
-              <DataTable headers={['Site', 'Period', 'Type', 'Quantity (kg)', 'Area (ha)', 'N %', 'P %', 'K %']}>
-                {filteredFertiliser.map(r => (
-                  <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                    <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                    <td className="py-3 px-4 text-gray-600">{r.fertiliserType}</td>
-                    <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityKg)}</td>
-                    <td className="py-3 px-4 text-gray-600">{fmt(r.areaAppliedHa)}</td>
-                    <td className="py-3 px-4 text-gray-600">{fmt(r.nitrogenContentPercent)}</td>
-                    <td className="py-3 px-4 text-gray-600">{fmt(r.phosphorusContentPercent)}</td>
-                    <td className="py-3 px-4 text-gray-600">{fmt(r.potassiumContentPercent)}</td>
-                  </tr>
-                ))}
-              </DataTable>
-            </div>
-          )}
-        </section>
-
-        {/* ═══════ 4. Packaging ═══════ */}
-        <section>
-          <SectionHeader id="packaging" icon={Package} title="Packaging" count={filteredPackagingInputs.length} gradient="from-stack-2 to-stack-3" />
-
-          {filteredPackagingInputs.length > 0 ? (
-            <DataTable headers={['Packaging', 'Level', 'Material', 'Site', 'Period', 'Units', 'Weight (kg)', 'Recycled %', 'Confidence']}>
-              {filteredPackagingInputs.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getPackagingName(r.packagingId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{getPackagingLevel(r.packagingId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{getPackagingMaterial(r.packagingId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityUnits)}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.totalWeightKg)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.recycledContentPercent)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Package} domain="packaging" />
-          )}
-        </section>
-
-        {/* ═══════ 5. Energy ═══════ */}
-        <section>
-          <SectionHeader
-            id="energy"
-            icon={Lightning}
-            title="Energy"
-            count={filteredElectricity.length + filteredFuels.length + filteredWater.length}
-            gradient="from-stack-3 to-stack-4"
-          />
-
-          {/* Electricity */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Electricity</h3>
-          {filteredElectricity.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Consumption (kWh)', 'Grid %', 'Renewable %', 'Green Tariff', 'Cost', 'Confidence']}>
-              {filteredElectricity.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.consumptionKwh)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.sourceGridPercent)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.sourceOnsiteRenewablePercent)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.greenTariff)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Lightning} domain="electricity" />
-          )}
-
-          {/* Fuels */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Fuels</h3>
-          {filteredFuels.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Fuel Type', 'Quantity', 'Unit', 'Purpose', 'Cost', 'Confidence']}>
-              {filteredFuels.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.fuelType}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.purpose}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Lightning} domain="fuel" />
-          )}
-
-          {/* Water */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Water</h3>
-          {filteredWater.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Withdrawal (m\u00B3)', 'Source', 'Discharge (m\u00B3)', 'Cost', 'Confidence']}>
-              {filteredWater.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.withdrawalM3)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.waterSource}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.dischargeM3)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Lightning} domain="water" />
-          )}
-        </section>
-
-        {/* ═══════ 6. Infrastructure ═══════ */}
-        <section>
-          <SectionHeader id="infrastructure" icon={Buildings} title="Infrastructure" count={filteredAssets.length} gradient="from-stack-4 to-stack-5" />
-
-          {filteredAssets.length > 0 ? (
-            <DataTable headers={['Site', 'Asset Name', 'Category', 'Type', 'Qty', 'Acquisition Year', 'Lifespan', 'Energy (kWh/yr)']}>
-              {filteredAssets.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-900">{r.assetName}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.assetCategory}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.assetType}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.quantity}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.acquisitionYear)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.expectedLifespanYears)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.energyConsumptionKwhYear)}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Buildings} domain="infrastructure" />
-          )}
-        </section>
-
-        {/* ═══════ 7. Transport ═══════ */}
-        <section>
-          <SectionHeader id="transport" icon={Truck} title="Transport" count={filteredTransport.length} gradient="from-stack-1 to-stack-3" />
-
-          {filteredTransport.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Direction', 'Mode', 'Distance (km)', 'Weight (t)', 'tkm', 'Carrier', 'Confidence']}>
-              {filteredTransport.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.direction}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.mode}</td>
-                  <td className="py-3 px-4 text-gray-900">{fmt(r.distanceKm)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.weightT)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.tkm)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.carrierName)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Truck} domain="transport" />
-          )}
-        </section>
-
-        {/* ═══════ 8. Workforce ═══════ */}
-        <section>
-          <SectionHeader id="workforce" icon={UsersThree} title="Workforce" count={filteredWorkforce.length + filteredSafety.length + filteredTraining.length} gradient="from-stack-2 to-stack-4" />
-
-          {/* Headcount */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Headcount</h3>
-          {filteredWorkforce.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Total FTE', 'Permanent', 'Temporary', 'Contractors', 'Female %', 'Hours', 'Confidence']}>
-              {filteredWorkforce.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.totalFte)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.permanentEmployees)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.temporaryEmployees)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.contractors)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.femalePercent)}</td>
-                  <td className="py-3 px-4 text-gray-600">{formatNumber(r.totalHoursWorked)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={UsersThree} domain="headcount" />
-          )}
-
-          {/* Safety */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Safety</h3>
-          {filteredSafety.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Recordable', 'LTI', 'Lost Days', 'Fatalities', 'Near Misses', 'Confidence']}>
-              {filteredSafety.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{r.recordableIncidents}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.lostTimeIncidents}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.lostDays)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.fatalities}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.nearMisses)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={UsersThree} domain="safety" />
-          )}
-
-          {/* Training */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Training</h3>
-          {filteredTraining.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Training Hours', 'Employees Trained', 'Safety Hours', 'Confidence']}>
-              {filteredTraining.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{fmt(r.totalTrainingHours)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.employeesTrained)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.safetyTrainingHours)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={UsersThree} domain="training" />
-          )}
-        </section>
-
-        {/* ═══════ 9. Outputs ═══════ */}
-        <section>
-          <SectionHeader
-            id="outputs"
-            icon={Recycle}
-            title="Outputs"
-            count={filteredWaste.length + filteredProducts.length + filteredDirectEmissions.length + filteredEffluents.length}
-            gradient="from-stack-3 to-stack-5"
-          />
-
-          {/* Waste */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Waste</h3>
-          {filteredWaste.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Category', 'Type', 'Quantity (kg)', 'Disposal', 'Hazardous', 'Confidence']}>
-              {filteredWaste.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.wasteCategory}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.wasteType)}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityKg)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.disposalRoute}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.hazardous ? 'Yes' : 'No'}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Recycle} domain="waste" />
-          )}
-
-          {/* Product Outputs */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Product Outputs</h3>
-          {filteredProducts.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Product', 'Quantity', 'Unit', 'Revenue', 'Confidence']}>
-              {filteredProducts.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-900">{r.productName}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.revenue)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Recycle} domain="product output" />
-          )}
-
-          {/* Direct Emissions */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Direct Emissions</h3>
-          {filteredDirectEmissions.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Source', 'Quantity (kg)', 'tCO\u2082e', 'Confidence']}>
-              {filteredDirectEmissions.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.emissionSource}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityKg)}</td>
-                  <td className="py-3 px-4 text-gray-600">{fmt(r.tco2e)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Recycle} domain="direct emission" />
-          )}
-
-          {/* Effluents */}
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Effluents</h3>
-          {filteredEffluents.length > 0 ? (
-            <DataTable headers={['Site', 'Period', 'Type', 'Volume (m\u00B3)', 'Destination', 'Confidence']}>
-              {filteredEffluents.map(r => (
-                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.effluentType}</td>
-                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.volumeM3)}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.destination}</td>
-                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
-                </tr>
-              ))}
-            </DataTable>
-          ) : (
-            <EmptySection icon={Recycle} domain="effluent" />
-          )}
-        </section>
-
-        {/* ═══════ 10. Agricultural (ag only) ═══════ */}
+        {/* ═══════ Agricultural (ag only) ═══════ */}
         {isAg && (
           <section>
             <SectionHeader
@@ -953,7 +606,336 @@ export default function FullViewPage() {
           </section>
         )}
 
-        {/* ═══════ 11. Context ═══════ */}
+        {/* ═══════ Infrastructure ═══════ */}
+        <section>
+          <SectionHeader id="infrastructure" icon={Buildings} title="Infrastructure" count={filteredAssets.length} gradient="from-stack-4 to-stack-5" />
+
+          {filteredAssets.length > 0 ? (
+            <DataTable headers={['Site', 'Asset Name', 'Category', 'Type', 'Qty', 'Acquisition Year', 'Lifespan', 'Energy (kWh/yr)']}>
+              {filteredAssets.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-900">{r.assetName}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.assetCategory}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.assetType}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.quantity}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.acquisitionYear)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.expectedLifespanYears)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.energyConsumptionKwhYear)}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Buildings} domain="infrastructure" />
+          )}
+        </section>
+
+        {/* ═══════ Outputs ═══════ */}
+        <section>
+          <SectionHeader
+            id="outputs"
+            icon={Recycle}
+            title="Outputs"
+            count={filteredWaste.length + filteredProducts.length + filteredDirectEmissions.length + filteredEffluents.length}
+            gradient="from-stack-3 to-stack-5"
+          />
+
+          {/* Waste */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Waste</h3>
+          {filteredWaste.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Category', 'Type', 'Quantity (kg)', 'Disposal', 'Hazardous', 'Confidence']}>
+              {filteredWaste.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.wasteCategory}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.wasteType)}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityKg)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.disposalRoute}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.hazardous ? 'Yes' : 'No'}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Recycle} domain="waste" />
+          )}
+
+          {/* Product Outputs */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Product Outputs</h3>
+          {filteredProducts.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Product', 'Quantity', 'Unit', 'Revenue', 'Confidence']}>
+              {filteredProducts.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{r.productName}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.revenue)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Recycle} domain="product output" />
+          )}
+
+          {/* Direct Emissions */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Direct Emissions</h3>
+          {filteredDirectEmissions.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Source', 'Quantity (kg)', 'tCO\u2082e', 'Confidence']}>
+              {filteredDirectEmissions.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.emissionSource}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityKg)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.tco2e)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Recycle} domain="direct emission" />
+          )}
+
+          {/* Effluents */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Effluents</h3>
+          {filteredEffluents.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Type', 'Volume (m\u00B3)', 'Destination', 'Confidence']}>
+              {filteredEffluents.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.effluentType}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.volumeM3)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.destination}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Recycle} domain="effluent" />
+          )}
+        </section>
+
+        {/* ═══════ Materials ═══════ */}
+        <section>
+          <SectionHeader id="materials" icon={Cube} title="Materials" count={filteredMaterialInputs.length} gradient="from-stack-1 to-stack-2" />
+
+          {filteredMaterialInputs.length > 0 ? (
+            <DataTable headers={['Material', 'Category', 'Site', 'Period', 'Quantity', 'Unit', 'Recycled %', 'Supplier', 'Confidence']}>
+              {filteredMaterialInputs.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getMaterialName(r.materialId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{getMaterialCategory(r.materialId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.recycledContentPercent)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.supplierName)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Cube} domain="materials" />
+          )}
+        </section>
+
+        {/* ═══════ Energy ═══════ */}
+        <section>
+          <SectionHeader
+            id="energy"
+            icon={Lightning}
+            title="Energy"
+            count={filteredElectricity.length + filteredFuels.length + filteredWater.length}
+            gradient="from-stack-3 to-stack-4"
+          />
+
+          {/* Electricity */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Electricity</h3>
+          {filteredElectricity.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Consumption (kWh)', 'Grid %', 'Renewable %', 'Green Tariff', 'Cost', 'Confidence']}>
+              {filteredElectricity.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.consumptionKwh)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.sourceGridPercent)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.sourceOnsiteRenewablePercent)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.greenTariff)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Lightning} domain="electricity" />
+          )}
+
+          {/* Fuels */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Fuels</h3>
+          {filteredFuels.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Fuel Type', 'Quantity', 'Unit', 'Purpose', 'Cost', 'Confidence']}>
+              {filteredFuels.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.fuelType}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantity)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.unit}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.purpose}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Lightning} domain="fuel" />
+          )}
+
+          {/* Water */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Water</h3>
+          {filteredWater.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Withdrawal (m\u00B3)', 'Source', 'Discharge (m\u00B3)', 'Cost', 'Confidence']}>
+              {filteredWater.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.withdrawalM3)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.waterSource}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.dischargeM3)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.cost)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Lightning} domain="water" />
+          )}
+        </section>
+
+        {/* ═══════ Transport ═══════ */}
+        <section>
+          <SectionHeader id="transport" icon={Truck} title="Transport" count={filteredTransport.length} gradient="from-stack-1 to-stack-3" />
+
+          {filteredTransport.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Direction', 'Mode', 'Distance (km)', 'Weight (t)', 'tkm', 'Carrier', 'Confidence']}>
+              {filteredTransport.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.direction}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.mode}</td>
+                  <td className="py-3 px-4 text-gray-900">{fmt(r.distanceKm)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.weightT)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.tkm)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.carrierName)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Truck} domain="transport" />
+          )}
+        </section>
+
+        {/* ═══════ Workforce ═══════ */}
+        <section>
+          <SectionHeader id="workforce" icon={UsersThree} title="Workforce" count={filteredWorkforce.length + filteredSafety.length + filteredTraining.length} gradient="from-stack-2 to-stack-4" />
+
+          {/* Headcount */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Headcount</h3>
+          {filteredWorkforce.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Total FTE', 'Permanent', 'Temporary', 'Contractors', 'Female %', 'Hours', 'Confidence']}>
+              {filteredWorkforce.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.totalFte)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.permanentEmployees)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.temporaryEmployees)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.contractors)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.femalePercent)}</td>
+                  <td className="py-3 px-4 text-gray-600">{formatNumber(r.totalHoursWorked)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={UsersThree} domain="headcount" />
+          )}
+
+          {/* Safety */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Safety</h3>
+          {filteredSafety.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Recordable', 'LTI', 'Lost Days', 'Fatalities', 'Near Misses', 'Confidence']}>
+              {filteredSafety.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{r.recordableIncidents}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.lostTimeIncidents}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.lostDays)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.fatalities}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.nearMisses)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={UsersThree} domain="safety" />
+          )}
+
+          {/* Training */}
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 mt-4">Training</h3>
+          {filteredTraining.length > 0 ? (
+            <DataTable headers={['Site', 'Period', 'Training Hours', 'Employees Trained', 'Safety Hours', 'Confidence']}>
+              {filteredTraining.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{fmt(r.totalTrainingHours)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.employeesTrained)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.safetyTrainingHours)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={UsersThree} domain="training" />
+          )}
+        </section>
+
+        {/* ═══════ Packaging ═══════ */}
+        <section>
+          <SectionHeader id="packaging" icon={Package} title="Packaging" count={filteredPackagingInputs.length} gradient="from-stack-2 to-stack-3" />
+
+          {filteredPackagingInputs.length > 0 ? (
+            <DataTable headers={['Packaging', 'Level', 'Material', 'Site', 'Period', 'Units', 'Weight (kg)', 'Recycled %', 'Confidence']}>
+              {filteredPackagingInputs.map(r => (
+                <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 text-gray-900">{getPackagingName(r.packagingId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{getPackagingLevel(r.packagingId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{getPackagingMaterial(r.packagingId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{getSiteName(r.siteId)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.period}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.quantityUnits)}</td>
+                  <td className="py-3 px-4 text-gray-900">{formatNumber(r.totalWeightKg)}</td>
+                  <td className="py-3 px-4 text-gray-600">{fmt(r.recycledContentPercent)}</td>
+                  <td className="py-3 px-4 text-gray-600">{r.confidence}</td>
+                </tr>
+              ))}
+            </DataTable>
+          ) : (
+            <EmptySection icon={Package} domain="packaging" />
+          )}
+        </section>
+
+        {/* ═══════ Context ═══════ */}
         <section>
           <SectionHeader
             id="context"
