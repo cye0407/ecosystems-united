@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { analytics } from "@/lib/analytics";
 
 const questions = [
   "Can you document your sustainability practices with evidence (not just claims)?",
@@ -72,6 +73,11 @@ export default function RegenerationAssessmentPage() {
     if (allAnswered) {
       setShowResults(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      analytics.track("assessment_completed", {
+        label: "regeneration_assessment",
+        score,
+        result_level: result.level,
+      });
     }
   };
 

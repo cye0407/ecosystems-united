@@ -1,43 +1,92 @@
 /**
- * Lightweight analytics utility for tracking user interactions.
+ * Analytics utility — sends events to Supabase `site_events` table.
  *
- * Currently logs to console in development. Replace the `send` function
- * with your analytics provider (e.g., PostHog, Mixpanel, Segment) when ready.
+ * Tracks page views, user actions, and lead captures.
+ * Works without authentication (uses anon key with RLS insert policy).
  */
+
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 type EventProperties = Record<string, string | number | boolean | null>;
 
-const COOKIE_CONSENT_KEY = 'eu-cookie-consent';
-
-function isTrackingAllowed(): boolean {
-  return localStorage.getItem(COOKIE_CONSENT_KEY) === 'accepted';
+function getSessionId(): string {
+  const key = 'eu-session-id';
+  let id = sessionStorage.getItem(key);
+  if (!id) {
+    id = crypto.randomUUID();
+    sessionStorage.setItem(key, id);
+  }
+  return id;
 }
 
-function send(event: string, properties?: EventProperties): void {
-  // Replace this with your analytics provider's SDK call
-  // e.g., posthog.capture(event, properties)
-  // e.g., mixpanel.track(event, properties)
+async function send(event: string, page?: string, label?: string, metadata?: EventProperties): Promise<void> {
+  if (typeof window === 'undefined') return;
+
   if (process.env.NODE_ENV === 'development') {
-    console.debug('[analytics]', event, properties);
+    console.debug('[analytics]', event, { page, label, metadata });
+  }
+
+  if (!isSupabaseConfigured()) return;
+
+  try {
+    await supabase.from('site_events').insert({
+      event,
+      page: page || window.location.pathname,
+      label: label || null,
+      metadata: metadata || null,
+      session_id: getSessionId(),
+    });
+  } catch {
+    // Silently fail — analytics should never break the app
   }
 }
 
 export const analytics = {
   /** Track a page view */
   pageView(path: string) {
-    if (!isTrackingAllowed()) return;
-    send('page_view', { path });
+    send('page_view', path);
   },
 
   /** Track a user action */
   track(event: string, properties?: EventProperties) {
-    if (!isTrackingAllowed()) return;
-    send(event, properties);
+    const page = properties?.page as string | undefined;
+    const label = properties?.label as string | undefined;
+    const metadata = properties ? { ...properties } : undefined;
+    if (metadata) {
+      delete metadata.page;
+      delete metadata.label;
+    }
+    send(event, page, label, Object.keys(metadata || {}).length ? metadata : undefined);
   },
 
-  /** Identify a user (call after login) */
-  identify(userId: string, traits?: EventProperties) {
-    if (!isTrackingAllowed()) return;
-    send('identify', { userId, ...traits });
+  /** Capture a lead */
+  async captureLead(data: {
+    email: string;
+    companyName?: string;
+    industry?: string;
+    country?: string;
+    employees?: number;
+    source: string;
+  }) {
+    if (typeof window === 'undefined' || !isSupabaseConfigured()) return;
+
+    try {
+      await supabase.from('leads').insert({
+        email: data.email,
+        company_name: data.companyName || null,
+        industry: data.industry || null,
+        country: data.country || null,
+        employees: data.employees || null,
+        source: data.source,
+      });
+    } catch {
+      // Silently fail
+    }
+
+    // Also track as an event
+    send('lead_captured', window.location.pathname, data.source, {
+      has_company: !!data.companyName,
+      has_industry: !!data.industry,
+    });
   },
 };

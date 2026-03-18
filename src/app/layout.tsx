@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "@/components/providers/Providers";
+import PageViewTracker from "@/components/analytics/PageViewTracker";
 import "./globals.css";
 
 const inter = Inter({
@@ -49,6 +50,7 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <Providers>{children}</Providers>
+        <PageViewTracker />
         <Analytics />
       </body>
     </html>

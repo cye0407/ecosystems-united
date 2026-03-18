@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { analytics } from "@/lib/analytics";
 
 const questions = [
   "Do you track energy consumption (electricity, gas, fuel) at least monthly?",
@@ -72,6 +73,11 @@ export default function MetricsAssessmentPage() {
     if (allAnswered) {
       setShowResults(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      analytics.track("assessment_completed", {
+        label: "metrics_assessment",
+        score,
+        result_level: result.level,
+      });
     }
   };
 

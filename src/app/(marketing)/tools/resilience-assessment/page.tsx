@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { analytics } from "@/lib/analytics";
 
 const questions = [
   "Do you know your single points of failure (one supplier, one customer, one key person)?",
@@ -72,6 +73,11 @@ export default function ResilienceAssessmentPage() {
     if (allAnswered) {
       setShowResults(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      analytics.track("assessment_completed", {
+        label: "resilience_assessment",
+        score,
+        result_level: result.level,
+      });
     }
   };
 

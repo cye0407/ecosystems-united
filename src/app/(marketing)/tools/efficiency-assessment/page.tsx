@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { analytics } from "@/lib/analytics";
 
 const questions = [
   "Do you know your top 3 operational costs as a percentage of revenue?",
@@ -72,6 +73,11 @@ export default function EfficiencyAssessmentPage() {
     if (allAnswered) {
       setShowResults(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      analytics.track("assessment_completed", {
+        label: "efficiency_assessment",
+        score,
+        result_level: result.level,
+      });
     }
   };
 

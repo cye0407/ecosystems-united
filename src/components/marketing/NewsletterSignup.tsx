@@ -1,4 +1,15 @@
+'use client';
+
+import { analytics } from '@/lib/analytics';
+
 export default function NewsletterSignup() {
+  function handleSubmit() {
+    analytics.track('newsletter_signup', {
+      page: window.location.pathname,
+      label: 'five_stacks_monthly',
+    });
+  }
+
   return (
     <div className="bg-gray-50 rounded-lg p-8 text-center">
       <h3 className="text-xl font-semibold text-gray-900 mb-2">The Five Stacks Monthly</h3>
@@ -11,6 +22,7 @@ export default function NewsletterSignup() {
         action="https://buttondown.com/api/emails/embed-subscribe/ecosystemsunited"
         method="post"
         target="popupwindow"
+        onSubmit={handleSubmit}
         className="flex gap-3 max-w-md mx-auto"
       >
         <input
