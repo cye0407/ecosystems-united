@@ -27,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/resilience-assessment",
     "/tools/regeneration-assessment",
     "/tools/soil-health-checklist",
+    "/tools/diagnostic-quiz",
+    "/tools/energy-calculator",
     "/start/buyer-questionnaire",
     "/start/csrd",
     "/start/costs",

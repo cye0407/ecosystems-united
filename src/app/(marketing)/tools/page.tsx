@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Tools",
   description:
-    "Interactive tools to assess your sustainability position and build operational capability.",
+    "Free interactive tools to assess your operation, find efficiency gains, and build sustainability capability.",
 };
 
 const stackAssessments = [
@@ -50,34 +50,44 @@ const stackAssessments = [
   },
 ];
 
-const otherTools = [
+const calculators = [
   {
-    name: "Full Stack Assessment",
+    name: "Energy Efficiency ROI Calculator",
     description:
-      "Evaluate where your operation sits across all five stacks. Get a complete picture and prioritize next steps.",
-    href: "/tools/stack-assessment",
-    status: "available",
+      "Input your energy consumption and see exactly what efficiency improvements would save you — in euros and CO₂.",
+    href: "/tools/energy-calculator",
+    status: "available" as const,
   },
   {
     name: "Soil Health Checklist",
     description:
       "A practical checklist for assessing and tracking soil health indicators on your operation.",
     href: "/tools/soil-health-checklist",
-    status: "available",
+    status: "available" as const,
   },
+  {
+    name: "Full Stack Assessment",
+    description:
+      "Evaluate where your operation sits across all five stacks. Get a complete picture and prioritize next steps.",
+    href: "/tools/stack-assessment",
+    status: "available" as const,
+  },
+];
+
+const comingSoon = [
   {
     name: "Response Generator",
     description:
-      "Upload sustainability questionnaires and generate answers from your operational data. Coming soon.",
+      "Upload sustainability questionnaires and generate answers from your operational data.",
     href: "/tools",
-    status: "coming-soon",
+    status: "coming-soon" as const,
   },
   {
     name: "Baseline Calculator",
     description:
-      "Calculate baseline metrics for emissions, energy, water, and waste across your operation. Coming soon.",
+      "Calculate baseline metrics for emissions, energy, water, and waste across your operation.",
     href: "/tools",
-    status: "coming-soon",
+    status: "coming-soon" as const,
   },
 ];
 
@@ -87,9 +97,31 @@ export default function ToolsPage() {
       <div className="mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-6">Tools</h1>
         <p className="text-xl text-gray-600">
-          Interactive tools to assess your sustainability position and build
-          operational capability.
+          Free interactive tools to assess your operation, find efficiency
+          gains, and build sustainability capability.
         </p>
+      </div>
+
+      {/* Diagnostic Quiz — featured */}
+      <div className="mb-16">
+        <Link
+          href="/tools/diagnostic-quiz"
+          className="block p-8 rounded-lg border-2 border-[#3D2E7C] bg-[#3D2E7C]/5 hover:bg-[#3D2E7C]/10 transition-colors group"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-semibold text-white bg-[#3D2E7C] px-2.5 py-0.5 rounded-full">
+              Start here
+            </span>
+            <span className="text-xs text-gray-500">2 minutes</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 group-hover:text-[#3D2E7C] transition-colors mb-2">
+            Where Should You Start?
+          </h2>
+          <p className="text-gray-600">
+            7 questions to find out which part of your operation needs attention
+            first. Get a personalised starting point across all five stacks.
+          </p>
+        </Link>
       </div>
 
       {/* Stack Assessments */}
@@ -121,27 +153,43 @@ export default function ToolsPage() {
         ))}
       </div>
 
-      {/* Other Tools */}
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Other Tools</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {otherTools.map((tool) => (
+      {/* Calculators & Checklists */}
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        Calculators &amp; Checklists
+      </h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {calculators.map((tool) => (
           <Link
             key={tool.name}
             href={tool.href}
             className="block p-6 border border-gray-200 rounded-lg hover:border-primary transition-colors group"
           >
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors mb-2">
+              {tool.name}
+            </h3>
+            <p className="text-sm text-gray-600">{tool.description}</p>
+          </Link>
+        ))}
+      </div>
+
+      {/* Coming Soon */}
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Coming Soon</h2>
+      <div className="grid md:grid-cols-2 gap-6">
+        {comingSoon.map((tool) => (
+          <div
+            key={tool.name}
+            className="p-6 border border-gray-200 rounded-lg opacity-60"
+          >
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
+              <h3 className="text-lg font-semibold text-gray-900">
                 {tool.name}
               </h3>
-              {tool.status === "coming-soon" && (
-                <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
-                  Coming Soon
-                </span>
-              )}
+              <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
+                Coming Soon
+              </span>
             </div>
-            <p className="text-gray-600">{tool.description}</p>
-          </Link>
+            <p className="text-sm text-gray-600">{tool.description}</p>
+          </div>
         ))}
       </div>
 
