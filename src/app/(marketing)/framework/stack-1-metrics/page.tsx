@@ -229,7 +229,7 @@ export default function Stack1Page() {
 
       {/* Related Articles */}
       <section className="mt-12">
-        <h2 className="text-lg font-semibold text-[#4AA88C] mb-4">Go deeper</h2>
+        <h2 className="text-lg font-semibold text-[#4AA88C] mb-4">Explore further</h2>
         <div className="space-y-3">
           <Link href="/articles/what-gets-measured" className="block p-4 border border-gray-200 rounded-lg hover:border-[#4AA88C] transition-colors">
             <span className="font-medium text-gray-900">What Actually Gets Measured? →</span>

@@ -231,6 +231,25 @@ export default function Stack3Page() {
 
       </div>
 
+      {/* Related Articles */}
+      <section className="mt-12">
+        <h2 className="text-lg font-semibold text-[#4AA88C] mb-4">Explore further</h2>
+        <div className="space-y-3">
+          <Link href="/articles/circular-economy-explained" className="block p-4 border border-gray-200 rounded-lg hover:border-[#4AA88C] transition-colors">
+            <span className="font-medium text-gray-900">The Circular Economy Explained →</span>
+            <span className="block text-sm text-gray-600">From waste streams to value streams</span>
+          </Link>
+          <Link href="/articles/farm-waste-to-value" className="block p-4 border border-gray-200 rounded-lg hover:border-[#4AA88C] transition-colors">
+            <span className="font-medium text-gray-900">Farm Waste Streams: Where Value Is Being Lost →</span>
+            <span className="block text-sm text-gray-600">Identify your highest-value recovery opportunities</span>
+          </Link>
+          <Link href="/articles/closed-loop-nutrient-cycling" className="block p-4 border border-gray-200 rounded-lg hover:border-[#4AA88C] transition-colors">
+            <span className="font-medium text-gray-900">Closed-Loop Nutrient Systems →</span>
+            <span className="block text-sm text-gray-600">Minimize leakage, maximize cycling</span>
+          </Link>
+        </div>
+      </section>
+
       {/* CTA Box */}
       <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
         <h2 className="text-xl font-bold mb-2">Ready to capture your lost margin?</h2>
