@@ -26,16 +26,16 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/tools/stack-assessment"
+                href="/signup"
                 className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
               >
-                Build Your Baseline
+                Start Tracking — Free
               </Link>
               <Link
-                href="/framework"
+                href="/tools"
                 className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
               >
-                Explore the 5 Stacks
+                Explore Free Tools
               </Link>
             </div>
           </div>
@@ -183,14 +183,50 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Response Generator */}
+        <section className="py-16 px-4 bg-cream">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-8 md:p-12">
+                <span className="text-xs font-semibold text-white bg-primary px-2.5 py-0.5 rounded-full">
+                  Now live
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-4 mb-3">
+                  Got a buyer questionnaire you can&apos;t answer?
+                </h2>
+                <p className="text-gray-600 mb-6 max-w-2xl">
+                  Upload it. The Response Generator drafts answers from your
+                  tracked operational data — with confidence scores so you know
+                  what&apos;s solid and what needs work. Review, edit, export as
+                  CSV. Turn 40 hours of manual reporting into a 15-minute review.
+                </p>
+                <div className="flex flex-col sm:flex-row items-start gap-4">
+                  <Link
+                    href="/signup"
+                    className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold"
+                  >
+                    Get Started — €39 per questionnaire
+                  </Link>
+                  <Link
+                    href="/see-it-in-action"
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                  >
+                    See it in action
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
             <PageCTA
               heading="Built for farms and agricultural SMEs"
-              description="CSRD is cascading through supply chains. Your buyers need your data. The Five Stacks Framework turns that obligation into operational advantage — starting with what you already measure."
-              primaryButton={{ label: "Start Your Baseline", href: "/articles" }}
-              secondaryButton={{ label: "The Modern Playbook", href: "/modern-sustainability" }}
+              description="Your buyers need your data. The Five Stacks Framework turns that obligation into operational advantage, starting with what you already measure."
+              primaryButton={{ label: "Start Tracking — Free", href: "/signup" }}
+              secondaryButton={{ label: "How it works", href: "/tracker" }}
               centered
             />
           </div>

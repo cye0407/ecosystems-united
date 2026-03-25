@@ -136,13 +136,13 @@ export default function ArticlePage() {
 
       {/* Mid-article CTA */}
       <div className="my-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="font-semibold text-gray-900 mb-2">Not sure which metrics you can actually answer questions about?</p>
+        <p className="font-semibold text-gray-900 mb-2">Not sure where your operation stands?</p>
         <p className="text-gray-600 text-sm mb-4">
-          The Scope 3 Supplier Readiness Scorecard shows you in 5 minutes which metrics you can answer today and where your gaps are.
+          Take the 2-minute diagnostic quiz to find out which part of your operation needs attention first.
         </p>
-        <a href="#" className="inline-block bg-[#4AA88C] text-white px-4 py-2 rounded font-medium text-sm hover:bg-[#3d8f77] transition-colors">
-          Get the Free Scorecard →
-        </a>
+        <Link href="/tools/diagnostic-quiz" className="inline-block bg-[#3D2E7C] text-white px-4 py-2 rounded font-medium text-sm hover:bg-[#2d2260] transition-colors">
+          Take the quiz →
+        </Link>
       </div>
 
       {/* Continue article */}
@@ -184,18 +184,13 @@ export default function ArticlePage() {
 
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
-        <h3 className="text-xl font-bold mb-2">Ready to build your measurement systems?</h3>
+        <h3 className="text-xl font-bold mb-2">Ready to start tracking?</h3>
         <p className="text-gray-400 mb-6">
-          The Complete Baseline System gives you templates, methodology documentation, and a 12-week implementation guide.
+          The free baseline tracker organises your energy, water, waste, and production data across 8 domains. Auto-calculated emissions, CSV exports, multi-site support.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a href="#" className="inline-block bg-[#4AA88C] text-white px-5 py-2 rounded font-medium hover:bg-[#3d8f77] transition-colors">
-            Get the Complete System — €99
-          </a>
-          <a href="#" className="inline-block bg-white/10 text-white px-5 py-2 rounded font-medium hover:bg-white/20 transition-colors">
-            Or start with the Assessment — €29
-          </a>
-        </div>
+        <Link href="/signup" className="inline-block bg-[#4AA88C] text-white px-5 py-2 rounded font-medium hover:bg-[#3d8f77] transition-colors">
+          Start Tracking
+        </Link>
       </div>
 
       {/* Article Navigation */}

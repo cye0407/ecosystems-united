@@ -317,8 +317,8 @@ export default function SeeItInActionPage() {
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wide">
             Response Generator
           </h2>
-          <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full">
-            Coming Soon
+          <span className="text-xs font-medium text-white bg-primary px-2.5 py-0.5 rounded-full">
+            Live — €39
           </span>
         </div>
         <p className="text-2xl font-bold text-gray-900 mb-2">
@@ -384,6 +384,18 @@ export default function SeeItInActionPage() {
               + 44 more answers generated from your operational data
             </span>
           </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/signup"
+            className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+          >
+            Start Your Baseline — Use the Response Generator →
+          </Link>
+          <p className="text-sm text-gray-500 mt-3">
+            Free tracker + response generator from €39 per questionnaire.
+          </p>
         </div>
       </section>
 

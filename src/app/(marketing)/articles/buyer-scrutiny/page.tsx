@@ -74,13 +74,13 @@ export default function ArticlePage() {
 
       {/* Mid-article CTA */}
       <div className="my-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="font-semibold text-gray-900 mb-2">Not sure if you're in the pressure zone?</p>
+        <p className="font-semibold text-gray-900 mb-2">Not sure where your operation stands?</p>
         <p className="text-gray-600 text-sm mb-4">
-          The Scope 3 Supplier Readiness Scorecard helps you assess your exposure in 5 minutes—how many buyers are likely covered, whether you've received questionnaires, and your readiness level.
+          Take the 2-minute diagnostic quiz to find out which part of your operation needs attention first.
         </p>
-        <a href="#" className="inline-block bg-[#4AA88C] text-white px-4 py-2 rounded font-medium text-sm hover:bg-[#3d8f77] transition-colors">
-          Get the Free Scorecard →
-        </a>
+        <Link href="/tools/diagnostic-quiz" className="inline-block bg-[#3D2E7C] text-white px-4 py-2 rounded font-medium text-sm hover:bg-[#2d2260] transition-colors">
+          Take the quiz →
+        </Link>
       </div>
 
       {/* Continue article */}
@@ -138,16 +138,11 @@ export default function ArticlePage() {
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Be ready before the requests arrive</h3>
         <p className="text-gray-400 mb-6">
-          The Complete Baseline System helps you build audit-defensible data for the metrics buyers actually ask about.
+          The free baseline tracker organises your operational data across 8 domains so you can respond to buyer questionnaires with real numbers, not scrambled estimates.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a href="#" className="inline-block bg-[#4AA88C] text-white px-5 py-2 rounded font-medium hover:bg-[#3d8f77] transition-colors">
-            Get the Complete System — €99
-          </a>
-          <a href="#" className="inline-block bg-white/10 text-white px-5 py-2 rounded font-medium hover:bg-white/20 transition-colors">
-            Start with the Assessment — €29
-          </a>
-        </div>
+        <Link href="/signup" className="inline-block bg-[#4AA88C] text-white px-5 py-2 rounded font-medium hover:bg-[#3d8f77] transition-colors">
+          Start Tracking
+        </Link>
       </div>
 
       {/* Article Navigation */}

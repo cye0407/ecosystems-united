@@ -89,9 +89,29 @@ export default function BuyerQuestionnairePage() {
         </div>
       </section>
 
+      <div className="p-8 rounded-lg text-white mb-8" style={{ backgroundColor: "#3D2E7C" }}>
+        <h2 className="text-2xl font-bold mb-3">
+          Need to respond now?
+        </h2>
+        <p className="text-white/80 mb-6">
+          The Response Generator drafts answers to buyer questionnaires
+          directly from your operational data. Upload your questionnaire,
+          review the answers, export as CSV. Done.
+        </p>
+        <Link
+          href="/signup"
+          className="inline-block px-6 py-3 rounded font-semibold transition-colors bg-white text-[#3D2E7C] hover:bg-white/90"
+        >
+          Get Started — €39 per questionnaire
+        </Link>
+        <p className="text-sm text-white/60 mt-3">
+          Includes the free baseline tracker across all 8 domains.
+        </p>
+      </div>
+
       <div className="p-8 rounded-lg text-white" style={{ backgroundColor: "#1a1a2e" }}>
         <h2 className="text-2xl font-bold mb-3">
-          See where your operation stands
+          Not ready to respond yet? See where you stand.
         </h2>
         <p className="text-white/80 mb-6">
           The Stack 1 assessment maps your current data across 8 operational

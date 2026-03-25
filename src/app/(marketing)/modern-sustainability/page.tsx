@@ -3,7 +3,7 @@ import PageCTA from "@/components/marketing/PageCTA";
 
 export const metadata = {
   title: "Modern Sustainability | Ecosystems United",
-  description: "Sustainability has a reputation problem. We're not here to make you care about the planet. We're here to prove sustainability is good business.",
+  description: "Good operations are sustainable operations. Here's how you get from where you are to where the money is.",
 };
 
 export default function ModernSustainabilityPage() {
@@ -12,248 +12,169 @@ export default function ModernSustainabilityPage() {
       {/* Header */}
       <header className="mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Modern Sustainability
+          Good Operations Are Sustainable Operations
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
-          Sustainability has a reputation problem.
+          You don&apos;t need a sustainability strategy. You need an operational
+          one. The environmental proof comes as a byproduct.
         </p>
       </header>
 
       {/* Main Content */}
       <article className="prose prose-lg prose-gray max-w-none">
-        
-        <p>
-          It's the initiative that gets announced with fanfare and cut when margins tighten. The report 
-          that nobody reads. The checkbox that satisfies auditors but changes nothing.
-        </p>
 
         <p>
-          We've watched companies hire sustainability officers, publish glossy reports, and carry on 
-          exactly as before. We've seen "green" become a marketing term divorced from operations. We've 
-          watched real investments get shelved because the ROI wasn't obvious enough, fast enough.
-        </p>
-
-        <p>And we get it.</p>
-
-        <p>
-          If sustainability feels like a cost center, a compliance burden, a thing you do <em>despite</em> your 
-          business goals — why would you prioritize it?
+          Every cent you waste on excess energy, lost materials, or inefficient
+          transport is a cent off your margin <em>and</em> an emission you
+          didn&apos;t need to produce. Fix the operations and you fix the
+          sustainability numbers automatically.
         </p>
 
         <p className="text-xl font-medium text-gray-900">
-          You wouldn't. And you shouldn't have to.
+          Here&apos;s how you get from where you are to where the money is.
         </p>
 
-        <h2>The old sustainability</h2>
+        <h2>The path from A to B</h2>
+
+        <div className="not-prose my-8 space-y-6">
+          <div className="flex gap-4 items-start p-6 rounded-xl border border-gray-200">
+            <div className="w-10 h-10 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-1">Know your numbers</h3>
+              <p className="text-gray-600 text-base mb-2">
+                You can&apos;t fix what you can&apos;t see. Track energy, water, materials,
+                waste, transport, and workforce data. Most of it is already in your
+                invoices and bills. It just needs organising.
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>The money:</strong> Operations that start measuring typically find
+                10–20% in reduction opportunities within the first year.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start p-6 rounded-xl border border-gray-200">
+            <div className="w-10 h-10 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-1">Stop the leaks</h3>
+              <p className="text-gray-600 text-base mb-2">
+                Your baseline data shows exactly where you bleed margin. Energy
+                waste, over-application, transport inefficiency. The boring stuff
+                that costs thousands every year.
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>The money:</strong> LED upgrades pay back in 1–2 years. Compressed
+                air leak repairs often pay back in months. Variable speed drives cut
+                motor energy 20–40%.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start p-6 rounded-xl border border-gray-200">
+            <div className="w-10 h-10 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-1">Capture the waste</h3>
+              <p className="text-gray-600 text-base mb-2">
+                What you throw away was once something you paid for. Byproduct
+                revenue, recycling rebates, composting value. Your waste streams
+                are an untapped P&amp;L line.
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>The money:</strong> Every kilogram of waste was once a purchased
+                input. Turning cost into revenue changes your margin structure.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start p-6 rounded-xl border border-gray-200">
+            <div className="w-10 h-10 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              4
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-1">Build resilience</h3>
+              <p className="text-gray-600 text-base mb-2">
+                One buyer, one product, one market = one point of failure.
+                Diversify your revenue streams so a single shock doesn&apos;t break
+                you.
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>The money:</strong> The operation that survives the bad year is the
+                one that&apos;s still around for the good years.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start p-6 rounded-xl border border-gray-200">
+            <div className="w-10 h-10 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm shrink-0">
+              5
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 mb-1">Compound the advantage</h3>
+              <p className="text-gray-600 text-base mb-2">
+                Now you can prove it. Verified data, certifications, premium
+                positioning. Your operational improvements become a moat. Each
+                cycle makes you harder to compete with.
+              </p>
+              <p className="text-sm text-gray-500">
+                <strong>The money:</strong> Suppliers with documented sustainability
+                performance get preferred status, maintained volumes, and pricing
+                leverage.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <p>
-          The old model treats sustainability as a destination. A target. A report you file, a certification 
-          you frame, a claim you make.
+          Each step creates the conditions for the next. Skip steps and it falls
+          apart. Follow the sequence and each investment funds the next.
         </p>
 
-        <p>It starts with ambition: "We'll be carbon neutral by 2030."</p>
-
-        <p>Then it becomes a department: one person, small budget, lots of PowerPoints.</p>
-
-        <p>Then it hits reality: costs are high, returns are unclear, priorities shift.</p>
+        <h2>The sustainability part</h2>
 
         <p>
-          Then it becomes theater: the report still gets published, the language stays on the website, 
-          but nothing fundamental changes.
+          Notice what just happened? You reduced energy waste, cut material
+          losses, diverted waste from landfill, built climate resilience, and
+          created a verifiable track record.
         </p>
 
         <p>
-          <strong>This is sustainability as a tax.</strong> Something you pay because you have to. Something 
-          that competes with your actual business.
-        </p>
-
-        <p>No wonder it gets cut.</p>
-
-        <h2>The shift</h2>
-
-        <p>What if sustainability wasn't the goal — but the lens?</p>
-
-        <p>
-          What if the same practices that reduce your environmental footprint <em>also</em> reduced your costs? 
-          What if building resilience against climate volatility <em>also</em> protected you from supply chain 
-          shocks? What if the data you need for Scope 3 reporting <em>also</em> showed you where you're 
-          bleeding margin?
-        </p>
-
-        <p className="text-xl font-medium text-gray-900">
-          This is sustainability as competitive advantage.
+          That&apos;s a sustainability report. You just wrote it by running a
+          better operation.
         </p>
 
         <p>
-          Not because being green is good PR (though it can be). But because the operational improvements 
-          that make a business sustainable are the same improvements that make it <em>better</em>.
+          When CSRD arrives, when buyers send their Scope 3 questionnaires, when
+          your bank asks for ESG data, you&apos;re not scrambling. You&apos;re
+          pulling numbers from a system you built to save money.
         </p>
-
-        <p>
-          Lower input costs. Less waste. Captured value. Resilience to shocks. Positioning for premium markets.
-        </p>
-
-        <p>The environmental benefits are real. But they're the <em>output</em>, not the input.</p>
-
-        <h2>What we mean by sustainability</h2>
-
-        <p>We hold two definitions, and we don't conflate them.</p>
-
-        <p>
-          <strong>Environmental sustainability</strong> is real. Emissions reduction, resource management, 
-          CSRD compliance, Scope 3 reporting, ecolabels — these matter, they're coming, and you'll need 
-          to deal with them.
-        </p>
-
-        <p>We don't redefine environmental sustainability. We operationalize the path to it.</p>
-
-        <p>
-          <strong>Operational sustainability</strong> is what we build. The capacity to adapt. To match 
-          your strategy to your moment. To survive and thrive as conditions change.
-        </p>
-
-        <p>
-          Sustainability isn't a static state. It's not a target you hit and hold. It's dynamic 
-          responsiveness — knowing when to be efficient, when to invest, when to hold ground, when to pivot.
-        </p>
-
-        <p>Like ecosystems: no steady state, just continuous adjustment to conditions.</p>
-
-        <p className="text-lg font-medium text-gray-900">The relationship:</p>
-
-        <p>
-          When you build operational sustainability — visibility, efficiency, circularity, resilience, 
-          positioning — environmental sustainability becomes achievable, provable, and profitable.
-        </p>
-
-        <p>The stacks don't replace Scope 3 and CSRD. They prepare you for them.</p>
-
-        <h2>The honest position</h2>
-
-        <p>We're not here to make you care about the planet.</p>
-
-        <p>
-          You've seen initiatives come and go. DEI, ESG, sustainability — announced with conviction, 
-          abandoned when inconvenient. The gap between what companies say and what they do isn't news to you.
-        </p>
-
-        <p>We're realistic about this.</p>
-
-        <p>
-          Sustainability regulations are coming. CSRD. Scope 3 reporting. Supply chain due diligence. 
-          Your buyers are asking for data. Your customers are paying attention. You're going to have 
-          to deal with it whether you care or not.
-        </p>
-
-        <p>So you have a choice:</p>
-
-        <p>
-          <strong>Option A:</strong> Treat it as a cost. Hire a consultant. File the report. Check the box. 
-          Resent the expense.
-        </p>
-
-        <p>
-          <strong>Option B:</strong> Use it as a lens. Find the margin leaks. Capture the wasted value. 
-          Build the resilience. Let the compliance come as a byproduct of better operations.
-        </p>
-
-        <p>We build for Option B.</p>
 
         <p className="text-xl font-semibold text-gray-900">
-          Sustainability is good business. We prove it.
+          Infrastructure, not narratives.
         </p>
-
-        <h2>Efficacy over efficiency</h2>
-
-        <p>One more reframe.</p>
-
-        <p>
-          The business world worships efficiency. Do more with less. Optimize. Cut.
-        </p>
-
-        <p>
-          But efficiency is context-blind. It assumes stable conditions. It optimizes for <em>now</em> without 
-          asking what happens when conditions change.
-        </p>
-
-        <p>
-          <strong>Efficacy</strong> is different. Efficacy means doing the right thing at the right time, 
-          with the future in mind.
-        </p>
-
-        <p>
-          Sometimes that's efficiency. Sometimes it's investment. Sometimes it's redundancy that looks 
-          wasteful until the shock hits and you're the only one still standing.
-        </p>
-
-        <p>
-          Efficacy is adaptive. It asks: <em>given what's true now and what might be true soon, what's 
-          the right move?</em>
-        </p>
-
-        <p>This is what we build toward. Not the leanest operation — the most capable one.</p>
-
-        <h2>The Sharpened Five Stacks</h2>
-
-        <p className="text-lg font-medium text-gray-900">Moving from &ldquo;Academic&rdquo; to &ldquo;Operational&rdquo;</p>
-
-        <p>This isn&rsquo;t philosophy. It&rsquo;s a playbook.</p>
-
-        <ol>
-          <li>
-            <strong>The Defensible Baseline</strong> (formerly Core Metrics)<br />
-            <em>&ldquo;If it can&rsquo;t be measured, it can&rsquo;t be defended.&rdquo;</em><br />
-            Establish a hard-data foundation for emissions, energy, and land use. This is your source of truth that protects you against audit and buyer scrutiny.
-          </li>
-          <li>
-            <strong>Operational Efficiency</strong> (formerly Efficiency)<br />
-            <em>&ldquo;Fix leaks before adding initiatives.&rdquo;</em><br />
-            Stop the margin bleed. We use your baseline data to identify exactly where inputs are being wasted and where processes are underperforming.
-          </li>
-          <li>
-            <strong>Margin Recovery</strong> (formerly Circular Value Creation)<br />
-            <em>&ldquo;What you discard is lost margin.&rdquo;</em><br />
-            Identify waste streams that can be converted into revenue or cost-savings. This turns an environmental &ldquo;problem&rdquo; into a line item on your P&amp;L.
-          </li>
-          <li>
-            <strong>Structural Resilience</strong> (formerly Adaptive Resilience)<br />
-            <em>&ldquo;Systems must absorb shocks without breaking.&rdquo;</em><br />
-            Diversify your operational value streams so a single market shift or climate event doesn&rsquo;t tank the business. Build a farm that can pivot.
-          </li>
-          <li>
-            <strong>The Compounding Engine</strong> (formerly Regenerative Advantage)<br />
-            <em>&ldquo;Build systems that improve as they operate.&rdquo;</em><br />
-            The final stack is an automated feedback loop. Your business doesn&rsquo;t just &ldquo;sustain&rdquo;&mdash;it gets more efficient and more profitable with every cycle.
-          </li>
-        </ol>
-
-        <p>
-          Each stack creates the conditions for the next. Skip steps and it falls apart. Follow the
-          sequence and each investment funds the next.
-        </p>
-
-        <div className="not-prose my-8">
-          <Link
-            href="/framework"
-            className="inline-flex items-center gap-2 text-[#4AA88C] font-semibold hover:underline text-lg"
-          >
-            Explore The Five Stacks <span>→</span>
-          </Link>
-        </div>
 
         <h2>Who this is for</h2>
 
         <ul>
-          <li><strong>Business owners</strong> who know sustainability is coming but want it to pay for itself</li>
+          <li><strong>Farmers and food businesses</strong> who want their costs down and their data ready</li>
           <li><strong>Operations leaders</strong> looking for margin improvements, not compliance checklists</li>
           <li><strong>Anyone tired of sustainability theater</strong> who wants something that actually works</li>
         </ul>
 
-        <p>If you're looking for someone to tell you to save the planet, we're not your people.</p>
+        <p>
+          If you&apos;re looking for someone to tell you to save the planet,
+          we&apos;re not your people.
+        </p>
 
         <p>
-          If you're looking for a system that makes your business stronger — and produces environmental 
-          proof as a byproduct — let's talk.
+          If you&apos;re looking for a system that makes your operation
+          stronger and produces the environmental proof as a byproduct,
+          start here.
         </p>
 
       </article>
@@ -261,17 +182,12 @@ export default function ModernSustainabilityPage() {
       {/* Bottom CTA */}
       <div className="mt-16">
         <PageCTA
-          heading="The Modern Sustainability Playbook"
-          description="The complete roadmap to operational advantage: economic data, case studies, and the 12-month transition timeline."
-          primaryButton={{ label: "Find Your Baseline →", href: "/tools/stack-assessment" }}
-          secondaryButton={{ label: "The Modern Playbook →", href: "/framework" }}
+          heading="Start with what you have"
+          description="Your invoices, bills, and records already contain the data. The tracker organises it into a defensible baseline. Free."
+          primaryButton={{ label: "Start Tracking", href: "/signup" }}
+          secondaryButton={{ label: "Explore the Five Stacks", href: "/framework" }}
         />
       </div>
-
-      {/* Last updated */}
-      <p className="mt-8 text-sm text-gray-500 text-center">
-        Last updated: January 2026
-      </p>
     </div>
   );
 }
