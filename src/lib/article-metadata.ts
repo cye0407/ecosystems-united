@@ -99,6 +99,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Navigating sustainability reporting requirements for agricultural suppliers",
     color: "#3D2E7C",
     guides: [
+      { slug: "csrd-esg-guide", title: "📋 The Complete CSRD & ESG Guide", desc: "Everything agricultural suppliers need to know — start here" },
       { slug: "first-esg-questionnaire", title: "First ESG Questionnaire?", desc: "Where agricultural suppliers start" },
       { slug: "csrd-vsme-agricultural-suppliers", title: "CSRD & VSME for Agriculture", desc: "What the EU regulations mean for farms" },
       { slug: "scope-1-2-3-agriculture", title: "Scope 1, 2, 3 for Agriculture", desc: "Emissions explained for farm operations" },
@@ -183,6 +184,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Turning waste into value and fixing operational leaks",
     color: "#7B6BB8",
     guides: [
+      { slug: "circular-economy-guide", title: "📋 The Circular Economy Guide for Farms", desc: "Turn waste streams into value streams — start here" },
       { slug: "circular-economy-explained", title: "The Circular Economy Explained", desc: "Systems thinking for resource efficiency" },
       { slug: "value-chains-economic-efficiency", title: "Value Chains and Efficiency", desc: "Where value gets captured and lost" },
       { slug: "life-cycle-assessment-explained", title: "Life Cycle Assessment Explained", desc: "Measuring full environmental impact" },
@@ -198,6 +200,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Diversity as risk management and operational strategy",
     color: "#3B7D6E",
     guides: [
+      { slug: "intercropping-guide", title: "📋 The Complete Guide to Intercropping", desc: "Multi-crop systems for resilience and yield stability — start here" },
       { slug: "introduction-to-intercropping", title: "Introduction to Intercropping", desc: "Principles and getting started" },
       { slug: "intercropping-practices", title: "Intercropping Practices", desc: "Implementation approaches that work" },
       { slug: "advantages-disadvantages-intercropping", title: "Intercropping Pros and Cons", desc: "When diversity pays\u2014and when it doesn\u2019t" },
