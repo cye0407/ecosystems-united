@@ -19,6 +19,10 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Context page cleaned up: inline stats row (no ProgressBar), no tips card, no tab checkmarks
 - Sidebar nav: Dashboard → Data → 360 View → Exports → Settings
 - Phosphor Icons (@phosphor-icons/react) with weight="duotone" used consistently throughout
+- 12 pillar pages at /articles/[topic]-guide linking all 107+ articles into topic clusters
+- ArticleCTA component is stack-aware — shows matching stack assessment per article
+- Stripe payment integration for response generator (€39 first, €19 additional) via /api/stripe/
+- Response generator at /respond gated behind credits (ResponseGate component)
 
 ## Architecture
 - src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)
