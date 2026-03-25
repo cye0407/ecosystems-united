@@ -120,6 +120,7 @@ export const guideCategories: GuideCategory[] = [
     description: "How the agricultural system works and where you fit in it",
     color: "#1a1a2e",
     guides: [
+      { slug: "agribusiness-guide", title: "📋 Understanding Agribusiness", desc: "How the system works and where you fit — start here" },
       { slug: "what-is-agribusiness", title: "What Is Agribusiness?", desc: "Understanding the system you operate in" },
       { slug: "origins-history-agribusiness", title: "Origins and History of Agribusiness", desc: "How the system was built\u2014and why it matters" },
       { slug: "advantages-disadvantages-agribusiness", title: "Advantages and Disadvantages", desc: "What the system gives you vs. what it costs" },
@@ -135,6 +136,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Building competitive advantage at smaller scale",
     color: "#2D5A47",
     guides: [
+      { slug: "small-farm-guide", title: "📋 The Complete Small Farm Strategy Guide", desc: "Building competitive advantage at smaller scale — start here" },
       { slug: "what-are-small-farms", title: "What Are Small Farms?", desc: "The business case for staying small" },
       { slug: "small-farm-competitive-strategy", title: "Small Farm Competitive Strategy", desc: "Differentiation, specialization, diversification" },
       { slug: "direct-marketing-small-farms", title: "Direct Marketing for Small Farms", desc: "7 keys to building customer relationships" },
@@ -152,6 +154,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Understanding certification as competitive strategy",
     color: "#3D2E7C",
     guides: [
+      { slug: "ecolabel-guide", title: "📋 The Complete Guide to Ecolabels", desc: "Which certifications matter and how to use them — start here" },
       { slug: "what-are-ecolabels", title: "What Are Ecolabels?", desc: "Third-party verification that opens doors" },
       { slug: "the-different-types-of-ecolabels", title: "Types of Ecolabels", desc: "Single-attribute vs. lifecycle approaches" },
       { slug: "most-trustworthy-ecolabels", title: "Most Trustworthy Ecolabels", desc: "Which certifications actually matter" },
@@ -168,6 +171,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Understanding biofuel economics and applications",
     color: "#5B4A9E",
     guides: [
+      { slug: "biofuels-guide", title: "📋 The Complete Guide to Biofuels", desc: "Biofuel economics and energy opportunities — start here" },
       { slug: "biofuels-explained", title: "Biofuels Explained", desc: "What they are and how they work" },
       { slug: "advanced-biofuels", title: "What Are Advanced Biofuels?", desc: "Next-generation fuel technology" },
       { slug: "cellulosic-biofuels", title: "Cellulosic Biofuels", desc: "Turning agricultural waste into energy" },
@@ -218,6 +222,7 @@ export const guideCategories: GuideCategory[] = [
     description: "The business case for soil health and sustainable practices",
     color: "#2D5A47",
     guides: [
+      { slug: "regenerative-guide", title: "📋 The Economics of Regenerative Agriculture", desc: "The business case for soil health and regenerative practices — start here" },
       { slug: "regenerative-agriculture-economics", title: "Economics of Regenerative Ag", desc: "Financial framework for transitions" },
       { slug: "soil-health-business-case", title: "Soil Health: The Business Case", desc: "How healthy soil reduces costs" },
       { slug: "cover-crops-roi", title: "Cover Crops: Investment & Returns", desc: "Cost-benefit analysis" },
@@ -234,6 +239,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Data-driven soil health and strategic land use",
     color: "#5A7247",
     guides: [
+      { slug: "soil-management-guide", title: "📋 The Complete Guide to Soil & Land Management", desc: "Data-driven soil health and strategic land use — start here" },
       { slug: "soil-testing-guide", title: "Complete Guide to Soil Testing", desc: "What to test, when, and how to interpret results" },
       { slug: "soil-organic-matter-building", title: "Building Soil Organic Matter", desc: "Practices, timelines, and economic returns" },
       { slug: "nutrient-management-planning", title: "Nutrient Management Planning", desc: "Optimizing inputs and reducing waste" },
@@ -249,6 +255,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Managing water and drainage for productivity",
     color: "#4A7C9B",
     guides: [
+      { slug: "water-management-guide", title: "📋 The Complete Guide to Water Management", desc: "Irrigation, drainage, and water infrastructure — start here" },
       { slug: "agricultural-irrigation", title: "Agricultural Irrigation", desc: "Systems and efficiency approaches" },
       { slug: "irrigation-system-planning", title: "Planning an Irrigation System", desc: "What to consider before investing" },
       { slug: "agricultural-drainage", title: "Agricultural Drainage", desc: "Managing water for soil health" },
@@ -264,6 +271,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Building adaptive capacity against climate, market, and supply chain risks",
     color: "#9A8CD0",
     guides: [
+      { slug: "resilience-guide", title: "📋 The Complete Guide to Farm Resilience", desc: "Building adaptive capacity against climate, market, and supply chain risks — start here" },
       { slug: "climate-risk-assessment-farms", title: "Climate Risk Assessment for Farms", desc: "Identify, quantify, and prepare for climate risks" },
       { slug: "crop-diversification-risk", title: "Crop Diversification as Risk Management", desc: "Portfolio theory meets the field" },
       { slug: "farm-insurance-climate-adaptation", title: "Farm Insurance & Climate Adaptation", desc: "The insurance-adaptation feedback loop" },
@@ -279,6 +287,7 @@ export const guideCategories: GuideCategory[] = [
     description: "Measuring, creating, and monetizing biodiversity on farm",
     color: "#4A8B6F",
     guides: [
+      { slug: "biodiversity-guide", title: "📋 Biodiversity on the Farm", desc: "Measuring, creating, and monetizing habitat — start here" },
       { slug: "biodiversity-assessment-farms", title: "Biodiversity Assessment for Farms", desc: "Survey methods, metrics, and CSRD reporting" },
       { slug: "hedgerow-management-economics", title: "Hedgerow Management & Economics", desc: "Carbon, shelter effects, and wildlife corridors" },
       { slug: "pollinator-habitat-farm", title: "Pollinator Habitat on the Farm", desc: "Creating habitat that pays through better yields" },
