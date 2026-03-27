@@ -26,7 +26,7 @@ import { useResponseGenerator } from '@/hooks';
 import { useResponseCredits } from '@/hooks/useResponseCredits';
 import ResponseGate from '@/components/app/ResponseGate';
 import { cn } from '@/lib/utils/cn';
-import type { AnswerDraft } from '@/lib/respond';
+import type { AnswerDraft } from 'response-ready';
 
 export default function ResponseGeneratorPage() {
   const {
