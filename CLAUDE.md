@@ -23,6 +23,7 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - ArticleCTA component is stack-aware — shows matching stack assessment per article
 - Stripe payment integration for response generator (€39 first, €19 additional) via /api/stripe/
 - Response generator at /respond gated behind credits (ResponseGate component)
+- Response engine powered by response-ready package with ESG domain pack (200+ templates, question classification, defensive rewriting)
 
 ## Architecture
 - src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)
