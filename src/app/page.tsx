@@ -183,6 +183,88 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Why Ecosystems United */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-center mb-4">
+              Why Ecosystems United
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              You could track this in a spreadsheet. Here&apos;s why that stops
+              working the moment someone asks you to prove it.
+            </p>
+            <div className="space-y-8">
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                  <span className="text-primary font-bold">1</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    Not another spreadsheet — a system
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Excel stores numbers. This structures them so they
+                    auto-calculate your emissions, feed into questionnaire
+                    responses, and build the evidence trail auditors and buyers
+                    actually want. Your data works for you instead of sitting in
+                    a file.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                  <span className="text-primary font-bold">2</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    Built for agriculture, not retrofitted
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Livestock emissions, fertiliser N&#8322;O, per-hectare
+                    intensity metrics, crop yield tracking, nitrogen balance.
+                    This isn&apos;t a manufacturing template with farm fields
+                    bolted on — it&apos;s built from agricultural operations
+                    outward.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                  <span className="text-primary font-bold">3</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    Track once, answer everything
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Enter your operational data once. When a buyer sends an ESG
+                    questionnaire, upload it — the response engine drafts
+                    answers from your data. When GlobalG.A.P. needs an audit
+                    checklist, same data, different pack. One system, every
+                    questionnaire.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-6 items-start">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-1">
+                  <span className="text-primary font-bold">4</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">
+                    You own everything, we lock in nothing
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Free tracker, forever. CSV import and export. No per-seat
+                    pricing, no annual contracts, no vendor lock-in. Pay only
+                    when you use the response engine — €39 for your first
+                    questionnaire, €19 after that.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Response Generator */}
         <section className="py-16 px-4 bg-cream">
           <div className="max-w-4xl mx-auto">
