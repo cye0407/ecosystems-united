@@ -10,13 +10,12 @@ import {
   Warning,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
-import PageCTA from "@/components/marketing/PageCTA";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+
 
 export const metadata: Metadata = {
   title: "Which Ecolabel Is Right For Your Farm? | Workshop",
   description:
-    "A practical 90-minute workshop for agricultural SMEs. Learn which certifications actually open markets, what they cost, and how to prepare your data before you apply. €29.",
+    "A practical 90-minute workshop for agricultural SMEs. Learn which certifications actually open markets, what they cost, and how to prepare your data before you apply. €35.",
 };
 
 const modules = [
@@ -66,7 +65,7 @@ export default function EcolabelWorkshopPage() {
       {/* Header */}
       <div className="mb-12">
         <span className="text-sm font-medium text-primary mb-3 block">
-          Live Workshop · 90 minutes · €29
+          Live Workshop · 90 minutes · €35
         </span>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Which Ecolabel Is Right For Your Farm?
@@ -85,7 +84,7 @@ export default function EcolabelWorkshopPage() {
           </div>
           <div className="flex items-center gap-2">
             <CurrencyEur size={18} weight="duotone" className="text-primary" />
-            €29 per person
+            €35 per person
           </div>
           <div className="flex items-center gap-2">
             <Users size={18} weight="duotone" className="text-primary" />
@@ -98,15 +97,14 @@ export default function EcolabelWorkshopPage() {
         </div>
 
         {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <WaitlistForm
-            feature="workshop-ecolabel"
-            buttonLabel="Reserve Your Spot"
-            placeholder="you@farm.com"
-          />
-        </div>
+        <a
+          href="https://buy.stripe.com/cNi5kCbwW4KSeEZ71ceME05"
+          className="inline-block bg-primary text-white px-8 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors"
+        >
+          Buy Your Ticket — €35
+        </a>
         <p className="text-sm text-gray-400 mt-2">
-          We'll email you when the next session is scheduled.
+          Secure checkout via Stripe. Tax included.
         </p>
       </div>
 
@@ -274,7 +272,7 @@ export default function EcolabelWorkshopPage() {
             <ArrowRight size={16} weight="bold" />
           </Link>
           <Link
-            href="/pricing"
+            href="/products"
             className="inline-flex items-center gap-2 bg-white/10 text-white px-5 py-2.5 rounded font-semibold text-sm hover:bg-white/20 transition-colors"
           >
             See all tools
@@ -285,21 +283,20 @@ export default function EcolabelWorkshopPage() {
       {/* Bottom CTA */}
       <div className="text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-3">
-          €29. 90 minutes. A clear plan.
+          €35. 90 minutes. A clear plan.
         </h2>
         <p className="text-gray-600 mb-6 max-w-lg mx-auto">
           Stop guessing which certification to pursue. Get the decision made so
           you can focus on running your operation.
         </p>
-        <WaitlistForm
-          feature="workshop-ecolabel"
-          buttonLabel="Reserve Your Spot"
-          placeholder="you@farm.com"
-          className="max-w-md mx-auto"
-        />
+        <a
+          href="https://buy.stripe.com/cNi5kCbwW4KSeEZ71ceME05"
+          className="inline-block bg-primary text-white px-8 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors"
+        >
+          Buy Your Ticket — €35
+        </a>
         <p className="text-sm text-gray-400 mt-3">
-          We'll email you when the next session is scheduled.
-          No commitment until you book.
+          Secure checkout via Stripe. Tax included.
         </p>
       </div>
 

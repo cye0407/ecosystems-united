@@ -293,7 +293,7 @@ export default function ProductsPage() {
               <div className="flex items-center gap-3 mb-4">
                 <Chalkboard size={28} weight="duotone" className="text-[#5B4A9E]" />
                 <span className="text-xs font-semibold uppercase tracking-wide text-[#5B4A9E] bg-[#5B4A9E]/10 px-2 py-1 rounded">
-                  €29
+                  €35
                 </span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
