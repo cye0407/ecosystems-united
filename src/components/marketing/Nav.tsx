@@ -22,10 +22,6 @@ export default function Nav() {
           <Image src="/logo.png" alt="Ecosystems United" width={150} height={50} priority />
         </Link>
         <div className="flex items-center gap-6 text-sm">
-          <Link href="/modern-sustainability" className="text-gray-600 hover:text-primary">
-            Modern Sustainability
-          </Link>
-
           {/* Five Stacks Dropdown */}
           <div
             className="relative"
@@ -44,7 +40,7 @@ export default function Nav() {
 
             {isDropdownOpen && (
               <div className="absolute top-full left-0 pt-2 z-50">
-                <div className="bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[200px]">
+                <div className="bg-white border border-gray-200 rounded-lg shadow-lg py-2 min-w-[220px]">
                   {stackItems.map((stack) => (
                     <Link
                       key={stack.num}
@@ -62,11 +58,29 @@ export default function Nav() {
                   ))}
                   <div className="border-t border-gray-100 mt-2 pt-2">
                     <Link
+                      href="/modern-sustainability"
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-700 text-white text-xs font-bold">
+                        ?
+                      </div>
+                      <span className="text-gray-700">The Approach</span>
+                    </Link>
+                    <Link
+                      href="/book"
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-700 text-white text-xs font-bold">
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                      </div>
+                      <span className="text-gray-700">The Book <span className="text-xs text-green-600 font-medium">Free</span></span>
+                    </Link>
+                    <Link
                       href="/framework/implementation"
                       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
                     >
                       <div className="w-6 h-6 rounded-full flex items-center justify-center bg-primary text-white text-xs font-bold">
-                        →
+                        &rarr;
                       </div>
                       <span className="text-gray-700">Implementation Guide</span>
                     </Link>
@@ -82,8 +96,8 @@ export default function Nav() {
           <Link href="/tools" className="text-gray-600 hover:text-primary">
             Tools
           </Link>
-          <Link href="/pricing" className="text-gray-600 hover:text-primary">
-            Pricing
+          <Link href="/products" className="text-gray-600 hover:text-primary">
+            Products
           </Link>
           <Link href="/for-advisors" className="text-gray-600 hover:text-primary">
             For Advisors

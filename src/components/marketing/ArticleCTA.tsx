@@ -37,7 +37,7 @@ const productCTAs = [
   {
     label: "See Our Pricing",
     desc: "Free baseline tracker, rules-based questionnaire response engine, and certification packs coming soon. See what's available.",
-    href: "/pricing",
+    href: "/products",
     color: "#4AA88C",
     footnote: "Free tracker. No credit card required.",
   },
@@ -98,7 +98,7 @@ export default function ArticleCTA() {
               {certificationCTA.label}
             </Link>
             <Link
-              href="/pricing"
+              href="/products"
               className="text-white/70 hover:text-white underline text-sm transition-colors"
             >
               See all products
