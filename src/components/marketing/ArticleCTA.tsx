@@ -51,11 +51,11 @@ const productCTAs = [
 ];
 
 const certificationCTA = {
-  label: "Join the Waitlist",
-  desc: "We're building certification packs — auto-generate your GlobalG.A.P., EU Organic, or B Corp application from your tracked data. Same engine, new questionnaires.",
-  href: "/contact",
+  label: "Join the Workshop",
+  desc: "Not sure which ecolabel to pursue? Our 90-minute workshop cuts through the noise — which certifications match your operation, what they cost, and how to prepare. €29.",
+  href: "/workshops/ecolabel-certification",
   color: "#5B4A9E",
-  footnote: "Coming soon. Track your baseline now to be ready.",
+  footnote: "90 minutes. €29. A clear certification plan.",
 };
 
 function isEcolabelArticle(slug: string): boolean {
@@ -89,13 +89,14 @@ export default function ArticleCTA() {
             Turn this knowledge into action
           </h2>
           <p className="text-white/80 mb-6">{certificationCTA.desc}</p>
-          <WaitlistForm
-            feature="certification-packs"
-            variant="compact"
-            buttonLabel="Join Waitlist"
-            placeholder="you@farm.com"
-          />
-          <div className="flex items-center gap-4 mt-3">
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={certificationCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: certificationCTA.color }}
+            >
+              {certificationCTA.label}
+            </Link>
             <Link
               href="/pricing"
               className="text-white/70 hover:text-white underline text-sm transition-colors"

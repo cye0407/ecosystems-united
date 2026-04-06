@@ -29,6 +29,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/modern-sustainability" className="text-gray-600 hover:text-primary">
+                  The Approach
+                </Link>
+              </li>
+              <li>
+                <Link href="/book" className="text-gray-600 hover:text-primary">
+                  The Book (Free)
+                </Link>
+              </li>
+              <li>
                 <Link href="/framework/implementation" className="text-gray-600 hover:text-primary">
                   Implementation Guide
                 </Link>
@@ -48,6 +58,11 @@ export default function Footer() {
               <li>
                 <Link href="/tools" className="text-gray-600 hover:text-primary">
                   Tools
+                </Link>
+              </li>
+              <li>
+                <Link href="/workshops/ecolabel-certification" className="text-gray-600 hover:text-primary">
+                  Ecolabel Workshop
                 </Link>
               </li>
               <li>
