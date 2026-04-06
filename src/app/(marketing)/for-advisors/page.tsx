@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import PageCTA from "@/components/marketing/PageCTA";
+import WaitlistForm from "@/components/marketing/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "For Advisors",
@@ -223,7 +224,7 @@ export default function ForAdvisorsPage() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg bg-gray-50">
+          <div className="p-4 rounded-lg bg-gray-50 space-y-3">
             <div className="flex items-center gap-3">
               <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full shrink-0">
                 Coming Soon
@@ -233,13 +234,18 @@ export default function ForAdvisorsPage() {
                 your clients enter data on the go, wherever they are.
               </p>
             </div>
-            <a
-              href="mailto:contact@ecosystemsunited.com?subject=Mobile%20app%20waitlist"
-              className="inline-block bg-primary text-white px-4 py-2 rounded text-sm font-semibold hover:bg-primary-dark transition-colors shrink-0"
-            >
-              Join the Waitlist
-            </a>
+            <WaitlistForm feature="mobile-app-advisors" variant="compact" buttonLabel="Join Waitlist" />
           </div>
+        </div>
+
+        <div className="mt-6 p-4 rounded-lg border border-primary/20 bg-primary/5">
+          <p className="text-sm font-semibold text-gray-900 mb-2">
+            Interested in the advisor program?
+          </p>
+          <p className="text-sm text-gray-600 mb-3">
+            Early adopters shape the roadmap. Leave your email and we'll keep you posted.
+          </p>
+          <WaitlistForm feature="advisor-program" variant="compact" buttonLabel="Join Waitlist" />
         </div>
       </section>
 

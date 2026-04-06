@@ -34,7 +34,7 @@ export default function ResponseGate() {
     },
     {
       icon: ListChecks,
-      text: "Supports EcoVadis, CDP, CSRD/VSME, and custom formats",
+      text: "Supports EcoVadis, CDP, CSRD/VSME, GlobalG.A.P., and custom formats",
     },
     {
       icon: Globe,

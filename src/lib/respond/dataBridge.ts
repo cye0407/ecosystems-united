@@ -1,8 +1,11 @@
 // ============================================
-// Data Bridge: EU Zustand Stores → ESGCompanyData
+// Data Bridge: EU Zustand Stores → Domain Pack Data
 // ============================================
+// Builds data objects for different ResponseReady domain packs
+// from the shared Ecosystems United Zustand stores.
 
 import type { StoreData } from './dataRetrieval';
+import type { GAPFarmData } from 'response-ready/domain-packs/globalg-a-p';
 
 const GAS_M3_TO_KWH = 10.55;
 
@@ -127,5 +130,84 @@ export function buildCompanyProfile(store: StoreData) {
     country: company.headquartersCountry || '',
     employeeCount: company.totalFte || 0,
     maturityLevel: 'developing',
+  };
+}
+
+/**
+ * Build a GAPFarmData object from EU's Zustand store data.
+ * Maps the same baseline data (energy, water, waste, workforce, land, fertiliser, crops)
+ * into the shape the GlobalG.A.P. domain pack expects.
+ */
+export function buildFarmData(store: StoreData): GAPFarmData {
+  const { company, sites } = store;
+
+  // Land
+  const landUse = store.landUse || [];
+  const totalHectares = landUse.reduce((sum, l) => sum + (l.areaHa || 0), 0);
+
+  // Crops
+  const crops = store.cropOutputs || [];
+  const cropTypes = [...new Set(crops.map(c => c.cropName).filter(Boolean))].join(', ');
+
+  // Fertiliser
+  const fertiliserApps = store.fertiliserApplications || [];
+  const totalFertiliserKg = fertiliserApps.reduce((sum, f) => sum + (f.quantityKg || 0), 0);
+  const organicFertKg = fertiliserApps
+    .filter(f => f.fertiliserType?.startsWith('organic'))
+    .reduce((sum, f) => sum + (f.quantityKg || 0), 0);
+  const organicPercent = totalFertiliserKg > 0
+    ? Math.round((organicFertKg / totalFertiliserKg) * 100)
+    : undefined;
+  const fertiliserTypes = [...new Set(fertiliserApps.map(f => f.productName || f.fertiliserType).filter(Boolean))].join(', ');
+
+  // Water
+  const totalWater = store.energyWater.reduce((sum, w) => sum + (w.withdrawalM3 || 0), 0);
+
+  // Energy
+  const totalElectricity = store.energyElectricity.reduce((sum, e) => sum + (e.consumptionKwh || 0), 0);
+  const renewableKwh = store.energyElectricity.reduce((sum, e) => {
+    const renewPct = (e.sourceOnsiteRenewablePercent || 0) + (e.sourcePpaPercent || 0);
+    return sum + (e.consumptionKwh || 0) * (renewPct / 100);
+  }, 0);
+  const renewablePercent = totalElectricity > 0 ? Math.round((renewableKwh / totalElectricity) * 100) : undefined;
+
+  // Waste
+  const totalWasteKg = store.waste.reduce((sum, w) => sum + (w.quantityKg || 0), 0);
+  const recycledWasteKg = store.waste
+    .filter(w => w.disposalRoute === 'recycling' || w.disposalRoute === 'composting' || w.disposalRoute === 'reuse')
+    .reduce((sum, w) => sum + (w.quantityKg || 0), 0);
+  const recyclingPercent = totalWasteKg > 0 ? Math.round((recycledWasteKg / totalWasteKg) * 100) : undefined;
+
+  // Workforce
+  const totalEmployees = company?.totalFte || 0;
+
+  // Reporting period
+  const reportingPeriod = company?.reportingPeriodStart
+    ? `${company.reportingPeriodStart} to ${company.reportingPeriodEnd}`
+    : undefined;
+
+  return {
+    farmName: company?.tradingName || company?.legalEntityName || '',
+    country: company?.headquartersCountry || undefined,
+    totalHectares: totalHectares || undefined,
+    numberOfSites: company?.numberOfSites || sites.length || undefined,
+    employeeCount: totalEmployees || undefined,
+    cropTypes: cropTypes || undefined,
+    industry: company?.industryDescription || undefined,
+    reportingPeriod,
+
+    // Fertiliser (from Materials data)
+    fertiliserTypes: fertiliserTypes || undefined,
+    organicFertiliserPercent: organicPercent,
+    fertiliserApplicationKg: totalFertiliserKg || undefined,
+
+    // Water
+    waterM3: totalWater || undefined,
+
+    // Energy & Environment
+    energyKwh: totalElectricity || undefined,
+    renewablePercent,
+    totalWasteKg: totalWasteKg || undefined,
+    recyclingPercent,
   };
 }

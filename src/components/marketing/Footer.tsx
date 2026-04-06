@@ -51,6 +51,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/pricing" className="text-gray-600 hover:text-primary">
+                  Pricing
+                </Link>
+              </li>
+              <li>
                 <Link href="/tools/stack-assessment" className="text-gray-600 hover:text-primary">
                   Stack Assessment
                 </Link>
@@ -73,9 +78,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-primary">
+                <a href="mailto:contact@ecosystemsunited.com" className="text-gray-600 hover:text-primary">
                   Contact
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/privacy" className="text-gray-600 hover:text-primary">

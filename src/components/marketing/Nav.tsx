@@ -82,6 +82,9 @@ export default function Nav() {
           <Link href="/tools" className="text-gray-600 hover:text-primary">
             Tools
           </Link>
+          <Link href="/pricing" className="text-gray-600 hover:text-primary">
+            Pricing
+          </Link>
           <Link href="/for-advisors" className="text-gray-600 hover:text-primary">
             For Advisors
           </Link>

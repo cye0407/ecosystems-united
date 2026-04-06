@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import WaitlistForm from "@/components/marketing/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "Tools",
@@ -242,13 +243,14 @@ export default function ToolsPage() {
           <h3 className="text-xl font-bold text-gray-900 mb-3">
             The Full Five Stacks Platform
           </h3>
-          <p className="text-gray-600 flex-1">
+          <p className="text-gray-600 flex-1 mb-4">
             From building your defensible baseline through operational
             efficiency, margin recovery, and structural resilience — all
             the way to a compounding engine that turns sustainability into
             lasting competitive advantage. One platform, five stacks, the
             complete journey.
           </p>
+          <WaitlistForm feature="full-platform" variant="compact" buttonLabel="Notify Me" />
         </div>
       </div>
     </div>

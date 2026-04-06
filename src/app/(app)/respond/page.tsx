@@ -10,7 +10,8 @@ import {
   Warning,
   Database,
   Sparkle,
-  Info
+  Info,
+  TreeStructure,
 } from '@phosphor-icons/react';
 import {
   Card,
@@ -42,13 +43,20 @@ export default function ResponseGeneratorPage() {
     updateAnswer,
     regenerateAnswer,
     completeSession,
-    resetSession
+    resetSession,
+    // Pack selection
+    detectedPackName,
+    packConfidence,
+    selectedPackName,
+    packOptions,
+    confirmPack,
   } = useResponseGenerator();
 
   const credits = useResponseCredits();
 
   const [questionnaireName, setQuestionnaireName] = useState('');
   const [requestor, setRequestor] = useState('');
+  const [packOverride, setPackOverride] = useState<string | null>(null);
   const [expandedAnswers, setExpandedAnswers] = useState<Set<string>>(new Set());
 
   const handleFileUpload = async (file: File) => {
@@ -241,6 +249,61 @@ export default function ResponseGeneratorPage() {
         </div>
       )}
 
+      {/* Step: Pack Confirmation (when auto-detect confidence is low) */}
+      {step === 'pack_confirm' && (
+        <div className="max-w-2xl mx-auto">
+          <Card className="mb-6">
+            <div className="flex items-start gap-3 mb-4">
+              <TreeStructure className="w-5 h-5 text-forest-700 mt-0.5 flex-shrink-0" weight="duotone" />
+              <div>
+                <CardTitle className="mb-1">Confirm Questionnaire Type</CardTitle>
+                <p className="text-sm text-gray-500">
+                  We detected <strong>{parseResult?.questions.length}</strong> questions
+                  {parseResult?.metadata.detectedFramework && (
+                    <> from what looks like a <strong>{parseResult.metadata.detectedFramework}</strong> questionnaire</>
+                  )}
+                  . Please confirm which response pack to use:
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3 mb-6">
+              {packOptions.map((option) => (
+                <label
+                  key={option.name}
+                  className={cn(
+                    'flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all',
+                    (packOverride || detectedPackName) === option.name
+                      ? 'border-forest-700 bg-forest-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  )}
+                >
+                  <input
+                    type="radio"
+                    name="pack"
+                    value={option.name}
+                    checked={(packOverride || detectedPackName) === option.name}
+                    onChange={() => setPackOverride(option.name)}
+                    className="mt-1 accent-forest-700"
+                  />
+                  <div>
+                    <p className="font-medium text-gray-900">{option.label}</p>
+                    <p className="text-sm text-gray-500">{option.description}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <Button
+              onClick={() => confirmPack(packOverride || detectedPackName)}
+              className="w-full h-11"
+            >
+              Continue with {packOptions.find(o => o.name === (packOverride || detectedPackName))?.label || 'selected pack'}
+            </Button>
+          </Card>
+        </div>
+      )}
+
       {/* Processing indicator */}
       {(step === 'matching' || step === 'generating') && (
         <div className="max-w-md mx-auto">
@@ -273,9 +336,12 @@ export default function ResponseGeneratorPage() {
                   {answerDrafts.length} questions analyzed
                   {parseResult?.metadata.detectedFramework && (
                     <span className="ml-2">
-                      • Detected framework: <strong>{parseResult.metadata.detectedFramework}</strong>
+                      • Detected: <strong>{parseResult.metadata.detectedFramework}</strong>
                     </span>
                   )}
+                  <span className="ml-2">
+                    • Pack: <strong>{packOptions.find(o => o.name === selectedPackName)?.label || selectedPackName}</strong>
+                  </span>
                 </p>
               </div>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import PageCTA from "@/components/marketing/PageCTA";
+import WaitlistForm from "@/components/marketing/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "About",
@@ -127,12 +128,7 @@ export default function AboutPage() {
             data wherever you are, in whatever format works for your operation.
           </p>
         </div>
-        <a
-          href="mailto:contact@ecosystemsunited.com?subject=Mobile%20app%20waitlist"
-          className="inline-block bg-primary text-white px-4 py-2 rounded text-sm font-semibold hover:bg-primary-dark transition-colors shrink-0"
-        >
-          Join the Waitlist
-        </a>
+        <WaitlistForm feature="mobile-app" variant="compact" buttonLabel="Join Waitlist" />
       </div>
 
       {/* Who This Is For */}

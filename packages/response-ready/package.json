@@ -1,0 +1,43 @@
+{
+  "name": "response-ready",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Domain-agnostic questionnaire response engine. Parse any questionnaire, match to your data, generate professional answers.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./domain-packs/esg": {
+      "types": "./dist/domain-packs/esg/index.d.ts",
+      "import": "./dist/domain-packs/esg/index.js"
+    },
+    "./domain-packs/globalg-a-p": {
+      "types": "./dist/domain-packs/globalg-a-p/index.d.ts",
+      "import": "./dist/domain-packs/globalg-a-p/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "uuid": "^13.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "optionalDependencies": {
+    "mammoth": "^1.11.0",
+    "pdfjs-dist": "^5.4.624"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

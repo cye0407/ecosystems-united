@@ -33,7 +33,11 @@ import type {
   ExternalContext,
   FinancialContext,
   BuyerRequirement,
-  ConfidenceLevel
+  ConfidenceLevel,
+  LandUse,
+  FertiliserApplication,
+  LivestockRecord,
+  CropOutput,
 } from '@/types';
 
 // ============================================
@@ -68,6 +72,12 @@ export interface StoreData {
   externalContext: ExternalContext | null;
   financialContext: FinancialContext | null;
   buyerRequirements: BuyerRequirement[];
+
+  // Agricultural data (conditionally available)
+  landUse?: LandUse[];
+  fertiliserApplications?: FertiliserApplication[];
+  livestockRecords?: LivestockRecord[];
+  cropOutputs?: CropOutput[];
 }
 
 // ============================================

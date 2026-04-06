@@ -9,7 +9,7 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Tailwind CSS
 
 ## Current State
-- Unified Next.js app on main branch — build passes with 159 routes, 0 lint errors, 31/31 tests pass
+- Unified Next.js app on main branch — build passes with 160 routes, 0 lint errors, 31/31 tests pass
 - 360 View page (/360-view) — read-only collation of all data with year/site filters, sticky nav, 11 domain sections
 - 360 View section order matches data hub flow: Company, SWOT, [Agricultural], Infrastructure, Outputs, Materials, Energy, Transport, Workforce, Packaging, Context
 - All 8 data pages follow consistent structure: gradient header badge, inline stats row, tabbed content
@@ -20,10 +20,14 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Sidebar nav: Dashboard → Data → 360 View → Exports → Settings
 - Phosphor Icons (@phosphor-icons/react) with weight="duotone" used consistently throughout
 - 12 pillar pages at /articles/[topic]-guide linking all 107+ articles into topic clusters
-- ArticleCTA component is stack-aware — shows matching stack assessment per article
+- ArticleCTA component is stack-aware — shows matching stack assessment per article; ecolabel articles show certification pack waitlist CTA; ~30% of articles show product CTAs
 - Stripe payment integration for response generator (€39 first, €19 additional) via /api/stripe/
 - Response generator at /respond gated behind credits (ResponseGate component)
-- Response engine powered by response-ready package with ESG domain pack (200+ templates, question classification, defensive rewriting)
+- Response engine powered by response-ready package with ESG + GlobalG.A.P. domain packs (200+ templates, question classification, defensive rewriting)
+- response-ready package lives in packages/response-ready/ (monorepo, not external dependency)
+- Pricing page at /pricing — Free Tracker tier, Response Generator tier, Coming Soon section (Certification Packs, Advisor License, RFP Pack) with waitlist forms
+- WaitlistForm component captures email + interest area to Supabase leads table via analytics.captureLead(); used across pricing, about, for-advisors, tools, and article CTAs
+- Nav includes Pricing link between Tools and For Advisors; Footer Resources column includes Pricing link
 
 ## Architecture
 - src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)
