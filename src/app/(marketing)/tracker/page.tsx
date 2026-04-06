@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import PageCTA from "@/components/marketing/PageCTA";
-import ComingSoonCard from "@/components/marketing/ComingSoonCard";
 import {
   Lightning,
   Cube,
@@ -446,7 +445,7 @@ export default function TrackerPage() {
       </section>
 
       {/* Why Free */}
-      <section className="mb-20 max-w-3xl">
+      <section className="mb-20 max-w-4xl">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           Why Free
         </h2>
@@ -468,29 +467,52 @@ export default function TrackerPage() {
         </div>
       </section>
 
-      {/* What's Coming */}
+      {/* What Your Data Unlocks */}
       <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          What&apos;s Coming
+          What Your Data Unlocks
         </h2>
         <p className="text-2xl font-bold text-gray-900 mb-8">
-          From baseline to operational advantage
+          Track once, answer everything
         </p>
 
-        <div className="space-y-4">
-          <ComingSoonCard
-            featureId="efficiency-analysis"
-            title="Efficiency Analysis"
-            description="Once you have 3–6 months of data, we'll show you where you're bleeding margin. Input costs per hectare, energy waste, transport inefficiency — the leaks that cost you money every month."
-            page="tracker"
-          />
-          <ComingSoonCard
-            featureId="questionnaire-response"
-            title="Questionnaire Response Tools"
-            description="Upload a buyer questionnaire and get draft answers backed by your tracked data. EcoVadis, CDP, CSRD/VSME — any format."
-            page="tracker"
-          />
+        <div className="grid md:grid-cols-2 gap-6">
+          <Link
+            href="/see-it-in-action"
+            className="p-6 rounded-2xl border border-gray-200 bg-white hover:border-primary transition-colors group"
+          >
+            <span className="text-xs font-semibold text-white bg-primary px-2 py-0.5 rounded mb-3 inline-block">
+              Available now
+            </span>
+            <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+              Response Generator
+            </h3>
+            <p className="text-sm text-gray-600">
+              Upload a buyer questionnaire — ESG or GlobalG.A.P. — and get
+              data-backed answers from your tracked baseline. Rules-based engine
+              with 200+ templates. From €39.
+            </p>
+          </Link>
+          <div className="p-6 rounded-2xl border border-dashed border-gray-300 bg-gray-50">
+            <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded mb-3 inline-block">
+              Coming soon
+            </span>
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Efficiency Analysis
+            </h3>
+            <p className="text-sm text-gray-600">
+              Once you have 3&ndash;6 months of data, see where you&apos;re
+              bleeding margin. Input costs per hectare, energy waste, transport
+              inefficiency.
+            </p>
+          </div>
         </div>
+
+        <p className="text-center mt-6">
+          <Link href="/products" className="text-sm text-primary font-medium hover:underline">
+            See all products →
+          </Link>
+        </p>
       </section>
 
       {/* Bottom CTA */}
@@ -498,7 +520,7 @@ export default function TrackerPage() {
         heading="Start building your baseline today"
         description="Enter your first domain in 15 minutes. Your operational data, structured and ready for any buyer request."
         primaryButton={{
-          label: "Create Free Account",
+          label: "Start Free",
           href: "/signup",
         }}
         secondaryButton={{
@@ -508,7 +530,7 @@ export default function TrackerPage() {
       />
 
       <p className="mt-8 text-sm text-gray-500 text-center">
-        Last updated: February 2026
+        Last updated: April 2026
       </p>
     </div>
   );
