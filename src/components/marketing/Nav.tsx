@@ -58,15 +58,6 @@ export default function Nav() {
                   ))}
                   <div className="border-t border-gray-100 mt-2 pt-2">
                     <Link
-                      href="/modern-sustainability"
-                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-700 text-white text-xs font-bold">
-                        ?
-                      </div>
-                      <span className="text-gray-700">The Approach</span>
-                    </Link>
-                    <Link
                       href="/book"
                       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
                     >
@@ -93,9 +84,6 @@ export default function Nav() {
           <Link href="/articles" className="text-gray-600 hover:text-primary">
             Guides
           </Link>
-          <Link href="/tools" className="text-gray-600 hover:text-primary">
-            Tools
-          </Link>
           <Link href="/products" className="text-gray-600 hover:text-primary">
             Products
           </Link>
@@ -109,10 +97,10 @@ export default function Nav() {
             Sign In
           </Link>
           <Link
-            href="/tracker"
+            href="/signup"
             className="ml-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
           >
-            Free Tracker
+            Start Free
           </Link>
         </div>
       </div>

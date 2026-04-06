@@ -303,12 +303,12 @@ export default function HomePage() {
 
         {/* CTA */}
         <section className="py-16 px-4">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <PageCTA
               heading="Built for farms and agricultural SMEs"
               description="Your buyers need your data. The Five Stacks Framework turns that obligation into operational advantage, starting with what you already measure."
-              primaryButton={{ label: "Start Tracking — Free", href: "/signup" }}
-              secondaryButton={{ label: "How it works", href: "/tracker" }}
+              primaryButton={{ label: "Start Free", href: "/signup" }}
+              secondaryButton={{ label: "See Products", href: "/products" }}
               centered
             />
           </div>

@@ -280,7 +280,7 @@ export default function SoilHealthChecklist() {
     const results = calculateResults();
 
     return (
-      <div className="max-w-2xl mx-auto px-6 py-16">
+      <div className="max-w-4xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-12">
           <div
@@ -434,7 +434,7 @@ export default function SoilHealthChecklist() {
   const currentCategory = categoryLabels[question.category];
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-16">
+    <div className="max-w-4xl mx-auto px-6 py-16">
       <div className="mb-8">
         <Link href="/tools" className="text-sm text-gray-500 hover:text-[#4AA88C] mb-4 inline-block">
           ← Back to Tools

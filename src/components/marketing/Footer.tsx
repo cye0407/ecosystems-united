@@ -29,11 +29,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/modern-sustainability" className="text-gray-600 hover:text-primary">
-                  The Approach
-                </Link>
-              </li>
-              <li>
                 <Link href="/book" className="text-gray-600 hover:text-primary">
                   The Book (Free)
                 </Link>
@@ -52,22 +47,17 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/articles" className="text-gray-600 hover:text-primary">
-                  Articles
-                </Link>
-              </li>
-              <li>
-                <Link href="/tools" className="text-gray-600 hover:text-primary">
-                  Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/workshops/ecolabel-certification" className="text-gray-600 hover:text-primary">
-                  Ecolabel Workshop
+                  Guides
                 </Link>
               </li>
               <li>
                 <Link href="/products" className="text-gray-600 hover:text-primary">
                   Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/workshops/ecolabel-certification" className="text-gray-600 hover:text-primary">
+                  Ecolabel Workshop
                 </Link>
               </li>
               <li>

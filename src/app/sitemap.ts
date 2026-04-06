@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/see-it-in-action",
     "/articles",
     "/privacy",
-    "/modern-sustainability",
     "/framework",
     "/framework/implementation",
     "/framework/stack-1-metrics",

@@ -118,6 +118,30 @@ export default function FrameworkPage() {
         ))}
       </div>
 
+      {/* The Approach */}
+      <div className="max-w-3xl mb-16">
+        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
+          The Approach
+        </h2>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          Good Operations Are Sustainable Operations
+        </h3>
+        <p className="text-gray-600 mb-4">
+          Every cent you waste on excess energy, lost materials, or inefficient
+          transport is a cent off your margin <em>and</em> an emission you
+          didn&apos;t need to produce. Fix the operations and you fix the
+          sustainability numbers automatically.
+        </p>
+        <p className="text-gray-600 mb-4">
+          When CSRD arrives, when buyers send their Scope 3 questionnaires, when
+          your bank asks for ESG data — you&apos;re not scrambling. You&apos;re
+          pulling numbers from a system you built to save money.
+        </p>
+        <p className="text-gray-900 font-semibold">
+          Infrastructure, not narratives.
+        </p>
+      </div>
+
       {/* Implementation CTA */}
       <PageCTA
         heading="Ready to implement?"

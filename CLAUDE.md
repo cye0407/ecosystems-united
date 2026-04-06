@@ -9,7 +9,7 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Tailwind CSS
 
 ## Current State
-- Unified Next.js app on main branch — build passes with 160 routes, 0 lint errors, 31/31 tests pass
+- Unified Next.js app on main branch — build passes with 162 routes, 0 lint errors, 31/31 tests pass
 - 360 View page (/360-view) — read-only collation of all data with year/site filters, sticky nav, 11 domain sections
 - 360 View section order matches data hub flow: Company, SWOT, [Agricultural], Infrastructure, Outputs, Materials, Energy, Transport, Workforce, Packaging, Context
 - All 8 data pages follow consistent structure: gradient header badge, inline stats row, tabbed content
@@ -27,7 +27,11 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - response-ready package lives in packages/response-ready/ (monorepo, not external dependency)
 - Pricing page at /pricing — Free Tracker tier, Response Generator tier, Coming Soon section (Certification Packs, Advisor License, RFP Pack) with waitlist forms
 - WaitlistForm component captures email + interest area to Supabase leads table via analytics.captureLead(); used across pricing, about, for-advisors, tools, and article CTAs
-- Nav includes Pricing link between Tools and For Advisors; Footer Resources column includes Pricing link
+- Nav: Five Stacks (dropdown) | Guides | Products | For Advisors | About | Sign In | [Start Free → /signup]
+- /modern-sustainability merged into /framework, redirects in place
+- /pricing redirects to /products
+- Products page (/products) is the product catalog; individual product pages: /tracker, /see-it-in-action, /workshops/ecolabel-certification, /book
+- Max-width standard: max-w-5xl for product/tool pages, max-w-4xl for reading pages, max-w-6xl for nav/footer
 
 ## Architecture
 - src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)
