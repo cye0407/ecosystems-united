@@ -35,10 +35,10 @@ export default function ArticlePage() {
       {/* Article Content */}
       <article className="prose prose-gray max-w-none">
         <p>
-          When your buyer references VSME, they almost certainly mean the Basic Module. It is the minimum dataset that allows a CSRD-obligated company to report on their supply chain. Think of it as the floor&mdash;the least you will be asked for, not the most.
+          When your buyer references VSME, they almost certainly mean the Basic Module. It is the minimum dataset that allows a CSRD-obligated company to report on their supply chain. Think of it as the floor, the least you will be asked for, not the most.
         </p>
         <p>
-          The good news: the Basic Module is designed to be achievable. It does not ask for lifecycle assessments, product-level carbon footprints, or Scope 3 breakdowns. It asks for operational data that most well-run agricultural operations already have&mdash;just not in a standardised format.
+          The good news: the Basic Module is designed to be achievable. It does not ask for lifecycle assessments, product-level carbon footprints, or Scope 3 breakdowns. It asks for operational data that most well-run agricultural operations already have, just not in a standardized format.
         </p>
 
         <h2>Energy Consumption</h2>
@@ -49,11 +49,11 @@ export default function ArticlePage() {
           <strong>Where to find it on your farm:</strong>
         </p>
         <ul>
-          <li><strong>Electricity</strong>&mdash;utility bills give you kWh directly. Convert to MWh by dividing by 1,000</li>
-          <li><strong>Diesel</strong>&mdash;fuel invoices or tank delivery records. Litres convert to MWh using standard factors (1 litre diesel &asymp; 0.0101 MWh)</li>
-          <li><strong>Gas</strong>&mdash;utility bills in kWh or m&sup3;. If in m&sup3;, multiply by the calorific value on your bill</li>
-          <li><strong>Heating oil</strong>&mdash;delivery invoices. Litres convert using standard factors (1 litre kerosene &asymp; 0.0103 MWh)</li>
-          <li><strong>Renewables</strong>&mdash;if you have solar panels, a wind turbine, or biomass heating, include generation data from inverter readings or meter exports</li>
+          <li><strong>Electricity</strong>, utility bills give you kWh directly. Convert to MWh by dividing by 1,000</li>
+          <li><strong>Diesel</strong>, fuel invoices or tank delivery records. Liters convert to MWh using standard factors (1 litre diesel &asymp; 0.0101 MWh)</li>
+          <li><strong>Gas</strong>, utility bills in kWh or m&sup3;. If in m&sup3;, multiply by the calorific value on your bill</li>
+          <li><strong>Heating oil</strong>, delivery invoices. Liters convert using standard factors (1 litre kerosene &asymp; 0.0103 MWh)</li>
+          <li><strong>Renewables</strong>, if you have solar panels, a wind turbine, or biomass heating, include generation data from inverter readings or meter exports</li>
         </ul>
         <p>
           <strong>What good enough looks like:</strong> Annual totals by source, derived from invoices. You do not need real-time monitoring. Twelve months of bills compiled into a table is sufficient for VSME Basic.
@@ -70,22 +70,22 @@ export default function ArticlePage() {
           <strong>How to calculate for a farm:</strong>
         </p>
         <ul>
-          <li><strong>Scope 1</strong>&mdash;direct emissions from your operation:
+          <li><strong>Scope 1</strong>, direct emissions from your operation:
             <ul>
-              <li>Fuel combustion (diesel, gas, oil)&mdash;multiply litres by DEFRA/IPCC emission factors</li>
-              <li>Livestock methane (enteric fermentation)&mdash;multiply headcount by species-specific factors</li>
-              <li>Manure management emissions&mdash;from livestock housing and storage systems</li>
-              <li>Fertiliser N2O&mdash;multiply kg nitrogen applied by default emission factor (typically 0.01 kg N2O-N per kg N)</li>
-              <li>Liming&mdash;if you apply lime, multiply tonnes by emission factor for CaCO3 or dolomite</li>
+              <li>Fuel combustion (diesel, gas, oil), multiply liters by DEFRA/IPCC emission factors</li>
+              <li>Livestock methane (enteric fermentation), multiply headcount by species-specific factors</li>
+              <li>Manure management emissions, from livestock housing and storage systems</li>
+              <li>Fertilizer N2O, multiply kg nitrogen applied by default emission factor (typically 0.01 kg N2O-N per kg N)</li>
+              <li>Liming, if you apply lime, multiply tonnes by emission factor for CaCO3 or dolomite</li>
             </ul>
           </li>
-          <li><strong>Scope 2</strong>&mdash;purchased electricity emissions. Multiply kWh by your grid&apos;s emission factor (location-based) or your supplier&apos;s specific factor (market-based)</li>
+          <li><strong>Scope 2</strong>, purchased electricity emissions. Multiply kWh by your grid&apos;s emission factor (location-based) or your supplier&apos;s specific factor (market-based)</li>
         </ul>
         <p>
           <strong>What good enough looks like:</strong> IPCC Tier 1 calculations using default emission factors. No one expects farm-level direct measurement of methane. Standard factors applied consistently to your activity data is the accepted methodology.
         </p>
         <p>
-          <strong>Common gap:</strong> Many operations have energy data but have never converted it to CO2e. The calculation is mechanical&mdash;once you have energy data, emissions follow from a multiplication table.
+          <strong>Common gap:</strong> Many operations have energy data but have never converted it to CO2e. The calculation is mechanical, once you have energy data, emissions follow from a multiplication table.
         </p>
 
         <h2>Workforce Metrics</h2>
@@ -96,16 +96,16 @@ export default function ArticlePage() {
           <strong>Where to find it on your farm:</strong>
         </p>
         <ul>
-          <li><strong>Headcount</strong>&mdash;payroll records. Report total employees and FTE (full-time equivalent) to account for part-time and seasonal workers</li>
-          <li><strong>Gender split</strong>&mdash;from HR records or payroll. Percentage male/female across the workforce</li>
-          <li><strong>Health and safety</strong>&mdash;accident book entries, RIDDOR reports, near-miss logs. Report lost-time injuries, recordable incidents, and fatalities (hopefully zero)</li>
-          <li><strong>Training</strong>&mdash;training records, certificates. Total hours or days of training delivered. For farms, this includes sprayer certification (PA1/PA2/PA6), chainsaw competence, first aid, manual handling, telehandler operation</li>
+          <li><strong>Headcount</strong>, payroll records. Report total employees and FTE (full-time equivalent) to account for part-time and seasonal workers</li>
+          <li><strong>Gender split</strong>, from HR records or payroll. Percentage male/female across the workforce</li>
+          <li><strong>Health and safety</strong>, accident book entries, RIDDOR reports, near-miss logs. Report lost-time injuries, recordable incidents, and fatalities (hopefully zero)</li>
+          <li><strong>Training</strong>, training records, certificates. Total hours or days of training delivered. For farms, this includes sprayer certification (PA1/PA2/PA6), chainsaw competence, first aid, manual handling, telehandler operation</li>
         </ul>
         <p>
           <strong>What good enough looks like:</strong> Annual snapshot numbers. You do not need a sophisticated HR system. A spreadsheet with headcount by month, a safety record, and a training log covers the Basic Module requirement.
         </p>
         <p>
-          <strong>Common gap:</strong> Seasonal workers. If you employ harvest labour, contract gangs, or agency workers, document how you count them. FTE normalises this&mdash;a worker employed for 3 months equals 0.25 FTE.
+          <strong>Common gap:</strong> Seasonal workers. If you employ harvest labor, contract gangs, or agency workers, document how you count them. FTE normalizes this, a worker employed for 3 months equals 0.25 FTE.
         </p>
 
         <h2>Water</h2>
@@ -116,11 +116,11 @@ export default function ArticlePage() {
           <strong>Where to find it on your farm:</strong>
         </p>
         <ul>
-          <li><strong>Mains water</strong>&mdash;utility bills give you m&sup3; directly</li>
-          <li><strong>Borehole/groundwater</strong>&mdash;abstraction licence records or meter readings. If unmetered, document your estimation method</li>
-          <li><strong>Surface water</strong>&mdash;abstraction records where applicable</li>
-          <li><strong>Rainwater harvesting</strong>&mdash;estimated from collection system capacity and rainfall data if not metered</li>
-          <li><strong>Irrigation</strong>&mdash;this is often the largest water use on farm. Metered volumes, or calculated from application rates and areas irrigated</li>
+          <li><strong>Mains water</strong>, utility bills give you m&sup3; directly</li>
+          <li><strong>Borehole/groundwater</strong>, abstraction license records or meter readings. If unmetered, document your estimation method</li>
+          <li><strong>Surface water</strong>, abstraction records where applicable</li>
+          <li><strong>Rainwater harvesting</strong>, estimated from collection system capacity and rainfall data if not metered</li>
+          <li><strong>Irrigation</strong>, this is often the largest water use on farm. Metered volumes, or calculated from application rates and areas irrigated</li>
         </ul>
         <p>
           <strong>What good enough looks like:</strong> Annual totals by source. For irrigated operations, break out irrigation separately as buyers particularly care about agricultural water use.
@@ -137,10 +137,10 @@ export default function ArticlePage() {
           <strong>Where to find it on your farm:</strong>
         </p>
         <ul>
-          <li><strong>General waste</strong>&mdash;skip hire invoices, waste collection records. Tonnes or m&sup3; to landfill</li>
-          <li><strong>Recycling</strong>&mdash;farm plastics collection (crop covers, silage wrap, fertiliser bags), metal recycling, cardboard</li>
-          <li><strong>Hazardous waste</strong>&mdash;agrochemical containers, waste oils, veterinary waste. Waste transfer notes are your source</li>
-          <li><strong>Organic waste</strong>&mdash;crop residues, animal bedding, food processing waste. Note: material that stays on farm (straw incorporated, manure spread) is not waste in the reporting sense</li>
+          <li><strong>General waste</strong>, skip hire invoices, waste collection records. Tonnes or m&sup3; to landfill</li>
+          <li><strong>Recycling</strong>, farm plastics collection (crop covers, silage wrap, fertilizer bags), metal recycling, cardboard</li>
+          <li><strong>Hazardous waste</strong>, agrochemical containers, waste oils, veterinary waste. Waste transfer notes are your source</li>
+          <li><strong>Organic waste</strong>, crop residues, animal bedding, food processing waste. Note: material that stays on farm (straw incorporated, manure spread) is not waste in the reporting sense</li>
         </ul>
         <p>
           <strong>What good enough looks like:</strong> Annual totals by category and destination. Waste transfer notes provide most of this. Farm plastic recycling schemes (like the UK&apos;s farm plastics collection) give you documented recycling volumes.
@@ -154,12 +154,12 @@ export default function ArticlePage() {
           <strong>Where to find it on your farm:</strong>
         </p>
         <ul>
-          <li><strong>Land use breakdown</strong>&mdash;total hectares by type (arable, permanent pasture, temporary grass, woodland, set-aside, buildings/yards)</li>
-          <li><strong>Sensitive areas</strong>&mdash;check whether any of your land is near or within a Natura 2000 site, SSSI, or other protected designation. Your national environmental agency&apos;s mapping tool shows this</li>
-          <li><strong>Habitat features</strong>&mdash;hedgerow length, ponds, field margins, buffer strips, woodland. Environmental stewardship records or agri-environment scheme maps are your source</li>
+          <li><strong>Land use breakdown</strong>, total hectares by type (arable, permanent pasture, temporary grass, woodland, set-aside, buildings/yards)</li>
+          <li><strong>Sensitive areas</strong>, check whether any of your land is near or within a Natura 2000 site, SSSI, or other protected designation. Your national environmental agency&apos;s mapping tool shows this</li>
+          <li><strong>Habitat features</strong>, hedgerow length, ponds, field margins, buffer strips, woodland. Environmental stewardship records or agri-environment scheme maps are your source</li>
         </ul>
         <p>
-          <strong>What good enough looks like:</strong> A land use table and a statement about proximity to protected sites. You do not need a full <Link href="/articles/biodiversity-assessment-farms">biodiversity assessment</Link> for the Basic Module&mdash;just factual descriptions of what habitats exist on your land.
+          <strong>What good enough looks like:</strong> A land use table and a statement about proximity to protected sites. You do not need a full <Link href="/articles/biodiversity-assessment-farms">biodiversity assessment</Link> for the Basic Module, just factual descriptions of what habitats exist on your land.
         </p>
       </article>
 
@@ -170,7 +170,7 @@ export default function ArticlePage() {
       <article className="prose prose-gray max-w-none">
         <h2>Putting It Together</h2>
         <p>
-          The Basic Module is a structured collection of data you largely already possess. The work is not generating new information&mdash;it is organising existing records into a consistent format. A farm that tracks energy, keeps safety records, holds spray logs, and has filed environmental stewardship applications is already 70-80% of the way there.
+          The Basic Module is a structured collection of data you largely already possess. The work is not generating new information, it is organizing existing records into a consistent format. A farm that tracks energy, keeps safety records, holds spray logs, and has filed environmental stewardship applications is already 70-80% of the way there.
         </p>
         <p>
           The remaining 20-30% is typically:
@@ -187,7 +187,7 @@ export default function ArticlePage() {
 
         <h2>What Comes After Basic</h2>
         <p>
-          Once your buyer sees that you can provide Basic Module data reliably, they may progress to requesting <Link href="/articles/vsme-guide">Narrative-PAT</Link> data&mdash;your policies, the actions you have taken, and your targets. This is less about data collection and more about documentation. The practices exist; the task is writing them down.
+          Once your buyer sees that you can provide Basic Module data reliably, they may progress to requesting <Link href="/articles/vsme-guide">Narrative-PAT</Link> data, your policies, the actions you have taken, and your targets. This is less about data collection and more about documentation. The practices exist; the task is writing them down.
         </p>
         <p>
           The sequence matters: build your data first (Basic), then document your approach (PAT). Trying to write policies before you have data to back them up produces empty statements. Data-backed policies are credible. Data-free policies are marketing.
@@ -197,7 +197,7 @@ export default function ArticlePage() {
       <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
         <h3 className="text-2xl font-bold mb-3">Structure your Basic Module data</h3>
         <p className="text-white/80 mb-6">
-          The Five Stacks Tracker covers every Basic Module domain&mdash;energy, emissions, workforce, water, waste, and land use. Enter it once, export it for any standard.
+          The Five Stacks Tracker covers every Basic Module domain, energy, emissions, workforce, water, waste, and land use. Enter it once, export it for any standard.
         </p>
         <Link href="/signup" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
           Start Free &rarr;

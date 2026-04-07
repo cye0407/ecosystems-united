@@ -25,7 +25,7 @@ export default function ArticlePage() {
           <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Your Buyer Sent a VSME Questionnaire&mdash;Here&apos;s How to Respond
+          Your Buyer Sent a VSME Questionnaire, Here&apos;s How to Respond
         </h1>
         <p className="text-xl text-gray-600">
           The questionnaire is in your inbox. The deadline is in weeks. Here is a structured approach to responding efficiently, honestly, and in a way that strengthens your position as a supplier.
@@ -35,7 +35,7 @@ export default function ArticlePage() {
       {/* Article Content */}
       <article className="prose prose-gray max-w-none">
         <p>
-          You received an email from your buyer&apos;s sustainability team&mdash;or procurement, or quality assurance&mdash;with an attached questionnaire referencing VSME, CSRD, or supply chain sustainability data. The questionnaire might be a spreadsheet, a PDF form, an online portal, or a link to a platform like EcoVadis, Sedex, or IntegrityNext.
+          You received an email from your buyer&apos;s sustainability team, or procurement, or quality assurance, with an attached questionnaire referencing VSME, CSRD, or supply chain sustainability data. The questionnaire might be a spreadsheet, a PDF form, an online portal, or a link to a platform like EcoVadis, Sedex, or IntegrityNext.
         </p>
         <p>
           Regardless of format, the underlying request is the same: your buyer needs structured sustainability data from your operation to meet their CSRD reporting obligations. Here is how to handle it without panic.
@@ -49,12 +49,12 @@ export default function ArticlePage() {
           Read the full document first. Look for:
         </p>
         <ul>
-          <li><strong>Reporting period</strong>&mdash;what time frame does the buyer want data for? Usually the last calendar year or financial year</li>
-          <li><strong>Scope</strong>&mdash;does this cover your entire operation or just the portion that supplies this buyer?</li>
-          <li><strong>Mandatory vs. optional sections</strong>&mdash;some questionnaires mark sections as required or optional. Focus on mandatory first</li>
-          <li><strong>Data format</strong>&mdash;do they want specific units (MWh, tonnes CO2e, m&sup3;)? Match their format exactly</li>
-          <li><strong>Evidence requirements</strong>&mdash;do they want supporting documents (certificates, policies, audit reports) attached?</li>
-          <li><strong>Deadline</strong>&mdash;when is the response due? Plan backwards from this date</li>
+          <li><strong>Reporting period</strong>, what time frame does the buyer want data for? Usually the last calendar year or financial year</li>
+          <li><strong>Scope</strong>, does this cover your entire operation or just the portion that supplies this buyer?</li>
+          <li><strong>Mandatory vs. optional sections</strong>, some questionnaires mark sections as required or optional. Focus on mandatory first</li>
+          <li><strong>Data format</strong>, do they want specific units (MWh, tonnes CO2e, m&sup3;)? Match their format exactly</li>
+          <li><strong>Evidence requirements</strong>, do they want supporting documents (certificates, policies, audit reports) attached?</li>
+          <li><strong>Deadline</strong>, when is the response due? Plan backwards from this date</li>
         </ul>
 
         <h2>Step 2: Map Questions to Your Existing Data</h2>
@@ -80,10 +80,10 @@ export default function ArticlePage() {
           You will not have perfect data for every question. That is normal. The important thing is how you handle gaps:
         </p>
         <ul>
-          <li><strong>Data you have but need to convert</strong>&mdash;fuel in litres but they ask for MWh, or electricity in kWh but they want tonnes CO2e. This is a calculation gap, not a data gap. Standard conversion factors resolve it</li>
-          <li><strong>Data you have but not for the right period</strong>&mdash;you have last year&apos;s figures but they want this year&apos;s. Use available data and note the time mismatch</li>
-          <li><strong>Data you do not collect</strong>&mdash;for example, water use from an unmetered borehole. State that it is not currently measured, describe your estimation methodology if you have one, and note plans to improve (e.g., meter installation)</li>
-          <li><strong>Questions that do not apply</strong>&mdash;a question about marine resources for a landlocked arable farm. Mark as not applicable with a brief explanation</li>
+          <li><strong>Data you have but need to convert</strong>, fuel in liters but they ask for MWh, or electricity in kWh but they want tonnes CO2e. This is a calculation gap, not a data gap. Standard conversion factors resolve it</li>
+          <li><strong>Data you have but not for the right period</strong>, you have last year&apos;s figures but they want this year&apos;s. Use available data and note the time mismatch</li>
+          <li><strong>Data you do not collect</strong>, for example, water use from an unmetered borehole. State that it is not currently measured, describe your estimation methodology if you have one, and note plans to improve (e.g., meter installation)</li>
+          <li><strong>Questions that do not apply</strong>, a question about marine resources for a landlocked arable farm. Mark as not applicable with a brief explanation</li>
         </ul>
         <p>
           The worst response to a gap is silence. The second worst is making up a number. The best response is an honest statement of what you know, what you do not know, and what you are doing about it. Read more about <Link href="/articles/missing-esg-data">handling missing ESG data</Link>.
@@ -94,10 +94,10 @@ export default function ArticlePage() {
           For each question, follow this pattern:
         </p>
         <ol>
-          <li><strong>Direct answer</strong>&mdash;the number or statement they asked for. Lead with the data</li>
-          <li><strong>Methodology note</strong>&mdash;brief explanation of how you arrived at the figure (e.g., &ldquo;calculated from fuel invoices using DEFRA 2024 emission factors&rdquo;)</li>
-          <li><strong>Boundary statement</strong>&mdash;what is included and excluded (e.g., &ldquo;covers main farm site only, excludes rented grazing 15km away&rdquo;)</li>
-          <li><strong>Context where helpful</strong>&mdash;if a number looks unusual, explain why (e.g., &ldquo;energy consumption higher than previous year due to new cold storage installation in Q3&rdquo;)</li>
+          <li><strong>Direct answer</strong>, the number or statement they asked for. Lead with the data</li>
+          <li><strong>Methodology note</strong>, brief explanation of how you arrived at the figure (e.g., &ldquo;calculated from fuel invoices using DEFRA 2024 emission factors&rdquo;)</li>
+          <li><strong>Boundary statement</strong>, what is included and excluded (e.g., &ldquo;covers main farm site only, excludes rented grazing 15km away&rdquo;)</li>
+          <li><strong>Context where helpful</strong>, if a number looks unusual, explain why (e.g., &ldquo;energy consumption higher than previous year due to new cold storage installation in Q3&rdquo;)</li>
         </ol>
         <p>
           This pattern builds credibility. A number without methodology looks like a guess. A number with methodology, boundary, and context looks like it came from an operation that understands its own performance.
@@ -108,11 +108,11 @@ export default function ArticlePage() {
           If you hold farm assurance or environmental certifications, reference them explicitly:
         </p>
         <ul>
-          <li><strong><Link href="/articles/globalg-a-p-certification-what-sme-farms-need">GlobalG.A.P. IFA</Link></strong>&mdash;covers food safety, environmental management, worker welfare, traceability. Reference your certificate number and last audit date</li>
-          <li><strong><Link href="/articles/globalg-a-p-grasp-worker-welfare">GlobalG.A.P. GRASP</Link></strong>&mdash;specifically addresses social practices and worker welfare</li>
-          <li><strong>Organic certification</strong>&mdash;demonstrates chemical input restrictions, biodiversity management, soil health practices</li>
-          <li><strong>Environmental stewardship</strong>&mdash;habitat management, biodiversity commitments, buffer zones</li>
-          <li><strong>Red Tractor, LEAF Marque, other assurance</strong>&mdash;each covers specific aspects of the VSME framework</li>
+          <li><strong><Link href="/articles/globalg-a-p-certification-what-sme-farms-need">GlobalG.A.P. IFA</Link></strong>, covers food safety, environmental management, worker welfare, traceability. Reference your certificate number and last audit date</li>
+          <li><strong><Link href="/articles/globalg-a-p-grasp-worker-welfare">GlobalG.A.P. GRASP</Link></strong>, specifically addresses social practices and worker welfare</li>
+          <li><strong>Organic certification</strong>, demonstrates chemical input restrictions, biodiversity management, soil health practices</li>
+          <li><strong>Environmental stewardship</strong>, habitat management, biodiversity commitments, buffer zones</li>
+          <li><strong>Red Tractor, LEAF Marque, other assurance</strong>, each covers specific aspects of the VSME framework</li>
         </ul>
         <p>
           Certifications are third-party verified evidence. They carry more weight than self-declarations. If a questionnaire asks about your environmental management policy and you hold GlobalG.A.P., your IFA compliance is the policy in action.
@@ -129,11 +129,11 @@ export default function ArticlePage() {
           Before you send:
         </p>
         <ul>
-          <li><strong>Check units</strong>&mdash;did they ask for MWh and you provided kWh? Litres instead of tonnes? Unit mismatches are the most common error</li>
-          <li><strong>Check the reporting period</strong>&mdash;is all your data from the same time frame?</li>
-          <li><strong>Check completeness</strong>&mdash;are there unanswered questions? Even &ldquo;not applicable&rdquo; is better than blank</li>
-          <li><strong>Check consistency</strong>&mdash;do your numbers add up? If you report 50,000 litres of diesel and 10 tonnes CO2e, the emissions look too low (should be ~130 tonnes). Internal consistency matters</li>
-          <li><strong>Attach evidence</strong>&mdash;if the questionnaire asked for supporting documents, include them. Certificates, policies, calculation spreadsheets</li>
+          <li><strong>Check units</strong>, did they ask for MWh and you provided kWh? Liters instead of tonnes? Unit mismatches are the most common error</li>
+          <li><strong>Check the reporting period</strong>, is all your data from the same time frame?</li>
+          <li><strong>Check completeness</strong>, are there unanswered questions? Even &ldquo;not applicable&rdquo; is better than blank</li>
+          <li><strong>Check consistency</strong>, do your numbers add up? If you report 50,000 liters of diesel and 10 tonnes CO2e, the emissions look too low (should be ~130 tonnes). Internal consistency matters</li>
+          <li><strong>Attach evidence</strong>, if the questionnaire asked for supporting documents, include them. Certificates, policies, calculation spreadsheets</li>
         </ul>
 
         <h2>Step 7: Save Everything for Next Time</h2>
@@ -155,11 +155,11 @@ export default function ArticlePage() {
 
         <h2>Common Mistakes to Avoid</h2>
         <ul>
-          <li><strong>Ignoring the request</strong>&mdash;non-response signals to your buyer that you are not a viable long-term supplier. Even a partial response is better than silence</li>
-          <li><strong>Inflating or fabricating data</strong>&mdash;buyers increasingly cross-reference data between suppliers and against benchmarks. Inconsistencies erode trust faster than gaps</li>
-          <li><strong>Providing too much detail</strong>&mdash;answer what was asked. A 40-page response to a 10-question questionnaire suggests you do not understand what was requested</li>
-          <li><strong>Treating it as a one-off</strong>&mdash;VSME data requests will be annual. Build infrastructure for ongoing data collection, not a panic response</li>
-          <li><strong>Paying for a consultant when you could do it yourself</strong>&mdash;the <Link href="/articles/vsme-basic-module-explained">Basic Module datapoints</Link> are operational data you already have. Structure it yourself first, then decide if you need help</li>
+          <li><strong>Ignoring the request</strong>, non-response signals to your buyer that you are not a viable long-term supplier. Even a partial response is better than silence</li>
+          <li><strong>Inflating or fabricating data</strong>, buyers increasingly cross-reference data between suppliers and against benchmarks. Inconsistencies erode trust faster than gaps</li>
+          <li><strong>Providing too much detail</strong>, answer what was asked. A 40-page response to a 10-question questionnaire suggests you do not understand what was requested</li>
+          <li><strong>Treating it as a one-off</strong>, VSME data requests will be annual. Build infrastructure for ongoing data collection, not a panic response</li>
+          <li><strong>Paying for a consultant when you could do it yourself</strong>, the <Link href="/articles/vsme-basic-module-explained">Basic Module datapoints</Link> are operational data you already have. Structure it yourself first, then decide if you need help</li>
         </ul>
 
         <h2>What If the Questionnaire Is Not VSME-Specific?</h2>
@@ -177,7 +177,7 @@ export default function ArticlePage() {
       <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
         <h3 className="text-2xl font-bold mb-3">Turn questionnaire panic into a 15-minute review</h3>
         <p className="text-white/80 mb-6">
-          Track your operational data in the Five Stacks Tracker. When the next questionnaire arrives, use the Response Generator to draft answers from your verified data&mdash;with confidence scores so you know what is solid and what needs work.
+          Track your operational data in the Five Stacks Tracker. When the next questionnaire arrives, use the Response Generator to draft answers from your verified data, with confidence scores so you know what is solid and what needs work.
         </p>
         <div className="flex flex-wrap gap-4">
           <Link href="/signup" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">

@@ -28,17 +28,17 @@ export default function ArticlePage() {
           How the Five Stacks Tracker Maps to VSME Datapoints
         </h1>
         <p className="text-xl text-gray-600">
-          You track your operational data in eight domains. VSME asks for sustainability data across six categories. Here is exactly where they overlap&mdash;and why one data system covers multiple standards.
+          You track your operational data in eight domains. VSME asks for sustainability data across six categories. Here is exactly where they overlap, and why one data system covers multiple standards.
         </p>
       </header>
 
       {/* Article Content */}
       <article className="prose prose-gray max-w-none">
         <p>
-          The Five Stacks Tracker was not designed to be a VSME compliance tool. It was designed to structure operational data for agricultural SMEs. But the overlap is substantial&mdash;because VSME asks for the same operational reality that good management requires.
+          The Five Stacks Tracker was not designed to be a VSME compliance tool. It was designed to structure operational data for agricultural SMEs. But the overlap is substantial, because VSME asks for the same operational reality that good management requires.
         </p>
         <p>
-          This is the principle at work: <strong>well-structured operational data serves any reporting framework</strong>. VSME, full ESRS, GlobalG.A.P., EcoVadis, CDP, buyer-specific questionnaires&mdash;they all draw from the same underlying data. The framework determines which datapoints to extract and how to present them. The data itself is constant.
+          This is the principle at work: <strong>well-structured operational data serves any reporting framework</strong>. VSME, full ESRS, GlobalG.A.P., EcoVadis, CDP, buyer-specific questionnaires, they all draw from the same underlying data. The framework determines which datapoints to extract and how to present them. The data itself is constant.
         </p>
 
         <h2>The Mapping</h2>
@@ -51,36 +51,36 @@ export default function ArticlePage() {
           The Energy domain captures electricity consumption, fuel use (diesel, gas, heating oil), water consumption, and on-site renewable generation. This directly feeds:
         </p>
         <ul>
-          <li><strong>VSME energy consumption</strong>&mdash;total energy in MWh by source. The tracker stores electricity in kWh and fuel in litres; conversion to MWh uses standard factors</li>
-          <li><strong>VSME Scope 2 emissions</strong>&mdash;calculated from electricity consumption using grid emission factors</li>
-          <li><strong>VSME Scope 1 emissions (partial)</strong>&mdash;fuel combustion emissions calculated from diesel, gas, and oil consumption</li>
-          <li><strong>VSME water withdrawal</strong>&mdash;water consumption by source (mains, borehole, surface, rainwater)</li>
+          <li><strong>VSME energy consumption</strong>, total energy in MWh by source. The tracker stores electricity in kWh and fuel in liters; conversion to MWh uses standard factors</li>
+          <li><strong>VSME Scope 2 emissions</strong>, calculated from electricity consumption using grid emission factors</li>
+          <li><strong>VSME Scope 1 emissions (partial)</strong>, fuel combustion emissions calculated from diesel, gas, and oil consumption</li>
+          <li><strong>VSME water withdrawal</strong>, water consumption by source (mains, borehole, surface, rainwater)</li>
         </ul>
         <p>
-          The tracker auto-calculates emissions from energy data using IPCC Tier 1 factors. You enter litres of diesel; the system produces tonnes CO2e. No manual calculation required.
+          The tracker auto-calculates emissions from energy data using IPCC Tier 1 factors. You enter liters of diesel; the system produces tonnes CO2e. No manual calculation required.
         </p>
 
         <h3>Materials &rarr; VSME Materials and Pollution</h3>
         <p>
-          The Materials domain captures raw materials, consumables, and inputs including fertiliser applications. This feeds:
+          The Materials domain captures raw materials, consumables, and inputs including fertilizer applications. This feeds:
         </p>
         <ul>
-          <li><strong>VSME materials and inputs</strong>&mdash;quantities of key inputs by type</li>
-          <li><strong>VSME Scope 1 emissions (partial)</strong>&mdash;fertiliser N2O emissions calculated from kg nitrogen applied</li>
-          <li><strong>VSME pollution indicators</strong>&mdash;crop protection product use, active ingredients, application rates</li>
+          <li><strong>VSME materials and inputs</strong>, quantities of key inputs by type</li>
+          <li><strong>VSME Scope 1 emissions (partial)</strong>, fertilizer N2O emissions calculated from kg nitrogen applied</li>
+          <li><strong>VSME pollution indicators</strong>, crop protection product use, active ingredients, application rates</li>
         </ul>
         <p>
-          For agricultural operations, the Materials domain is where much of the sector-specific data lives. Fertiliser records, spray logs, and input purchases are standard farm data&mdash;the tracker structures them for reporting.
+          For agricultural operations, the Materials domain is where much of the sector-specific data lives. Fertilizer records, spray logs, and input purchases are standard farm data, the tracker structures them for reporting.
         </p>
 
         <h3>Outputs &rarr; VSME Emissions and Waste</h3>
         <p>
-          The Outputs domain captures production output, waste generation, and&mdash;for agricultural operations&mdash;livestock records and crop yields. This feeds:
+          The Outputs domain captures production output, waste generation, and, for agricultural operations, livestock records and crop yields. This feeds:
         </p>
         <ul>
-          <li><strong>VSME waste data</strong>&mdash;waste by type and destination (landfill, recycling, composting, recovery)</li>
-          <li><strong>VSME Scope 1 emissions (partial)</strong>&mdash;livestock methane (enteric fermentation) and manure management emissions, calculated from headcount and species</li>
-          <li><strong>VSME production metrics</strong>&mdash;output volumes that serve as denominators for intensity metrics (emissions per tonne, energy per unit produced)</li>
+          <li><strong>VSME waste data</strong>, waste by type and destination (landfill, recycling, composting, recovery)</li>
+          <li><strong>VSME Scope 1 emissions (partial)</strong>, livestock methane (enteric fermentation) and manure management emissions, calculated from headcount and species</li>
+          <li><strong>VSME production metrics</strong>, output volumes that serve as denominators for intensity metrics (emissions per tonne, energy per unit produced)</li>
         </ul>
         <p>
           Livestock emissions are a major component of agricultural Scope 1. The tracker calculates enteric methane and manure emissions from livestock headcount using IPCC default factors for each species.
@@ -88,12 +88,12 @@ export default function ArticlePage() {
 
         <h3>Infrastructure &rarr; VSME Biodiversity and Land Use</h3>
         <p>
-          The Infrastructure domain captures sites, buildings, equipment, and&mdash;for agricultural operations&mdash;land use records. This feeds:
+          The Infrastructure domain captures sites, buildings, equipment, and, for agricultural operations, land use records. This feeds:
         </p>
         <ul>
-          <li><strong>VSME land use</strong>&mdash;total area by use type (arable, pasture, woodland, buildings, set-aside)</li>
-          <li><strong>VSME biodiversity</strong>&mdash;habitat features, proximity to protected sites, land management practices</li>
-          <li><strong>VSME site information</strong>&mdash;location, operational boundaries, multi-site structures</li>
+          <li><strong>VSME land use</strong>, total area by use type (arable, pasture, woodland, buildings, set-aside)</li>
+          <li><strong>VSME biodiversity</strong>, habitat features, proximity to protected sites, land management practices</li>
+          <li><strong>VSME site information</strong>, location, operational boundaries, multi-site structures</li>
         </ul>
         <p>
           Land use data is where agriculture diverges most from generic VSME guidance. A manufacturer reports a warehouse footprint. A farm reports hundreds of hectares with multiple land types, habitat features, and ecological significance. The Infrastructure domain handles this complexity.
@@ -104,10 +104,10 @@ export default function ArticlePage() {
           The Workforce domain captures employee headcount, health and safety data, training records, and working conditions. This maps directly to:
         </p>
         <ul>
-          <li><strong>VSME workforce headcount</strong>&mdash;total employees, FTE, permanent vs. seasonal, gender split</li>
-          <li><strong>VSME health and safety</strong>&mdash;reportable incidents, lost-time injuries, near misses, fatalities</li>
-          <li><strong>VSME training</strong>&mdash;total training hours, certifications held, competence records</li>
-          <li><strong>VSME working conditions</strong>&mdash;contract types, working hours, seasonal accommodation (where applicable)</li>
+          <li><strong>VSME workforce headcount</strong>, total employees, FTE, permanent vs. seasonal, gender split</li>
+          <li><strong>VSME health and safety</strong>, reportable incidents, lost-time injuries, near misses, fatalities</li>
+          <li><strong>VSME training</strong>, total training hours, certifications held, competence records</li>
+          <li><strong>VSME working conditions</strong>, contract types, working hours, seasonal accommodation (where applicable)</li>
         </ul>
         <p>
           If you hold <Link href="/articles/globalg-a-p-grasp-worker-welfare">GlobalG.A.P. GRASP</Link>, your workforce data already meets or exceeds VSME social requirements. The tracker structures the same information GRASP auditors review.
@@ -118,8 +118,8 @@ export default function ArticlePage() {
           The Transport domain captures inbound, outbound, and internal logistics. For VSME:
         </p>
         <ul>
-          <li><strong>VSME Scope 1 emissions (partial)</strong>&mdash;own-vehicle transport emissions from fuel consumption</li>
-          <li><strong>VSME Scope 3 context</strong>&mdash;if your buyer requests Business Partners module data, transport logistics feed value chain emissions</li>
+          <li><strong>VSME Scope 1 emissions (partial)</strong>, own-vehicle transport emissions from fuel consumption</li>
+          <li><strong>VSME Scope 3 context</strong>, if your buyer requests Business Partners module data, transport logistics feed value chain emissions</li>
         </ul>
         <p>
           Most farm transport emissions are already captured in the Energy domain as diesel consumption. The Transport domain adds route-level detail for operations that need to distinguish farm machinery from road haulage.
@@ -130,8 +130,8 @@ export default function ArticlePage() {
           The Packaging domain captures primary, secondary, and tertiary packaging for operations that pack on-farm. This feeds:
         </p>
         <ul>
-          <li><strong>VSME resource use</strong>&mdash;packaging materials by type and weight</li>
-          <li><strong>VSME waste</strong>&mdash;packaging waste generated, recycled content, recyclability</li>
+          <li><strong>VSME resource use</strong>, packaging materials by type and weight</li>
+          <li><strong>VSME waste</strong>, packaging waste generated, recycled content, recyclability</li>
         </ul>
         <p>
           Not all farm operations pack on-site. For those that do (fresh produce, eggs, dairy), packaging data is a meaningful VSME requirement. For operations that sell in bulk to processors, this domain may have minimal entries.
@@ -142,9 +142,9 @@ export default function ArticlePage() {
           The Context domain captures external factors, financial position, regulatory status, and strategic context. This feeds:
         </p>
         <ul>
-          <li><strong>VSME governance</strong>&mdash;who is responsible for sustainability decisions, what policies exist</li>
-          <li><strong>VSME CSRD status</strong>&mdash;your own regulatory position and your buyers&apos; requirements</li>
-          <li><strong>VSME adoption tracking</strong>&mdash;the tracker explicitly tracks your VSME readiness stage</li>
+          <li><strong>VSME governance</strong>, who is responsible for sustainability decisions, what policies exist</li>
+          <li><strong>VSME CSRD status</strong>, your own regulatory position and your buyers&apos; requirements</li>
+          <li><strong>VSME adoption tracking</strong>, the tracker explicitly tracks your VSME readiness stage</li>
         </ul>
       </article>
 
@@ -158,16 +158,16 @@ export default function ArticlePage() {
           When you fill in the eight tracker domains, the VSME Basic Module is largely covered:
         </p>
         <ul>
-          <li><strong>Energy</strong>&mdash;fully covered by Energy &amp; Utilities domain</li>
-          <li><strong>Emissions</strong>&mdash;fully covered across Energy (fuel), Materials (fertiliser), and Outputs (livestock), with auto-calculation</li>
-          <li><strong>Workforce</strong>&mdash;fully covered by Workforce domain</li>
-          <li><strong>Water</strong>&mdash;fully covered by Energy &amp; Utilities domain</li>
-          <li><strong>Waste</strong>&mdash;fully covered by Outputs domain</li>
-          <li><strong>Biodiversity/land use</strong>&mdash;covered by Infrastructure domain</li>
-          <li><strong>Governance</strong>&mdash;partially covered by Context domain (VSME PAT module requires additional policy documentation)</li>
+          <li><strong>Energy</strong>, fully covered by Energy &amp; Utilities domain</li>
+          <li><strong>Emissions</strong>, fully covered across Energy (fuel), Materials (fertilizer), and Outputs (livestock), with auto-calculation</li>
+          <li><strong>Workforce</strong>, fully covered by Workforce domain</li>
+          <li><strong>Water</strong>, fully covered by Energy &amp; Utilities domain</li>
+          <li><strong>Waste</strong>, fully covered by Outputs domain</li>
+          <li><strong>Biodiversity/land use</strong>, covered by Infrastructure domain</li>
+          <li><strong>Governance</strong>, partially covered by Context domain (VSME PAT module requires additional policy documentation)</li>
         </ul>
         <p>
-          The gap is in the Narrative-PAT module: written policies, documented actions, and formal targets. The tracker provides the data that underpins these narratives, but the narrative itself&mdash;your environmental management policy, your emissions reduction target&mdash;requires documentation beyond data entry.
+          The gap is in the Narrative-PAT module: written policies, documented actions, and formal targets. The tracker provides the data that underpins these narratives, but the narrative itself, your environmental management policy, your emissions reduction target, requires documentation beyond data entry.
         </p>
 
         <h2>Beyond VSME: One Data System, Multiple Standards</h2>
@@ -175,17 +175,17 @@ export default function ArticlePage() {
           The same eight domains feed more than VSME:
         </p>
         <ul>
-          <li><strong><Link href="/articles/csrd-esg-guide">Full ESRS</Link></strong>&mdash;the tracker data provides the foundation. Scaling to full ESRS means adding granularity and narrative, not restarting</li>
-          <li><strong><Link href="/articles/globalg-a-p-certification-what-sme-farms-need">GlobalG.A.P. IFA</Link></strong>&mdash;Materials, Outputs, Workforce, and Infrastructure data align with IFA control points</li>
-          <li><strong>EcoVadis</strong>&mdash;EcoVadis questionnaires map to the same domains: environment, labour, ethics, sustainable procurement</li>
-          <li><strong>CDP Supply Chain</strong>&mdash;energy and emissions data feeds CDP climate disclosures directly</li>
-          <li><strong>Buyer-specific questionnaires</strong>&mdash;regardless of format, the questions draw from the same operational data</li>
+          <li><strong><Link href="/articles/csrd-esg-guide">Full ESRS</Link></strong>, the tracker data provides the foundation. Scaling to full ESRS means adding granularity and narrative, not restarting</li>
+          <li><strong><Link href="/articles/globalg-a-p-certification-what-sme-farms-need">GlobalG.A.P. IFA</Link></strong>, Materials, Outputs, Workforce, and Infrastructure data align with IFA control points</li>
+          <li><strong>EcoVadis</strong>, EcoVadis questionnaires map to the same domains: environment, labor, ethics, sustainable procurement</li>
+          <li><strong>CDP Supply Chain</strong>, energy and emissions data feeds CDP climate disclosures directly</li>
+          <li><strong>Buyer-specific questionnaires</strong>, regardless of format, the questions draw from the same operational data</li>
         </ul>
         <p>
           This is not marketing. It is arithmetic. A litre of diesel is a litre of diesel whether your buyer asks about it through VSME, EcoVadis, or a proprietary spreadsheet. An FTE is an FTE whether GRASP or VSME requests it. The data is the data.
         </p>
         <p>
-          The operations that build structured data infrastructure once&mdash;through the tracker or any equivalent system&mdash;respond to every subsequent request from a position of readiness. The operations that treat each questionnaire as a separate exercise spend the same time scrambling, every time.
+          The operations that build structured data infrastructure once, through the tracker or any equivalent system, respond to every subsequent request from a position of readiness. The operations that treat each questionnaire as a separate exercise spend the same time scrambling, every time.
         </p>
 
         <h2>Getting Started</h2>
@@ -193,12 +193,12 @@ export default function ArticlePage() {
           If you are working toward VSME readiness using the tracker, the most efficient sequence is:
         </p>
         <ol>
-          <li><strong>Energy &amp; Utilities</strong>&mdash;this gives you the most-requested data (energy consumption) and the foundation for emissions calculations</li>
-          <li><strong>Materials</strong>&mdash;fertiliser and input records complete your agricultural Scope 1 emissions picture</li>
-          <li><strong>Outputs</strong>&mdash;livestock records add the remaining agricultural emissions, and waste data covers another VSME category</li>
-          <li><strong>Workforce</strong>&mdash;headcount, safety, and training data complete the social metrics</li>
-          <li><strong>Infrastructure</strong>&mdash;land use and habitat data cover biodiversity requirements</li>
-          <li><strong>Transport, Packaging, Context</strong>&mdash;fill in as relevant to your operation</li>
+          <li><strong>Energy &amp; Utilities</strong>, this gives you the most-requested data (energy consumption) and the foundation for emissions calculations</li>
+          <li><strong>Materials</strong>, fertilizer and input records complete your agricultural Scope 1 emissions picture</li>
+          <li><strong>Outputs</strong>, livestock records add the remaining agricultural emissions, and waste data covers another VSME category</li>
+          <li><strong>Workforce</strong>, headcount, safety, and training data complete the social metrics</li>
+          <li><strong>Infrastructure</strong>, land use and habitat data cover biodiversity requirements</li>
+          <li><strong>Transport, Packaging, Context</strong>, fill in as relevant to your operation</li>
         </ol>
         <p>
           After four domains (Energy, Materials, Outputs, Workforce), you have the core VSME Basic Module covered. The remaining domains add depth and cover edge cases specific to your operation.
@@ -226,7 +226,7 @@ export default function ArticlePage() {
             <span className="block text-sm text-gray-600">Every datapoint walkthrough with farm-specific guidance</span>
           </Link>
           <Link href="/articles/vsme-buyer-questionnaire-response" className="block p-4 border border-gray-200 rounded-lg hover:border-[#3D2E7C] transition-colors">
-            <span className="font-medium text-gray-900">Your Buyer Sent a VSME Questionnaire &mdash; Here&apos;s How to Respond &rarr;</span>
+            <span className="font-medium text-gray-900">Your Buyer Sent a VSME Questionnaire ,  Here&apos;s How to Respond &rarr;</span>
             <span className="block text-sm text-gray-600">From inbox to response in a structured workflow</span>
           </Link>
           <Link href="/articles/what-gets-measured" className="block p-4 border border-gray-200 rounded-lg hover:border-[#3D2E7C] transition-colors">
