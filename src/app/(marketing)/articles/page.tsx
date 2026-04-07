@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { guideCategories, categoryStack } from "@/lib/article-metadata";
 
 const stackTabs = [
@@ -33,18 +34,46 @@ const startHereCards = [
 
 export default function GuidesPage() {
   const [activeStack, setActiveStack] = useState(0);
+  const [query, setQuery] = useState("");
 
-  const filteredCategories =
-    activeStack === 0
-      ? guideCategories
-      : guideCategories.filter(
-          (cat) => categoryStack[cat.name]?.number === activeStack
-        );
+  const filteredCategories = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    // First filter by stack
+    let categories =
+      activeStack === 0
+        ? guideCategories
+        : guideCategories.filter(
+            (cat) => categoryStack[cat.name]?.number === activeStack
+          );
+
+    // Then filter guides within each category by search query
+    if (normalizedQuery) {
+      categories = categories
+        .map((cat) => ({
+          ...cat,
+          guides: cat.guides.filter(
+            (g) =>
+              g.title.toLowerCase().includes(normalizedQuery) ||
+              g.desc.toLowerCase().includes(normalizedQuery) ||
+              cat.name.toLowerCase().includes(normalizedQuery)
+          ),
+        }))
+        .filter((cat) => cat.guides.length > 0);
+    }
+
+    return categories;
+  }, [activeStack, query]);
+
+  const totalResults = filteredCategories.reduce(
+    (sum, cat) => sum + cat.guides.length,
+    0
+  );
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
       {/* Hero */}
-      <div className="mb-12">
+      <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Guides</h1>
         <p className="text-xl text-gray-600">
           Practical sustainability guides for agricultural businesses and SMEs.
@@ -52,7 +81,41 @@ export default function GuidesPage() {
         </p>
       </div>
 
-      {/* Start Here */}
+      {/* Search */}
+      <div className="mb-12">
+        <div className="relative max-w-2xl">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+            <MagnifyingGlass size={20} weight="bold" />
+          </div>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search guides by topic, keyword, or title..."
+            className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-gray-900 placeholder:text-gray-400"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+              aria-label="Clear search"
+            >
+              <X size={18} weight="bold" />
+            </button>
+          )}
+        </div>
+        {query && (
+          <p className="mt-2 text-sm text-gray-500">
+            {totalResults === 0
+              ? "No guides match your search."
+              : `${totalResults} guide${totalResults === 1 ? "" : "s"} found`}
+          </p>
+        )}
+      </div>
+
+      {/* Start Here — hidden during search */}
+      {!query && (
       <section className="mb-14">
         <h2 className="text-sm font-semibold text-[#3D2E7C] uppercase tracking-wide mb-4">
           Start here
@@ -77,6 +140,7 @@ export default function GuidesPage() {
           ))}
         </div>
       </section>
+      )}
 
       {/* Stack Filter Tabs */}
       <div className="flex flex-wrap items-center gap-2 mb-10">
