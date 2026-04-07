@@ -170,7 +170,7 @@ export default function TrackerPage() {
       </header>
 
       {/* Who It's For */}
-      <section className="mb-20 max-w-3xl">
+      <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           Who This Is For
         </h2>
@@ -445,7 +445,7 @@ export default function TrackerPage() {
       </section>
 
       {/* Why Free */}
-      <section className="mb-20 max-w-4xl">
+      <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           Why Free
         </h2>
