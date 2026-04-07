@@ -191,7 +191,7 @@ export default function ArticlePage() {
           <li><strong>You are not sure</strong>, start with VSME. It covers the core data. If you later discover you need full ESRS, the VSME data gives you a running start</li>
         </ul>
         <p>
-          Starting with VSME is never the wrong answer. It is either the destination or the first leg of the journey.
+          Starting with VSME is never the wrong answer. It is either the destination or the first leg of the journey. The <Link href="/tools/metrics-assessment">Metrics Assessment</Link> takes 5 minutes and shows you where you stand against the core requirements that both VSME and ESRS share.
         </p>
       </article>
 

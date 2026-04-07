@@ -57,7 +57,7 @@ export default function ArticlePage() {
           <li><strong>VSME water withdrawal</strong>, water consumption by source (mains, borehole, surface, rainwater)</li>
         </ul>
         <p>
-          The tracker auto-calculates emissions from energy data using IPCC Tier 1 factors. You enter liters of diesel; the system produces tonnes CO2e. No manual calculation required.
+          The tracker auto-calculates emissions from energy data using IPCC Tier 1 factors. You enter liters of diesel; the system produces tonnes CO2e. No manual calculation required. If you want to see the math first without signing up, the <Link href="/tools/energy-calculator">Energy ROI Calculator</Link> runs the same conversions in your browser.
         </p>
 
         <h3>Materials &rarr; VSME Materials and Pollution</h3>

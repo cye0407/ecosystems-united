@@ -85,7 +85,7 @@ export default function ArticlePage() {
           <strong>What good enough looks like:</strong> IPCC Tier 1 calculations using default emission factors. No one expects farm-level direct measurement of methane. Standard factors applied consistently to your activity data is the accepted methodology.
         </p>
         <p>
-          <strong>Common gap:</strong> Many operations have energy data but have never converted it to CO2e. The calculation is mechanical, once you have energy data, emissions follow from a multiplication table.
+          <strong>Common gap:</strong> Many operations have energy data but have never converted it to CO2e. The calculation is mechanical, once you have energy data, emissions follow from a multiplication table. The <Link href="/tools/energy-calculator">Energy ROI Calculator</Link> does this conversion in your browser, with no signup required.
         </p>
 
         <h2>Workforce Metrics</h2>

@@ -117,7 +117,7 @@ export default function VSMEGuidePage() {
           <li>Fertilizer emissions (N2O from nitrogen applications, calculated from kg N applied)</li>
         </ul>
         <p>
-          Most of this comes from invoices and application records you already keep. The calculation methodology uses standard emission factors, not direct measurement.
+          Most of this comes from invoices and application records you already keep. The calculation methodology uses standard emission factors, not direct measurement. The <Link href="/tools/energy-calculator">Energy ROI Calculator</Link> handles the conversion from fuel and electricity inputs to emissions for you.
         </p>
 
         <h3>Land Use and Biodiversity</h3>
@@ -194,7 +194,7 @@ export default function VSMEGuidePage() {
           <li><strong>Set realistic targets</strong>, 10% diesel reduction, maintain soil organic matter, zero lost-time incidents. Targets should be achievable and measurable</li>
         </ol>
         <p>
-          Steps 1-5 give you the <Link href="/articles/vsme-basic-module-explained">Basic Module</Link>. Steps 6-7 move you into <Link href="/articles/vsme-basic-module-explained">Narrative-PAT territory</Link>. The entire process builds on data you largely already possess, it just needs to be structured.
+          Steps 1-5 give you the <Link href="/articles/vsme-basic-module-explained">Basic Module</Link>. Steps 6-7 move you into <Link href="/articles/vsme-basic-module-explained">Narrative-PAT territory</Link>. The entire process builds on data you largely already possess, it just needs to be structured. The <Link href="/tools/metrics-assessment">Metrics Assessment</Link> is a 5-minute way to see how ready your operation already is.
         </p>
 
         <h2>Timeline: When Will Your Buyer Ask?</h2>

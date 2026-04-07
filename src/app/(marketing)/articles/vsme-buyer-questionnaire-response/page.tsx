@@ -80,7 +80,7 @@ export default function ArticlePage() {
           You will not have perfect data for every question. That is normal. The important thing is how you handle gaps:
         </p>
         <ul>
-          <li><strong>Data you have but need to convert</strong>, fuel in liters but they ask for MWh, or electricity in kWh but they want tonnes CO2e. This is a calculation gap, not a data gap. Standard conversion factors resolve it</li>
+          <li><strong>Data you have but need to convert</strong>, fuel in liters but they ask for MWh, or electricity in kWh but they want tonnes CO2e. This is a calculation gap, not a data gap. Standard conversion factors resolve it, and the <Link href="/tools/energy-calculator">Energy ROI Calculator</Link> handles the math directly</li>
           <li><strong>Data you have but not for the right period</strong>, you have last year&apos;s figures but they want this year&apos;s. Use available data and note the time mismatch</li>
           <li><strong>Data you do not collect</strong>, for example, water use from an unmetered borehole. State that it is not currently measured, describe your estimation methodology if you have one, and note plans to improve (e.g., meter installation)</li>
           <li><strong>Questions that do not apply</strong>, a question about marine resources for a landlocked arable farm. Mark as not applicable with a brief explanation</li>
