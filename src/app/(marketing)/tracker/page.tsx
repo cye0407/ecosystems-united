@@ -170,7 +170,7 @@ export default function TrackerPage() {
       </header>
 
       {/* Who It's For */}
-      <section className="mb-20">
+      <section className="mb-20 max-w-3xl">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           Who This Is For
         </h2>
@@ -178,7 +178,7 @@ export default function TrackerPage() {
           Farmers and agricultural SMEs who need their data organised
         </p>
 
-        <div className="max-w-3xl space-y-6 text-gray-600 leading-relaxed">
+        <div className="space-y-6 text-gray-600 leading-relaxed">
           <p>
             Your buyers are asking for sustainability data. Maybe it&apos;s a
             Scope 3 request. Maybe it&apos;s an EcoVadis questionnaire. Maybe
