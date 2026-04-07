@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import SiteSearch from "@/components/marketing/SiteSearch";
 
 const stackItems = [
   { num: 1, title: "The Defensible Baseline", slug: "stack-1-metrics", color: "#3D2E7C" },
@@ -93,6 +94,7 @@ export default function Nav() {
           <Link href="/about" className="text-gray-600 hover:text-primary">
             About
           </Link>
+          <SiteSearch />
           <Link href="/login" className="text-gray-600 hover:text-primary">
             Sign In
           </Link>
