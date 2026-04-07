@@ -43,7 +43,7 @@ export default function HomePage() {
 
         {/* Five Stacks Preview */}
         <section className="py-16 px-4 bg-cream">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-4">
               The Five Stacks Framework
             </h2>
@@ -109,7 +109,7 @@ export default function HomePage() {
 
         {/* Value Proposition */}
         <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-12 h-12 bg-[#3D2E7C]/10 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -185,7 +185,7 @@ export default function HomePage() {
 
         {/* Why Ecosystems United */}
         <section className="py-16 px-4 bg-white">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-center mb-4">
               Why Ecosystems United
             </h2>
@@ -267,7 +267,7 @@ export default function HomePage() {
 
         {/* Response Generator */}
         <section className="py-16 px-4 bg-cream">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
               <div className="p-8 md:p-12">
                 <span className="text-xs font-semibold text-white bg-primary px-2.5 py-0.5 rounded-full">
@@ -303,7 +303,7 @@ export default function HomePage() {
 
         {/* CTA */}
         <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <PageCTA
               heading="Built for farms and agricultural SMEs"
               description="Your buyers need your data. The Five Stacks Framework turns that obligation into operational advantage, starting with what you already measure."

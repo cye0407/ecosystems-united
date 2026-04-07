@@ -53,9 +53,9 @@ const stacks = [
 
 export default function FrameworkPage() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
+    <div className="max-w-5xl mx-auto px-6 py-16">
       {/* Header */}
-      <div className="max-w-3xl mb-16">
+      <div className="mb-16">
         <h1 className="text-4xl font-bold text-gray-900 mb-6">
           The Five Stacks Framework
         </h1>
@@ -72,7 +72,7 @@ export default function FrameworkPage() {
       </div>
 
       {/* Core Philosophy */}
-      <div className="bg-gray-50 rounded-lg p-8 mb-16 max-w-3xl">
+      <div className="bg-gray-50 rounded-lg p-8 mb-16">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           Core Philosophy
         </h2>
@@ -119,7 +119,7 @@ export default function FrameworkPage() {
       </div>
 
       {/* The Approach */}
-      <div className="max-w-3xl mb-16">
+      <div className="mb-16">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           The Approach
         </h2>
