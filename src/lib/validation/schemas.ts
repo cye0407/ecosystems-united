@@ -15,22 +15,24 @@ const primaryMotivation = z.enum(['compliance', 'cost', 'customers', 'values', '
 const applicabilityStatus = z.enum(['yes', 'no', 'unsure']);
 
 // ---- Company Profile ----
+// Slimmed for cold-start onboarding: only 3 fields required upfront.
+// Everything else is optional and can be filled in from settings later.
 export const companySchema = z.object({
   legalEntityName: z.string().min(1, 'Legal entity name is required').max(200),
   tradingName: z.string().max(200).optional().or(z.literal('')),
   registrationNumber: z.string().max(50).optional().or(z.literal('')),
   industryCode: z.string().min(1, 'Industry code is required'),
   industryDescription: z.string().optional().or(z.literal('')),
-  ownershipType: ownershipType,
+  ownershipType: ownershipType.optional(),
   foundingYear: z.coerce.number().int().min(1800).max(new Date().getFullYear()).optional().or(z.literal(0).transform(() => undefined)),
   headquartersCountry: z.string().min(1, 'Headquarters country is required'),
   headquartersCity: z.string().optional().or(z.literal('')),
-  reportingPeriodStart: z.string().min(1, 'Reporting period start is required'),
-  reportingPeriodEnd: z.string().min(1, 'Reporting period end is required'),
-  totalFte: z.coerce.number().min(0, 'FTE must be 0 or greater'),
-  fteConfidence: confidenceLevel,
-  revenueBand: revenueBand,
-  revenueCurrency: z.string().min(1, 'Currency is required'),
+  reportingPeriodStart: z.string().optional().or(z.literal('')),
+  reportingPeriodEnd: z.string().optional().or(z.literal('')),
+  totalFte: z.coerce.number().min(0).optional(),
+  fteConfidence: confidenceLevel.optional(),
+  revenueBand: revenueBand.optional(),
+  revenueCurrency: z.string().optional().or(z.literal('')),
 }).refine(
   (data) => data.industryCode !== 'other' || (data.industryDescription && data.industryDescription.length > 0),
   { message: 'Industry description is required', path: ['industryDescription'] }

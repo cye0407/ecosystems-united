@@ -21,7 +21,6 @@ export default function NewsletterSignup() {
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/ecosystemsunited"
         method="post"
-        target="popupwindow"
         onSubmit={handleSubmit}
         className="flex gap-3 max-w-md mx-auto"
       >

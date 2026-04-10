@@ -45,7 +45,7 @@ export default function WelcomePage() {
           Let's get you started
         </h1>
         <p className="text-gray-600 text-lg">
-          Tell us about your company so we can tailor your tracker.
+          Three quick details, one real number from a recent bill, and you're tracking.
         </p>
       </div>
 
@@ -56,17 +56,17 @@ export default function WelcomePage() {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-1">
-              Estimated time: Under 2 minutes
+              Under 60 seconds
             </h3>
             <p className="text-sm text-gray-600">
-              You can save your progress and return anytime.
+              Everything else you can fill in from your dashboard, whenever you have the data.
             </p>
           </div>
         </div>
 
         <p className="text-sm text-gray-700 leading-relaxed">
-          We just need some basic company info &mdash; industry, location, and size.
-          Everything else you can do from your dashboard.
+          We'll ask for your business name, industry, and country &mdash; then one real number
+          (last month's electricity) so your dashboard isn't empty when you arrive.
         </p>
       </Card>
 
