@@ -1,12 +1,16 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import {
+  Robot,
+  ChartBar,
+  BookOpen,
+} from "@phosphor-icons/react/dist/ssr";
 import PageCTA from "@/components/marketing/PageCTA";
 import WaitlistForm from "@/components/marketing/WaitlistForm";
 
 export const metadata: Metadata = {
-  title: "For Advisors",
+  title: "For Agricultural Advisors",
   description:
-    "Roll out a free sustainability tracker across your entire client base. Standardized 8-domain data collection, CSV exports, and a structured methodology your clients can follow independently.",
+    "Run ESG and GlobalG.A.P. questionnaire responses for your farm clients from tracked data, not from scratch. Buy credits, run responses, charge what you want.",
 };
 
 export default function ForAdvisorsPage() {
@@ -15,99 +19,121 @@ export default function ForAdvisorsPage() {
       {/* Hero */}
       <header className="mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          For Agricultural Advisors and Consultants
+          Your clients&apos; ESG and certification questionnaires, handled.
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl">
-          Stop manually cleaning client data. Give them our tracker, get clean
-          CSVs back, and spend your billable hours on strategy instead of data
-          entry. Free for you and every client.
+        <p className="text-xl text-gray-600">
+          Big buyers are pushing Scope 3 disclosures down the supply chain, and
+          your farm clients are caught in the middle. Questionnaires land on
+          their desk and they call you. Our response engine generates defensible
+          answers from tracked operational data. 200+ templates across ESG and
+          GlobalG.A.P. frameworks. You buy credits, run responses for your
+          clients, and charge what you want.
         </p>
       </header>
 
-      {/* The Advisor Problem */}
-      <section className="mb-16 max-w-3xl">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          The Problem You&apos;re Solving
-        </h2>
-        <div className="prose prose-gray max-w-none">
-          <p>
-            Every client tracks sustainability data differently&mdash;or not at
-            all. You spend hours per engagement just getting to a common
-            baseline. When buyer questionnaires arrive, clients call you in a
-            panic because nothing is organised.
-          </p>
-          <p>
-            Existing tools charge per seat. Recommending them to 40 clients
-            means 40 licence fees&mdash;and that&apos;s before your clients have
-            entered a single data point.
-          </p>
-        </div>
-      </section>
-
-      {/* What You Get */}
+      {/* What exists today */}
       <section className="mb-16">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          What You Get
+        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-8">
+          What You Get Today
         </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-8">
-          One toolkit, many farms
-        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl border-2 border-[#3D2E7C] bg-white flex flex-col">
+            <Robot
+              size={28}
+              weight="duotone"
+              className="text-[#3D2E7C] mb-3"
+            />
+            <h3 className="font-semibold text-gray-900 mb-2">
+              Questionnaire Response Engine
+            </h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Upload an ESG questionnaire (EcoVadis, CDP, CSRD, GRI) or a
+              GlobalG.A.P. IFA checklist. The engine matches each question to
+              your client&apos;s tracked data and generates audit-ready answers.
+            </p>
+            <p className="text-sm text-gray-600">
+              200+ answer templates. Rules-based, so every answer is traceable
+              and auditable. No black-box AI.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl border border-gray-200 bg-white flex flex-col">
+            <ChartBar
+              size={28}
+              weight="duotone"
+              className="text-primary mb-3"
+            />
             <h3 className="font-semibold text-gray-900 mb-2">
               Free Tracker for Every Client
             </h3>
+            <p className="text-sm text-gray-600 mb-3">
+              8 operational domains (materials, packaging, energy,
+              infrastructure, transport, workforce, outputs, context) plus
+              ag-specific modules for land use, fertiliser, livestock, and
+              crops.
+            </p>
             <p className="text-sm text-gray-600">
-              No per-seat fees. Recommend it to every client. They sign up,
-              enter their own data across 8 operational domains, and build their
-              own baseline.
+              Structured around records your clients already have: bills,
+              invoices, manifests. Guided prompts, no blank spreadsheets. They
+              build their own baseline, you stop chasing them for it.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
+          <div className="p-6 rounded-2xl border border-gray-200 bg-white flex flex-col">
+            <BookOpen
+              size={28}
+              weight="duotone"
+              className="text-gray-700 mb-3"
+            />
             <h3 className="font-semibold text-gray-900 mb-2">
-              Standardised Data Structure
+              Methodology + Education
             </h3>
-            <p className="text-sm text-gray-600">
-              Every client uses the same 8-domain framework: materials,
-              packaging, energy, infrastructure, transport, workforce, outputs,
-              context. Comparable across operations.
+            <p className="text-sm text-gray-600 mb-3">
+              The Five Stacks Framework gives you a structured progression path
+              per client, from baseline visibility through operational
+              efficiency to competitive positioning.
             </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <h3 className="font-semibold text-gray-900 mb-2">
-              CSV Exports You Can Work With
-            </h3>
             <p className="text-sm text-gray-600">
-              Clients export their data to CSV. You pull it into your own tools,
-              spreadsheets, or reporting systems. No API integration needed,
-              no proprietary formats.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Structured Methodology
-            </h3>
-            <p className="text-sm text-gray-600">
-              The Five Stacks Framework gives you a progression path for each
-              client. Not just data collection&mdash;a roadmap from baseline to
-              operational advantage.
+              107+ articles across 12 topic guides. A free book. An ecolabel
+              workshop. Client education material you don&apos;t have to write.
             </p>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* The shift */}
       <section className="mb-16">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
+          The Shift
+        </h2>
+        <div className="prose prose-gray max-w-none">
+          <p>
+            Right now, a good chunk of your billable time goes to grunt work:
+            chasing data from clients, organising it into something usable,
+            filling out questionnaires line by line. That work is necessary but
+            it&apos;s not where you add value.
+          </p>
+          <p>
+            The tracker handles data collection. The response engine handles
+            questionnaires. What&apos;s left is the work your clients actually
+            need an advisor for: interpreting the data, building a strategy,
+            deciding where to invest.
+          </p>
+          <p>
+            <strong>
+              You don&apos;t serve fewer clients. You serve more, because the
+              per-client overhead drops.
+            </strong>
+          </p>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="mb-16">
+        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-8">
           How It Works
         </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-10">
-          Three steps to a productive engagement
-        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
@@ -115,12 +141,13 @@ export default function ForAdvisorsPage() {
               <span className="text-xl font-bold text-white">1</span>
             </div>
             <h3 className="font-semibold text-gray-900 mb-2">
-              Recommend the Tracker
+              Client Tracks Their Data
             </h3>
             <p className="text-sm text-gray-600">
-              Send your clients to Ecosystems United. They sign up, install
-              the tracker, and start entering data. Takes 15 minutes to set up
-              the first domain.
+              Your client signs up for the free tracker and enters operational
+              data from records they already keep: energy bills, material
+              invoices, waste manifests, crop and livestock logs. Guided
+              prompts, not blank spreadsheets.
             </p>
           </div>
 
@@ -129,12 +156,13 @@ export default function ForAdvisorsPage() {
               <span className="text-xl font-bold text-white">2</span>
             </div>
             <h3 className="font-semibold text-gray-900 mb-2">
-              Clients Build Their Baseline
+              Questionnaire Lands, You Upload It
             </h3>
             <p className="text-sm text-gray-600">
-              They enter operational data domain by domain. Energy bills, waste
-              manifests, material invoices&mdash;the records they already have.
-              You stop chasing spreadsheets.
+              Buyer sends an EcoVadis questionnaire or an auditor needs
+              GlobalG.A.P. responses. You upload the file in Excel, CSV, PDF,
+              or Word. The engine matches each question to the client&apos;s
+              tracked data.
             </p>
           </div>
 
@@ -143,142 +171,95 @@ export default function ForAdvisorsPage() {
               <span className="text-xl font-bold text-white">3</span>
             </div>
             <h3 className="font-semibold text-gray-900 mb-2">
-              You Add the Strategy
+              Review, Deliver, Bill
             </h3>
             <p className="text-sm text-gray-600">
-              Once clients have 3 months of data, you have something to work
-              with. Real numbers, real trends, real gaps. Your advisory work
-              starts from a solid foundation.
+              You review the generated responses, adjust where needed, and
+              deliver to your client. The engine did the heavy lifting. You
+              bill your advisory rate, not hours of copy-paste.
             </p>
           </div>
         </div>
       </section>
 
-      {/* What's Coming */}
-      <section className="mb-16 max-w-3xl">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          What&apos;s Coming
+      {/* The economics */}
+      <section className="mb-16">
+        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-8">
+          The Economics
         </h2>
-        <p className="text-gray-600 mb-6">
-          We&apos;re building the advisor channel now. Early adopters shape the
-          roadmap.
-        </p>
 
-        <div className="space-y-4">
-          <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
-            <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full mt-0.5 shrink-0">
-              Coming Soon
-            </span>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">
-                Multi-client dashboard
-              </p>
-              <p className="text-sm text-gray-600">
-                View progress across all your clients from one place. See who
-                has entered data, who hasn&apos;t, and where the gaps are.
-              </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl border border-gray-200 bg-gray-50 flex flex-col h-full">
+            <div className="text-sm font-semibold text-gray-900 mb-2">
+              Tracker
             </div>
+            <p className="text-sm text-gray-600">
+              <strong className="text-gray-900">Free.</strong> For you and
+              every client. No per-seat fees, no volume limit, no time limit.
+            </p>
           </div>
 
-          <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
-            <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full mt-0.5 shrink-0">
-              Coming Soon
-            </span>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">
-                Advisor referral tracking
-              </p>
-              <p className="text-sm text-gray-600">
-                Know when a client you referred completes their baseline. Track
-                adoption across your practice.
-              </p>
+          <div className="p-6 rounded-2xl border border-gray-200 bg-gray-50 flex flex-col h-full">
+            <div className="text-sm font-semibold text-gray-900 mb-2">
+              Responses
             </div>
+            <p className="text-sm text-gray-600">
+              Standard rate is &euro;39 first questionnaire, &euro;19 each
+              additional. Bulk advisor pricing in development. Early adopters
+              help shape it.
+            </p>
           </div>
 
-          <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
-            <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full mt-0.5 shrink-0">
-              Coming Soon
-            </span>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">
-                White-label assessments
-              </p>
-              <p className="text-sm text-gray-600">
-                Run Five Stacks assessments under your own practice branding.
-              </p>
+          <div className="p-6 rounded-2xl border border-gray-200 bg-gray-50 flex flex-col h-full">
+            <div className="text-sm font-semibold text-gray-900 mb-2">
+              Your margin
             </div>
+            <p className="text-sm text-gray-600">
+              You set your own price to clients. The response engine is your
+              back-office. Your client sees your deliverable, not our
+              interface.
+            </p>
           </div>
-
-          <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
-            <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full mt-0.5 shrink-0">
-              Coming Soon
-            </span>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">
-                Advisor directory
-              </p>
-              <p className="text-sm text-gray-600">
-                Listed on ecosystemsunited.com as a Five Stacks advisor.
-                Clients find you through the platform.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-lg bg-gray-50 space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-primary bg-primary-100 px-2.5 py-0.5 rounded-full shrink-0">
-                Coming Soon
-              </span>
-              <p className="text-sm text-gray-600">
-                <strong className="text-gray-900">Mobile app</strong> &mdash;
-                your clients enter data on the go, wherever they are.
-              </p>
-            </div>
-            <WaitlistForm feature="mobile-app-advisors" variant="compact" buttonLabel="Join Waitlist" />
-          </div>
-        </div>
-
-        <div className="mt-6 p-4 rounded-lg border border-primary/20 bg-primary/5">
-          <p className="text-sm font-semibold text-gray-900 mb-2">
-            Interested in the advisor program?
-          </p>
-          <p className="text-sm text-gray-600 mb-3">
-            Early adopters shape the roadmap. Leave your email and we'll keep you posted.
-          </p>
-          <WaitlistForm feature="advisor-program" variant="compact" buttonLabel="Join Waitlist" />
         </div>
       </section>
 
-      {/* The Economics */}
-      <section className="mb-16 max-w-3xl">
+      {/* What's coming */}
+      <section className="mb-16">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          The Economics
+          On the Roadmap
         </h2>
-        <div className="prose prose-gray max-w-none">
-          <p>
-            <strong>The tracker is free.</strong> For you and for your clients.
-            No per-seat fees, no volume pricing, no hidden costs.
+        <p className="text-gray-600 mb-4">
+          Multi-client dashboard (see all your clients&apos; progress in one
+          place), advisor referral tracking, white-label assessments, and an
+          advisor directory. Early adopters shape the priorities.
+        </p>
+        <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
+          <p className="text-sm font-semibold text-gray-900 mb-2">
+            Join the advisor program
           </p>
-          <p>
-            As clients build their baselines, the data reveals where they&apos;re
-            bleeding margin &mdash; energy waste, input inefficiency, transport
-            costs. Advanced analysis and response tools are on the roadmap,
-            shaped by what advisors like you actually need.
+          <p className="text-sm text-gray-600 mb-3">
+            Get early access to bulk pricing and help shape what we build next.
           </p>
-          <p>
-            You get a tool that makes every client engagement more productive.
-            We get distribution through your practice.
-          </p>
+          <WaitlistForm
+            feature="advisor-program"
+            variant="compact"
+            buttonLabel="Join Waitlist"
+          />
         </div>
       </section>
 
       {/* CTA */}
       <PageCTA
-        heading="Try it yourself first"
-        description="Take the same assessment your clients would take. 5 minutes, no signup. See what the data structure looks like before you recommend it."
-        primaryButton={{ label: "Try the Stack 1 Assessment", href: "/tools/metrics-assessment" }}
-        secondaryButton={{ label: "See the Tracker in Action", href: "/see-it-in-action" }}
-        footnote={<>Want to discuss the advisor program?{" "}<a href="mailto:contact@ecosystemsunited.com" className="text-white/80 hover:text-white underline">contact@ecosystemsunited.com</a></>}
+        heading="Let's talk"
+        description="If you're managing farm clients and spending hours on questionnaires, we should have a conversation. 15 minutes. We'll walk you through the engine and talk pricing."
+        primaryButton={{
+          label: "Get in Touch",
+          href: "mailto:contact@ecosystemsunited.com?subject=Advisor%20Program",
+        }}
+        secondaryButton={{
+          label: "Try the Response Engine",
+          href: "/see-it-in-action",
+        }}
       />
     </div>
   );
