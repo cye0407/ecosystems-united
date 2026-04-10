@@ -25,13 +25,27 @@ Ecosystems United is the main platform for the Five Stacks Framework, transformi
 - Response generator at /respond gated behind credits (ResponseGate component)
 - Response engine powered by response-ready package with ESG + GlobalG.A.P. domain packs (200+ templates, question classification, defensive rewriting)
 - response-ready package lives in packages/response-ready/ (monorepo, not external dependency)
-- Pricing page at /pricing — Free Tracker tier, Response Generator tier, Coming Soon section (Certification Packs, Advisor License, RFP Pack) with waitlist forms
-- WaitlistForm component captures email + interest area to Supabase leads table via analytics.captureLead(); used across pricing, about, for-advisors, tools, and article CTAs
-- Nav: Five Stacks (dropdown) | Guides | Products | For Advisors | About | Sign In | [Start Free → /signup]
+- WaitlistForm component captures email + interest area to Supabase leads table via analytics.captureLead(); used across products, about, for-advisors, tools, and article CTAs
+- Nav: Five Stacks (dropdown) | Guides | Products | For Advisors | About | 🔍 Search | Sign In | [Free Tracker → /tracker]
+- Site-wide search (SiteSearch component): Cmd/Ctrl+K, searches articles/products/framework/tools/workshops, client-side index
+- Article search bar on /articles with live filtering by keyword + stack filter
 - /modern-sustainability merged into /framework, redirects in place
 - /pricing redirects to /products
 - Products page (/products) is the product catalog; individual product pages: /tracker, /see-it-in-action, /workshops/ecolabel-certification, /book
+- Ecolabel workshop at /workshops/ecolabel-certification (€35, Stripe Payment Link checkout)
+- ArticleCTA: ecolabel articles promote workshop; ~30% of other articles show product CTAs
+- Homepage includes "Why Ecosystems United" section (not another spreadsheet, built for ag, track once answer everything, no lock-in)
 - Max-width standard: max-w-5xl for product/tool pages, max-w-4xl for reading pages, max-w-6xl for nav/footer
+
+## Next Steps
+- Audit tracker page claims against actual app functionality: CSV import, CSV export, auto-calculated emissions, data quality tracking — verify each works before promoting on marketing pages
+- Redesign /tracker page: consolidate 9 sections (21 cards) into ~6 sections with 4 key cards + expandable detail (mockup agreed)
+- Add screenshot/preview placeholder to tracker page hero
+- Record 2-minute product demo videos: (1) Response Generator fire-drill flow, (2) Tracker before/after experience
+- Build remaining certification domain packs: EU Organic, B Corp
+- Email nurture infrastructure: choose provider (Resend, ConvertKit, Loops), build sequences
+- Social proof: first case study (farm using tracker + response generator to answer buyer questionnaire)
+- Schedule first ecolabel workshop session, replace waitlist with live booking
 
 ## Architecture
 - src/app/(marketing)/ — public website pages (framework, articles, tools, assessments)

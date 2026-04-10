@@ -99,10 +99,10 @@ export default function Nav() {
             Sign In
           </Link>
           <Link
-            href="/signup"
+            href="/tracker"
             className="ml-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
           >
-            Start Free
+            Free Tracker
           </Link>
         </div>
       </div>
