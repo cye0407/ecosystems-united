@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 const ACCENT = "#3D2E7C"; // Stack 1 / ESG & Core Metrics
 const GREEN = "#4AA88C"; // baseline funnel CTA
@@ -272,13 +272,16 @@ export default function Scope3ReadinessPage() {
             Take the scorecard with you
           </h2>
           <p className="text-sm text-gray-600 mb-4">
-            Get the full Scope 3 Supplier Readiness Scorecard — the workbook
-            version to keep, with all 20 questions, per-section scoring, and your
-            next-step logic built in. We&apos;ll email it over.
+            Get the full Scope 3 Supplier Readiness Scorecard — the branded
+            workbook to keep, with all 20 questions, per-section scoring, and your
+            next-step logic built in. Drop your email and download it now.
           </p>
-          <WaitlistForm
+          <GatedDownload
             feature="scope3-scorecard"
-            buttonLabel="Email me the scorecard"
+            fileUrl="/downloads/scope-3-supplier-readiness-scorecard.xlsx"
+            fileName="Scope-3-Supplier-Readiness-Scorecard.xlsx"
+            buttonLabel="Get the scorecard"
+            downloadLabel="Download the scorecard (.xlsx)"
           />
         </div>
 

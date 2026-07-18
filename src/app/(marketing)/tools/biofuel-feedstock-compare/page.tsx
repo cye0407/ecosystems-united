@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 // Directional sustainability profiles for the four biofuel generations,
 // synthesised from published biofuel-generation research and the criteria in
@@ -263,14 +263,17 @@ export default function BiofuelFeedstockComparePage() {
             Take the full workbook with you
           </h2>
           <p className="text-sm text-gray-600 mb-4">
-            Get the complete Biofuel Feedstock Sustainability Comparison —
-            feedstock-level detail, the scoring template so you can weight it for
-            your own operation, and regional market notes. We&apos;ll email it
-            over.
+            Get the branded Biofuel Feedstock Sustainability Comparison workbook —
+            the full 4-generation matrix, a &quot;score it yourself&quot; sheet with
+            live formulas so you can weight it for your own operation, plus notes
+            and sources. Drop your email and download it now.
           </p>
-          <WaitlistForm
+          <GatedDownload
             feature="biofuels-comparison"
-            buttonLabel="Email me the workbook"
+            fileUrl="/downloads/biofuel-feedstock-sustainability-comparison.xlsx"
+            fileName="Biofuel-Feedstock-Sustainability-Comparison.xlsx"
+            buttonLabel="Get the workbook"
+            downloadLabel="Download the workbook (.xlsx)"
             placeholder="you@farm.com"
           />
         </div>

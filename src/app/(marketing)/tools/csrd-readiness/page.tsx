@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 const ACCENT = "#3D2E7C"; // Stack 1 / ESG & Core Metrics
 const GREEN = "#4AA88C"; // baseline funnel CTA
@@ -273,13 +273,16 @@ export default function CsrdReadinessPage() {
             Take the scorecard with you
           </h2>
           <p className="text-sm text-gray-600 mb-4">
-            Get the full CSRD Readiness Scorecard — the workbook version to keep,
+            Get the full CSRD Readiness Scorecard — the branded workbook to keep,
             with all 20 questions, per-section scoring, and your next-step logic
-            built in. We&apos;ll email it over.
+            built in. Drop your email and download it now.
           </p>
-          <WaitlistForm
+          <GatedDownload
             feature="csrd-scorecard"
-            buttonLabel="Email me the scorecard"
+            fileUrl="/downloads/csrd-readiness-scorecard.xlsx"
+            fileName="CSRD-Readiness-Scorecard.xlsx"
+            buttonLabel="Get the scorecard"
+            downloadLabel="Download the scorecard (.xlsx)"
           />
         </div>
 
