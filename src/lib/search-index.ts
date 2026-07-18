@@ -122,6 +122,34 @@ const staticPages: SearchEntry[] = [
     type: "tool",
   },
   {
+    title: "Biofuel Feedstock Comparison",
+    description:
+      "Compare 1st–4th generation biofuels on carbon, land use, EROI, and scalability. Weight your priorities, get a best-fit ranking and a downloadable workbook.",
+    href: "/tools/biofuel-feedstock-compare",
+    type: "tool",
+  },
+  {
+    title: "Scope 3 Supplier Readiness Scorecard",
+    description:
+      "Score your readiness to answer buyer Scope 3 and ESG data requests. 5-minute self-assessment with weakest-area callout and a downloadable scorecard.",
+    href: "/tools/scope-3-readiness",
+    type: "tool",
+  },
+  {
+    title: "CSRD Readiness Scorecard",
+    description:
+      "Assess your CSRD/VSME reporting readiness across governance, environmental, social, and reporting sections. Instant score and next step.",
+    href: "/tools/csrd-readiness",
+    type: "tool",
+  },
+  {
+    title: "Ecolabel Selector & Readiness",
+    description:
+      "Find which ecolabel family fits your product and score your certification readiness. Free interactive tool with a downloadable checklist.",
+    href: "/tools/ecolabel-selector",
+    type: "tool",
+  },
+  {
     title: "Energy ROI Calculator",
     description: "Calculate the payback period on energy efficiency upgrades.",
     href: "/tools/energy-calculator",

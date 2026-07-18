@@ -134,9 +134,13 @@ export const wordpressRedirects: Redirect[] = [
 
   // === CSRD PAGES (removed during restructure, still indexed by Google) ===
   { source: '/csrd-for-smes', destination: '/articles/csrd-vsme-agricultural-suppliers', permanent: true },
-  { source: '/csrd-toolkits-for-smes', destination: '/tools', permanent: true },
+  { source: '/csrd-toolkits-for-smes', destination: '/tools/csrd-readiness', permanent: true },
   { source: '/csrd-workshops-consulting', destination: '/framework/implementation', permanent: true },
-  { source: '/vsme-csrd-readiness-scorecard', destination: '/tools/stack-assessment', permanent: true },
+  { source: '/vsme-csrd-readiness-scorecard', destination: '/tools/csrd-readiness', permanent: true },
+
+  // === LEAD-MAGNET SCORECARDS (old WordPress URLs → new interactive readiness tools) ===
+  { source: '/scope-3-supplier-readiness-scorecard', destination: '/tools/scope-3-readiness', permanent: true },
+  { source: '/sustainability-data-readiness-assessment', destination: '/tools/scope-3-readiness', permanent: true },
 
   // === WORDPRESS CATEGORY ARCHIVES (still indexed by Google) ===
   { source: '/category/circularity', destination: '/framework/stack-3-circularity', permanent: true },

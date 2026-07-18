@@ -242,8 +242,8 @@ export default function Stack2Page() {
           >
             Free Assessment →
           </Link>
-          <Link 
-            href="/tools/efficiency-toolkit" 
+          <Link
+            href="/tools/efficiency-assessment"
             className="inline-block bg-white/10 text-white px-6 py-3 rounded font-semibold hover:bg-white/20 transition-colors"
           >
             Explore Toolkit
