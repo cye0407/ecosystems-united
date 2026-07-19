@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { searchSite, type SearchEntry } from "@/lib/search-index";
@@ -28,6 +28,12 @@ export default function SiteSearch() {
 
   const results = useMemo(() => searchSite(query, 12), [query]);
 
+  // Close and reset the search box (in the close path, not an effect)
+  const close = useCallback(() => {
+    setOpen(false);
+    setQuery("");
+  }, []);
+
   // Open with Cmd+K / Ctrl+K, close with Esc
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
@@ -36,19 +42,17 @@ export default function SiteSearch() {
         setOpen(true);
       }
       if (e.key === "Escape") {
-        setOpen(false);
+        close();
       }
     }
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+  }, [close]);
 
   // Focus input when modal opens
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
-      setQuery("");
     }
   }, [open]);
 
@@ -79,7 +83,7 @@ export default function SiteSearch() {
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] px-4 bg-black/50"
-          onClick={() => setOpen(false)}
+          onClick={() => close()}
         >
           <div
             className="w-full max-w-2xl bg-white rounded-lg shadow-2xl overflow-hidden"
@@ -98,7 +102,7 @@ export default function SiteSearch() {
               />
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => close()}
                 className="text-gray-400 hover:text-gray-600 p-1"
                 aria-label="Close search"
               >
@@ -124,7 +128,7 @@ export default function SiteSearch() {
                     <li key={r.href}>
                       <Link
                         href={r.href}
-                        onClick={() => setOpen(false)}
+                        onClick={() => close()}
                         className="block px-5 py-3 hover:bg-gray-50 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-3 mb-1">
