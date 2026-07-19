@@ -1,0 +1,277 @@
+{
+  "meta": {
+    "purpose": "Registry of the official standards/regulations behind our certification tools, articles, and response-ready domain packs. The freshness checker (scripts/check-certification-sources.mjs) fetches each officialUrl, hashes the visible text, and reports which sources changed so a human can review the affected assets. It NEVER rewrites guidance or templates automatically.",
+    "schemaVersion": 1,
+    "volatilityScale": "low = stable multi-year | medium = revised every 1-2 years | high = actively evolving / in transition",
+    "fields": "id, name, category, officialUrl, version, publishedDate, volatility, affects{packs,tools,articles}, lastChecked, nextReview, contentHash, notes. lastChecked + contentHash are maintained by the checker (run with --update-hashes to baseline). URLs marked verifyUrl:false have not yet been confirmed by a checker run."
+  },
+  "sources": [
+    {
+      "id": "efrag-vsme",
+      "name": "VSME - Voluntary SME Sustainability Reporting Standard (EFRAG)",
+      "category": "reporting-standard",
+      "officialUrl": "https://www.efrag.org/en/projects/voluntary-reporting-standard-for-smes-vsme/concluded",
+      "version": "VSME (Dec 2024)",
+      "publishedDate": "2024-12",
+      "volatility": "high",
+      "affects": {
+        "packs": [
+          "esg"
+        ],
+        "tools": [
+          "/tools/csrd-readiness",
+          "/tools/scope-3-readiness"
+        ],
+        "articles": [
+          "csrd-vsme-agricultural-suppliers",
+          "vsme-buyer-questionnaire-response"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-10-01",
+      "contentHash": "b6e5260d19f3a8550a405ec6398cbc6a4c72743c2aa2311f54aeada6de8a3b29",
+      "verifyUrl": true,
+      "notes": "VSME is the voluntary standard suppliers use to answer buyer ESG requests; core to the Response Generator ESG pack framing."
+    },
+    {
+      "id": "eu-csrd",
+      "name": "Corporate Sustainability Reporting Directive (CSRD) + ESRS",
+      "category": "regulation",
+      "officialUrl": "https://finance.ec.europa.eu/capital-markets-union-and-financial-markets/company-reporting-and-auditing/company-reporting/corporate-sustainability-reporting_en",
+      "version": "Directive (EU) 2022/2464; ESRS Delegated Act 2023 (Omnibus revisions in progress)",
+      "publishedDate": "2023-07",
+      "volatility": "high",
+      "affects": {
+        "packs": [
+          "esg"
+        ],
+        "tools": [
+          "/tools/csrd-readiness"
+        ],
+        "articles": [
+          "csrd-esg-guide",
+          "csrd-vsme-agricultural-suppliers"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-09-01",
+      "contentHash": "a683b16a679173a816ec6ac6b2164aab7466e952061bf0bfb015aeb013510e76",
+      "verifyUrl": true,
+      "notes": "In active flux via the EU Omnibus package - scope/thresholds/timeline changing. HIGH volatility; re-check often."
+    },
+    {
+      "id": "eu-green-claims",
+      "name": "EU Green Claims Directive / Empowering Consumers Directive",
+      "category": "regulation",
+      "officialUrl": "https://environment.ec.europa.eu/topics/circular-economy/green-claims_en",
+      "version": "Proposal 2023/0085(COD)",
+      "publishedDate": "2023-03",
+      "volatility": "high",
+      "affects": {
+        "packs": [],
+        "tools": [
+          "/tools/ecolabel-selector"
+        ],
+        "articles": [
+          "how-to-spot-fake-ecolabels",
+          "most-trustworthy-ecolabels",
+          "advantages-and-disadvantages-of-ecolabels"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-09-01",
+      "contentHash": "316429ab22665c2ecf8f8cb211072e010623f90d6423a40ec4cf29bf9db66736",
+      "verifyUrl": true,
+      "notes": "Governs which self-declared environmental claims are allowed - underpins the ecolabel selector's ISO Type I/II/III + greenwashing guidance."
+    },
+    {
+      "id": "eu-organic",
+      "name": "EU Organic Production and Labelling",
+      "category": "certification",
+      "officialUrl": "https://agriculture.ec.europa.eu/farming/organic-farming/organic-production-and-products_en",
+      "version": "Regulation (EU) 2018/848",
+      "publishedDate": "2022-01",
+      "volatility": "low",
+      "affects": {
+        "packs": [],
+        "tools": [
+          "/tools/ecolabel-selector"
+        ],
+        "articles": [
+          "the-different-types-of-ecolabels"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2027-01-01",
+      "contentHash": "5678ebf13fbd0a6727137d418eeae7c473cefafe21eb561e05bbb34edaa564bc",
+      "verifyUrl": true,
+      "notes": "First-class cert track. Candidate for a dedicated EU Organic domain pack (Phase 2/3 scaffold)."
+    },
+    {
+      "id": "globalgap-ifa",
+      "name": "GlobalG.A.P. Integrated Farm Assurance (IFA)",
+      "category": "certification",
+      "officialUrl": "https://globalgap.org/what-we-offer/",
+      "version": "IFA v6 (Smart / GFS)",
+      "publishedDate": "2022-",
+      "volatility": "medium",
+      "affects": {
+        "packs": [
+          "globalg-a-p"
+        ],
+        "tools": [
+          "/tools/ecolabel-selector",
+          "/tools/scope-3-readiness"
+        ],
+        "articles": [
+          "agricultural-sustainability-checklist"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-10-01",
+      "contentHash": "431508da5d515acc6144ec2a44f1f0dd0191747852bc346376ab24ef9c9f8815",
+      "verifyUrl": true,
+      "notes": "The primary agricultural pack. Pack answer templates/keywords should record the IFA version they were reviewed against (pack-metadata step)."
+    },
+    {
+      "id": "eu-ecolabel",
+      "name": "EU Ecolabel",
+      "category": "certification",
+      "officialUrl": "https://environment.ec.europa.eu/topics/circular-economy/eu-ecolabel_en",
+      "version": "Regulation (EC) No 66/2010 + product-group criteria",
+      "publishedDate": "2010-",
+      "volatility": "medium",
+      "affects": {
+        "packs": [],
+        "tools": [
+          "/tools/ecolabel-selector"
+        ],
+        "articles": [
+          "the-different-types-of-ecolabels"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2027-01-01",
+      "contentHash": "f2a5a0c0957afa3c1618b8a173b137adfb57c8d51cf0d173a3103adfbc462d38",
+      "verifyUrl": true,
+      "notes": "One certification option, not the center. Product-group criteria are revised on their own cycles - medium volatility."
+    },
+    {
+      "id": "eudr",
+      "name": "EU Deforestation Regulation (EUDR)",
+      "category": "regulation",
+      "officialUrl": "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en",
+      "version": "Regulation (EU) 2023/1115",
+      "publishedDate": "2023-06",
+      "volatility": "high",
+      "affects": {
+        "packs": [
+          "globalg-a-p"
+        ],
+        "tools": [
+          "/tools/scope-3-readiness"
+        ],
+        "articles": [
+          "agribusiness-supply-chain-explained",
+          "scope-1-2-3-agriculture"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-09-01",
+      "contentHash": "88eb30d05c677d3820a87122bb0e9193fcef58d0a3e8bf19d0cce758b72a3096",
+      "verifyUrl": true,
+      "notes": "Timeline/scope shifting (application date pushed). Directly relevant to farm supply-chain buyers - HIGH volatility."
+    },
+    {
+      "id": "eu-cap",
+      "name": "Common Agricultural Policy (CAP)",
+      "category": "policy",
+      "officialUrl": "https://agriculture.ec.europa.eu/common-agricultural-policy_en",
+      "version": "CAP 2023-2027 Strategic Plans",
+      "publishedDate": "2023-01",
+      "volatility": "medium",
+      "affects": {
+        "packs": [],
+        "tools": [],
+        "articles": []
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2027-01-01",
+      "contentHash": "ddedfee3652ab2dabe4151a4b57a210b54c684648106d9070e0307f6cb88bea7",
+      "verifyUrl": true,
+      "notes": "Context/eligibility for farm audiences. Broad; wire specific affected assets as CAP-linked content is added."
+    },
+    {
+      "id": "ghg-protocol-scope3",
+      "name": "GHG Protocol - Corporate Value Chain (Scope 3) Standard",
+      "category": "methodology",
+      "officialUrl": "https://ghgprotocol.org/standards/scope-3-standard",
+      "version": "Scope 3 Standard (2011) + ongoing revisions",
+      "publishedDate": "2011-",
+      "volatility": "medium",
+      "affects": {
+        "packs": [
+          "esg"
+        ],
+        "tools": [
+          "/tools/scope-3-readiness"
+        ],
+        "articles": [
+          "scope-1-2-3-agriculture",
+          "buyer-scope-3-request"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2026-12-01",
+      "contentHash": "05aea5438dfdfbefe371ff7a526675482c6ff27a059346fd90ca99a5eb31c159",
+      "verifyUrl": true,
+      "notes": "Methodology behind the Scope 3 readiness framing and any emission-factor guidance. Revision programme underway."
+    },
+    {
+      "id": "rainforest-alliance",
+      "name": "Rainforest Alliance Certification",
+      "category": "certification",
+      "officialUrl": "https://www.rainforest-alliance.org/for-business/certification/",
+      "version": "2020 Sustainable Agriculture Standard",
+      "publishedDate": "2020-",
+      "volatility": "low",
+      "affects": {
+        "packs": [],
+        "tools": [
+          "/tools/ecolabel-selector"
+        ],
+        "articles": [
+          "most-trustworthy-ecolabels"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2027-01-01",
+      "contentHash": "36f8e3a70813be33312e6052733ce4b5dba89d7d137d7b9e02600c0c959b252e",
+      "verifyUrl": true,
+      "notes": "Named example in the ecolabel selector's Organic & Agricultural family."
+    },
+    {
+      "id": "fairtrade-standards",
+      "name": "Fairtrade International Standards",
+      "category": "certification",
+      "officialUrl": "https://www.fairtrade.net/standard",
+      "version": "Standards portal (per-product versions)",
+      "publishedDate": "rolling",
+      "volatility": "low",
+      "affects": {
+        "packs": [],
+        "tools": [
+          "/tools/ecolabel-selector"
+        ],
+        "articles": [
+          "most-trustworthy-ecolabels"
+        ]
+      },
+      "lastChecked": "2026-07-19",
+      "nextReview": "2027-01-01",
+      "contentHash": "a5da37e1c972ec3a1498867e94f3e9ba66ba41e7d7043ba0b95df40adf898553",
+      "verifyUrl": true,
+      "notes": "Named example in the ecolabel selector's Fair-Trade & Social family."
+    }
+  ]
+}

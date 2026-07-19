@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "check:sources": "node scripts/check-certification-sources.mjs",
     "test": "vitest",
     "test:run": "vitest run"
   },
