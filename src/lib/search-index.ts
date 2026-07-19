@@ -114,6 +114,13 @@ const staticPages: SearchEntry[] = [
     type: "tool",
   },
   {
+    title: "Regenerative Transition ROI Calculator",
+    description:
+      "Model the payback of a regenerative transition — cost, input savings, carbon income, and your break-even year. Free, adjustable, with a downloadable model.",
+    href: "/tools/regenerative-roi",
+    type: "tool",
+  },
+  {
     title: "Biofuel Feedstock Comparison",
     description:
       "Compare 1st–4th generation biofuels on carbon, land use, EROI, and scalability. Weight your priorities, get a best-fit ranking and a downloadable workbook.",

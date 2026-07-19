@@ -61,6 +61,13 @@ const stackAssessments = [
 
 const calculators = [
   {
+    name: "Regenerative Transition ROI Calculator",
+    description:
+      "Does regenerative pay on your operation? Model transition cost, input savings, optional carbon income, and your break-even year — every assumption adjustable.",
+    href: "/tools/regenerative-roi",
+    status: "available" as const,
+  },
+  {
     name: "Biofuel Feedstock Comparison",
     description:
       "Weight what matters — carbon, land use, scalability — and get the best-fit biofuel generation ranked for your operation, plus a workbook to take with you.",

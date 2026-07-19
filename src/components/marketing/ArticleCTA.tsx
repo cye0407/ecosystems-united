@@ -3,35 +3,6 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { getArticleMeta } from "@/lib/article-metadata";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
-
-const stackCTAs: Record<number, { label: string; desc: string; href: string }> = {
-  1: {
-    label: "Take the Metrics Assessment",
-    desc: "The Five Stacks Framework starts with measurement. Take the Stack 1 assessment to see where your operation stands.",
-    href: "/tools/metrics-assessment",
-  },
-  2: {
-    label: "Take the Efficiency Assessment",
-    desc: "Find the leaks in your operation. Take the Stack 2 assessment to see where you're losing margin.",
-    href: "/tools/efficiency-assessment",
-  },
-  3: {
-    label: "Take the Circularity Assessment",
-    desc: "Turn waste streams into value streams. Take the Stack 3 assessment to find your recovery opportunities.",
-    href: "/tools/circularity-assessment",
-  },
-  4: {
-    label: "Take the Resilience Assessment",
-    desc: "Test your operation against disruption. Take the Stack 4 assessment to find structural vulnerabilities.",
-    href: "/tools/resilience-assessment",
-  },
-  5: {
-    label: "Take the Regeneration Assessment",
-    desc: "Compound your advantage. Take the Stack 5 assessment to see how your gains build on each other.",
-    href: "/tools/regeneration-assessment",
-  },
-};
 
 const productCTAs = [
   {
@@ -102,11 +73,11 @@ const BIOFUELS_SLUGS = new Set([
 ]);
 
 const regenEconomicsCTA = {
-  label: "Measure Your Own ROI — Free",
-  desc: "That's the business case in principle. See it in your own numbers: the free baseline tracker records your inputs, soil, and costs across 8 domains, so you can measure the regenerative payback on your operation — no spreadsheet, no lock-in.",
-  href: "/signup?from=regenerative&stack=5",
+  label: "Calculate Your Payback",
+  desc: "That's the business case in principle. Now run it on your own numbers: the free Regenerative ROI calculator models your transition cost, input savings, optional carbon income, and the year you break even — every assumption adjustable, no hand-waving.",
+  href: "/tools/regenerative-roi",
   color: "#2D5A47",
-  footnote: "Free forever. Build the baseline that proves the payback.",
+  footnote: "Free interactive calculator. No signup to run it.",
 };
 
 // Regenerative-economics cluster (pillar + spokes) funnels into the free tracker
@@ -139,7 +110,6 @@ export default function ArticleCTA() {
   const slug = pathname.split("/").pop() || "";
   const meta = getArticleMeta(slug);
 
-  const stackNumber = meta?.stackNumber ?? 1;
   const stackColor = meta?.stackColor ?? "#3D2E7C";
 
   // Biofuels & energy articles always funnel into the comparison tool
@@ -313,9 +283,8 @@ export default function ArticleCTA() {
     );
   }
 
-  // Default: stack assessment CTA
-  const cta = stackCTAs[stackNumber] ?? stackCTAs[1];
-
+  // Default: the free baseline tracker. The Five Stacks assessments are internal
+  // scaffolding, not the front-door offer — lead with the concrete product.
   return (
     <div className="max-w-4xl mx-auto px-6 pb-16">
       <div
@@ -325,14 +294,18 @@ export default function ArticleCTA() {
         <h2 className="text-2xl font-bold mb-3">
           Ready to put this into practice?
         </h2>
-        <p className="text-white/80 mb-6">{cta.desc}</p>
+        <p className="text-white/80 mb-6">
+          Turn what you already have &mdash; energy bills, input invoices, records
+          &mdash; into a defensible baseline across 8 domains. Auto-calculated,
+          exportable, and yours to keep. Free, no lock-in.
+        </p>
         <div className="flex flex-wrap items-center gap-4">
           <Link
-            href={cta.href}
+            href="/tracker"
             className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
             style={{ color: stackColor }}
           >
-            {cta.label}
+            Start Your Free Baseline
           </Link>
           <Link
             href="/articles"
@@ -342,7 +315,7 @@ export default function ArticleCTA() {
           </Link>
         </div>
         <p className="text-sm text-white/60 mt-3">
-          5 minutes. No signup. See where you stand.
+          Free forever. No signup to explore what it tracks.
         </p>
       </div>
     </div>
