@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 const ACCENT = "#5B4A9E"; // ecolabel / certification workshop purple
 const GREEN = "#4AA88C"; // baseline funnel CTA
@@ -355,12 +355,16 @@ export default function EcolabelSelectorPage() {
           </h2>
           <p className="text-sm text-gray-600 mb-4">
             Get the Ecolabel Readiness Checklist — the documents and data you
-            need before you apply, mapped to third-party verification, chain of
-            custody, and ISO Type I criteria. We&apos;ll email it over.
+            need before you apply (with a live self-scoring sheet), a
+            which-family guide, and the ISO Type I/II/III explainer. Drop your
+            email and download it now.
           </p>
-          <WaitlistForm
+          <GatedDownload
             feature="ecolabel-checklist"
-            buttonLabel="Email me the checklist"
+            fileUrl="/downloads/ecolabel-readiness-checklist.xlsx"
+            fileName="Ecolabel-Readiness-Checklist.xlsx"
+            buttonLabel="Get the checklist"
+            downloadLabel="Download the checklist (.xlsx)"
           />
         </div>
 
