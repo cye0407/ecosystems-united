@@ -84,6 +84,14 @@ function isOverdue(nextReview) {
   return nextReview < todayISO();
 }
 
+/** Next review date advanced from today by volatility (high sooner, low later). */
+function advanceReview(volatility) {
+  const months = volatility === "high" ? 3 : volatility === "medium" ? 6 : 12;
+  const d = new Date();
+  d.setMonth(d.getMonth() + months);
+  return d.toISOString().slice(0, 10);
+}
+
 function affectedLine(affects) {
   const parts = [];
   if (affects?.packs?.length) parts.push(`packs: ${affects.packs.join(", ")}`);
@@ -112,6 +120,7 @@ async function main() {
     if (UPDATE_HASHES && fetched.ok) {
       src.contentHash = fetched.hash;
       src.lastChecked = todayISO();
+      src.nextReview = advanceReview(src.volatility); // don't leave re-baselined sources flagged overdue
       if (src.verifyUrl === false) src.verifyUrl = true; // fetched successfully -> URL confirmed
     }
   }
