@@ -2,8 +2,8 @@ import Link from "next/link";
 import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
-  title: "The Economics of Regenerative Agriculture",
-  description: "The business case for regenerative practices — soil health ROI, cover crops, carbon markets, and transition economics for farms.",
+  title: "A Financial Framework for Regenerative Agriculture",
+  description: "A financial framework for regenerative agriculture — soil health ROI, cover crops, carbon markets, and transition economics for farms.",
   keywords: ["regenerative agriculture", "soil health", "cover crops", "carbon markets", "agroforestry", "biochar", "composting", "regenerative transition", "ROI", "farm economics"],
 };
 
@@ -26,7 +26,7 @@ export default function RegenerativeGuidePage() {
           <span className="text-sm text-gray-500">Stack 5: Regeneration</span>
         </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          The Economics of Regenerative Agriculture
+          A Financial Framework for Regenerative Agriculture
         </h1>
         <p className="text-xl text-gray-600">
           The business case for soil health, cover crops, carbon markets, and regenerative transitions.

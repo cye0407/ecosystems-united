@@ -101,6 +101,28 @@ const BIOFUELS_SLUGS = new Set([
   "ranking-biofuel-sustainability",
 ]);
 
+const regenEconomicsCTA = {
+  label: "Measure Your Own ROI — Free",
+  desc: "That's the business case in principle. See it in your own numbers: the free baseline tracker records your inputs, soil, and costs across 8 domains, so you can measure the regenerative payback on your operation — no spreadsheet, no lock-in.",
+  href: "/signup?from=regenerative&stack=5",
+  color: "#2D5A47",
+  footnote: "Free forever. Build the baseline that proves the payback.",
+};
+
+// Regenerative-economics cluster (pillar + spokes) funnels into the free tracker
+const REGEN_ECONOMICS_SLUGS = new Set([
+  "regenerative-guide",
+  "regenerative-agriculture-economics",
+  "soil-health-business-case",
+  "cover-crops-roi",
+  "regenerative-practices-2025",
+  "carbon-markets-agriculture",
+  "regenerative-transition-costs",
+  "biochar-soil-amendment",
+  "agroforestry-economics",
+  "composting-nutrient-cycling-roi",
+]);
+
 function isEcolabelArticle(slug: string): boolean {
   return slug.includes("ecolabel") || slug.includes("eco-label");
 }
@@ -181,6 +203,39 @@ export default function ArticleCTA() {
             </Link>
           </div>
           <p className="text-sm text-white/60 mt-3">{scope3CsrdCTA.footnote}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Regenerative-economics articles funnel into the free baseline tracker
+  if (REGEN_ECONOMICS_SLUGS.has(slug)) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div
+          className="p-8 rounded-lg text-white mt-12"
+          style={{ backgroundColor: regenEconomicsCTA.color }}
+        >
+          <h2 className="text-2xl font-bold mb-3">
+            Does it pay on your operation?
+          </h2>
+          <p className="text-white/80 mb-6">{regenEconomicsCTA.desc}</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={regenEconomicsCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: regenEconomicsCTA.color }}
+            >
+              {regenEconomicsCTA.label}
+            </Link>
+            <Link
+              href="/tracker"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              See what the tracker includes
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">{regenEconomicsCTA.footnote}</p>
         </div>
       </div>
     );

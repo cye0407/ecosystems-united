@@ -33,6 +33,16 @@ export default function ArticlePage() {
         </p>
       </header>
 
+      <p className="mb-8 text-sm text-gray-500">
+        Part of{" "}
+        <Link
+          href="/articles/regenerative-guide"
+          className="text-[#2D5A47] font-medium hover:underline"
+        >
+          A Financial Framework for Regenerative Agriculture
+        </Link>
+      </p>
+
       {/* Article Content */}
       <article className="prose prose-gray max-w-none">
         <h2>The Fertilizer Bill Problem</h2>

@@ -232,7 +232,7 @@ export const guideCategories: GuideCategory[] = [
     description: "The business case for soil health and sustainable practices",
     color: "#2D5A47",
     guides: [
-      { slug: "regenerative-guide", title: "📋 The Economics of Regenerative Agriculture", desc: "The business case for soil health and regenerative practices — start here" },
+      { slug: "regenerative-guide", title: "📋 A Financial Framework for Regenerative Agriculture", desc: "The business case for soil health and regenerative practices — start here" },
       { slug: "regenerative-agriculture-economics", title: "Economics of Regenerative Ag", desc: "Financial framework for transitions" },
       { slug: "soil-health-business-case", title: "Soil Health: The Business Case", desc: "How healthy soil reduces costs" },
       { slug: "cover-crops-roi", title: "Cover Crops: Investment & Returns", desc: "Cost-benefit analysis" },
