@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "check:sources": "node scripts/check-certification-sources.mjs",
+    "check:vendor": "node scripts/check-response-ready-vendor.mjs",
     "test": "vitest",
     "test:run": "vitest run"
   },
