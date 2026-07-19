@@ -7,7 +7,6 @@ import {
   Users,
   FileText,
   Check,
-  Chalkboard,
   BookOpen,
   Gauge,
   Calculator,
@@ -20,7 +19,7 @@ import WaitlistForm from "@/components/marketing/WaitlistForm";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Free baseline tracker, response packs, assessments, workshops, and certification tools for agricultural SMEs.",
+    "Free baseline tracker, response packs, assessments, and certification tools for agricultural SMEs.",
 };
 
 const trackerFeatures = [
@@ -281,34 +280,6 @@ export default function ProductsPage() {
               className="block text-center bg-white text-[#2E5C3D] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors mt-auto"
             >
               See It In Action
-            </Link>
-          </div>
-        </div>
-
-        {/* Workshop */}
-        <div className="mt-8 border border-gray-200 rounded-lg p-8">
-          <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <Chalkboard size={24} weight="duotone" className="text-[#5B4A9E]" />
-                <h3 className="text-lg font-bold text-gray-900">
-                  Which Ecolabel Is Right For Your Farm?
-                </h3>
-                <span className="text-xs font-semibold uppercase tracking-wide text-[#5B4A9E] bg-[#5B4A9E]/10 px-2 py-1 rounded">
-                  &euro;35
-                </span>
-              </div>
-              <p className="text-gray-600">
-                90-minute live workshop. Which certifications actually open
-                markets, what they cost, and how to prepare your data before you
-                apply. Small group (max 20), recording included, templates you keep.
-              </p>
-            </div>
-            <Link
-              href="/workshops/ecolabel-certification"
-              className="inline-block bg-[#5B4A9E] text-white px-6 py-3 rounded font-semibold hover:bg-[#4A3D8C] transition-colors shrink-0 text-center"
-            >
-              Learn More &amp; Reserve
             </Link>
           </div>
         </div>

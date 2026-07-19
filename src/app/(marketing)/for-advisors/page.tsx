@@ -95,8 +95,8 @@ export default function ForAdvisorsPage() {
               efficiency to competitive positioning.
             </p>
             <p className="text-sm text-gray-600">
-              107+ articles across 12 topic guides. A free book. An ecolabel
-              workshop. Client education material you don&apos;t have to write.
+              107+ articles across 12 topic guides. A free book. Client
+              education material you don&apos;t have to write.
             </p>
           </div>
         </div>

@@ -61,6 +61,34 @@ const stackAssessments = [
 
 const calculators = [
   {
+    name: "Biofuel Feedstock Comparison",
+    description:
+      "Weight what matters — carbon, land use, scalability — and get the best-fit biofuel generation ranked for your operation, plus a workbook to take with you.",
+    href: "/tools/biofuel-feedstock-compare",
+    status: "available" as const,
+  },
+  {
+    name: "Scope 3 Supplier Readiness Scorecard",
+    description:
+      "Buyers asking for Scope 3 data? Score your readiness in 5 minutes, see your weakest area, and get the scorecard to keep.",
+    href: "/tools/scope-3-readiness",
+    status: "available" as const,
+  },
+  {
+    name: "CSRD Readiness Scorecard",
+    description:
+      "Where do you stand on CSRD/VSME reporting? A quick self-assessment with a section-by-section readiness score and next step.",
+    href: "/tools/csrd-readiness",
+    status: "available" as const,
+  },
+  {
+    name: "Ecolabel Selector & Readiness",
+    description:
+      "Find which ecolabel family fits your product and score how ready you are to certify — then take a readiness checklist with you.",
+    href: "/tools/ecolabel-selector",
+    status: "available" as const,
+  },
+  {
     name: "Energy Efficiency ROI Calculator",
     description:
       "Input your energy consumption and see exactly what efficiency improvements would save you — in euros and CO₂.",

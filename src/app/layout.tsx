@@ -47,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        suppressHydrationWarning
         className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <Providers>{children}</Providers>

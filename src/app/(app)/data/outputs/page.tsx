@@ -92,6 +92,37 @@ const WASTE_EMISSION_FACTORS: Record<DisposalRoute, number> = {
 };
 
 // Toast component
+/**
+ * Livestock headcount is a stock (animals present), not a monthly flow, and the
+ * IPCC factors are annual. Collapse records to one representative row per
+ * site + livestock type + year, using the AVERAGE headcount, so 12 monthly
+ * snapshots of the same herd aren't summed into 12x the head/units/emissions.
+ *
+ * Assumption: multiple same-site / same-type / same-year records are temporal
+ * snapshots of ONE herd. Two distinct herds/barns of the same type entered under
+ * the same site+year would be averaged together — there's no herd/barn id to
+ * disambiguate — a much rarer pattern than monthly snapshots. Keying by siteId
+ * keeps different sites separate (so a multi-site overview sums them correctly).
+ */
+function collapseLivestockByTypeYear(records: LivestockRecord[]): LivestockRecord[] {
+  const byKey = new Map<string, { headSum: number; count: number; sample: LivestockRecord }>();
+  for (const r of records) {
+    const year = (r.period || '').slice(0, 4);
+    const key = `${r.siteId}|${r.livestockType}|${year}`;
+    const cur = byKey.get(key);
+    if (cur) {
+      cur.headSum += r.headcount || 0;
+      cur.count += 1;
+    } else {
+      byKey.set(key, { headSum: r.headcount || 0, count: 1, sample: r });
+    }
+  }
+  return Array.from(byKey.values()).map(({ headSum, count, sample }) => ({
+    ...sample,
+    headcount: Math.round(headSum / count),
+  }));
+}
+
 function Toast({ message, show, onClose }: { message: string; show: boolean; onClose: () => void }) {
   useEffect(() => {
     if (show) {
@@ -167,9 +198,11 @@ function AllInsightsTab({
     const totalCropArea = cropOutputs.reduce((sum, c) => sum + (c.areaHa || 0), 0);
     const totalCropYield = cropOutputs.reduce((sum, c) => sum + (c.yieldTonnes || 0), 0);
 
-    // Livestock totals
-    const totalHead = livestockRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
-    const totalLU = calculateLivestockUnits(livestockRecords);
+    // Livestock totals — collapse monthly snapshots per site/type/year so
+    // headcount and units aren't summed 12x (see collapseLivestockByTypeYear).
+    const livestockReps = collapseLivestockByTypeYear(livestockRecords);
+    const totalHead = livestockReps.reduce((sum, l) => sum + (l.headcount || 0), 0);
+    const totalLU = calculateLivestockUnits(livestockReps);
 
     return {
       waste: { entries: waste.length, totalKg: totalWasteKg, recycledKg, diversionRate, emissions: wasteEmissions },
@@ -1060,13 +1093,20 @@ function LivestockTab({
     [livestockRecords, selectedSiteId]
   );
 
-  // Summary stats
+  // Collapse monthly snapshots to one representative record per site/type/year
+  // (see collapseLivestockByTypeYear) so annual factors aren't applied per entry.
+  const representativeRecords = useMemo(
+    () => collapseLivestockByTypeYear(filteredRecords),
+    [filteredRecords]
+  );
+
+  // Summary stats (computed from the year-normalized representative records)
   const summary = useMemo(() => {
-    const totalHead = filteredRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
-    const totalLU = calculateLivestockUnits(filteredRecords);
-    const emissions = calculateLivestockEmissions(filteredRecords);
+    const totalHead = representativeRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
+    const totalLU = calculateLivestockUnits(representativeRecords);
+    const emissions = calculateLivestockEmissions(representativeRecords);
     return { totalHead, totalLU, totalEmissions: emissions.totalTco2e };
-  }, [filteredRecords]);
+  }, [representativeRecords]);
 
   const openAddModal = () => {
     setEditingId(null);

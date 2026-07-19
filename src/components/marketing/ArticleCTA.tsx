@@ -51,12 +51,55 @@ const productCTAs = [
 ];
 
 const certificationCTA = {
-  label: "Join the Workshop",
-  desc: "Not sure which ecolabel to pursue? Our 90-minute workshop cuts through the noise — which certifications match your operation, what they cost, and how to prepare. €29.",
-  href: "/workshops/ecolabel-certification",
+  label: "Find Your Ecolabel — Free",
+  desc: "Not sure which ecolabel to pursue? Our free selector matches the right label family to your operation and scores your certification readiness — then take a readiness checklist with you.",
+  href: "/tools/ecolabel-selector",
   color: "#5B4A9E",
-  footnote: "90 minutes. €29. A clear certification plan.",
+  footnote: "Free interactive tool. No signup to check your readiness.",
 };
+
+const scope3CsrdCTA = {
+  label: "Check Your Readiness — Free",
+  desc: "Buyers asking for Scope 3 or CSRD data? Score your readiness in 5 minutes, see your weakest area, and get the scorecard to keep — then start tracking so you can answer the next request in minutes, not days.",
+  href: "/tools/scope-3-readiness",
+  color: "#3D2E7C",
+  footnote: "Free interactive tool. Folds straight into your free baseline tracker.",
+};
+
+// Scope 3 / CSRD / buyer-request articles funnel into the readiness tools + tracker
+const SCOPE3_CSRD_SLUGS = new Set([
+  "buyer-scope-3-request",
+  "buyer-scrutiny",
+  "building-esg-response-system",
+  "building-baseline",
+  "csrd-esg-guide",
+  "csrd-vsme-agricultural-suppliers",
+  "scope-1-2-3-agriculture",
+  "vsme-buyer-questionnaire-response",
+]);
+
+const biofuelsCTA = {
+  label: "Compare the 4 Generations",
+  desc: "Not all biofuels are equally sustainable. Tell our free tool what matters most for your operation — carbon, land use, scalability — and get the best-fit feedstock ranked for you, plus a workbook to take with you.",
+  href: "/tools/biofuel-feedstock-compare",
+  color: "#7B6BB8",
+  footnote: "Free interactive tool. No signup to compare.",
+};
+
+// The 11 biofuels & energy articles that should all funnel into the comparison tool.
+const BIOFUELS_SLUGS = new Set([
+  "advanced-biofuels",
+  "biofuel-sustainability-ranking",
+  "biofuel-trends-2025",
+  "biofuels-explained",
+  "biofuels-guide",
+  "biofuels-in-aviation",
+  "biomass-energy-farm",
+  "cellulosic-biofuels",
+  "cellulosic-vs-traditional-biofuels",
+  "pros-and-cons-of-advanced-biofuels",
+  "ranking-biofuel-sustainability",
+]);
 
 function isEcolabelArticle(slug: string): boolean {
   return slug.includes("ecolabel") || slug.includes("eco-label");
@@ -76,6 +119,72 @@ export default function ArticleCTA() {
 
   const stackNumber = meta?.stackNumber ?? 1;
   const stackColor = meta?.stackColor ?? "#3D2E7C";
+
+  // Biofuels & energy articles always funnel into the comparison tool
+  if (BIOFUELS_SLUGS.has(slug)) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div
+          className="p-8 rounded-lg text-white mt-12"
+          style={{ backgroundColor: biofuelsCTA.color }}
+        >
+          <h2 className="text-2xl font-bold mb-3">
+            Which biofuel pathway fits your operation?
+          </h2>
+          <p className="text-white/80 mb-6">{biofuelsCTA.desc}</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={biofuelsCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: biofuelsCTA.color }}
+            >
+              {biofuelsCTA.label}
+            </Link>
+            <Link
+              href="/articles"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              Browse all guides
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">{biofuelsCTA.footnote}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Scope 3 / CSRD / buyer-request articles funnel into the readiness tools
+  if (SCOPE3_CSRD_SLUGS.has(slug)) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div
+          className="p-8 rounded-lg text-white mt-12"
+          style={{ backgroundColor: scope3CsrdCTA.color }}
+        >
+          <h2 className="text-2xl font-bold mb-3">
+            Can you answer a buyer request today?
+          </h2>
+          <p className="text-white/80 mb-6">{scope3CsrdCTA.desc}</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={scope3CsrdCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: scope3CsrdCTA.color }}
+            >
+              {scope3CsrdCTA.label}
+            </Link>
+            <Link
+              href="/tools/csrd-readiness"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              Or check CSRD readiness
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">{scope3CsrdCTA.footnote}</p>
+        </div>
+      </div>
+    );
+  }
 
   // Ecolabel articles always get the certification pack CTA
   if (isEcolabelArticle(slug)) {
@@ -98,10 +207,10 @@ export default function ArticleCTA() {
               {certificationCTA.label}
             </Link>
             <Link
-              href="/products"
+              href="/articles"
               className="text-white/70 hover:text-white underline text-sm transition-colors"
             >
-              See all products
+              Browse all guides
             </Link>
           </div>
           <p className="text-sm text-white/60 mt-3">

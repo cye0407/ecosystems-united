@@ -9,7 +9,7 @@ export interface SearchEntry {
   title: string;
   description: string;
   href: string;
-  type: "article" | "product" | "framework" | "tool" | "workshop" | "page";
+  type: "article" | "product" | "framework" | "tool" | "page";
 }
 
 // Static pages (non-article content)
@@ -18,7 +18,7 @@ const staticPages: SearchEntry[] = [
   {
     title: "Products",
     description:
-      "Tools, response packs, and workshops for agricultural SMEs. Free tracker, AI-powered questionnaire responses, and certification tools.",
+      "Tools, response packs, and readiness scorecards for agricultural SMEs. Free tracker, AI-powered questionnaire responses, and certification tools.",
     href: "/products",
     type: "product",
   },
@@ -42,14 +42,6 @@ const staticPages: SearchEntry[] = [
       "Free book. Sustainability reframed as operational strategy. The Five Stacks Framework explained. PDF download.",
     href: "/book",
     type: "product",
-  },
-  // Workshops
-  {
-    title: "Which Ecolabel Is Right For Your Farm? — Workshop",
-    description:
-      "90-minute live workshop. Which certifications open markets, what they cost, and how to prepare your data before you apply. €35.",
-    href: "/workshops/ecolabel-certification",
-    type: "workshop",
   },
   // Framework
   {
@@ -119,6 +111,34 @@ const staticPages: SearchEntry[] = [
     title: "Diagnostic Quiz",
     description: "Find which stack to focus on first. 2 minutes, no signup.",
     href: "/tools/diagnostic-quiz",
+    type: "tool",
+  },
+  {
+    title: "Biofuel Feedstock Comparison",
+    description:
+      "Compare 1st–4th generation biofuels on carbon, land use, EROI, and scalability. Weight your priorities, get a best-fit ranking and a downloadable workbook.",
+    href: "/tools/biofuel-feedstock-compare",
+    type: "tool",
+  },
+  {
+    title: "Scope 3 Supplier Readiness Scorecard",
+    description:
+      "Score your readiness to answer buyer Scope 3 and ESG data requests. 5-minute self-assessment with weakest-area callout and a downloadable scorecard.",
+    href: "/tools/scope-3-readiness",
+    type: "tool",
+  },
+  {
+    title: "CSRD Readiness Scorecard",
+    description:
+      "Assess your CSRD/VSME reporting readiness across governance, environmental, social, and reporting sections. Instant score and next step.",
+    href: "/tools/csrd-readiness",
+    type: "tool",
+  },
+  {
+    title: "Ecolabel Selector & Readiness",
+    description:
+      "Find which ecolabel family fits your product and score your certification readiness. Free interactive tool with a downloadable checklist.",
+    href: "/tools/ecolabel-selector",
     type: "tool",
   },
   {

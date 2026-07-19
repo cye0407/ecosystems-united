@@ -56,11 +56,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/workshops/ecolabel-certification" className="text-gray-600 hover:text-primary">
-                  Ecolabel Workshop
-                </Link>
-              </li>
-              <li>
                 <Link href="/tools/stack-assessment" className="text-gray-600 hover:text-primary">
                   Stack Assessment
                 </Link>

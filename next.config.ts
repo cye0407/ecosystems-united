@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
 
+  turbopack: {
+    root: __dirname,
+  },
+
   // Experimental features
   experimental: {
     // Enable server actions

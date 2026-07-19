@@ -94,9 +94,9 @@ const domains = [
 
 const calculations = [
   {
-    name: "Scope 1 & 2 Emissions",
+    name: "Scope 2 & 3 Emissions",
     description:
-      "Auto-calculated from fuel consumption and grid electricity using country-specific emission factors.",
+      "Auto-calculated from your grid electricity, transport, and waste data — with the source and confidence recorded for each figure.",
     icon: ChartLineUp,
   },
   {
@@ -324,8 +324,8 @@ export default function TrackerPage() {
             </h3>
             <p className="text-sm text-gray-600">
               Domain by domain, month by month. Energy bills, input invoices,
-              waste records &mdash; the numbers you already have. Import from CSV
-              or enter manually.
+              waste records &mdash; the numbers you already have, entered through
+              quick per-domain forms.
             </p>
           </div>
 
@@ -377,11 +377,12 @@ export default function TrackerPage() {
               weight="duotone"
             />
             <h3 className="font-semibold text-gray-900 mb-2">
-              CSV Import & Export
+              CSV Export
             </h3>
             <p className="text-sm text-gray-600">
-              Import historical data from spreadsheets. Export to CSV anytime for
-              your own analysis, reports, or to send directly to buyers.
+              Export any domain &mdash; or your whole baseline &mdash; to CSV
+              anytime for your own analysis, reports, or to send directly to
+              buyers.
             </p>
           </div>
 
@@ -408,7 +409,7 @@ export default function TrackerPage() {
               Auto-Calculated Emissions
             </h3>
             <p className="text-sm text-gray-600">
-              Scope 1, 2, and 3 emissions calculated from your operational data.
+              Scope 2 and 3 emissions calculated from your operational data.
               No manual formulas, no spreadsheet errors.
             </p>
           </div>
