@@ -162,7 +162,7 @@ function AllInsightsTab({
 
     // Calculate Scope 2 estimate
     const scope2 = energyElectricity.reduce((sum, e) => {
-      const gridPercent = e.greenTariff ? 0 : (e.sourceGridPercent || 100);
+      const gridPercent = e.greenTariff ? 0 : (e.sourceGridPercent ?? 100);
       return sum + (e.consumptionKwh * (gridPercent / 100) * GRID_FACTOR / 1000);
     }, 0);
 
@@ -198,7 +198,7 @@ function AllInsightsTab({
     } else if (field === 'scope2') {
       const record = energyElectricity.find(e => e.siteId === selectedSiteId && e.period === period);
       if (!record) return 0;
-      const gridPercent = record.greenTariff ? 0 : (record.sourceGridPercent || 100);
+      const gridPercent = record.greenTariff ? 0 : (record.sourceGridPercent ?? 100);
       return record.consumptionKwh * (gridPercent / 100) * GRID_FACTOR / 1000;
     }
     return 0;
@@ -652,7 +652,8 @@ export default function EnergyPage() {
     const greenTariffVal = getValue(period, 'greenTariff');
 
     const kwh = typeof kwhVal === 'string' ? parseFloat(kwhVal) || 0 : 0;
-    const gridPercent = typeof gridPercentVal === 'string' ? parseFloat(gridPercentVal) || 100 : 100;
+    const parsedGrid = typeof gridPercentVal === 'string' ? parseFloat(gridPercentVal) : NaN;
+    const gridPercent = Number.isNaN(parsedGrid) ? 100 : parsedGrid;
     const greenTariff = greenTariffVal === true;
 
     const effectiveGridPercent = greenTariff ? 0 : gridPercent;
@@ -684,7 +685,9 @@ export default function EnergyPage() {
           siteId: selectedSiteId,
           period,
           consumptionKwh: parseFloat(values.consumptionKwh as string) || (existingValues as EnergyElectricity).consumptionKwh || 0,
-          sourceGridPercent: parseFloat(values.sourceGridPercent as string) || (existingValues as EnergyElectricity).sourceGridPercent || 100,
+          sourceGridPercent: Number.isNaN(parseFloat(values.sourceGridPercent as string))
+            ? ((existingValues as EnergyElectricity).sourceGridPercent ?? 100)
+            : parseFloat(values.sourceGridPercent as string),
           sourceOnsiteRenewablePercent: parseFloat(values.sourceOnsiteRenewablePercent as string) || (existingValues as EnergyElectricity).sourceOnsiteRenewablePercent || 0,
           sourcePpaPercent: parseFloat(values.sourcePpaPercent as string) || (existingValues as EnergyElectricity).sourcePpaPercent || 0,
           greenTariff: typeof values.greenTariff === 'boolean' ? values.greenTariff : (existingValues as EnergyElectricity).greenTariff || false,
@@ -801,7 +804,7 @@ export default function EnergyPage() {
   const headerTotals = useMemo(() => {
     const electricityTotal = energyElectricity.reduce((sum, e) => sum + (e.consumptionKwh || 0), 0);
     const scope2 = energyElectricity.reduce((sum, e) => {
-      const gridPercent = e.greenTariff ? 0 : (e.sourceGridPercent || 100);
+      const gridPercent = e.greenTariff ? 0 : (e.sourceGridPercent ?? 100);
       return sum + (e.consumptionKwh * (gridPercent / 100) * GRID_FACTOR / 1000);
     }, 0);
     return { electricityTotal, scope2 };

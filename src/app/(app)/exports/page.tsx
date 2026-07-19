@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { DownloadSimple, FileXls, FileText, Package, Check } from '@phosphor-icons/react';
 import { Card, Button, Badge, Select } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
@@ -137,6 +138,15 @@ export default function ExportsPage() {
           training: dataStore.training,
           waste: dataStore.waste,
           productOutputs: dataStore.productOutputs,
+          directEmissions: dataStore.directEmissions,
+          effluents: dataStore.effluents,
+          siteDetails: dataStore.siteDetails,
+          landUse: dataStore.landUse,
+          fertiliserApplications: dataStore.fertiliserApplications,
+          livestockRecords: dataStore.livestockRecords,
+          cropOutputs: dataStore.cropOutputs,
+          buyerRequirements: dataStore.buyerRequirements,
+          reflection: dataStore.reflection,
           externalContext: dataStore.externalContext,
           financialContext: dataStore.financialContext,
           exportedAt: new Date().toISOString(),
@@ -583,6 +593,28 @@ export default function ExportsPage() {
           />
         </div>
       </div>
+
+      {/* Post-baseline upsell: Response Generator (EU-owned paid step) */}
+      <Card className="mb-8 border-primary/30 bg-primary/5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-1">
+              Got a buyer questionnaire? Answer it from this data.
+            </h2>
+            <p className="text-sm text-gray-600">
+              The Response Generator turns your baseline into draft answers &mdash;
+              ESG, CDP, EcoVadis, or GlobalG.A.P. &mdash; each with a confidence
+              score and source. Review, edit, export. From &euro;39 per questionnaire.
+            </p>
+          </div>
+          <Link
+            href="/respond"
+            className="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors"
+          >
+            Answer a questionnaire &rarr;
+          </Link>
+        </div>
+      </Card>
 
       {/* Reports Section */}
       <div className="mb-8">
