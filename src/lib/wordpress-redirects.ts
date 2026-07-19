@@ -142,6 +142,9 @@ export const wordpressRedirects: Redirect[] = [
   { source: '/scope-3-supplier-readiness-scorecard', destination: '/tools/scope-3-readiness', permanent: true },
   { source: '/sustainability-data-readiness-assessment', destination: '/tools/scope-3-readiness', permanent: true },
 
+  // === DISCONTINUED PRODUCTS (redirect to closest live tool) ===
+  { source: '/workshops/ecolabel-certification', destination: '/tools/ecolabel-selector', permanent: true },
+
   // === WORDPRESS CATEGORY ARCHIVES (still indexed by Google) ===
   { source: '/category/circularity', destination: '/framework/stack-3-circularity', permanent: true },
   { source: '/category/energy', destination: '/framework/stack-2-efficiency', permanent: true },

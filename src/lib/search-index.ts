@@ -9,7 +9,7 @@ export interface SearchEntry {
   title: string;
   description: string;
   href: string;
-  type: "article" | "product" | "framework" | "tool" | "workshop" | "page";
+  type: "article" | "product" | "framework" | "tool" | "page";
 }
 
 // Static pages (non-article content)
@@ -18,7 +18,7 @@ const staticPages: SearchEntry[] = [
   {
     title: "Products",
     description:
-      "Tools, response packs, and workshops for agricultural SMEs. Free tracker, AI-powered questionnaire responses, and certification tools.",
+      "Tools, response packs, and readiness scorecards for agricultural SMEs. Free tracker, AI-powered questionnaire responses, and certification tools.",
     href: "/products",
     type: "product",
   },
@@ -42,14 +42,6 @@ const staticPages: SearchEntry[] = [
       "Free book. Sustainability reframed as operational strategy. The Five Stacks Framework explained. PDF download.",
     href: "/book",
     type: "product",
-  },
-  // Workshops
-  {
-    title: "Which Ecolabel Is Right For Your Farm? — Workshop",
-    description:
-      "90-minute live workshop. Which certifications open markets, what they cost, and how to prepare your data before you apply. €35.",
-    href: "/workshops/ecolabel-certification",
-    type: "workshop",
   },
   // Framework
   {

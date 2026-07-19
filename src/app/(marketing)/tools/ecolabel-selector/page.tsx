@@ -5,7 +5,7 @@ import Link from "next/link";
 import { analytics } from "@/lib/analytics";
 import GatedDownload from "@/components/marketing/GatedDownload";
 
-const ACCENT = "#5B4A9E"; // ecolabel / certification workshop purple
+const ACCENT = "#5B4A9E"; // ecolabel accent
 const GREEN = "#4AA88C"; // baseline funnel CTA
 
 // --- Part 1: ecolabel family recommendation --------------------------------
@@ -379,10 +379,10 @@ export default function EcolabelSelectorPage() {
           </Link>
           <div className="flex gap-4">
             <Link
-              href="/workshops/ecolabel-certification"
+              href="/articles/the-different-types-of-ecolabels"
               className="flex-1 text-center border border-gray-300 text-gray-700 px-6 py-3 rounded font-semibold hover:bg-gray-50 transition-colors"
             >
-              Join the 90-minute workshop
+              Compare ecolabel types
             </Link>
             <button
               onClick={handleReset}

@@ -55,7 +55,7 @@ const certificationCTA = {
   desc: "Not sure which ecolabel to pursue? Our free selector matches the right label family to your operation and scores your certification readiness — then take a readiness checklist with you.",
   href: "/tools/ecolabel-selector",
   color: "#5B4A9E",
-  footnote: "Free interactive tool. The 90-minute workshop is there when you're ready to apply.",
+  footnote: "Free interactive tool. No signup to check your readiness.",
 };
 
 const scope3CsrdCTA = {
@@ -207,10 +207,10 @@ export default function ArticleCTA() {
               {certificationCTA.label}
             </Link>
             <Link
-              href="/workshops/ecolabel-certification"
+              href="/articles"
               className="text-white/70 hover:text-white underline text-sm transition-colors"
             >
-              Or join the workshop (€29)
+              Browse all guides
             </Link>
           </div>
           <p className="text-sm text-white/60 mt-3">

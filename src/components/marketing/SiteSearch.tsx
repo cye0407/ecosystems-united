@@ -7,7 +7,6 @@ import { searchSite, type SearchEntry } from "@/lib/search-index";
 
 const typeLabels: Record<SearchEntry["type"], string> = {
   product: "Product",
-  workshop: "Workshop",
   framework: "Framework",
   tool: "Tool",
   article: "Guide",
@@ -16,7 +15,6 @@ const typeLabels: Record<SearchEntry["type"], string> = {
 
 const typeColors: Record<SearchEntry["type"], string> = {
   product: "bg-primary/10 text-primary",
-  workshop: "bg-purple-100 text-purple-700",
   framework: "bg-indigo-100 text-indigo-700",
   tool: "bg-blue-100 text-blue-700",
   article: "bg-gray-100 text-gray-700",
