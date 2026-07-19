@@ -1060,13 +1060,37 @@ function LivestockTab({
     [livestockRecords, selectedSiteId]
   );
 
-  // Summary stats
-  const summary = useMemo(() => {
-    const totalHead = filteredRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
-    const totalLU = calculateLivestockUnits(filteredRecords);
-    const emissions = calculateLivestockEmissions(filteredRecords);
-    return { totalHead, totalLU, totalEmissions: emissions.totalTco2e };
+  // Headcount is a stock (animals present), not a monthly flow, and the IPCC
+  // factors are annual. Summing every record would multiply a year's emissions
+  // by the number of entries (e.g. 12 monthly snapshots of the same herd = 12x).
+  // Collapse to one representative record per livestock type per year, using the
+  // average headcount across that type-year's entries, before applying factors.
+  const representativeRecords = useMemo(() => {
+    const byKey = new Map<string, { headSum: number; count: number; sample: LivestockRecord }>();
+    for (const r of filteredRecords) {
+      const year = (r.period || '').slice(0, 4);
+      const key = `${r.livestockType}|${year}`;
+      const cur = byKey.get(key);
+      if (cur) {
+        cur.headSum += r.headcount || 0;
+        cur.count += 1;
+      } else {
+        byKey.set(key, { headSum: r.headcount || 0, count: 1, sample: r });
+      }
+    }
+    return Array.from(byKey.values()).map(({ headSum, count, sample }) => ({
+      ...sample,
+      headcount: Math.round(headSum / count),
+    }));
   }, [filteredRecords]);
+
+  // Summary stats (computed from the year-normalized representative records)
+  const summary = useMemo(() => {
+    const totalHead = representativeRecords.reduce((sum, l) => sum + (l.headcount || 0), 0);
+    const totalLU = calculateLivestockUnits(representativeRecords);
+    const emissions = calculateLivestockEmissions(representativeRecords);
+    return { totalHead, totalLU, totalEmissions: emissions.totalTco2e };
+  }, [representativeRecords]);
 
   const openAddModal = () => {
     setEditingId(null);

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Lightning, FileArrowUp, SkipForward } from '@phosphor-icons/react';
+import { ArrowRight, Lightning, SkipForward } from '@phosphor-icons/react';
 import { v4 as uuid } from 'uuid';
 import { Button, Input, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
@@ -63,11 +63,6 @@ export default function FirstEntryPage() {
     router.push('/dashboard');
   };
 
-  const handleImport = () => {
-    finishOnboarding();
-    router.push('/data/energy?import=1');
-  };
-
   const handleSkip = () => {
     finishOnboarding();
     router.push('/dashboard');
@@ -112,14 +107,6 @@ export default function FirstEntryPage() {
       </form>
 
       <div className="flex flex-col sm:flex-row gap-3">
-        <button
-          type="button"
-          onClick={handleImport}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-700 hover:bg-gray-50 transition"
-        >
-          <FileArrowUp className="w-4 h-4" weight="duotone" />
-          Got a spreadsheet? Import it
-        </button>
         <button
           type="button"
           onClick={handleSkip}

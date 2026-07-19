@@ -254,7 +254,7 @@ export default function HomePage() {
                     You own everything, we lock in nothing
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Free tracker, forever. CSV import and export. No per-seat
+                    Free tracker, forever. CSV export. No per-seat
                     pricing, no annual contracts, no vendor lock-in. Pay only
                     when you use the response engine — €39 for your first
                     questionnaire, €19 after that.
