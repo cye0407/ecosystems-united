@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { ElementType, ReactNode } from "react";
 import PageCTA from "@/components/marketing/PageCTA";
 import {
   Lightning,
@@ -16,13 +17,14 @@ import {
   ChartLineUp,
   FileArrowDown,
   ShieldCheck,
+  CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title:
-    "Free Baseline Tracker — Sustainability Data for Farms & Agricultural SMEs | Ecosystems United",
+    "Free Baseline Tracker — Organize Your Farm's Operational Data | Ecosystems United",
   description:
-    "Track your operational data across 8 domains for free. Auto-calculated emissions, per-hectare metrics, CSV exports, and multi-site support. Built for farms and agricultural businesses.",
+    "Bring the records you already keep into one place across 8 domains. Auto-calculated emissions, per-hectare metrics, CSV/JSON exports, multi-site. Free. Ready for a buyer, a lender, a grant, or your own decisions.",
   keywords: [
     "sustainability tracker",
     "farm data tracking",
@@ -39,56 +41,48 @@ const domains = [
     description:
       "Electricity, fuels, water. Auto-calculated Scope 2 emissions with source breakdown.",
     icon: Lightning,
-    gradient: "from-stack-1 to-stack-2",
   },
   {
     name: "Materials & Inputs",
     description:
-      "Raw materials, components, consumables, and fertiliser inputs. Track N/P/K content, N₂O emissions, and nitrogen balance.",
+      "Raw materials, components, consumables, and fertiliser inputs. N/P/K content, N₂O, nitrogen balance.",
     icon: Cube,
-    gradient: "from-stack-2 to-stack-3",
   },
   {
     name: "Packaging",
     description:
-      "Primary, secondary, tertiary packaging. Recyclability and recycled content tracking.",
+      "Primary, secondary, tertiary packaging. Recyclability and recycled content.",
     icon: Package,
-    gradient: "from-stack-3 to-stack-4",
   },
   {
     name: "Outputs & Waste",
     description:
-      "Crop yields by type and area, livestock headcount with auto-calculated emissions, product volumes, and waste by disposal route.",
+      "Crop yields by type and area, livestock headcount, product volumes, and waste by disposal route.",
     icon: Recycle,
-    gradient: "from-stack-4 to-stack-5",
   },
   {
     name: "Transport & Logistics",
     description:
-      "Inbound and outbound movements. Scope 3 emissions calculated from distance, weight, and mode.",
+      "Inbound and outbound movements. Scope 3 emissions from distance, weight, and mode.",
     icon: Truck,
-    gradient: "from-stack-1 to-stack-3",
   },
   {
     name: "Workforce",
     description:
       "Headcount, seasonal labour, health & safety incidents, training hours. TRIR auto-calculated.",
     icon: UsersThree,
-    gradient: "from-stack-2 to-stack-4",
   },
   {
     name: "Infrastructure & Land",
     description:
-      "Sites, buildings, equipment, and land use by type. Track parcels with area, soil organic matter, pH, and irrigation status.",
+      "Sites, buildings, equipment, and land use by type. Parcels with area, soil organic matter, pH, irrigation.",
     icon: Buildings,
-    gradient: "from-stack-3 to-stack-5",
   },
   {
     name: "Context",
     description:
       "Markets, customer base, regulatory position, certifications, and financial context.",
     icon: GlobeHemisphereWest,
-    gradient: "from-primary-dark to-primary",
   },
 ];
 
@@ -96,7 +90,7 @@ const calculations = [
   {
     name: "Scope 2 & 3 Emissions",
     description:
-      "Auto-calculated from your grid electricity, transport, and waste data — with the source and confidence recorded for each figure.",
+      "From grid electricity, transport, and waste — with the source and confidence recorded for each figure.",
     icon: ChartLineUp,
   },
   {
@@ -108,26 +102,20 @@ const calculations = [
   {
     name: "Fertiliser N₂O & N-Balance",
     description:
-      "N₂O emissions from applied nitrogen (IPCC Tier 1). Nitrogen balance: applied vs crop removal per hectare.",
+      "N₂O from applied nitrogen (IPCC Tier 1). Nitrogen balance: applied vs crop removal per hectare.",
     icon: Drop,
   },
   {
     name: "Per-Hectare Intensity",
     description:
-      "Emissions per hectare, emissions per tonne of output, and yield per hectare — the metrics buyers ask for.",
+      "Emissions per hectare, emissions per tonne of output, and yield per hectare.",
     icon: Leaf,
   },
   {
-    name: "Transport Emissions",
+    name: "Transport & Waste Emissions",
     description:
-      "Scope 3 transport emissions from tonne-km by mode — road, rail, sea, air.",
+      "Scope 3 transport from tonne-km by mode; disposal-route emissions with diversion rate tracked.",
     icon: Truck,
-  },
-  {
-    name: "Waste Emissions",
-    description:
-      "Disposal route emissions for landfill, incineration, recycling, composting. Diversion rate tracked.",
-    icon: Recycle,
   },
   {
     name: "Workforce KPIs",
@@ -137,18 +125,55 @@ const calculations = [
   },
 ];
 
+function KeyCard({
+  icon: Icon,
+  title,
+  teaser,
+  children,
+}: {
+  icon: ElementType;
+  title: string;
+  teaser: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="group rounded-2xl border border-gray-200 bg-white p-6 open:shadow-sm [&_summary::-webkit-details-marker]:hidden">
+      <summary className="flex items-start gap-4 cursor-pointer list-none">
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-primary-dark to-primary shrink-0">
+          <Icon className="w-6 h-6 text-white" weight="duotone" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-2">
+            <h3 className="font-semibold text-gray-900">{title}</h3>
+            <CaretDown
+              className="w-5 h-5 text-gray-400 transition-transform group-open:rotate-180 shrink-0"
+              weight="bold"
+            />
+          </div>
+          <p className="text-sm text-gray-600 mt-1">{teaser}</p>
+          <span className="text-xs font-medium text-primary mt-2 inline-block group-open:hidden">
+            See the detail →
+          </span>
+        </div>
+      </summary>
+      <div className="mt-5 sm:pl-16 text-sm text-gray-600">{children}</div>
+    </details>
+  );
+}
+
 export default function TrackerPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">
-      {/* Hero */}
-      <header className="mb-20 text-center">
+      {/* 1 · Hero */}
+      <header className="mb-16 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Track Your Baseline. For Free.
+          Your farm&apos;s data, organized once.
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-          Enter the operational data you already have &mdash; energy bills, input
-          invoices, waste records, workforce numbers. Build a defensible baseline
-          across 8 domains. No credit card, no trial period.
+          Bring the records you already keep &mdash; energy, inputs, land,
+          livestock, workforce, waste &mdash; into one place across 8 domains.
+          Auto-calculated, exportable, and free. Ready for a buyer, a lender, a
+          grant, or your own decisions.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
@@ -158,18 +183,26 @@ export default function TrackerPage() {
             Start Tracking &mdash; Free Forever
           </Link>
           <a
-            href="#domains"
+            href="#what-you-get"
             className="inline-block border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
           >
-            See What&apos;s Included
+            See What&apos;s Inside
           </a>
         </div>
         <p className="text-sm text-gray-500 mt-4">
-          All 8 domains. CSV exports. Multi-site support. Free forever.
+          No credit card. Multi-site. Yours to export and keep.
         </p>
+
+        {/* Product preview placeholder */}
+        <div className="mt-12 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 aspect-[16/9] max-w-3xl mx-auto flex items-center justify-center">
+          <div className="text-center text-gray-400">
+            <ChartLineUp className="w-10 h-10 mx-auto mb-2" weight="duotone" />
+            <p className="text-sm font-medium">Product preview</p>
+          </div>
+        </div>
       </header>
 
-      {/* Who It's For */}
+      {/* 2 · The problem */}
       <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           Who This Is For
@@ -177,128 +210,146 @@ export default function TrackerPage() {
         <p className="text-2xl font-bold text-gray-900 mb-8">
           Farmers and agricultural SMEs who need their data organised
         </p>
-
         <div className="space-y-6 text-gray-600 leading-relaxed">
           <p>
-            Your buyers are asking for sustainability data. Maybe it&apos;s a
-            Scope 3 request. Maybe it&apos;s an EcoVadis questionnaire. Maybe
-            it&apos;s a retailer asking about your energy use, water management,
-            or waste practices.
-          </p>
-          <p>
-            You don&apos;t have a sustainability team. The data exists &mdash;
-            in invoices, utility bills, HR records, waste manifests &mdash; but
-            it&apos;s scattered across files and folders. Every request means
-            starting from scratch.
+            The data exists &mdash; in invoices, utility bills, HR records,
+            waste manifests &mdash; but it&apos;s scattered across files and
+            folders. So every buyer questionnaire, every lender or grant form,
+            every decision starts from scratch.
           </p>
           <p className="text-gray-900 font-medium">
             The tracker organises it once. After that, every request draws from
-            the same baseline.
+            the same baseline &mdash; and so do you.
           </p>
         </div>
       </section>
 
-      {/* 8 Domains Grid */}
-      <section id="domains" className="mb-20">
+      {/* 3 · What you get — 4 key cards */}
+      <section id="what-you-get" className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          8 Operational Domains
+          What You Get
         </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-10">
-          Everything a buyer or auditor asks about, structured and ready
+        <p className="text-2xl font-bold text-gray-900 mb-3">
+          Four things, in plain terms
+        </p>
+        <p className="text-gray-600 mb-10">
+          Expand any card for the full detail.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {domains.map((domain) => {
-            const Icon = domain.icon;
-            return (
-              <div
-                key={domain.name}
-                className="relative p-6 rounded-2xl bg-white border border-gray-200 overflow-hidden"
-              >
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${domain.gradient}`}
-                />
-                <div className="flex items-start gap-4">
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br shadow-sm shrink-0 ${domain.gradient}`}
-                  >
-                    <Icon className="w-6 h-6 text-white" weight="duotone" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">
-                      {domain.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {domain.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+          <KeyCard
+            icon={ChartLineUp}
+            title="8-domain tracking"
+            teaser="Energy, materials, packaging, outputs, transport, workforce, infrastructure, and context — monthly, per site."
+          >
+            <ul className="space-y-3">
+              {domains.map((d) => {
+                const Icon = d.icon;
+                return (
+                  <li key={d.name} className="flex items-start gap-3">
+                    <Icon
+                      className="w-5 h-5 text-primary shrink-0 mt-0.5"
+                      weight="duotone"
+                    />
+                    <span>
+                      <span className="font-medium text-gray-900">
+                        {d.name}.
+                      </span>{" "}
+                      {d.description}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-4 text-gray-500">
+              Monthly granularity, 12-month rolling view per site.
+            </p>
+          </KeyCard>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Monthly data entry across all domains. 12-month rolling view per site.
-        </p>
+          <KeyCard
+            icon={Lightning}
+            title="Auto-calculated metrics"
+            teaser="Enter raw data, get defensible numbers. No manual formulas, no spreadsheet errors."
+          >
+            <ul className="space-y-3">
+              {calculations.map((c) => {
+                const Icon = c.icon;
+                return (
+                  <li key={c.name} className="flex items-start gap-3">
+                    <Icon
+                      className="w-5 h-5 text-stack-2 shrink-0 mt-0.5"
+                      weight="duotone"
+                    />
+                    <span>
+                      <span className="font-medium text-gray-900">
+                        {c.name}.
+                      </span>{" "}
+                      {c.description}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </KeyCard>
+
+          <KeyCard
+            icon={FileArrowDown}
+            title="Exports & ownership"
+            teaser="Export any domain or your whole baseline. Yours to keep, no lock-in."
+          >
+            <ul className="space-y-3 list-disc pl-5">
+              <li>
+                <span className="font-medium text-gray-900">CSV export</span>{" "}
+                per domain, or a complete workbook &mdash; now including the
+                agricultural domains (land use, fertiliser, livestock, crops).
+              </li>
+              <li>
+                <span className="font-medium text-gray-900">JSON raw data</span>{" "}
+                for your own analysis or handover.
+              </li>
+              <li>
+                <span className="font-medium text-gray-900">Multi-site.</span>{" "}
+                Track multiple farms or sites separately, each with its own
+                dashboard.
+              </li>
+              <li>
+                Hand the numbers to a buyer, a lender, or a grant application, or
+                keep them for your own decisions. No lock-in, ever.
+              </li>
+            </ul>
+          </KeyCard>
+
+          <KeyCard
+            icon={Plant}
+            title="Built for farms"
+            teaser="Agricultural metrics are native here — not retrofitted from a manufacturing template."
+          >
+            <ul className="space-y-3 list-disc pl-5">
+              <li>
+                Fertiliser N₂O emissions and nitrogen balance; livestock
+                emissions (IPCC Tier 1 CH₄ and N₂O); per-hectare intensity; crop
+                yield tracking; land use classification.
+              </li>
+              <li>
+                <span className="font-medium text-gray-900">
+                  Data quality on every entry.
+                </span>{" "}
+                Each figure records its source (bill, meter, estimate) and a
+                confidence level, so you always know how defensible your baseline
+                is.
+              </li>
+            </ul>
+          </KeyCard>
+        </div>
       </section>
 
-      {/* Built-in Calculations */}
-      <section className="mb-20">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          Built-In Calculations
-        </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-10">
-          Enter raw data, get defensible metrics
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {calculations.map((calc) => {
-            const Icon = calc.icon;
-            return (
-              <div
-                key={calc.name}
-                className="p-6 rounded-2xl border border-gray-200 bg-white"
-              >
-                <Icon
-                  className="w-8 h-8 text-stack-2 mb-4"
-                  weight="duotone"
-                />
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  {calc.name}
-                </h3>
-                <p className="text-sm text-gray-600">{calc.description}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 p-6 rounded-2xl bg-primary-100 border border-primary/20">
-          <div className="flex items-start gap-4">
-            <Plant className="w-8 h-8 text-primary shrink-0" weight="duotone" />
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-1">
-                Agricultural Metrics Included
-              </h3>
-              <p className="text-sm text-gray-600">
-                Fertiliser N₂O emissions and nitrogen balance, livestock
-                emissions (IPCC Tier 1 CH₄ and N₂O), per-hectare intensity
-                metrics, crop yield tracking, and land use classification.
-                Built specifically for farms and food businesses &mdash; not
-                retrofitted from a manufacturing template.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
+      {/* 4 · How it works */}
       <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           How It Works
         </h2>
         <p className="text-2xl font-bold text-gray-900 mb-10">
-          Three steps to a defensible baseline
+          Three steps to an organised baseline
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -319,13 +370,10 @@ export default function TrackerPage() {
             <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
               <span className="text-xl font-bold text-white">2</span>
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Enter Your Data
-            </h3>
+            <h3 className="font-semibold text-gray-900 mb-2">Enter Your Data</h3>
             <p className="text-sm text-gray-600">
-              Domain by domain, month by month. Energy bills, input invoices,
-              waste records &mdash; the numbers you already have, entered through
-              quick per-domain forms.
+              Domain by domain, month by month. The numbers you already have,
+              entered through quick per-domain forms.
             </p>
           </div>
 
@@ -337,144 +385,24 @@ export default function TrackerPage() {
               Your Baseline Builds Itself
             </h3>
             <p className="text-sm text-gray-600">
-              Emissions auto-calculated, trends tracked, exports ready. When a
-              buyer asks for data, you have it.
+              Emissions auto-calculated, trends tracked, exports ready. When
+              someone asks for data, you have it.
             </p>
           </div>
         </div>
       </section>
 
-      <hr className="border-gray-200 mb-20" />
-
-      {/* What's Included */}
-      <section className="mb-20">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          Everything Included &mdash; Free
-        </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-10">
-          No tiers, no trials, no catches
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <ChartLineUp
-              className="w-8 h-8 text-stack-1 mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              8-Domain Tracking
-            </h3>
-            <p className="text-sm text-gray-600">
-              Energy, materials, packaging, outputs, transport, workforce,
-              infrastructure, and context. Monthly granularity with 12-month
-              rolling views.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <FileArrowDown
-              className="w-8 h-8 text-stack-2 mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              CSV Export
-            </h3>
-            <p className="text-sm text-gray-600">
-              Export any domain &mdash; or your whole baseline &mdash; to CSV
-              anytime for your own analysis, reports, or to send directly to
-              buyers.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <Buildings
-              className="w-8 h-8 text-stack-3 mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Multi-Site Support
-            </h3>
-            <p className="text-sm text-gray-600">
-              Track multiple farms, processing sites, or locations separately.
-              Each site gets its own data and dashboard.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <Lightning
-              className="w-8 h-8 text-stack-4 mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Auto-Calculated Emissions
-            </h3>
-            <p className="text-sm text-gray-600">
-              Scope 2 and 3 emissions calculated from your operational data.
-              No manual formulas, no spreadsheet errors.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <ShieldCheck
-              className="w-8 h-8 text-stack-5 mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Data Quality Tracking
-            </h3>
-            <p className="text-sm text-gray-600">
-              Every entry records its source (bill, meter, estimate) and
-              confidence level. Know exactly how defensible your baseline is.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl border border-gray-200 bg-white">
-            <Leaf
-              className="w-8 h-8 text-primary mb-4"
-              weight="duotone"
-            />
-            <h3 className="font-semibold text-gray-900 mb-2">
-              Five Stacks Aligned
-            </h3>
-            <p className="text-sm text-gray-600">
-              The tracker builds Stack 1 &mdash; your Defensible Baseline. The
-              structured data you need before any efficiency or resilience work
-              can begin.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Free */}
-      <section className="mb-20">
-        <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-          Why Free
-        </h2>
-        <div className="prose prose-gray max-w-none">
-          <p>
-            The tracker builds your Defensible Baseline &mdash; Stack 1 of the
-            Five Stacks Framework. We believe every farm and agricultural SME
-            should have structured operational data, regardless of budget.
-          </p>
-          <p>
-            Good data is the foundation. Without it, you can&apos;t find
-            efficiency gains, you can&apos;t prove your practices to buyers, and
-            you can&apos;t make informed decisions about where to invest.
-          </p>
-          <p>
-            The tracker gives you that foundation. What you build on it is up to
-            you.
-          </p>
-        </div>
-      </section>
-
-      {/* What Your Data Unlocks */}
+      {/* 5 · What your data unlocks */}
       <section className="mb-20">
         <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
           What Your Data Unlocks
         </h2>
-        <p className="text-2xl font-bold text-gray-900 mb-8">
-          Track once, answer everything
+        <p className="text-2xl font-bold text-gray-900 mb-3">
+          Organise once, use it everywhere
+        </p>
+        <p className="text-gray-600 mb-10">
+          One dataset behind every buyer questionnaire, lender request, grant
+          application, and decision you make.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -489,9 +417,9 @@ export default function TrackerPage() {
               Response Generator
             </h3>
             <p className="text-sm text-gray-600">
-              Upload a buyer questionnaire — ESG or GlobalG.A.P. — and get
-              data-backed answers from your tracked baseline. Rules-based engine
-              with 200+ templates. From €39.
+              Upload a buyer questionnaire &mdash; ESG or GlobalG.A.P. &mdash;
+              and get data-backed answers from your tracked baseline. Rules-based
+              engine with 200+ templates. From €39.
             </p>
           </Link>
           <div className="p-6 rounded-2xl border border-dashed border-gray-300 bg-gray-50">
@@ -510,16 +438,37 @@ export default function TrackerPage() {
         </div>
 
         <p className="text-center mt-6">
-          <Link href="/products" className="text-sm text-primary font-medium hover:underline">
+          <Link
+            href="/products"
+            className="text-sm text-primary font-medium hover:underline"
+          >
             See all products →
           </Link>
         </p>
       </section>
 
-      {/* Bottom CTA */}
+      {/* 6 · Why free + closing CTA */}
+      <section className="mb-16">
+        <div className="rounded-2xl bg-primary-100/60 border border-primary/20 p-6 sm:p-8 flex items-start gap-4">
+          <ShieldCheck
+            className="w-8 h-8 text-primary shrink-0"
+            weight="duotone"
+          />
+          <div>
+            <h2 className="font-semibold text-gray-900 mb-2">Why it&apos;s free</h2>
+            <p className="text-gray-600 text-sm">
+              The tracker builds Stack 1 of the Five Stacks Framework &mdash;
+              your defensible baseline. Good data is the foundation everything
+              else stands on, and every farm should have it regardless of budget.
+              What you build on it is up to you.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <PageCTA
         heading="Start building your baseline today"
-        description="Enter your first domain in 15 minutes. Your operational data, structured and ready for any buyer request."
+        description="Enter your first domain in 15 minutes. Your operational data, structured and ready for whoever asks — a buyer, a lender, a grant, or you."
         primaryButton={{
           label: "Start Free",
           href: "/signup",
@@ -531,7 +480,7 @@ export default function TrackerPage() {
       />
 
       <p className="mt-8 text-sm text-gray-500 text-center">
-        Last updated: April 2026
+        Last updated: July 2026
       </p>
     </div>
   );
