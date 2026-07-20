@@ -543,11 +543,14 @@ export default function ExportsPage() {
     const headers = ['Type', 'Detail', 'Site', 'Period', 'Area (ha)', 'Quantity', 'Unit', 'Metric', 'Data Source', 'Confidence'];
     const rows: string[][] = [headers];
 
-    // Land use (no period field — filter by site only)
+    // Land use is a current-state snapshot (no period field), so it can't be
+    // year-scoped like the flow domains. Filter by site only, and label the
+    // Period column "Current" so a year-scoped export isn't read as year data.
     store.landUse.forEach((l) => {
       if (siteId !== 'all' && l.siteId !== siteId) return;
+      const asOf = l.updatedAt ? ` (as of ${l.updatedAt.slice(0, 7)})` : '';
       rows.push([
-        'Land Use', l.fieldName || l.landType, siteName(l.siteId), '',
+        'Land Use', l.fieldName || l.landType, siteName(l.siteId), `Current${asOf}`,
         l.areaHa.toString(), '', 'ha',
         [
           l.soilOrganicMatterPercent != null ? `SOM ${l.soilOrganicMatterPercent}%` : '',
