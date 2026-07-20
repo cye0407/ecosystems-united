@@ -17,6 +17,7 @@ import {
   saveSingleton,
   saveArray,
   deleteRemovedRecords,
+  describeError,
 } from '@/lib/supabase/sync';
 import { TABLES } from '@/lib/supabase/tables';
 
@@ -121,7 +122,7 @@ export function useSupabaseSync(): { syncComplete: boolean } {
         setSyncComplete(true);
       })
       .catch((err) => {
-        console.error('Failed to load data from Supabase:', err);
+        console.error('Failed to load data from Supabase:', describeError(err));
         // Fall back to localStorage data already present in stores
         initialLoadDone.current = true;
         setSyncComplete(true);

@@ -64,6 +64,23 @@ async function fetchArray(table: string, userId: string): Promise<Record<string,
 // Save helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Supabase error objects (PostgrestError / AuthError) carry their useful fields
+ * as non-enumerable properties, so `console.error('...', error)` prints `{}` and
+ * hides the real cause. Pull the fields into a plain object for real logging.
+ */
+export function describeError(error: unknown): Record<string, unknown> {
+  if (!error || typeof error !== 'object') return { error };
+  const e = error as Record<string, unknown>;
+  return {
+    message: e.message ?? String(error),
+    code: e.code,
+    details: e.details,
+    hint: e.hint,
+    status: e.status,
+  };
+}
+
 /** Upsert a singleton record for the given user. */
 export async function saveSingleton(
   table: string,
@@ -78,7 +95,7 @@ export async function saveSingleton(
   delete row.updated_at;
 
   const { error } = await supabase.from(table).upsert(row, { onConflict: 'id' });
-  if (error) console.error(`Error saving to ${table}:`, error);
+  if (error) console.error(`Error saving to ${table}:`, describeError(error));
 }
 
 /** Upsert an array of records for the given user. */
@@ -98,7 +115,7 @@ export async function saveArray(
   });
 
   const { error } = await supabase.from(table).upsert(rows, { onConflict: 'id' });
-  if (error) console.error(`Error saving to ${table}:`, error);
+  if (error) console.error(`Error saving to ${table}:`, describeError(error));
 }
 
 /** Delete records that no longer exist locally (cleanup orphans). */
@@ -115,7 +132,7 @@ export async function deleteRemovedRecords(
     .eq('user_id', userId)
     .not('id', 'in', `(${currentIds.join(',')})`);
 
-  if (error) console.error(`Error deleting from ${table}:`, error);
+  if (error) console.error(`Error deleting from ${table}:`, describeError(error));
 }
 
 // ---------------------------------------------------------------------------
