@@ -539,6 +539,58 @@ export default function ExportsPage() {
     return rows;
   };
 
+  const generateAgriculturalExport = (store: typeof dataStore, year: string, siteId: string) => {
+    const headers = ['Type', 'Detail', 'Site', 'Period', 'Area (ha)', 'Quantity', 'Unit', 'Metric', 'Data Source', 'Confidence'];
+    const rows: string[][] = [headers];
+
+    // Land use (no period field — filter by site only)
+    store.landUse.forEach((l) => {
+      if (siteId !== 'all' && l.siteId !== siteId) return;
+      rows.push([
+        'Land Use', l.fieldName || l.landType, siteName(l.siteId), '',
+        l.areaHa.toString(), '', 'ha',
+        [
+          l.soilOrganicMatterPercent != null ? `SOM ${l.soilOrganicMatterPercent}%` : '',
+          l.soilPh != null ? `pH ${l.soilPh}` : '',
+          l.irrigated ? 'Irrigated' : '',
+        ].filter(Boolean).join(', '),
+        '', '',
+      ]);
+    });
+
+    store.fertiliserApplications.forEach((f) => {
+      if (!filterPeriodSite(f.period, f.siteId, year, siteId)) return;
+      rows.push([
+        `Fertiliser - ${f.fertiliserType}`, f.productName || '', siteName(f.siteId), f.period,
+        f.areaAppliedHa?.toString() || '', f.quantityKg.toString(), 'kg',
+        f.nitrogenContentPercent != null ? `N ${f.nitrogenContentPercent}%` : '',
+        f.source, f.confidence,
+      ]);
+    });
+
+    store.livestockRecords.forEach((l) => {
+      if (!filterPeriodSite(l.period, l.siteId, year, siteId)) return;
+      rows.push([
+        `Livestock - ${l.livestockType}`, '', siteName(l.siteId), l.period,
+        '', l.headcount.toString(), 'head',
+        l.livestockUnits != null ? `${l.livestockUnits} LU` : '',
+        l.source, l.confidence,
+      ]);
+    });
+
+    store.cropOutputs.forEach((c) => {
+      if (!filterPeriodSite(c.period, c.siteId, year, siteId)) return;
+      rows.push([
+        `Crop - ${c.cropType}`, c.cropName, siteName(c.siteId), c.period,
+        c.areaHa.toString(), c.yieldTonnes.toString(), 't',
+        c.yieldPerHa != null ? `${c.yieldPerHa.toFixed(2)} t/ha` : '',
+        c.source, c.confidence,
+      ]);
+    });
+
+    return rows;
+  };
+
   const generateAllDataExport = (store: typeof dataStore, year: string, siteId: string) => {
     const rows: string[][] = [];
 
@@ -548,6 +600,7 @@ export default function ExportsPage() {
     const transport = generateTransportExport(store, year, siteId);
     const workforce = generateWorkforceExport(store, year, siteId);
     const outputs = generateOutputsExport(store, year, siteId);
+    const agricultural = generateAgriculturalExport(store, year, siteId);
 
     rows.push(['=== ENERGY & UTILITIES ===']);
     rows.push(...energy);
@@ -563,6 +616,14 @@ export default function ExportsPage() {
     rows.push([]);
     rows.push(['=== OUTPUTS & WASTE ===']);
     rows.push(...outputs);
+
+    // Agricultural domains (landUse, fertiliser, livestock, crops) — only when present,
+    // so non-agricultural exports are unchanged.
+    if (agricultural.length > 1) {
+      rows.push([]);
+      rows.push(['=== AGRICULTURAL ===']);
+      rows.push(...agricultural);
+    }
 
     return rows;
   };
