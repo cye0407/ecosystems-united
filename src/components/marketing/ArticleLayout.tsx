@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "./NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 // Stack metadata
 const stackInfo: Record<string, { name: string; color: string; desc: string }> = {
@@ -70,7 +70,7 @@ export default function ArticleLayout({
 
       {/* CTA Section */}
       <div className="mb-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Related content by stack */}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "The Complete Agricultural Sustainability Assessment Checklist",
@@ -43,7 +43,7 @@ export default function ArticlePage() {
         </p>
       </header>
 
-      {/* Article Content - First Half */}
+      {/* Intro */}
       <article className="prose prose-gray max-w-none">
         <p>
           This checklist compiles the sustainability datapoints that appear
@@ -58,8 +58,19 @@ export default function ArticlePage() {
           through the list, mark what you have, what you don&apos;t, and what
           doesn&apos;t apply. That gap analysis becomes your roadmap.
         </p>
+      </article>
 
+      <BaselineCTA className="my-12" />
+
+      {/* Article Content - First Half */}
+      <article className="prose prose-gray max-w-none">
         <h2>Environment</h2>
+        <p>
+          The datapoints buyers ask about most sit here: energy, emissions, land
+          and soil, water, biodiversity, and waste. This is where the bulk of
+          questionnaire questions land, and where good records make the biggest
+          difference.
+        </p>
 
         <h3>Energy and Emissions</h3>
         <ul>
@@ -234,14 +245,14 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <NewsletterSignup />
-      </div>
-
       {/* Continue article - Second Half */}
       <article className="prose prose-gray max-w-none">
         <h2>Social</h2>
+        <p>
+          How you look after the people who work your land. Workforce numbers,
+          health and safety, and training evidence are increasingly requested,
+          especially where seasonal or migrant labour is involved.
+        </p>
 
         <h3>Workforce</h3>
         <ul>
@@ -339,6 +350,11 @@ export default function ArticlePage() {
         </ul>
 
         <h2>Governance</h2>
+        <p>
+          The policies, certifications, and documentation that show your
+          practices are managed rather than incidental. This is what lets a buyer
+          verify a claim instead of taking it on trust.
+        </p>
 
         <h3>Certifications and Assurance</h3>
         <ul>

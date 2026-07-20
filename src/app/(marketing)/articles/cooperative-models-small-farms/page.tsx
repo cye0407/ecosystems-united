@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Cooperative Models for Small Farms: Strength in Numbers",
@@ -94,7 +94,7 @@ export default function ArticlePage() {
 
       {/* Mid-article Newsletter CTA */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "8 Essential Questions Before Installing an Irrigation System",
@@ -89,7 +89,7 @@ export default function ArticlePage() {
 
       {/* Mid-article Newsletter CTA */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}

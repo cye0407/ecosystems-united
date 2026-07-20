@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "How to Spot Fake Ecolabels: Avoiding Greenwashing in Your Supply Chain",
@@ -70,7 +70,7 @@ export default function ArticlePage() {
 
       {/* Mid-article Newsletter CTA */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}

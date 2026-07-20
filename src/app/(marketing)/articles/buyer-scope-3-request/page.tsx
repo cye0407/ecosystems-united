@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Your Buyer Sent a Scope 3 Request — Now What?",
@@ -110,7 +110,7 @@ export default function ArticlePage() {
       </article>
 
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       <article className="prose prose-gray max-w-none">

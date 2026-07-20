@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { getArticleMeta } from "@/lib/article-metadata";
+import NewsletterSignup from "./NewsletterSignup";
 
 const productCTAs = [
   {
@@ -108,9 +108,6 @@ export default function ArticleCTA() {
   if (pathname === "/articles") return null;
 
   const slug = pathname.split("/").pop() || "";
-  const meta = getArticleMeta(slug);
-
-  const stackColor = meta?.stackColor ?? "#3D2E7C";
 
   // Biofuels & energy articles always funnel into the comparison tool
   if (BIOFUELS_SLUGS.has(slug)) {
@@ -283,41 +280,12 @@ export default function ArticleCTA() {
     );
   }
 
-  // Default: the free baseline tracker. The Five Stacks assessments are internal
-  // scaffolding, not the front-door offer — lead with the concrete product.
+  // Default (no specific tool branch): the in-body BaselineCTA already carries
+  // the free-tracker offer, so the closing slot is the Five Stacks Monthly
+  // newsletter — no duplicated baseline CTA.
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-16">
-      <div
-        className="p-8 rounded-lg text-white mt-12"
-        style={{ backgroundColor: stackColor }}
-      >
-        <h2 className="text-2xl font-bold mb-3">
-          Ready to put this into practice?
-        </h2>
-        <p className="text-white/80 mb-6">
-          Turn what you already have &mdash; energy bills, input invoices, records
-          &mdash; into a defensible baseline across 8 domains. Auto-calculated,
-          exportable, and yours to keep. Free, no lock-in.
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link
-            href="/tracker"
-            className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-            style={{ color: stackColor }}
-          >
-            Start Your Free Baseline
-          </Link>
-          <Link
-            href="/articles"
-            className="text-white/70 hover:text-white underline text-sm transition-colors"
-          >
-            Browse all guides
-          </Link>
-        </div>
-        <p className="text-sm text-white/60 mt-3">
-          Free forever. No signup to explore what it tracks.
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto px-6 pb-16 mt-12">
+      <NewsletterSignup />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Why Consumers Are Seeking Out Local Food (And What That Means for Your Farm)",
@@ -77,7 +77,7 @@ export default function ArticlePage() {
 
       {/* Mid-article Newsletter CTA */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}

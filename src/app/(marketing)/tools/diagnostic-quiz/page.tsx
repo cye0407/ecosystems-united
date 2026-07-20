@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 import { analytics } from "@/lib/analytics";
 
 const questions = [
@@ -294,7 +294,7 @@ export default function DiagnosticQuiz() {
           multi-site support.
         </p>
 
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     );
   }

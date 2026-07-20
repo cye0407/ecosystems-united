@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "ESG Reporting for Small Farms: A Practical Getting Started Guide",
@@ -120,7 +120,7 @@ export default function ArticlePage() {
 
       {/* Mid-article Newsletter */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}

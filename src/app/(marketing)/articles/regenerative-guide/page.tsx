@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "A Financial Framework for Regenerative Agriculture",
@@ -86,7 +86,7 @@ export default function RegenerativeGuidePage() {
 
       {/* Mid-article Newsletter */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}
@@ -201,7 +201,7 @@ export default function RegenerativeGuidePage() {
 
       {/* Newsletter */}
       <div className="mt-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Tillage Systems Compared: Conventional, Minimum, and No-Till Economics | Ecosystems United",
@@ -170,7 +170,7 @@ export default function ArticlePage() {
       </article>
 
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       <article className="prose prose-gray max-w-none">

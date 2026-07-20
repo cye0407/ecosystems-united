@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Biodiversity on the Farm: Measuring, Creating, and Monetizing Habitat",
@@ -89,7 +89,7 @@ export default function BiodiversityGuidePage() {
 
       {/* Mid-article Newsletter */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}
@@ -184,7 +184,7 @@ export default function BiodiversityGuidePage() {
 
       {/* Newsletter */}
       <div className="mt-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     </div>
   );

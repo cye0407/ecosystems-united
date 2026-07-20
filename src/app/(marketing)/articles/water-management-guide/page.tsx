@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "The Complete Guide to Water Management for Farms",
@@ -94,7 +94,7 @@ export default function WaterManagementGuidePage() {
 
       {/* Mid-article Newsletter */}
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       {/* Continue article */}
@@ -199,7 +199,7 @@ export default function WaterManagementGuidePage() {
 
       {/* Newsletter */}
       <div className="mt-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     </div>
   );

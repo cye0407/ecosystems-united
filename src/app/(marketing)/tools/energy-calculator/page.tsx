@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 type GasUnit = "kWh" | "m3";
 
@@ -618,7 +618,7 @@ export default function EnergyCalculatorPage() {
         </div>
       </section>
 
-      <NewsletterSignup />
+      <BaselineCTA />
     </div>
   );
 }

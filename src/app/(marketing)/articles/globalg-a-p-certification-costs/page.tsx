@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "The Real Cost of GlobalG.A.P. Certification (and How to Reduce It)",
@@ -109,7 +109,7 @@ export default function ArticlePage() {
       </article>
 
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       <article className="prose prose-gray max-w-none">
@@ -188,7 +188,7 @@ export default function ArticlePage() {
       </div>
 
       <div className="mt-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     </div>
   );

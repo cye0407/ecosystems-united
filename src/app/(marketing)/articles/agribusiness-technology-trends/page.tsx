@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -143,7 +143,7 @@ export default function ArticlePage() {
       </article>
 
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       <article className="prose prose-gray max-w-none">

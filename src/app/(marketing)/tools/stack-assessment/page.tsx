@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 const questions = [
   {
@@ -259,7 +259,7 @@ export default function StackAssessment() {
           The free plan includes the full 8-domain tracker, CSV exports, and multi-site support.
         </p>
 
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "GlobalG.A.P. GRASP: Worker Welfare Requirements Explained",
@@ -90,7 +90,7 @@ export default function ArticlePage() {
       </article>
 
       <div className="my-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
 
       <article className="prose prose-gray max-w-none">
@@ -177,7 +177,7 @@ export default function ArticlePage() {
       </div>
 
       <div className="mt-12">
-        <NewsletterSignup />
+        <BaselineCTA />
       </div>
     </div>
   );
