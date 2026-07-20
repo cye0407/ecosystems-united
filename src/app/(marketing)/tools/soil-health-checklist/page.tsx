@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 const questions = [
   // Part 1: Management Practices (5 questions)
@@ -230,8 +230,6 @@ export default function SoilHealthChecklist() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const [showEmailCapture, setShowEmailCapture] = useState(false);
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const handleAnswer = (score: number) => {
     const newAnswers = [...answers, score];
@@ -272,8 +270,6 @@ export default function SoilHealthChecklist() {
     setCurrentQuestion(0);
     setAnswers([]);
     setShowResults(false);
-    setShowEmailCapture(false);
-    setEmailSubmitted(false);
   };
 
   if (showResults) {
@@ -354,42 +350,23 @@ export default function SoilHealthChecklist() {
           </div>
         </div>
 
-        {/* Email Capture for Full Report */}
-        {!emailSubmitted ? (
-          <div className="bg-[#1a1a2e] rounded-lg p-6 mb-8 text-white">
-            <h3 className="font-semibold mb-2">Get your full report + tracking template</h3>
-            <p className="text-white/70 text-sm mb-4">
-              We'll send you a detailed PDF report with your results, plus a tracking template 
-              to monitor improvements over time.
-            </p>
-            {!showEmailCapture ? (
-              <button
-                onClick={() => setShowEmailCapture(true)}
-                className="w-full bg-[#4AA88C] text-white px-4 py-3 rounded font-medium hover:bg-[#3d8f76] transition-colors"
-              >
-                Get Full Report →
-              </button>
-            ) : (
-              <div className="space-y-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#4AA88C]"
-                />
-                <button
-                  onClick={() => setEmailSubmitted(true)}
-                  className="w-full bg-[#4AA88C] text-white px-4 py-3 rounded font-medium hover:bg-[#3d8f76] transition-colors"
-                >
-                  Send My Report
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
-            <p className="text-green-800 font-medium">✓ Report sent! Check your inbox.</p>
-          </div>
-        )}
+        {/* Take-it-with-you workbook */}
+        <div className="bg-[#1a1a2e] rounded-lg p-6 mb-8 text-white">
+          <h3 className="font-semibold mb-2">Take the full workbook with you</h3>
+          <p className="text-white/70 text-sm mb-4">
+            Get the branded Soil Microbial Health workbook to keep &mdash; all 14
+            checks with built-in scoring, the grade guide, an action plan by
+            score, and a season-over-season tracker to watch your soil biology
+            improve. Drop your email and download it now.
+          </p>
+          <GatedDownload
+            feature="soil-health-checklist"
+            fileUrl="/downloads/soil-microbial-health-checklist.xlsx"
+            fileName="Soil-Microbial-Health-Checklist.xlsx"
+            buttonLabel="Get the workbook"
+            downloadLabel="Download the workbook (.xlsx)"
+          />
+        </div>
 
         {/* Actions */}
         <div className="flex gap-4 mb-8">
