@@ -68,6 +68,13 @@ const calculators = [
     status: "available" as const,
   },
   {
+    name: "Resilience Exposure Calculator",
+    description:
+      "Where would a single disruption hurt most? Six numbers — customer and supplier concentration, buffers, runway, key-person risk — map your exposure and the fix for your weakest link.",
+    href: "/tools/resilience-exposure",
+    status: "available" as const,
+  },
+  {
     name: "Biofuel Feedstock Comparison",
     description:
       "Weight what matters — carbon, land use, scalability — and get the best-fit biofuel generation ranked for your operation, plus a workbook to take with you.",

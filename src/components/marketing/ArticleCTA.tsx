@@ -120,11 +120,11 @@ const EFFICIENCY_SLUGS = new Set([
 ]);
 
 const resilienceCTA = {
-  label: "Score your resilience — Free",
-  desc: "Could one disruption cascade through your operation? Score your resilience across single points of failure, contingency, and buffers in 3 minutes, see your weakest area, and take the Resilience Scorecard workbook with you.",
-  href: "/tools/resilience-assessment",
+  label: "Calculate your exposure — Free",
+  desc: "Could one disruption cascade through your operation? Six numbers reveal where you're most exposed — customer and supplier concentration, buffers, runway, key-person risk — with the fix for your weakest link and the workbook to keep.",
+  href: "/tools/resilience-exposure",
   color: "#9A8CD0",
-  footnote: "Free interactive scorecard. No signup to see your score.",
+  footnote: "Free interactive calculator. No signup to see your exposure.",
 };
 
 // Stack 4 — structural-resilience cluster (risk, finance, market, supply)
