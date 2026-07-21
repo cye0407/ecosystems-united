@@ -19,6 +19,7 @@
     "@tanstack/react-query": "^5.90.20",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
+    "esg-extract": "file:packages/esg-extract",
     "lucide-react": "^0.563.0",
     "next": "16.1.4",
     "react": "^19.2.0",

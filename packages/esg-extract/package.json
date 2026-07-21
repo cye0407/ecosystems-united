@@ -1,0 +1,48 @@
+{
+  "name": "esg-extract",
+  "version": "0.1.0",
+  "description": "Document extraction tool for ESG data — reads bills, manifests, and reports into structured data",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:lib": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:sme-stack": "tsx testing/run-sme-stress-stack.ts",
+    "test:sme-stack:ocr": "tsx testing/run-sme-stress-stack.ts --with-ocr",
+    "test:sme-acceptance": "tsx testing/run-sme-acceptance.ts",
+    "test:sme-acceptance:ocr": "tsx testing/run-sme-acceptance.ts --with-ocr"
+  },
+  "dependencies": {},
+  "optionalDependencies": {
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "exceljs": "^4.4.0",
+    "jspdf": "^4.2.1",
+    "pdfjs-dist": "^5.6.205",
+    "puppeteer": "^24.42.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "seedrandom": "^3.0.5",
+    "sharp": "^0.33.2",
+    "tesseract.js": "^5.1.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vite": "^8.0.8",
+    "vitest": "^4.0.0"
+  },
+  "license": "UNLICENSED"
+}
