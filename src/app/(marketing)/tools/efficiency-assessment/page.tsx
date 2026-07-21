@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
+import GatedDownload from "@/components/marketing/GatedDownload";
 
 const questions = [
   "Do you know your top 3 operational costs as a percentage of revenue?",
@@ -109,6 +110,23 @@ export default function EfficiencyAssessmentPage() {
         <div className="bg-gray-50 rounded-lg p-6 mb-8">
           <h2 className="font-semibold text-gray-900 mb-2">Recommendation</h2>
           <p className="text-gray-600">{result.recommendation}</p>
+        </div>
+
+        {/* Take-it-with-you scorecard */}
+        <div className="bg-[#1a1a2e] rounded-lg p-6 mb-8 text-white">
+          <h2 className="font-semibold mb-2">Take the Efficiency Scorecard with you</h2>
+          <p className="text-white/70 text-sm mb-4">
+            Get the branded workbook to keep &mdash; all 10 checks with built-in
+            scoring, a score guide, an action plan by band, and a quarterly
+            tracker. Drop your email and download it now.
+          </p>
+          <GatedDownload
+            feature="efficiency-scorecard"
+            fileUrl="/downloads/farm-efficiency-scorecard.xlsx"
+            fileName="Farm-Efficiency-Scorecard.xlsx"
+            buttonLabel="Get the scorecard"
+            downloadLabel="Download the scorecard (.xlsx)"
+          />
         </div>
 
         <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">

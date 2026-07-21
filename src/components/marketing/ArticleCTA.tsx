@@ -94,6 +94,53 @@ const REGEN_ECONOMICS_SLUGS = new Set([
   "composting-nutrient-cycling-roi",
 ]);
 
+const efficiencyCTA = {
+  label: "Score your operation — Free",
+  desc: "You can't fix leaks you can't see. Score your operation across cost, energy, water, and process in 3 minutes, get your weakest area, and take the Efficiency Scorecard workbook with you to work the fixes.",
+  href: "/tools/efficiency-assessment",
+  color: "#5B4A9E",
+  footnote: "Free interactive scorecard. No signup to see your score.",
+};
+
+// Stack 2 — operational-efficiency cluster (water, energy, drainage, inputs)
+const EFFICIENCY_SLUGS = new Set([
+  "water-management-guide",
+  "water-quality-management-farms",
+  "water-recycling-efficiency",
+  "rainwater-harvesting-agriculture",
+  "agricultural-irrigation",
+  "irrigation-system-planning",
+  "precision-irrigation-technology",
+  "agricultural-drainage",
+  "subsurface-drainage-design",
+  "nutrient-management-planning",
+  "tillage-systems-compared",
+  "soil-compaction-management",
+  "value-chains-economic-efficiency",
+]);
+
+const resilienceCTA = {
+  label: "Score your resilience — Free",
+  desc: "Could one disruption cascade through your operation? Score your resilience across single points of failure, contingency, and buffers in 3 minutes, see your weakest area, and take the Resilience Scorecard workbook with you.",
+  href: "/tools/resilience-assessment",
+  color: "#9A8CD0",
+  footnote: "Free interactive scorecard. No signup to see your score.",
+};
+
+// Stack 4 — structural-resilience cluster (risk, finance, market, supply)
+const RESILIENCE_SLUGS = new Set([
+  "resilience-guide",
+  "climate-risk-assessment-farms",
+  "crop-diversification-risk",
+  "farm-insurance-climate-adaptation",
+  "farm-succession-planning",
+  "financial-resilience-farm-operations",
+  "small-farm-financial-planning",
+  "market-volatility-strategies",
+  "supply-chain-resilience-agriculture",
+  "drought-resilience-water-management",
+]);
+
 function isEcolabelArticle(slug: string): boolean {
   return slug.includes("ecolabel") || slug.includes("eco-label");
 }
@@ -203,6 +250,72 @@ export default function ArticleCTA() {
             </Link>
           </div>
           <p className="text-sm text-white/60 mt-3">{regenEconomicsCTA.footnote}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Stack 2 efficiency articles funnel into the Efficiency Scorecard
+  if (EFFICIENCY_SLUGS.has(slug)) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div
+          className="p-8 rounded-lg text-white mt-12"
+          style={{ backgroundColor: efficiencyCTA.color }}
+        >
+          <h2 className="text-2xl font-bold mb-3">
+            Where is your operation leaking value?
+          </h2>
+          <p className="text-white/80 mb-6">{efficiencyCTA.desc}</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={efficiencyCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: efficiencyCTA.color }}
+            >
+              {efficiencyCTA.label}
+            </Link>
+            <Link
+              href="/tracker"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              See what the tracker includes
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">{efficiencyCTA.footnote}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Stack 4 resilience articles funnel into the Resilience Scorecard
+  if (RESILIENCE_SLUGS.has(slug)) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div
+          className="p-8 rounded-lg text-white mt-12"
+          style={{ backgroundColor: resilienceCTA.color }}
+        >
+          <h2 className="text-2xl font-bold mb-3">
+            Could one disruption break you?
+          </h2>
+          <p className="text-white/80 mb-6">{resilienceCTA.desc}</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={resilienceCTA.href}
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: resilienceCTA.color }}
+            >
+              {resilienceCTA.label}
+            </Link>
+            <Link
+              href="/tracker"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              See what the tracker includes
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">{resilienceCTA.footnote}</p>
         </div>
       </div>
     );
