@@ -15,6 +15,7 @@ import {
 } from '@phosphor-icons/react';
 import { Card, CardTitle, ProgressBar, Button, Select } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
+import AddDataModal from '@/components/app/AddDataModal';
 import { useDataStore } from '@/stores/dataStore';
 import { cn } from '@/lib/utils/cn';
 import { isAgriculturalIndustry } from '@/lib/utils/industry';
@@ -214,6 +215,7 @@ export default function DataOverviewPage() {
   } = useDataStore();
 
   const [selectedSite, setSelectedSite] = useState('all');
+  const [addOpen, setAddOpen] = useState(false);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
 
   // Calculate stats for each domain
@@ -294,12 +296,14 @@ export default function DataOverviewPage() {
             options={yearOptions}
             className="w-28"
           />
-          <Button>
+          <Button onClick={() => setAddOpen(true)}>
             <Plus className="w-4 h-4 mr-2" weight="bold" />
             Add Data
           </Button>
         </div>
       </div>
+
+      <AddDataModal open={addOpen} onClose={() => setAddOpen(false)} />
 
       {/* Domain Grid */}
       {domainSections ? (
