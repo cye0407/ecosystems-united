@@ -24,6 +24,14 @@ export interface PracticeDef {
   label: string;
   /** Why this practice earns its place, grounded in a source. */
   why: string;
+  /** Concrete upsides. */
+  pros: string[];
+  /** Honest downsides / risks. */
+  cons: string[];
+  /** First concrete "do this" step to get started. */
+  howTo: string;
+  /** Optional selection guidance (used for cover-crop species). */
+  choose?: { heading: string; options: { name: string; goodFor: string }[] };
   sourceIds: string[];
   /** Rank for sequencing when recommending what to add next (lower = sooner). */
   priority: number;
@@ -33,14 +41,48 @@ export const PRACTICES: PracticeDef[] = [
   {
     key: "coverCrops",
     label: "Cover crops",
-    why: "Keeping living roots and cover through the shoulder seasons is the fastest lever on infiltration and fertiliser need — and the practice most funding schemes pay for.",
+    why: "Keeping living roots and cover through the shoulder seasons is the fastest lever on infiltration and fertiliser need, and the practice most funding schemes pay for.",
+    pros: [
+      "Cuts fertiliser need over time — legumes fix nitrogen, and cover reduces leaching losses.",
+      "Improves water infiltration and holds soil, so heavy rain does less damage.",
+      "Suppresses weeds, which can lower herbicide spend.",
+      "The single most commonly funded soil-health action, so it is often part-paid for you.",
+    ],
+    cons: [
+      "An extra establishment cost (seed + a pass) before the savings show up.",
+      "Termination has to be planned so it does not delay or compete with your cash crop.",
+      "Benefits build over seasons; year one is mostly cost.",
+    ],
+    howTo:
+      "Pick one rotation gap (after an early-harvested crop) and drill a simple mix into it this season. Prove it on that slot before scaling.",
+    choose: {
+      heading: "Which cover crop? It depends on your goal and rotation slot",
+      options: [
+        { name: "Legumes (clover, vetch)", goodFor: "fixing nitrogen for the next crop" },
+        { name: "Grasses / cereals (rye, oats)", goodFor: "fast ground cover and catching leftover nitrogen" },
+        { name: "Brassicas (radish, mustard)", goodFor: "breaking compaction with deep roots" },
+        { name: "Diverse mixes", goodFor: "several benefits at once and the widest funding eligibility" },
+      ],
+    },
     sourceIds: ["sare_cover_crops", "usda_soil_health", "ahdb_soil"],
     priority: 1,
   },
   {
     key: "reducedTill",
     label: "Reduced / no-till",
-    why: "Cutting disturbance protects the soil structure and biology your other practices are building, but phase it in — an abrupt switch can dent yield before it recovers.",
+    why: "Cutting disturbance protects the soil structure and biology your other practices are building, but phase it in: an abrupt switch can dent yield before it recovers.",
+    pros: [
+      "Lower fuel, labour, and machinery wear per pass you drop.",
+      "Protects soil structure, organic matter, and earthworms.",
+      "Better water infiltration and less erosion once established.",
+    ],
+    cons: [
+      "Can dip yield in the first year or two while soil biology adjusts.",
+      "May need a one-off investment in a direct drill or contractor.",
+      "Weed and residue management change, and need thinking through.",
+    ],
+    howTo:
+      "Do not switch the whole farm. Move one field to reduced tillage, keep the rest as your control, and compare for a season.",
     sourceIds: ["usda_soil_health", "ahdb_soil"],
     priority: 2,
   },
@@ -48,6 +90,17 @@ export const PRACTICES: PracticeDef[] = [
     key: "rotation",
     label: "Diverse rotation",
     why: "Diversity breaks pest and disease cycles and spreads market risk across more than one crop — the resilience half of the compounding engine.",
+    pros: [
+      "Breaks pest, disease, and weed cycles, lowering input reliance.",
+      "Spreads market and weather risk across more than one crop.",
+      "A legume or break crop can cut the following crop's nitrogen need.",
+    ],
+    cons: [
+      "A lower-margin break crop can reduce income in its year.",
+      "Needs planning and sometimes new markets or storage.",
+    ],
+    howTo:
+      "Add one break or legume crop into your current sequence on part of the farm, and track the effect on the following crop's inputs.",
     sourceIds: ["usda_soil_health", "rodale_fst"],
     priority: 3,
   },
@@ -55,6 +108,18 @@ export const PRACTICES: PracticeDef[] = [
     key: "compost",
     label: "Compost / manure",
     why: "Organic amendments feed soil biology and recycle nutrients you'd otherwise buy in, but they are the slowest-compounding of the four — layer them on once the cheaper levers are running.",
+    pros: [
+      "Recycles nutrients you would otherwise purchase.",
+      "Builds organic matter and feeds soil biology directly.",
+      "Improves water-holding capacity over time.",
+    ],
+    cons: [
+      "Bulky and costly to haul and spread at scale.",
+      "Nutrient content varies, so it is harder to dose precisely.",
+      "Slowest of the four to show a return.",
+    ],
+    howTo:
+      "Source local manure or compost and target your lowest-organic-matter field first, where the response will be clearest.",
     sourceIds: ["fao_gsp", "rodale_fst"],
     priority: 4,
   },

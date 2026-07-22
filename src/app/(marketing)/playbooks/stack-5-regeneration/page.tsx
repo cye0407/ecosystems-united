@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import { computeRoi, formatSignedEur, formatEur } from "@/lib/playbooks/roi-model";
+import {
+  computeRoi,
+  formatSignedEur,
+  formatEur,
+  type RoiYearRow,
+} from "@/lib/playbooks/roi-model";
 import { PRACTICES, getStack5Funding } from "@/lib/playbooks/stack-5";
+import { SOURCE_LEDGER } from "@/lib/playbooks/source-ledger";
 import { REGION_LABELS } from "@/lib/playbooks/types";
 import type { Region } from "@/lib/playbooks";
 
@@ -14,7 +20,12 @@ const HANDOFF_KEY = "eu:playbook:stack-5";
 const SEED_KEY = "eu:passport:seed";
 
 const REGIONS: Region[] = ["eu", "uk", "us", "other"];
-const SEASONS = ["This autumn", "This spring", "Next season", "Not sure yet"];
+const QUARTERS = ["Q1 (Jan–Mar)", "Q2 (Apr–Jun)", "Q3 (Jul–Sep)", "Q4 (Oct–Dec)"];
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+const START_YEARS = ["2026", "2027", "2028"];
 
 interface HandoffData {
   hectares?: number;
@@ -23,28 +34,69 @@ interface HandoffData {
   grossMarginPerHa?: number;
 }
 
+// --- J-curve visualization -------------------------------------------------
+function JCurveChart({ rows, accent }: { rows: RoiYearRow[]; accent: string }) {
+  const W = 340, H = 170, padX = 30, padTop = 12, padBottom = 26;
+  const vals = rows.map((r) => r.cumulative);
+  const max = Math.max(...vals, 0);
+  const min = Math.min(...vals, 0);
+  const range = max - min || 1;
+  const plotH = H - padTop - padBottom;
+  const x = (i: number) => padX + (i / (rows.length - 1)) * (W - padX - 8);
+  const y = (v: number) => padTop + (1 - (v - min) / range) * plotH;
+  const zeroY = y(0);
+  const linePts = rows.map((r, i) => `${x(i)},${y(r.cumulative)}`).join(" ");
+  const areaPts = `${x(0)},${zeroY} ${linePts} ${x(rows.length - 1)},${zeroY}`;
+  const payback = rows.find((r) => r.cumulative >= 0);
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img"
+      aria-label="Cumulative net return by year">
+      {/* zero baseline */}
+      <line x1={padX} y1={zeroY} x2={W - 8} y2={zeroY} stroke="#9CA3AF"
+        strokeDasharray="3 3" strokeWidth="1" />
+      <text x={4} y={zeroY + 3} fontSize="9" fill="#9CA3AF">€0</text>
+      {/* area + line */}
+      <polygon points={areaPts} fill={accent} opacity="0.10" />
+      <polyline points={linePts} fill="none" stroke={accent} strokeWidth="2" />
+      {/* payback marker */}
+      {payback && (
+        <g>
+          <circle cx={x(payback.year - 1)} cy={y(payback.cumulative)} r="3.5"
+            fill={accent} />
+          <text x={x(payback.year - 1)} y={y(payback.cumulative) - 7}
+            fontSize="9" fill={accent} textAnchor="middle" fontWeight="600">
+            payback
+          </text>
+        </g>
+      )}
+      {/* x labels */}
+      {[0, 4, 9].map((i) => (
+        <text key={i} x={x(i)} y={H - 8} fontSize="9" fill="#6B7280"
+          textAnchor="middle">Yr {i + 1}</text>
+      ))}
+    </svg>
+  );
+}
+
 export default function Stack5Worksheet() {
   const router = useRouter();
+  const playbookRef = useRef<HTMLDivElement>(null);
 
-  // Step 1 — land
   const [hectares, setHectares] = useState(100);
   const [region, setRegion] = useState<Region>("eu");
-  // Step 2 — baseline
   const [inputSpend, setInputSpend] = useState("350");
   const [grossMargin, setGrossMargin] = useState("800");
   const [running, setRunning] = useState<string[]>(["coverCrops"]);
-  // Step 3 — what to add
   const [adding, setAdding] = useState<string[]>(["reducedTill"]);
   const [includeCarbon, setIncludeCarbon] = useState(false);
-  // Step 4 — first move
   const [field, setField] = useState("");
   const [fieldHa, setFieldHa] = useState("");
-  const [season, setSeason] = useState(SEASONS[0]);
-  const [committed, setCommitted] = useState(false);
-  // Step 5 — funding
+  const [startPeriod, setStartPeriod] = useState(QUARTERS[3]);
+  const [startYear, setStartYear] = useState(START_YEARS[0]);
   const [fundingChosen, setFundingChosen] = useState<string[]>([]);
-
   const [cameFromTool, setCameFromTool] = useState(false);
+  const [showPlaybook, setShowPlaybook] = useState(false);
 
   useEffect(() => {
     try {
@@ -52,12 +104,9 @@ export default function Stack5Worksheet() {
       if (raw) {
         const d: HandoffData = JSON.parse(raw);
         if (typeof d.hectares === "number" && d.hectares > 0) setHectares(d.hectares);
-        if (typeof d.inputSpendPerHa === "number")
-          setInputSpend(String(d.inputSpendPerHa));
-        if (typeof d.grossMarginPerHa === "number")
-          setGrossMargin(String(d.grossMarginPerHa));
+        if (typeof d.inputSpendPerHa === "number") setInputSpend(String(d.inputSpendPerHa));
+        if (typeof d.grossMarginPerHa === "number") setGrossMargin(String(d.grossMarginPerHa));
         if (Array.isArray(d.practices) && d.practices.length > 0) {
-          // First carried practice becomes "already running"; rest are the plan.
           setRunning([d.practices[0]]);
           setAdding(d.practices.slice(1));
         }
@@ -69,16 +118,9 @@ export default function Stack5Worksheet() {
     analytics.track("playbook_worksheet_opened", { stack: 5 });
   }, []);
 
-  const toggle = (
-    list: string[],
-    setList: (v: string[]) => void,
-    key: string,
-  ) =>
-    setList(
-      list.includes(key) ? list.filter((k) => k !== key) : [...list, key],
-    );
+  const toggle = (list: string[], setList: (v: string[]) => void, key: string) =>
+    setList(list.includes(key) ? list.filter((k) => k !== key) : [...list, key]);
 
-  // A practice can't be both "running" and "adding".
   const startRunning = (key: string) => {
     toggle(running, setRunning, key);
     setAdding((a) => a.filter((k) => k !== key));
@@ -99,39 +141,43 @@ export default function Stack5Worksheet() {
         inputSpendPerHa: spend,
         grossMarginPerHa: margin,
         numPractices: totalPractices,
-        carbon: includeCarbon
-          ? { pricePerTonne: 30, seqRatePerHa: 0.5 }
-          : undefined,
+        carbon: includeCarbon ? { pricePerTonne: 30, seqRatePerHa: 0.5 } : undefined,
       }),
     [hectares, spend, margin, totalPractices, includeCarbon],
   );
 
-  // What we'd recommend adding next: highest-priority practice not yet in play.
   const inPlay = new Set([...running, ...adding]);
   const recommendedKey = PRACTICES.filter((p) => !inPlay.has(p.key)).sort(
     (a, b) => a.priority - b.priority,
   )[0]?.key;
 
   const funding = getStack5Funding(region);
-  const labelFor = (key: string) =>
-    PRACTICES.find((p) => p.key === key)?.label ?? key;
+  const labelFor = (key: string) => PRACTICES.find((p) => p.key === key)?.label ?? key;
   const firstAddLabel = adding[0] ? labelFor(adding[0]) : "your next practice";
-
   const numbersReady = spend > 0 && totalPractices > 0;
+  const inPlayPractices = PRACTICES.filter((p) => inPlay.has(p.key)).sort(
+    (a, b) => a.priority - b.priority,
+  );
+  const startWhen = `${startPeriod.replace(/ \(.*\)/, "")} ${startYear}`;
+
+  const buildPlaybook = () => {
+    setShowPlaybook(true);
+    analytics.track("playbook_generated", { stack: 5, payback: roi.paybackYear });
+    setTimeout(
+      () => playbookRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      50,
+    );
+  };
 
   const handleConvert = () => {
     const seed = {
       stack: 5,
       hectares,
       region,
-      baseline: {
-        inputSpendPerHa: spend,
-        grossMarginPerHa: margin,
-        practices: running,
-      },
+      baseline: { inputSpendPerHa: spend, grossMarginPerHa: margin, practices: running },
       adding,
       firstMove: field
-        ? { field, hectares: parseFloat(fieldHa) || null, season }
+        ? { field, hectares: parseFloat(fieldHa) || null, start: startWhen }
         : null,
       funding: fundingChosen,
       roi: {
@@ -151,15 +197,10 @@ export default function Stack5Worksheet() {
     router.push("/onboarding?from=playbook&stack=5");
   };
 
-  // -- small presentational helpers --------------------------------------
   const stepHead = (n: number, title: string, sub?: string) => (
     <div className="flex items-start gap-3 mb-4">
-      <div
-        className="w-7 h-7 shrink-0 rounded-full text-white flex items-center justify-center text-sm font-bold"
-        style={{ backgroundColor: ACCENT }}
-      >
-        {n}
-      </div>
+      <div className="w-7 h-7 shrink-0 rounded-full text-white flex items-center justify-center text-sm font-bold"
+        style={{ backgroundColor: ACCENT }}>{n}</div>
       <div>
         <h2 className="font-semibold text-gray-900 leading-tight">{title}</h2>
         {sub && <p className="text-sm text-gray-500 mt-0.5">{sub}</p>}
@@ -168,32 +209,17 @@ export default function Stack5Worksheet() {
   );
 
   const chip = (key: string, active: boolean, onClick: () => void, star = false) => (
-    <button
-      key={key}
-      type="button"
-      onClick={onClick}
+    <button key={key} type="button" onClick={onClick}
       className={`relative flex items-center gap-2 py-2 px-3 rounded-md border text-left text-sm font-medium transition-colors ${
-        active
-          ? "text-white"
-          : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
+        active ? "text-white" : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
       }`}
-      style={active ? { backgroundColor: ACCENT, borderColor: ACCENT } : undefined}
-    >
-      <span
-        className={`inline-flex items-center justify-center w-4 h-4 rounded border text-[10px] ${
-          active ? "border-white/70" : "border-gray-300"
-        }`}
-      >
-        {active ? "✓" : ""}
-      </span>
+      style={active ? { backgroundColor: ACCENT, borderColor: ACCENT } : undefined}>
+      <span className={`inline-flex items-center justify-center w-4 h-4 rounded border text-[10px] ${
+        active ? "border-white/70" : "border-gray-300"}`}>{active ? "✓" : ""}</span>
       {labelFor(key)}
       {star && !active && (
-        <span
-          className="absolute -top-2 -right-2 text-[10px] font-semibold text-white px-1.5 py-0.5 rounded-full"
-          style={{ backgroundColor: ACCENT }}
-        >
-          start here
-        </span>
+        <span className="absolute -top-2 -right-2 text-[10px] font-semibold text-white px-1.5 py-0.5 rounded-full"
+          style={{ backgroundColor: ACCENT }}>start here</span>
       )}
     </button>
   );
@@ -204,28 +230,24 @@ export default function Stack5Worksheet() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <nav className="mb-6">
-        <Link
-          href="/tools/regenerative-roi"
-          className="text-sm font-medium text-gray-500 hover:text-gray-800"
-        >
+        <Link href="/tools/regenerative-roi"
+          className="text-sm font-medium text-gray-500 hover:text-gray-800">
           &larr; Back to the ROI calculator
         </Link>
       </nav>
 
       <header className="mb-8">
-        <span
-          className="text-xs font-semibold uppercase tracking-wide"
-          style={{ color: ACCENT }}
-        >
+        <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
           Stack 5 &middot; The Compounding Engine
         </span>
         <h1 className="text-3xl font-bold text-gray-900 mt-2 mb-2">
           Let&apos;s build your regenerative plan
         </h1>
         <p className="text-gray-600">
-          Answer as you go. Your plan and your numbers update live on the right,
-          and nothing here is homework: what you fill in becomes your Passport at
-          the end, so you only enter it once.
+          Answer as you go. Your numbers update live on the right. Then generate a
+          full, personalized playbook with the practices, the money, and your first
+          move laid out. Nothing here is wasted: what you enter becomes your Passport
+          when you&apos;re ready.
         </p>
         {cameFromTool && (
           <p className="mt-2 text-sm font-medium" style={{ color: ACCENT }}>
@@ -234,39 +256,24 @@ export default function Stack5Worksheet() {
         )}
       </header>
 
+      {/* ================= PHASE 1: INTAKE ================= */}
       <div className="grid lg:grid-cols-[1fr_20rem] gap-8 items-start">
-        {/* ---- Worksheet steps ---- */}
         <div className="space-y-6">
           {/* Step 1 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             {stepHead(1, "Your land", "The basics we size everything to.")}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Working area (hectares)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={hectares}
+                <label className="block text-sm text-gray-600 mb-1">Working area (hectares)</label>
+                <input type="number" min="0" value={hectares}
                   onChange={(e) => setHectares(parseFloat(e.target.value) || 0)}
-                  className={inputCls}
-                  style={{ outlineColor: ACCENT }}
-                />
+                  className={inputCls} style={{ outlineColor: ACCENT }} />
               </div>
               <div>
                 <label className="block text-sm text-gray-600 mb-1">Region</label>
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value as Region)}
-                  className={`${inputCls} bg-white`}
-                  style={{ outlineColor: ACCENT }}
-                >
-                  {REGIONS.map((r) => (
-                    <option key={r} value={r}>
-                      {REGION_LABELS[r]}
-                    </option>
-                  ))}
+                <select value={region} onChange={(e) => setRegion(e.target.value as Region)}
+                  className={`${inputCls} bg-white`} style={{ outlineColor: ACCENT }}>
+                  {REGIONS.map((r) => <option key={r} value={r}>{REGION_LABELS[r]}</option>)}
                 </select>
               </div>
             </div>
@@ -274,49 +281,26 @@ export default function Stack5Worksheet() {
 
           {/* Step 2 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(
-              2,
-              "Where you're starting today",
-              "Your real numbers now. This is your baseline, and the start line we measure progress from.",
-            )}
+            {stepHead(2, "Where you're starting today",
+              "Your real numbers now. This is your baseline, and the start line we measure progress from.")}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Input spend (€/ha/yr)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={inputSpend}
-                  onChange={(e) => setInputSpend(e.target.value)}
-                  className={inputCls}
-                  style={{ outlineColor: ACCENT }}
-                />
-                <p className="text-xs text-gray-400 mt-1">
-                  Fertiliser + crop protection
-                </p>
+                <label className="block text-sm text-gray-600 mb-1">Input spend (€/ha/yr)</label>
+                <input type="number" min="0" value={inputSpend}
+                  onChange={(e) => setInputSpend(e.target.value)} className={inputCls}
+                  style={{ outlineColor: ACCENT }} />
+                <p className="text-xs text-gray-400 mt-1">Fertiliser + crop protection</p>
               </div>
               <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Gross margin (€/ha/yr)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={grossMargin}
-                  onChange={(e) => setGrossMargin(e.target.value)}
-                  className={inputCls}
-                  style={{ outlineColor: ACCENT }}
-                />
+                <label className="block text-sm text-gray-600 mb-1">Gross margin (€/ha/yr)</label>
+                <input type="number" min="0" value={grossMargin}
+                  onChange={(e) => setGrossMargin(e.target.value)} className={inputCls}
+                  style={{ outlineColor: ACCENT }} />
               </div>
             </div>
-            <label className="block text-sm text-gray-600 mb-2">
-              Which of these do you already run?
-            </label>
+            <label className="block text-sm text-gray-600 mb-2">Which of these do you already run?</label>
             <div className="grid grid-cols-2 gap-2">
-              {PRACTICES.map((p) =>
-                chip(p.key, running.includes(p.key), () => startRunning(p.key)),
-              )}
+              {PRACTICES.map((p) => chip(p.key, running.includes(p.key), () => startRunning(p.key)))}
             </div>
             <p className="text-sm text-gray-500 mt-3">
               {running.length === 0
@@ -329,230 +313,334 @@ export default function Stack5Worksheet() {
 
           {/* Step 3 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(
-              3,
-              "Choose what to add next",
-              "Toggle a practice and watch the numbers on the right move. Start with the one marked.",
-            )}
+            {stepHead(3, "Choose what to add next",
+              "Toggle a practice and watch the numbers on the right move. Start with the one marked.")}
             <div className="grid grid-cols-2 gap-2 mb-4">
               {PRACTICES.filter((p) => !running.includes(p.key)).map((p) =>
-                chip(
-                  p.key,
-                  adding.includes(p.key),
-                  () => startAdding(p.key),
-                  p.key === recommendedKey,
-                ),
-              )}
+                chip(p.key, adding.includes(p.key), () => startAdding(p.key), p.key === recommendedKey))}
             </div>
             {adding[0] && (
               <p className="text-sm text-gray-600 mb-4">
-                <span className="font-medium text-gray-800">
-                  {firstAddLabel}:
-                </span>{" "}
+                <span className="font-medium text-gray-800">{firstAddLabel}:</span>{" "}
                 {PRACTICES.find((p) => p.key === adding[0])?.why}
               </p>
             )}
             <label className="flex items-center gap-3 text-sm text-gray-700 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={includeCarbon}
-                onChange={(e) => setIncludeCarbon(e.target.checked)}
-                className="w-4 h-4"
-                style={{ accentColor: ACCENT }}
-              />
+              <input type="checkbox" checked={includeCarbon}
+                onChange={(e) => setIncludeCarbon(e.target.checked)} className="w-4 h-4"
+                style={{ accentColor: ACCENT }} />
               Include carbon income as upside (unverified, from year 2)
             </label>
             {includeCarbon && (
               <p className="text-xs text-gray-500 mt-2 bg-amber-50 border border-amber-200 rounded p-3">
-                Carbon revenue needs additionality and third-party verification.
-                Treat it as a bonus you might earn, never a line you can bank.
+                Carbon revenue needs additionality and third-party verification. Treat it as a
+                bonus you might earn, never a line you can bank.
               </p>
             )}
           </section>
 
           {/* Step 4 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(
-              4,
-              "Commit to a first move",
-              "Real transitions start on one field, not the whole farm. Pick where to trial it.",
-            )}
+            {stepHead(4, "Commit to a first move",
+              "Real transitions start on one field, not the whole farm. Pick where and when.")}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               <div className="sm:col-span-2">
-                <label className="block text-sm text-gray-600 mb-1">
-                  Which field first?
-                </label>
-                <input
-                  type="text"
-                  value={field}
-                  onChange={(e) => setField(e.target.value)}
-                  placeholder="e.g. North 12"
-                  className={inputCls}
-                  style={{ outlineColor: ACCENT }}
-                />
+                <label className="block text-sm text-gray-600 mb-1">Which field first?</label>
+                <input type="text" value={field} onChange={(e) => setField(e.target.value)}
+                  placeholder="e.g. North 12" className={inputCls} style={{ outlineColor: ACCENT }} />
               </div>
               <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Size (ha)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={fieldHa}
-                  onChange={(e) => setFieldHa(e.target.value)}
-                  className={inputCls}
-                  style={{ outlineColor: ACCENT }}
-                />
+                <label className="block text-sm text-gray-600 mb-1">Size (ha)</label>
+                <input type="number" min="0" value={fieldHa}
+                  onChange={(e) => setFieldHa(e.target.value)} className={inputCls}
+                  style={{ outlineColor: ACCENT }} />
               </div>
             </div>
-            <label className="block text-sm text-gray-600 mb-1">When?</label>
-            <select
-              value={season}
-              onChange={(e) => setSeason(e.target.value)}
-              className={`${inputCls} bg-white mb-4`}
-              style={{ outlineColor: ACCENT }}
-            >
-              {SEASONS.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-            {field && (
-              <label className="flex items-start gap-3 text-sm bg-gray-50 rounded-md p-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={committed}
-                  onChange={(e) => setCommitted(e.target.checked)}
-                  className="w-4 h-4 mt-0.5"
-                  style={{ accentColor: ACCENT }}
-                />
-                <span className="text-gray-700">
-                  I&apos;ll trial{" "}
-                  <span className="font-medium">{firstAddLabel.toLowerCase()}</span>{" "}
-                  on <span className="font-medium">{field}</span>
-                  {fieldHa ? ` (${fieldHa} ha)` : ""} — {season.toLowerCase()}.
-                </span>
-              </label>
-            )}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Start (month or quarter)</label>
+                <select value={startPeriod} onChange={(e) => setStartPeriod(e.target.value)}
+                  className={`${inputCls} bg-white`} style={{ outlineColor: ACCENT }}>
+                  <optgroup label="By quarter">
+                    {QUARTERS.map((q) => <option key={q}>{q}</option>)}
+                  </optgroup>
+                  <optgroup label="By month">
+                    {MONTHS.map((m) => <option key={m}>{m}</option>)}
+                  </optgroup>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Year</label>
+                <select value={startYear} onChange={(e) => setStartYear(e.target.value)}
+                  className={`${inputCls} bg-white`} style={{ outlineColor: ACCENT }}>
+                  {START_YEARS.map((y) => <option key={y}>{y}</option>)}
+                </select>
+              </div>
+            </div>
           </section>
 
           {/* Step 5 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(
-              5,
-              "Claim the funding",
-              `What pays for this where you farm (${REGION_LABELS[region]}).`,
-            )}
-            {funding.programs.length > 0 ? (
+            {stepHead(5, "Claim the funding", `What pays for this where you farm (${REGION_LABELS[region]}).`)}
+            {funding.programs.length > 0 && (
               <div className="space-y-3">
-                {funding.programs.map((p) => (
-                  <label
-                    key={p.name}
-                    className="flex items-start gap-3 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={fundingChosen.includes(p.name)}
-                      onChange={() =>
-                        toggle(fundingChosen, setFundingChosen, p.name)
-                      }
-                      className="w-4 h-4 mt-1"
-                      style={{ accentColor: ACCENT }}
-                    />
-                    <span>
-                      <span className="font-semibold text-gray-900 text-sm">
-                        {p.name}
+                {funding.programs.map((p) => {
+                  const url = SOURCE_LEDGER[p.sourceId]?.url;
+                  return (
+                    <label key={p.name} className="flex items-start gap-3 cursor-pointer">
+                      <input type="checkbox" checked={fundingChosen.includes(p.name)}
+                        onChange={() => toggle(fundingChosen, setFundingChosen, p.name)}
+                        className="w-4 h-4 mt-1" style={{ accentColor: ACCENT }} />
+                      <span>
+                        <span className="font-semibold text-gray-900 text-sm">{p.name}</span>
+                        <span className="block text-sm text-gray-600">{p.snippet}</span>
+                        {url && (
+                          <a href={url} target="_blank" rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-sm font-medium hover:underline" style={{ color: ACCENT }}>
+                            Open the scheme &rarr;
+                          </a>
+                        )}
                       </span>
-                      <span className="block text-sm text-gray-600">
-                        {p.snippet}
-                      </span>
-                    </span>
-                  </label>
-                ))}
+                    </label>
+                  );
+                })}
               </div>
-            ) : null}
+            )}
             <p className="text-sm text-gray-500 mt-3">{funding.note}</p>
           </section>
         </div>
 
-        {/* ---- Live plan panel ---- */}
+        {/* Live panel */}
         <aside className="lg:sticky lg:top-24 self-start">
           <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-            <h2 className="font-bold text-gray-900 mb-1">Your plan so far</h2>
-            <p className="text-xs text-gray-500 mb-4">
-              Directional, and updating as you go.
-            </p>
-
+            <h2 className="font-bold text-gray-900 mb-1">Your numbers, live</h2>
+            <p className="text-xs text-gray-500 mb-4">Directional, updating as you go.</p>
             {numbersReady ? (
-              <div className="space-y-3 mb-4">
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm text-gray-600">Payback</span>
-                  <span className="font-bold text-gray-900">
-                    {roi.paybackYear ? `Year ${roi.paybackYear}` : "10y+"}
-                  </span>
+              <>
+                <div className="mb-3"><JCurveChart rows={roi.rows} accent={ACCENT} /></div>
+                <div className="space-y-2 mb-4">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-sm text-gray-600">Payback</span>
+                    <span className="font-bold text-gray-900">
+                      {roi.paybackYear ? `Year ${roi.paybackYear}` : "10y+"}</span>
+                  </div>
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-sm text-gray-600">Input saving, yr 5</span>
+                    <span className="font-bold" style={{ color: ACCENT }}>
+                      {formatEur(roi.year5Savings)}/yr</span>
+                  </div>
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-sm text-gray-600">10-year net</span>
+                    <span className="font-bold"
+                      style={{ color: roi.tenYearNet >= 0 ? ACCENT : "#B4413C" }}>
+                      {formatSignedEur(roi.tenYearNet)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm text-gray-600">
-                    Input saving, yr 5
-                  </span>
-                  <span className="font-bold" style={{ color: ACCENT }}>
-                    {formatEur(roi.year5Savings)}/yr
-                  </span>
-                </div>
-                <div className="flex justify-between items-baseline">
-                  <span className="text-sm text-gray-600">10-year net</span>
-                  <span
-                    className="font-bold"
-                    style={{ color: roi.tenYearNet >= 0 ? ACCENT : "#B4413C" }}
-                  >
-                    {formatSignedEur(roi.tenYearNet)}
-                  </span>
-                </div>
-              </div>
+              </>
             ) : (
               <p className="text-sm text-gray-500 mb-4">
                 Add your input spend and pick a practice to see your numbers.
               </p>
             )}
-
-            <div className="border-t border-gray-200 pt-3 space-y-2 text-sm">
-              <div>
-                <span className="text-gray-500">Adding: </span>
-                <span className="text-gray-900">
-                  {adding.length > 0
-                    ? adding.map(labelFor).join(", ")
-                    : "nothing yet"}
-                </span>
-              </div>
-              {field && (
-                <div>
-                  <span className="text-gray-500">First move: </span>
-                  <span className="text-gray-900">
-                    {field}
-                    {fieldHa ? ` (${fieldHa} ha)` : ""}, {season.toLowerCase()}
-                  </span>
-                </div>
-              )}
-              {fundingChosen.length > 0 && (
-                <div>
-                  <span className="text-gray-500">Funding to chase: </span>
-                  <span className="text-gray-900">{fundingChosen.length}</span>
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={handleConvert}
-              className="w-full mt-5 text-white px-4 py-3 rounded-md font-semibold hover:opacity-95 transition-opacity"
-              style={{ backgroundColor: ACCENT }}
-            >
-              Save this as my Passport &rarr;
+            <button onClick={buildPlaybook} disabled={!numbersReady}
+              className="w-full text-white px-4 py-3 rounded-md font-semibold hover:opacity-95 transition-opacity disabled:bg-gray-300"
+              style={numbersReady ? { backgroundColor: ACCENT } : undefined}>
+              Take me to my playbook &darr;
             </button>
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              Keeps everything you entered as living farm data you own.
-            </p>
           </div>
         </aside>
       </div>
+
+      {/* ================= PHASE 2: THE PLAYBOOK ================= */}
+      {showPlaybook && (
+        <div ref={playbookRef} className="mt-16 pt-10 border-t border-gray-200">
+          <header className="mb-6">
+            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
+              Your personalized playbook
+            </span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">
+              Your regenerative transition, step by step
+            </h2>
+            <div className="rounded-lg border-l-4 p-4 bg-gray-50 text-sm text-gray-700"
+              style={{ borderColor: ACCENT }}>
+              <strong>Read this as a plan, not a promise.</strong> Every figure is directional,
+              built from the numbers you entered, and should be checked against your own records
+              and an agronomist before you commit capital. Carbon and premiums are upside that
+              needs third-party verification, never guaranteed.
+            </div>
+          </header>
+
+          {/* Numbers + graph */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">What the transition looks like</h3>
+            <div className="grid sm:grid-cols-[1fr_1fr] gap-6 items-center bg-white border border-gray-200 rounded-xl p-6">
+              <div><JCurveChart rows={roi.rows} accent={ACCENT} /></div>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-sm text-gray-500">Directional payback</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {roi.paybackYear ? `Year ${roi.paybackYear}` : "Beyond 10 years"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Annual input saving by year 5</p>
+                  <p className="text-2xl font-bold" style={{ color: ACCENT }}>
+                    {formatEur(roi.year5Savings)}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">10-year cumulative net</p>
+                  <p className="text-2xl font-bold"
+                    style={{ color: roi.tenYearNet >= 0 ? ACCENT : "#B4413C" }}>
+                    {formatSignedEur(roi.tenYearNet)}</p>
+                </div>
+                <p className="text-xs text-gray-400">
+                  The dip is real. The curve turns up as input savings compound. Phasing the change
+                  across fields keeps the dip survivable.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Practices with pros/cons/how-to */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-1">Your practices, in priority order</h3>
+            <p className="text-sm text-gray-500 mb-5">
+              What you run and what you&apos;re adding, each with the honest trade-offs and a first step.
+            </p>
+            <div className="space-y-5">
+              {inPlayPractices.map((p) => {
+                const isAdding = adding.includes(p.key);
+                return (
+                  <div key={p.key} className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h4 className="font-bold text-gray-900">{p.label}</h4>
+                      <span className="text-xs font-medium px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: isAdding ? ACCENT : "#E5E7EB",
+                          color: isAdding ? "#fff" : "#374151",
+                        }}>
+                        {isAdding ? "adding" : "already running"}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">{p.why}</p>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Pros</p>
+                        <ul className="text-sm text-gray-700 space-y-1 list-disc pl-4">
+                          {p.pros.map((x) => <li key={x}>{x}</li>)}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">Watch out for</p>
+                        <ul className="text-sm text-gray-700 space-y-1 list-disc pl-4">
+                          {p.cons.map((x) => <li key={x}>{x}</li>)}
+                        </ul>
+                      </div>
+                    </div>
+                    {p.choose && (
+                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                        <p className="text-sm font-semibold text-gray-800 mb-2">{p.choose.heading}</p>
+                        <ul className="text-sm text-gray-700 space-y-1">
+                          {p.choose.options.map((o) => (
+                            <li key={o.name}>
+                              <span className="font-medium">{o.name}</span> — {o.goodFor}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    <div className="flex items-start gap-2 text-sm rounded-lg p-3"
+                      style={{ backgroundColor: "#F0F5F2" }}>
+                      <span className="font-semibold" style={{ color: ACCENT }}>Do this:</span>
+                      <span className="text-gray-700">{p.howTo}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* First move */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Your first move</h3>
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
+              {field ? (
+                <p className="text-gray-800">
+                  Trial <span className="font-semibold">{firstAddLabel.toLowerCase()}</span> on{" "}
+                  <span className="font-semibold">{field}</span>
+                  {fieldHa ? ` (${fieldHa} ha)` : ""}, starting{" "}
+                  <span className="font-semibold">{startWhen}</span>. Keep the rest of the farm as
+                  your control and compare for a full season before scaling.
+                </p>
+              ) : (
+                <p className="text-gray-500">
+                  Head back to step 4 and name the field you&apos;ll start on. Committing to one
+                  field is what turns this plan into action.
+                </p>
+              )}
+            </div>
+          </section>
+
+          {/* Funding */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">
+              The money where you farm — {REGION_LABELS[region]}
+            </h3>
+            {funding.programs.map((p) => {
+              const url = SOURCE_LEDGER[p.sourceId]?.url;
+              return (
+                <div key={p.name} className="bg-white border border-gray-200 rounded-xl p-5 mb-3">
+                  <h4 className="font-semibold text-gray-900 text-sm mb-1">{p.name}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{p.snippet}</p>
+                  {url && (
+                    <a href={url} target="_blank" rel="noopener noreferrer"
+                      className="text-sm font-medium hover:underline" style={{ color: ACCENT }}>
+                      Open the scheme &rarr;
+                    </a>
+                  )}
+                </div>
+              );
+            })}
+            <p className="text-sm text-gray-500">{funding.note}</p>
+          </section>
+
+          {/* Sources */}
+          <details className="mb-10">
+            <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
+              Sources this plan draws on
+            </summary>
+            <ul className="space-y-1.5 mt-2">
+              {Object.values(SOURCE_LEDGER)
+                .filter((s) => inPlayPractices.some((p) => p.sourceIds.includes(s.id)) ||
+                  funding.programs.some((f) => f.sourceId === s.id))
+                .map((s) => (
+                  <li key={s.id} className="text-sm text-gray-500">
+                    <span className="text-xs font-mono text-gray-400 mr-2">[{s.tier}]</span>
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      {s.org} — {s.label}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </details>
+
+          {/* Passport conversion — after the plan */}
+          <div className="rounded-xl p-7 text-white" style={{ backgroundColor: ACCENT }}>
+            <h3 className="text-2xl font-bold mb-2">Keep this. Make it yours.</h3>
+            <p className="text-white/85 mb-5 text-sm leading-relaxed">
+              You&apos;ve just mapped your operation. Save it as your Passport and everything here
+              becomes living data you own: your baseline, your practices, your first move, ready to
+              track against real numbers and share with buyers, banks, or grant bodies when they ask.
+              You only enter it once.
+            </p>
+            <button onClick={handleConvert}
+              className="inline-block bg-white px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: ACCENT }}>
+              Save this as my Passport &rarr;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
