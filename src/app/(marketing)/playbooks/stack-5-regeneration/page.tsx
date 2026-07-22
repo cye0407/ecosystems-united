@@ -754,20 +754,32 @@ export default function Stack5Worksheet() {
                             : "Which cover crop? It depends on your goal and rotation slot"}
                         </p>
                         <p className="text-xs text-gray-500 mb-3">{coverRecs.mixNote}</p>
-                        <ul className="text-sm text-gray-700 space-y-1.5">
+                        <ul className="text-sm text-gray-700 space-y-3">
                           {coverRecs.picks.map((sp) => (
-                            <li key={sp.name}>
+                            <li key={sp.name} className="border-l-2 pl-3" style={{ borderColor: "#D1D9D4" }}>
                               <span className="font-medium">{sp.name}</span>{" "}
-                              <span className="text-xs text-gray-400">({sp.family})</span>{" "}
-                              — {sp.note}
+                              <span className="text-xs text-gray-400">({sp.family})</span>
                               {sp.matched.length > 0 && (
-                                <span className="block text-xs" style={{ color: ACCENT }}>
-                                  tackles {sp.matched.map((m) => ISSUE_LABEL[m].toLowerCase()).join(", ")}
+                                <span className="text-xs ml-1" style={{ color: ACCENT }}>
+                                  · tackles {sp.matched.map((m) => ISSUE_LABEL[m].toLowerCase()).join(", ")}
                                 </span>
                               )}
+                              <span className="block text-gray-600">{sp.note}</span>
+                              <span className="block text-xs text-gray-500 mt-1">
+                                <strong>Rate</strong> {sp.rateKgHa} kg/ha ·{" "}
+                                <strong>Drill</strong> {sp.sowWindow} ·{" "}
+                                <strong>Terminate</strong> {sp.terminate}
+                              </span>
                             </li>
                           ))}
                         </ul>
+                        <p className="text-xs text-gray-500 mt-3">
+                          <strong>Where it goes:</strong> drill into the gap after an early-harvested
+                          crop{crops.trim() ? ` in your rotation (${crops.trim()})` : ""} — e.g. after
+                          winter barley or oilseed rape, before a spring crop. Rates and windows are
+                          directional for a temperate climate; shift about two weeks for cooler or
+                          warmer areas, and cut rates to a third or half in a mix.
+                        </p>
                       </div>
                     )}
                     <div className="flex items-start gap-2 text-sm rounded-lg p-3"

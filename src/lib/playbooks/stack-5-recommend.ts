@@ -54,6 +54,12 @@ export interface CoverSpecies {
   /** Soils where this species is a poor fit. */
   soilAvoid?: SoilKey[];
   note: string;
+  /** Directional drilling rate as a solo stand, kg/ha (use ~⅓–½ in a mix). */
+  rateKgHa: string;
+  /** Temperate (EU/UK) drilling window; shift ~2 weeks for cooler/warmer areas. */
+  sowWindow: string;
+  /** How to terminate it. */
+  terminate: string;
 }
 
 const COVER_SPECIES: CoverSpecies[] = [
@@ -62,6 +68,9 @@ const COVER_SPECIES: CoverSpecies[] = [
     family: "Grass",
     addresses: ["erosion", "weeds", "nitrogen", "drought"],
     note: "Hardy winter cover that scavenges leftover nitrogen and smothers weeds. Very reliable establishment.",
+    rateKgHa: "90–110",
+    sowWindow: "late Aug – early Oct",
+    terminate: "roll/crimp, graze, or spray at flowering (late Apr–May) before a spring crop",
   },
   {
     name: "Oats",
@@ -69,18 +78,27 @@ const COVER_SPECIES: CoverSpecies[] = [
     addresses: ["erosion", "weeds"],
     soilAvoid: ["peat"],
     note: "Fast autumn cover that usually winterkills, so termination is easy the following spring.",
+    rateKgHa: "80–100",
+    sowWindow: "Aug – mid Sept",
+    terminate: "usually winterkills in a hard frost; otherwise mow/incorporate in spring",
   },
   {
     name: "Crimson / red clover",
     family: "Legume",
     addresses: ["nitrogen", "lowOM"],
     note: "Fixes nitrogen for the following crop and builds organic matter. Best in a mix.",
+    rateKgHa: "15–20",
+    sowWindow: "Aug – early Sept",
+    terminate: "mow or incorporate in spring once it has flowered and fixed nitrogen",
   },
   {
     name: "Vetch",
     family: "Legume",
     addresses: ["nitrogen", "lowOM"],
     note: "Strong nitrogen fixer; pairs well with a cereal that gives it something to climb.",
+    rateKgHa: "25–40",
+    sowWindow: "Aug – mid Sept",
+    terminate: "terminate at early flowering for peak nitrogen; can be tough to kill, so plan it",
   },
   {
     name: "Forage / tillage radish",
@@ -88,24 +106,36 @@ const COVER_SPECIES: CoverSpecies[] = [
     addresses: ["compaction", "drainage", "nitrogen"],
     soilAvoid: ["peat"],
     note: "Deep taproot punches through compaction and improves drainage, then winterkills, leaving channels behind.",
+    rateKgHa: "6–10 (2–4 in a mix)",
+    sowWindow: "Aug – early Sept (needs autumn growth)",
+    terminate: "winterkills in frost, leaving root channels behind",
   },
   {
     name: "Mustard",
     family: "Brassica",
     addresses: ["weeds", "pests", "compaction"],
     note: "Biofumigant that suppresses weeds and some soil-borne pests; quick to establish.",
+    rateKgHa: "8–12",
+    sowWindow: "Aug – Sept",
+    terminate: "incorporate at green-bud/flowering for the biofumigant effect, before it seeds",
   },
   {
     name: "Phacelia",
     family: "Broadleaf",
     addresses: ["weeds", "pests"],
     note: "Fast weed-suppressing cover that also feeds pollinators and beneficial insects.",
+    rateKgHa: "8–12",
+    sowWindow: "Apr – early Sept",
+    terminate: "winterkills in a hard frost; otherwise mow before it sets seed",
   },
   {
     name: "Buckwheat",
     family: "Broadleaf",
     addresses: ["weeds", "lowOM"],
     note: "Very fast warm-season cover for weedy or poor ground; frost-sensitive, so a summer gap-filler.",
+    rateKgHa: "50–70",
+    sowWindow: "May – Aug (frost-free window)",
+    terminate: "mow or incorporate before seed set (~5–6 weeks); killed by first frost",
   },
 ];
 
