@@ -87,27 +87,27 @@ export const SOURCE_LEDGER: Record<string, PlaybookSource> = {
     label: "CAP eco-schemes & national Strategic Plans",
     org: "European Commission",
     tier: "GOV",
-    url: "https://agriculture.ec.europa.eu/common-agricultural-policy_en",
+    url: "https://agriculture.ec.europa.eu/common-agricultural-policy/income-support/eco-schemes_en",
     snippet:
-      "CAP eco-schemes and rural-development measures pay for practices like cover crops, reduced tillage and rotation, but the exact payments and eligibility are set in each member state's national CAP Strategic Plan.",
+      "CAP eco-schemes pay for practices like cover crops, reduced tillage and rotation (25% of direct payments are ring-fenced for them), but the exact payments and eligibility are set in each member state's national CAP Strategic Plan — you apply through your national paying agency, not the EU.",
   },
   uk_sfi: {
     id: "uk_sfi",
     label: "Sustainable Farming Incentive (SFI)",
     org: "UK Government (Defra)",
     tier: "GOV",
-    url: "https://www.gov.uk/guidance/sustainable-farming-incentive-scheme-expanded-offer-for-2024",
+    url: "https://www.gov.uk/government/publications/sustainable-farming-incentive-2026-sfi26",
     snippet:
-      "England's SFI pays per-hectare for specific soil, cover-crop and integrated-management actions; payment rates and available actions are published by Defra and updated periodically.",
+      "England's SFI (SFI26) pays quarterly, on typically 3-year agreements, for actions that improve soil health, biodiversity and water run-off while keeping land in production. Use the 'Find funding for land or farms' tool to pick actions, then apply in the Rural Payments service during an application window.",
   },
   usda_eqip_csp: {
     id: "usda_eqip_csp",
     label: "EQIP & CSP conservation programs",
     org: "USDA NRCS",
     tier: "GOV",
-    url: "https://www.nrcs.usda.gov/programs-initiatives",
+    url: "https://www.nrcs.usda.gov/programs-initiatives/environmental-quality-incentives-program",
     snippet:
-      "USDA's EQIP cost-shares specific conservation practices and CSP rewards whole-farm conservation performance; both are applied for through your local NRCS office.",
+      "USDA's EQIP cost-shares specific conservation practices (cover crops, no-till, nutrient management) and CSP rewards whole-farm conservation; both are applied for through your local NRCS office via form CPA-1200, with year-round sign-up and periodic ranking cut-offs.",
   },
 
   // --- Cross-cutting ------------------------------------------------------

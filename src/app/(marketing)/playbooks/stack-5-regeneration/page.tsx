@@ -17,6 +17,7 @@ import {
   ISSUE_LABEL,
   recommendCoverCrops,
   recommendPractices,
+  buildTimeline,
   type SoilKey,
 } from "@/lib/playbooks/stack-5-recommend";
 import { SOURCE_LEDGER } from "@/lib/playbooks/source-ledger";
@@ -95,6 +96,7 @@ export default function Stack5Worksheet() {
   const [region, setRegion] = useState<Region>("eu");
   const [soil, setSoil] = useState<SoilKey | "">("");
   const [location, setLocation] = useState("");
+  const [crops, setCrops] = useState("");
   const [issues, setIssues] = useState<IssueKey[]>([]);
   const [inputSpend, setInputSpend] = useState("350");
   const [grossMargin, setGrossMargin] = useState("800");
@@ -173,6 +175,12 @@ export default function Stack5Worksheet() {
     (a, b) => a.priority - b.priority,
   );
   const startWhen = `${startPeriod.replace(/ \(.*\)/, "")} ${startYear}`;
+  const timeline = buildTimeline(adding, field || null);
+  const farmProfile = [
+    crops.trim() ? crops.trim() : null,
+    soil ? SOIL_TYPES.find((s) => s.key === soil)?.label.toLowerCase() : null,
+    location.trim() ? location.trim() : null,
+  ].filter(Boolean);
 
   const buildPlaybook = () => {
     setShowPlaybook(true);
@@ -190,6 +198,7 @@ export default function Stack5Worksheet() {
       region,
       soil: soil || null,
       location: location || null,
+      crops: crops || null,
       issues,
       baseline: { inputSpendPerHa: spend, grossMarginPerHa: margin, practices: running },
       adding,
@@ -258,13 +267,14 @@ export default function Stack5Worksheet() {
           Stack 5 &middot; The Compounding Engine
         </span>
         <h1 className="text-3xl font-bold text-gray-900 mt-2 mb-2">
-          Let&apos;s build your regenerative plan
+          Tell us about your farm, get your playbook
         </h1>
         <p className="text-gray-600">
-          Answer as you go. Your numbers update live on the right. Then generate a
-          full, personalized playbook with the practices, the money, and your first
-          move laid out. Nothing here is wasted: what you enter becomes your Passport
-          when you&apos;re ready.
+          Answer a few things about your land, soil, and what you want to fix. We
+          build you a personalized regenerative playbook: the practices to add in
+          order, the cover-crop mix for your soil, an honest look at the numbers,
+          and the funding that pays for it. What you enter becomes your Passport
+          when you&apos;re ready, so you only fill it in once.
         </p>
         {cameFromTool && (
           <p className="mt-2 text-sm font-medium" style={{ color: ACCENT }}>
@@ -308,6 +318,14 @@ export default function Stack5Worksheet() {
                 <input type="text" value={location} onChange={(e) => setLocation(e.target.value)}
                   placeholder="County / region" className={inputCls} style={{ outlineColor: ACCENT }} />
               </div>
+            </div>
+            <div className="mt-4">
+              <label className="block text-sm text-gray-600 mb-1">
+                What do you grow? <span className="text-gray-400">(your main crops or rotation)</span>
+              </label>
+              <input type="text" value={crops} onChange={(e) => setCrops(e.target.value)}
+                placeholder="e.g. winter wheat, barley, oilseed rape" className={inputCls}
+                style={{ outlineColor: ACCENT }} />
             </div>
           </section>
 
@@ -520,9 +538,18 @@ export default function Stack5Worksheet() {
             <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
               Your personalized playbook
             </span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">
+            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-2">
               Your regenerative transition, step by step
             </h2>
+            {farmProfile.length > 0 && (
+              <p className="text-gray-600 mb-3">
+                Built for {farmProfile.join(", ")}
+                {hectares ? ` across ${hectares.toLocaleString("en-IE")} ha` : ""}
+                {issues.length > 0
+                  ? `, focused on ${issues.map((i) => ISSUE_LABEL[i].toLowerCase()).join(", ")}.`
+                  : "."}
+              </p>
+            )}
             <div className="rounded-lg border-l-4 p-4 bg-gray-50 text-sm text-gray-700"
               style={{ borderColor: ACCENT }}>
               <strong>Read this as a plan, not a promise.</strong> Every figure is directional,
@@ -559,6 +586,36 @@ export default function Stack5Worksheet() {
                   across fields keeps the dip survivable.
                 </p>
               </div>
+            </div>
+            <div className="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm text-gray-700">
+              <strong>Set your expectations honestly.</strong> Research on transitions finds yields
+              typically run about 5&ndash;12% below conventional in years 1&ndash;2, reach parity
+              around year 3, and profits recover by roughly year 4 as fuel and fertiliser costs fall
+              &mdash; with better long-run returns after that. These practices work as a{" "}
+              <em>system</em>: no-till, cover crops, and rotation underperform bolted on one at a
+              time. Figures vary by farm and region; treat them as directional.
+            </div>
+          </section>
+
+          {/* Sequenced first three years */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-1">Your first three years, in order</h3>
+            <p className="text-sm text-gray-500 mb-5">
+              The sequence matters as much as the practices. Here is the order that de-risks the
+              transition on your farm.
+            </p>
+            <div className="space-y-4">
+              {timeline.map((t) => (
+                <div key={t.year} className="flex gap-4">
+                  <div className="shrink-0 w-16 pt-1">
+                    <span className="text-sm font-bold" style={{ color: ACCENT }}>{t.year}</span>
+                  </div>
+                  <div className="flex-1 border-l-2 pl-4 pb-1" style={{ borderColor: "#E5E7EB" }}>
+                    <h4 className="font-semibold text-gray-900">{t.title}</h4>
+                    <p className="text-sm text-gray-600 mt-1">{t.detail}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 

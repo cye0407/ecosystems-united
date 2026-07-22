@@ -164,3 +164,62 @@ export function recommendPractices(
         a.practice.priority - b.practice.priority,
     );
 }
+
+// Agronomic roll-out order: cover crops first (fastest, most funded), then
+// reduced tillage (using the cover for weed suppression), then rotation, then
+// compost. Research (MSU/Datta 2025, SARE) shows these work as a SYSTEM and
+// underperform bolted on in isolation, so the sequence matters.
+const SEQ_ORDER = ["coverCrops", "reducedTill", "rotation", "compost"];
+
+export interface TimelineStep {
+  year: string;
+  title: string;
+  detail: string;
+}
+
+/**
+ * Turn the practices a grower is adding into a sequenced first-three-years plan.
+ * This is the differentiator: competitors output a menu, we output an order.
+ */
+export function buildTimeline(
+  adding: string[],
+  firstField: string | null,
+): TimelineStep[] {
+  const lab = (k: string) =>
+    PRACTICES.find((p) => p.key === k)?.label ?? k;
+  const rollout = SEQ_ORDER.filter((k) => adding.includes(k));
+  const [y1, y2, y3] = rollout;
+  const where = firstField
+    ? `Start on ${firstField}.`
+    : "Start on one field, not the whole farm.";
+
+  return [
+    {
+      year: "Year 1",
+      title: y1 ? `Baseline, then start ${lab(y1).toLowerCase()}` : "Lock your baseline",
+      detail: `${where} Record a soil test and your current inputs first — that is your start line — then ${
+        y1
+          ? `establish ${lab(y1).toLowerCase()} in a rotation gap`
+          : "deepen the practices you already run"
+      }. Keep the rest of the farm as your control to compare against.`,
+    },
+    {
+      year: "Year 2",
+      title: y2 ? `Add ${lab(y2).toLowerCase()}` : "Expand what worked",
+      detail: y2
+        ? `Bring in ${lab(y2).toLowerCase()}${
+            y2 === "reducedTill"
+              ? ", leaning on your cover crop for weed suppression so you don't fall back on the plough"
+              : ""
+          }, and widen your year-1 practice to more fields.`
+        : "Roll your year-1 practice out to more fields now that you have seen it work on your trial ground.",
+    },
+    {
+      year: "Year 3",
+      title: y3 ? `Add ${lab(y3).toLowerCase()}, then review` : "Review and scale",
+      detail: `${
+        y3 ? `Layer in ${lab(y3).toLowerCase()}. ` : ""
+      }Compare your trial fields against your control and scale what actually worked. Because these practices compound as a system, this is usually where the numbers start turning up.`,
+    },
+  ];
+}
