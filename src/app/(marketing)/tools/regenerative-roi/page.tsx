@@ -146,6 +146,27 @@ export default function RegenerativeRoiPage() {
       payback_year: paybackYear,
       ten_year_net: Math.round(tenYearNet),
     });
+    // Hand these numbers off to the Stack 5 Playbook so a grower can carry them
+    // straight into a bespoke action plan without re-entering anything.
+    try {
+      localStorage.setItem(
+        "eu:playbook:stack-5",
+        JSON.stringify({
+          hectares,
+          practices: PRACTICES.filter((p) => practices[p.key]).map((p) => p.key),
+          inputSpendPerHa,
+          grossMarginPerHa,
+          roi: {
+            paybackYear,
+            tenYearNet: Math.round(tenYearNet),
+            tenYearNetPerHa: Math.round(tenYearNetPerHa),
+            includeCarbon,
+          },
+        }),
+      );
+    } catch {
+      // localStorage unavailable (private mode) — the playbook form still works.
+    }
   };
 
   const handleReset = () => {
@@ -618,6 +639,29 @@ export default function RegenerativeRoiPage() {
                 </li>
               )}
             </ul>
+          </div>
+
+          {/* Primary next step: the bespoke Stack 5 Playbook */}
+          <div
+            className="rounded-lg p-6 mb-8 text-white"
+            style={{ backgroundColor: ACCENT }}
+          >
+            <h2 className="text-xl font-bold mb-2">
+              Turn this into your Stack 5 Playbook
+            </h2>
+            <p className="text-white/85 text-sm mb-4">
+              These numbers are the start, not the plan. Your Playbook sequences
+              the exact moves for your operation — which practice to add first,
+              how to phase the transition, and the funding where you farm that
+              pays for it. Every claim sourced. Built around the figures you just
+              entered.
+            </p>
+            <Link
+              href="/playbooks/stack-5-regeneration"
+              className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors"
+            >
+              Build my Playbook &rarr;
+            </Link>
           </div>
 
           {/* Take-it-with-you download */}
