@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ToolStructuredData from "@/components/marketing/ToolStructuredData";
 
 export const metadata: Metadata = {
   title: "Resilience Exposure Calculator",
@@ -14,5 +15,14 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <ToolStructuredData
+        slug="resilience-exposure"
+        name={metadata.title as string}
+        description={metadata.description as string}
+      />
+    </>
+  );
 }

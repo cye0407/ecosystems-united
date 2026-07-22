@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ToolStructuredData from "@/components/marketing/ToolStructuredData";
 
 export const metadata: Metadata = {
   title: "Operational Efficiency Scorecard (Stack 2)",
@@ -14,5 +15,14 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <ToolStructuredData
+        slug="efficiency-assessment"
+        name={metadata.title as string}
+        description={metadata.description as string}
+      />
+    </>
+  );
 }
