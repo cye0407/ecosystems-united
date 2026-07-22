@@ -1,0 +1,166 @@
+import { PRACTICES, type IssueKey, type PracticeDef } from "./stack-5";
+
+// ---------------------------------------------------------------------------
+// Deterministic recommender for Stack 5.
+//
+// Given a grower's soil type and the issues they want to fix, it (a) reorders
+// which practice to start with, and (b) selects a cover-crop species mix matched
+// to their problems and soil. Rules-first, honest, and transparent about why
+// each thing is recommended. Species agronomy will be source-verified against
+// the benchmark research and the authority ledger.
+// ---------------------------------------------------------------------------
+
+export type SoilKey =
+  | "sandy"
+  | "loam"
+  | "clay"
+  | "silt"
+  | "chalk"
+  | "peat";
+
+export const SOIL_TYPES: { key: SoilKey; label: string }[] = [
+  { key: "sandy", label: "Sandy / light" },
+  { key: "loam", label: "Loam / medium" },
+  { key: "clay", label: "Clay / heavy" },
+  { key: "silt", label: "Silt" },
+  { key: "chalk", label: "Chalky / calcareous" },
+  { key: "peat", label: "Peaty / organic" },
+];
+
+export const FARM_ISSUES: { key: IssueKey; label: string }[] = [
+  { key: "compaction", label: "Soil compaction" },
+  { key: "erosion", label: "Erosion / runoff" },
+  { key: "lowOM", label: "Low organic matter / fertility" },
+  { key: "weeds", label: "Weed pressure" },
+  { key: "drainage", label: "Poor drainage / waterlogging" },
+  { key: "drought", label: "Drought / poor water-holding" },
+  { key: "nitrogen", label: "High fertiliser / nitrogen cost" },
+  { key: "pests", label: "Pests & disease" },
+];
+
+export const ISSUE_LABEL: Record<IssueKey, string> = Object.fromEntries(
+  FARM_ISSUES.map((i) => [i.key, i.label]),
+) as Record<IssueKey, string>;
+
+export const SOIL_LABEL: Record<SoilKey, string> = Object.fromEntries(
+  SOIL_TYPES.map((s) => [s.key, s.label]),
+) as Record<SoilKey, string>;
+
+// --- Cover crop species catalog -------------------------------------------
+export interface CoverSpecies {
+  name: string;
+  family: "Legume" | "Grass" | "Brassica" | "Broadleaf";
+  addresses: IssueKey[];
+  /** Soils where this species is a poor fit. */
+  soilAvoid?: SoilKey[];
+  note: string;
+}
+
+const COVER_SPECIES: CoverSpecies[] = [
+  {
+    name: "Cereal rye",
+    family: "Grass",
+    addresses: ["erosion", "weeds", "nitrogen", "drought"],
+    note: "Hardy winter cover that scavenges leftover nitrogen and smothers weeds. Very reliable establishment.",
+  },
+  {
+    name: "Oats",
+    family: "Grass",
+    addresses: ["erosion", "weeds"],
+    soilAvoid: ["peat"],
+    note: "Fast autumn cover that usually winterkills, so termination is easy the following spring.",
+  },
+  {
+    name: "Crimson / red clover",
+    family: "Legume",
+    addresses: ["nitrogen", "lowOM"],
+    note: "Fixes nitrogen for the following crop and builds organic matter. Best in a mix.",
+  },
+  {
+    name: "Vetch",
+    family: "Legume",
+    addresses: ["nitrogen", "lowOM"],
+    note: "Strong nitrogen fixer; pairs well with a cereal that gives it something to climb.",
+  },
+  {
+    name: "Forage / tillage radish",
+    family: "Brassica",
+    addresses: ["compaction", "drainage", "nitrogen"],
+    soilAvoid: ["peat"],
+    note: "Deep taproot punches through compaction and improves drainage, then winterkills, leaving channels behind.",
+  },
+  {
+    name: "Mustard",
+    family: "Brassica",
+    addresses: ["weeds", "pests", "compaction"],
+    note: "Biofumigant that suppresses weeds and some soil-borne pests; quick to establish.",
+  },
+  {
+    name: "Phacelia",
+    family: "Broadleaf",
+    addresses: ["weeds", "pests"],
+    note: "Fast weed-suppressing cover that also feeds pollinators and beneficial insects.",
+  },
+  {
+    name: "Buckwheat",
+    family: "Broadleaf",
+    addresses: ["weeds", "lowOM"],
+    note: "Very fast warm-season cover for weedy or poor ground; frost-sensitive, so a summer gap-filler.",
+  },
+];
+
+export interface SpeciesPick extends CoverSpecies {
+  /** Which of the grower's selected issues this species helps with. */
+  matched: IssueKey[];
+}
+
+/**
+ * Recommend cover-crop species for the grower's issues + soil, plus a suggested
+ * mix that spans families. Returns [] of picks ranked by how many issues they hit.
+ */
+export function recommendCoverCrops(
+  issues: IssueKey[],
+  soil: SoilKey | null,
+): { picks: SpeciesPick[]; mixNote: string } {
+  const scored = COVER_SPECIES.map((sp) => {
+    const matched = sp.addresses.filter((a) => issues.includes(a));
+    const soilPenalty = soil && sp.soilAvoid?.includes(soil) ? true : false;
+    return { sp, matched, soilPenalty };
+  })
+    .filter((x) => !x.soilPenalty && (issues.length === 0 || x.matched.length > 0))
+    .sort((a, b) => b.matched.length - a.matched.length);
+
+  // If no issues chosen, offer a sensible diverse default.
+  const chosen = issues.length === 0
+    ? COVER_SPECIES.filter((s) =>
+        ["Cereal rye", "Crimson / red clover", "Forage / tillage radish"].includes(s.name),
+      ).map((sp) => ({ ...sp, matched: [] as IssueKey[] }))
+    : scored.slice(0, 4).map((x) => ({ ...x.sp, matched: x.matched }));
+
+  // Build a mix note if the picks span families.
+  const families = new Set(chosen.map((c) => c.family));
+  const mixNote =
+    families.size >= 2
+      ? `A mix spanning ${[...families].join(", ").toLowerCase()} gives you several benefits at once and usually the widest funding eligibility.`
+      : "A simple single-species stand is fine to start; add diversity once you're confident with establishment.";
+
+  return { picks: chosen, mixNote };
+}
+
+/**
+ * Reorder practices by how many of the grower's issues each addresses, so
+ * "start here" reflects what they actually want to fix (ties fall back to the
+ * base priority). Returns the practices not yet in play, best-first.
+ */
+export function recommendPractices(
+  issues: IssueKey[],
+  inPlay: Set<string>,
+): { practice: PracticeDef; matched: IssueKey[] }[] {
+  return PRACTICES.filter((p) => !inPlay.has(p.key))
+    .map((p) => ({ practice: p, matched: p.addresses.filter((a) => issues.includes(a)) }))
+    .sort(
+      (a, b) =>
+        b.matched.length - a.matched.length ||
+        a.practice.priority - b.practice.priority,
+    );
+}

@@ -10,7 +10,15 @@ import {
   formatEur,
   type RoiYearRow,
 } from "@/lib/playbooks/roi-model";
-import { PRACTICES, getStack5Funding } from "@/lib/playbooks/stack-5";
+import { PRACTICES, getStack5Funding, type IssueKey } from "@/lib/playbooks/stack-5";
+import {
+  SOIL_TYPES,
+  FARM_ISSUES,
+  ISSUE_LABEL,
+  recommendCoverCrops,
+  recommendPractices,
+  type SoilKey,
+} from "@/lib/playbooks/stack-5-recommend";
 import { SOURCE_LEDGER } from "@/lib/playbooks/source-ledger";
 import { REGION_LABELS } from "@/lib/playbooks/types";
 import type { Region } from "@/lib/playbooks";
@@ -85,6 +93,9 @@ export default function Stack5Worksheet() {
 
   const [hectares, setHectares] = useState(100);
   const [region, setRegion] = useState<Region>("eu");
+  const [soil, setSoil] = useState<SoilKey | "">("");
+  const [location, setLocation] = useState("");
+  const [issues, setIssues] = useState<IssueKey[]>([]);
   const [inputSpend, setInputSpend] = useState("350");
   const [grossMargin, setGrossMargin] = useState("800");
   const [running, setRunning] = useState<string[]>(["coverCrops"]);
@@ -147,9 +158,12 @@ export default function Stack5Worksheet() {
   );
 
   const inPlay = new Set([...running, ...adding]);
-  const recommendedKey = PRACTICES.filter((p) => !inPlay.has(p.key)).sort(
-    (a, b) => a.priority - b.priority,
-  )[0]?.key;
+  const soilKey = soil || null;
+  const recommendedKey = recommendPractices(issues, inPlay)[0]?.practice.key;
+  const coverRecs = useMemo(
+    () => recommendCoverCrops(issues, soilKey),
+    [issues, soilKey],
+  );
 
   const funding = getStack5Funding(region);
   const labelFor = (key: string) => PRACTICES.find((p) => p.key === key)?.label ?? key;
@@ -174,6 +188,9 @@ export default function Stack5Worksheet() {
       stack: 5,
       hectares,
       region,
+      soil: soil || null,
+      location: location || null,
+      issues,
       baseline: { inputSpendPerHa: spend, grossMarginPerHa: margin, practices: running },
       adding,
       firstMove: field
@@ -261,7 +278,7 @@ export default function Stack5Worksheet() {
         <div className="space-y-6">
           {/* Step 1 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(1, "Your land", "The basics we size everything to.")}
+            {stepHead(1, "Your land & soil", "The basics we tailor everything to.")}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-gray-600 mb-1">Working area (hectares)</label>
@@ -275,6 +292,21 @@ export default function Stack5Worksheet() {
                   className={`${inputCls} bg-white`} style={{ outlineColor: ACCENT }}>
                   {REGIONS.map((r) => <option key={r} value={r}>{REGION_LABELS[r]}</option>)}
                 </select>
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Main soil type</label>
+                <select value={soil} onChange={(e) => setSoil(e.target.value as SoilKey | "")}
+                  className={`${inputCls} bg-white`} style={{ outlineColor: ACCENT }}>
+                  <option value="">Select…</option>
+                  {SOIL_TYPES.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Location <span className="text-gray-400">(optional)</span>
+                </label>
+                <input type="text" value={location} onChange={(e) => setLocation(e.target.value)}
+                  placeholder="County / region" className={inputCls} style={{ outlineColor: ACCENT }} />
               </div>
             </div>
           </section>
@@ -311,9 +343,38 @@ export default function Stack5Worksheet() {
             </p>
           </section>
 
-          {/* Step 3 */}
+          {/* Step 3 — issues */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(3, "Choose what to add next",
+            {stepHead(3, "What do you want to fix?",
+              "Pick the problems you're up against. We'll match practices and cover-crop species to them.")}
+            <div className="grid grid-cols-2 gap-2">
+              {FARM_ISSUES.map((i) => {
+                const on = issues.includes(i.key);
+                return (
+                  <button key={i.key} type="button"
+                    onClick={() => toggle(issues, setIssues as (v: string[]) => void, i.key)}
+                    className={`flex items-center gap-2 py-2 px-3 rounded-md border text-left text-sm font-medium transition-colors ${
+                      on ? "text-white" : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
+                    }`}
+                    style={on ? { backgroundColor: ACCENT, borderColor: ACCENT } : undefined}>
+                    <span className={`inline-flex items-center justify-center w-4 h-4 rounded border text-[10px] ${
+                      on ? "border-white/70" : "border-gray-300"}`}>{on ? "✓" : ""}</span>
+                    {i.label}
+                  </button>
+                );
+              })}
+            </div>
+            {issues.length > 0 && (
+              <p className="text-sm text-gray-500 mt-3">
+                Good. Your playbook will lead with what tackles{" "}
+                {issues.map((i) => ISSUE_LABEL[i].toLowerCase()).join(", ")}.
+              </p>
+            )}
+          </section>
+
+          {/* Step 4 — what to add */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(4, "Choose what to add next",
               "Toggle a practice and watch the numbers on the right move. Start with the one marked.")}
             <div className="grid grid-cols-2 gap-2 mb-4">
               {PRACTICES.filter((p) => !running.includes(p.key)).map((p) =>
@@ -341,7 +402,7 @@ export default function Stack5Worksheet() {
 
           {/* Step 4 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(4, "Commit to a first move",
+            {stepHead(5, "Commit to a first move",
               "Real transitions start on one field, not the whole farm. Pick where and when.")}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               <div className="sm:col-span-2">
@@ -381,7 +442,7 @@ export default function Stack5Worksheet() {
 
           {/* Step 5 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
-            {stepHead(5, "Claim the funding", `What pays for this where you farm (${REGION_LABELS[region]}).`)}
+            {stepHead(6, "Claim the funding", `What pays for this where you farm (${REGION_LABELS[region]}).`)}
             {funding.programs.length > 0 && (
               <div className="space-y-3">
                 {funding.programs.map((p) => {
@@ -537,13 +598,25 @@ export default function Stack5Worksheet() {
                         </ul>
                       </div>
                     </div>
-                    {p.choose && (
+                    {p.key === "coverCrops" && (
                       <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                        <p className="text-sm font-semibold text-gray-800 mb-2">{p.choose.heading}</p>
-                        <ul className="text-sm text-gray-700 space-y-1">
-                          {p.choose.options.map((o) => (
-                            <li key={o.name}>
-                              <span className="font-medium">{o.name}</span> — {o.goodFor}
+                        <p className="text-sm font-semibold text-gray-800 mb-1">
+                          {issues.length > 0 || soil
+                            ? "Recommended for your soil and issues"
+                            : "Which cover crop? It depends on your goal and rotation slot"}
+                        </p>
+                        <p className="text-xs text-gray-500 mb-3">{coverRecs.mixNote}</p>
+                        <ul className="text-sm text-gray-700 space-y-1.5">
+                          {coverRecs.picks.map((sp) => (
+                            <li key={sp.name}>
+                              <span className="font-medium">{sp.name}</span>{" "}
+                              <span className="text-xs text-gray-400">({sp.family})</span>{" "}
+                              — {sp.note}
+                              {sp.matched.length > 0 && (
+                                <span className="block text-xs" style={{ color: ACCENT }}>
+                                  tackles {sp.matched.map((m) => ISSUE_LABEL[m].toLowerCase()).join(", ")}
+                                </span>
+                              )}
                             </li>
                           ))}
                         </ul>

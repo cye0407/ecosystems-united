@@ -19,6 +19,17 @@ import { REGION_LABELS } from "./types";
 // always framed as verifiable upside, never a banked line.
 // ---------------------------------------------------------------------------
 
+/** Farm problems a grower may want to fix; drives recommendations. */
+export type IssueKey =
+  | "compaction"
+  | "erosion"
+  | "lowOM"
+  | "weeds"
+  | "drainage"
+  | "drought"
+  | "nitrogen"
+  | "pests";
+
 export interface PracticeDef {
   key: string;
   label: string;
@@ -30,6 +41,8 @@ export interface PracticeDef {
   cons: string[];
   /** First concrete "do this" step to get started. */
   howTo: string;
+  /** Which farm issues this practice helps address. */
+  addresses: IssueKey[];
   /** Optional selection guidance (used for cover-crop species). */
   choose?: { heading: string; options: { name: string; goodFor: string }[] };
   sourceIds: string[];
@@ -64,6 +77,7 @@ export const PRACTICES: PracticeDef[] = [
         { name: "Diverse mixes", goodFor: "several benefits at once and the widest funding eligibility" },
       ],
     },
+    addresses: ["erosion", "weeds", "nitrogen", "lowOM", "drought"],
     sourceIds: ["sare_cover_crops", "usda_soil_health", "ahdb_soil"],
     priority: 1,
   },
@@ -83,6 +97,7 @@ export const PRACTICES: PracticeDef[] = [
     ],
     howTo:
       "Do not switch the whole farm. Move one field to reduced tillage, keep the rest as your control, and compare for a season.",
+    addresses: ["compaction", "erosion", "drainage", "drought"],
     sourceIds: ["usda_soil_health", "ahdb_soil"],
     priority: 2,
   },
@@ -101,6 +116,7 @@ export const PRACTICES: PracticeDef[] = [
     ],
     howTo:
       "Add one break or legume crop into your current sequence on part of the farm, and track the effect on the following crop's inputs.",
+    addresses: ["weeds", "pests", "nitrogen"],
     sourceIds: ["usda_soil_health", "rodale_fst"],
     priority: 3,
   },
@@ -120,6 +136,7 @@ export const PRACTICES: PracticeDef[] = [
     ],
     howTo:
       "Source local manure or compost and target your lowest-organic-matter field first, where the response will be clearest.",
+    addresses: ["lowOM", "drought"],
     sourceIds: ["fao_gsp", "rodale_fst"],
     priority: 4,
   },
