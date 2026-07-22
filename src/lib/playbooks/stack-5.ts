@@ -19,7 +19,7 @@ import { REGION_LABELS } from "./types";
 // always framed as verifiable upside, never a banked line.
 // ---------------------------------------------------------------------------
 
-interface PracticeDef {
+export interface PracticeDef {
   key: string;
   label: string;
   /** Why this practice earns its place, grounded in a source. */
@@ -29,7 +29,7 @@ interface PracticeDef {
   priority: number;
 }
 
-const PRACTICES: PracticeDef[] = [
+export const PRACTICES: PracticeDef[] = [
   {
     key: "coverCrops",
     label: "Cover crops",
@@ -59,6 +59,13 @@ const PRACTICES: PracticeDef[] = [
     priority: 4,
   },
 ];
+
+export function getStack5Funding(region: Region): {
+  programs: FundingProgram[];
+  note: string;
+} {
+  return FUNDING_BY_REGION[region];
+}
 
 const FUNDING_BY_REGION: Record<
   Region,

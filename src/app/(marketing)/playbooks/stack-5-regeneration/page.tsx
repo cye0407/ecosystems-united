@@ -2,170 +2,557 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { analytics } from "@/lib/analytics";
-import { buildPlaybook } from "@/lib/playbooks";
-import type { PlaybookInputs, Region, RoiSnapshot } from "@/lib/playbooks";
+import { computeRoi, formatSignedEur, formatEur } from "@/lib/playbooks/roi-model";
+import { PRACTICES, getStack5Funding } from "@/lib/playbooks/stack-5";
 import { REGION_LABELS } from "@/lib/playbooks/types";
-import PlaybookView from "@/components/marketing/PlaybookView";
+import type { Region } from "@/lib/playbooks";
 
-// Regenerative-cluster identity (matches the ROI calculator this funnels from).
 const ACCENT = "#2D5A47";
-
-// localStorage key the Regenerative ROI tool writes its result to for handoff.
 const HANDOFF_KEY = "eu:playbook:stack-5";
-// localStorage key the onboarding flow reads to seed a Passport from a playbook.
 const SEED_KEY = "eu:passport:seed";
 
-const PRACTICE_OPTIONS = [
-  { key: "coverCrops", label: "Cover crops" },
-  { key: "reducedTill", label: "Reduced / no-till" },
-  { key: "rotation", label: "Diverse rotation" },
-  { key: "compost", label: "Compost / manure" },
-] as const;
-
 const REGIONS: Region[] = ["eu", "uk", "us", "other"];
+const SEASONS = ["This autumn", "This spring", "Next season", "Not sure yet"];
 
 interface HandoffData {
   hectares?: number;
   practices?: string[];
   inputSpendPerHa?: number;
   grossMarginPerHa?: number;
-  roi?: RoiSnapshot;
 }
 
-export default function Stack5PlaybookPage() {
+export default function Stack5Worksheet() {
   const router = useRouter();
+
+  // Step 1 — land
   const [hectares, setHectares] = useState(100);
   const [region, setRegion] = useState<Region>("eu");
-  const [practices, setPractices] = useState<string[]>([
-    "coverCrops",
-    "reducedTill",
-  ]);
-  const [roi, setRoi] = useState<RoiSnapshot | undefined>(undefined);
+  // Step 2 — baseline
+  const [inputSpend, setInputSpend] = useState("350");
+  const [grossMargin, setGrossMargin] = useState("800");
+  const [running, setRunning] = useState<string[]>(["coverCrops"]);
+  // Step 3 — what to add
+  const [adding, setAdding] = useState<string[]>(["reducedTill"]);
+  const [includeCarbon, setIncludeCarbon] = useState(false);
+  // Step 4 — first move
+  const [field, setField] = useState("");
+  const [fieldHa, setFieldHa] = useState("");
+  const [season, setSeason] = useState(SEASONS[0]);
+  const [committed, setCommitted] = useState(false);
+  // Step 5 — funding
+  const [fundingChosen, setFundingChosen] = useState<string[]>([]);
+
   const [cameFromTool, setCameFromTool] = useState(false);
 
-  // Read the handoff from the ROI tool, if the grower arrived that way.
   useEffect(() => {
     try {
       const raw = localStorage.getItem(HANDOFF_KEY);
       if (raw) {
-        const data: HandoffData = JSON.parse(raw);
-        if (typeof data.hectares === "number" && data.hectares > 0)
-          setHectares(data.hectares);
-        if (Array.isArray(data.practices) && data.practices.length > 0)
-          setPractices(data.practices);
-        if (data.roi) setRoi(data.roi);
+        const d: HandoffData = JSON.parse(raw);
+        if (typeof d.hectares === "number" && d.hectares > 0) setHectares(d.hectares);
+        if (typeof d.inputSpendPerHa === "number")
+          setInputSpend(String(d.inputSpendPerHa));
+        if (typeof d.grossMarginPerHa === "number")
+          setGrossMargin(String(d.grossMarginPerHa));
+        if (Array.isArray(d.practices) && d.practices.length > 0) {
+          // First carried practice becomes "already running"; rest are the plan.
+          setRunning([d.practices[0]]);
+          setAdding(d.practices.slice(1));
+        }
         setCameFromTool(true);
       }
     } catch {
-      // Ignore malformed handoff — the form defaults are fine.
+      /* defaults are fine */
     }
-    analytics.track("playbook_viewed", { stack: 5 });
+    analytics.track("playbook_worksheet_opened", { stack: 5 });
   }, []);
 
-  const inputs: PlaybookInputs = useMemo(
-    () => ({ stack: 5, hectares, region, practices, roi }),
-    [hectares, region, practices, roi],
-  );
-
-  const playbook = useMemo(() => buildPlaybook(inputs), [inputs]);
-
-  const togglePractice = (key: string) =>
-    setPractices((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+  const toggle = (
+    list: string[],
+    setList: (v: string[]) => void,
+    key: string,
+  ) =>
+    setList(
+      list.includes(key) ? list.filter((k) => k !== key) : [...list, key],
     );
 
-  const handleConvertToPassport = () => {
+  // A practice can't be both "running" and "adding".
+  const startRunning = (key: string) => {
+    toggle(running, setRunning, key);
+    setAdding((a) => a.filter((k) => k !== key));
+  };
+  const startAdding = (key: string) => {
+    toggle(adding, setAdding, key);
+    setRunning((r) => r.filter((k) => k !== key));
+  };
+
+  const totalPractices = running.length + adding.length;
+  const spend = parseFloat(inputSpend) || 0;
+  const margin = parseFloat(grossMargin) || 0;
+
+  const roi = useMemo(
+    () =>
+      computeRoi({
+        hectares,
+        inputSpendPerHa: spend,
+        grossMarginPerHa: margin,
+        numPractices: totalPractices,
+        carbon: includeCarbon
+          ? { pricePerTonne: 30, seqRatePerHa: 0.5 }
+          : undefined,
+      }),
+    [hectares, spend, margin, totalPractices, includeCarbon],
+  );
+
+  // What we'd recommend adding next: highest-priority practice not yet in play.
+  const inPlay = new Set([...running, ...adding]);
+  const recommendedKey = PRACTICES.filter((p) => !inPlay.has(p.key)).sort(
+    (a, b) => a.priority - b.priority,
+  )[0]?.key;
+
+  const funding = getStack5Funding(region);
+  const labelFor = (key: string) =>
+    PRACTICES.find((p) => p.key === key)?.label ?? key;
+  const firstAddLabel = adding[0] ? labelFor(adding[0]) : "your next practice";
+
+  const numbersReady = spend > 0 && totalPractices > 0;
+
+  const handleConvert = () => {
+    const seed = {
+      stack: 5,
+      hectares,
+      region,
+      baseline: {
+        inputSpendPerHa: spend,
+        grossMarginPerHa: margin,
+        practices: running,
+      },
+      adding,
+      firstMove: field
+        ? { field, hectares: parseFloat(fieldHa) || null, season }
+        : null,
+      funding: fundingChosen,
+      roi: {
+        paybackYear: roi.paybackYear,
+        tenYearNet: Math.round(roi.tenYearNet),
+        tenYearNetPerHa: Math.round(roi.tenYearNetPerHa),
+        year5Savings: Math.round(roi.year5Savings),
+        includeCarbon,
+      },
+    };
     try {
-      localStorage.setItem(
-        SEED_KEY,
-        JSON.stringify({ stack: 5, hectares, region, practices, roi }),
-      );
+      localStorage.setItem(SEED_KEY, JSON.stringify(seed));
     } catch {
-      // Non-fatal — onboarding still works without the seed.
+      /* non-fatal */
     }
     analytics.track("playbook_convert_to_passport", { stack: 5 });
     router.push("/onboarding?from=playbook&stack=5");
   };
 
-  const operationBar = (
-    <section className="bg-gray-50 rounded-lg p-6 mb-10">
-      <h2 className="font-medium text-gray-900 mb-4">Your operation</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-sm text-gray-600 mb-1">
-            Farm size (hectares)
-          </label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={hectares}
-            onChange={(e) => setHectares(parseFloat(e.target.value) || 0)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent"
-            style={{ outlineColor: ACCENT }}
-          />
-        </div>
-        <div>
-          <label className="block text-sm text-gray-600 mb-1">Region</label>
-          <select
-            value={region}
-            onChange={(e) => setRegion(e.target.value as Region)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:border-transparent"
-            style={{ outlineColor: ACCENT }}
-          >
-            {REGIONS.map((r) => (
-              <option key={r} value={r}>
-                {REGION_LABELS[r]}
-              </option>
-            ))}
-          </select>
-        </div>
+  // -- small presentational helpers --------------------------------------
+  const stepHead = (n: number, title: string, sub?: string) => (
+    <div className="flex items-start gap-3 mb-4">
+      <div
+        className="w-7 h-7 shrink-0 rounded-full text-white flex items-center justify-center text-sm font-bold"
+        style={{ backgroundColor: ACCENT }}
+      >
+        {n}
       </div>
-      <label className="block text-sm text-gray-600 mb-2">
-        Practices you run (or plan to)
-      </label>
-      <div className="grid grid-cols-2 gap-2">
-        {PRACTICE_OPTIONS.map((p) => {
-          const on = practices.includes(p.key);
-          return (
-            <button
-              key={p.key}
-              type="button"
-              onClick={() => togglePractice(p.key)}
-              className={`flex items-center gap-2 py-2 px-3 rounded-md border text-left text-sm font-medium transition-colors ${
-                on
-                  ? "text-white"
-                  : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
-              }`}
-              style={
-                on ? { backgroundColor: ACCENT, borderColor: ACCENT } : undefined
-              }
-            >
-              <span
-                className={`inline-flex items-center justify-center w-4 h-4 rounded border text-[10px] ${
-                  on ? "border-white/70" : "border-gray-300"
-                }`}
-              >
-                {on ? "✓" : ""}
-              </span>
-              {p.label}
-            </button>
-          );
-        })}
+      <div>
+        <h2 className="font-semibold text-gray-900 leading-tight">{title}</h2>
+        {sub && <p className="text-sm text-gray-500 mt-0.5">{sub}</p>}
       </div>
-    </section>
+    </div>
   );
 
+  const chip = (key: string, active: boolean, onClick: () => void, star = false) => (
+    <button
+      key={key}
+      type="button"
+      onClick={onClick}
+      className={`relative flex items-center gap-2 py-2 px-3 rounded-md border text-left text-sm font-medium transition-colors ${
+        active
+          ? "text-white"
+          : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
+      }`}
+      style={active ? { backgroundColor: ACCENT, borderColor: ACCENT } : undefined}
+    >
+      <span
+        className={`inline-flex items-center justify-center w-4 h-4 rounded border text-[10px] ${
+          active ? "border-white/70" : "border-gray-300"
+        }`}
+      >
+        {active ? "✓" : ""}
+      </span>
+      {labelFor(key)}
+      {star && !active && (
+        <span
+          className="absolute -top-2 -right-2 text-[10px] font-semibold text-white px-1.5 py-0.5 rounded-full"
+          style={{ backgroundColor: ACCENT }}
+        >
+          start here
+        </span>
+      )}
+    </button>
+  );
+
+  const inputCls =
+    "w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent";
+
   return (
-    <PlaybookView
-      playbook={playbook}
-      accent={ACCENT}
-      cameFromTool={cameFromTool}
-      operationBar={operationBar}
-      backHref="/tools/regenerative-roi"
-      backLabel="Back to the ROI calculator"
-      onConvertToPassport={handleConvertToPassport}
-    />
+    <div className="max-w-5xl mx-auto px-6 py-12">
+      <nav className="mb-6">
+        <Link
+          href="/tools/regenerative-roi"
+          className="text-sm font-medium text-gray-500 hover:text-gray-800"
+        >
+          &larr; Back to the ROI calculator
+        </Link>
+      </nav>
+
+      <header className="mb-8">
+        <span
+          className="text-xs font-semibold uppercase tracking-wide"
+          style={{ color: ACCENT }}
+        >
+          Stack 5 &middot; The Compounding Engine
+        </span>
+        <h1 className="text-3xl font-bold text-gray-900 mt-2 mb-2">
+          Let&apos;s build your regenerative plan
+        </h1>
+        <p className="text-gray-600">
+          Answer as you go. Your plan and your numbers update live on the right,
+          and nothing here is homework: what you fill in becomes your Passport at
+          the end, so you only enter it once.
+        </p>
+        {cameFromTool && (
+          <p className="mt-2 text-sm font-medium" style={{ color: ACCENT }}>
+            ✓ We carried over the numbers from your ROI calculation.
+          </p>
+        )}
+      </header>
+
+      <div className="grid lg:grid-cols-[1fr_20rem] gap-8 items-start">
+        {/* ---- Worksheet steps ---- */}
+        <div className="space-y-6">
+          {/* Step 1 */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(1, "Your land", "The basics we size everything to.")}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Working area (hectares)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={hectares}
+                  onChange={(e) => setHectares(parseFloat(e.target.value) || 0)}
+                  className={inputCls}
+                  style={{ outlineColor: ACCENT }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Region</label>
+                <select
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value as Region)}
+                  className={`${inputCls} bg-white`}
+                  style={{ outlineColor: ACCENT }}
+                >
+                  {REGIONS.map((r) => (
+                    <option key={r} value={r}>
+                      {REGION_LABELS[r]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* Step 2 */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(
+              2,
+              "Where you're starting today",
+              "Your real numbers now. This is your baseline, and the start line we measure progress from.",
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Input spend (€/ha/yr)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={inputSpend}
+                  onChange={(e) => setInputSpend(e.target.value)}
+                  className={inputCls}
+                  style={{ outlineColor: ACCENT }}
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Fertiliser + crop protection
+                </p>
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Gross margin (€/ha/yr)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={grossMargin}
+                  onChange={(e) => setGrossMargin(e.target.value)}
+                  className={inputCls}
+                  style={{ outlineColor: ACCENT }}
+                />
+              </div>
+            </div>
+            <label className="block text-sm text-gray-600 mb-2">
+              Which of these do you already run?
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {PRACTICES.map((p) =>
+                chip(p.key, running.includes(p.key), () => startRunning(p.key)),
+              )}
+            </div>
+            <p className="text-sm text-gray-500 mt-3">
+              {running.length === 0
+                ? "No worries if you're at the very start. That is exactly what this plan is for."
+                : running.length >= 3
+                  ? "You already run most of the core practices. You are further along than most farms."
+                  : `Good. Running ${running.length} of the four already puts you ahead of a standing start.`}
+            </p>
+          </section>
+
+          {/* Step 3 */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(
+              3,
+              "Choose what to add next",
+              "Toggle a practice and watch the numbers on the right move. Start with the one marked.",
+            )}
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              {PRACTICES.filter((p) => !running.includes(p.key)).map((p) =>
+                chip(
+                  p.key,
+                  adding.includes(p.key),
+                  () => startAdding(p.key),
+                  p.key === recommendedKey,
+                ),
+              )}
+            </div>
+            {adding[0] && (
+              <p className="text-sm text-gray-600 mb-4">
+                <span className="font-medium text-gray-800">
+                  {firstAddLabel}:
+                </span>{" "}
+                {PRACTICES.find((p) => p.key === adding[0])?.why}
+              </p>
+            )}
+            <label className="flex items-center gap-3 text-sm text-gray-700 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeCarbon}
+                onChange={(e) => setIncludeCarbon(e.target.checked)}
+                className="w-4 h-4"
+                style={{ accentColor: ACCENT }}
+              />
+              Include carbon income as upside (unverified, from year 2)
+            </label>
+            {includeCarbon && (
+              <p className="text-xs text-gray-500 mt-2 bg-amber-50 border border-amber-200 rounded p-3">
+                Carbon revenue needs additionality and third-party verification.
+                Treat it as a bonus you might earn, never a line you can bank.
+              </p>
+            )}
+          </section>
+
+          {/* Step 4 */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(
+              4,
+              "Commit to a first move",
+              "Real transitions start on one field, not the whole farm. Pick where to trial it.",
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+              <div className="sm:col-span-2">
+                <label className="block text-sm text-gray-600 mb-1">
+                  Which field first?
+                </label>
+                <input
+                  type="text"
+                  value={field}
+                  onChange={(e) => setField(e.target.value)}
+                  placeholder="e.g. North 12"
+                  className={inputCls}
+                  style={{ outlineColor: ACCENT }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Size (ha)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={fieldHa}
+                  onChange={(e) => setFieldHa(e.target.value)}
+                  className={inputCls}
+                  style={{ outlineColor: ACCENT }}
+                />
+              </div>
+            </div>
+            <label className="block text-sm text-gray-600 mb-1">When?</label>
+            <select
+              value={season}
+              onChange={(e) => setSeason(e.target.value)}
+              className={`${inputCls} bg-white mb-4`}
+              style={{ outlineColor: ACCENT }}
+            >
+              {SEASONS.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+            {field && (
+              <label className="flex items-start gap-3 text-sm bg-gray-50 rounded-md p-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={committed}
+                  onChange={(e) => setCommitted(e.target.checked)}
+                  className="w-4 h-4 mt-0.5"
+                  style={{ accentColor: ACCENT }}
+                />
+                <span className="text-gray-700">
+                  I&apos;ll trial{" "}
+                  <span className="font-medium">{firstAddLabel.toLowerCase()}</span>{" "}
+                  on <span className="font-medium">{field}</span>
+                  {fieldHa ? ` (${fieldHa} ha)` : ""} — {season.toLowerCase()}.
+                </span>
+              </label>
+            )}
+          </section>
+
+          {/* Step 5 */}
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            {stepHead(
+              5,
+              "Claim the funding",
+              `What pays for this where you farm (${REGION_LABELS[region]}).`,
+            )}
+            {funding.programs.length > 0 ? (
+              <div className="space-y-3">
+                {funding.programs.map((p) => (
+                  <label
+                    key={p.name}
+                    className="flex items-start gap-3 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={fundingChosen.includes(p.name)}
+                      onChange={() =>
+                        toggle(fundingChosen, setFundingChosen, p.name)
+                      }
+                      className="w-4 h-4 mt-1"
+                      style={{ accentColor: ACCENT }}
+                    />
+                    <span>
+                      <span className="font-semibold text-gray-900 text-sm">
+                        {p.name}
+                      </span>
+                      <span className="block text-sm text-gray-600">
+                        {p.snippet}
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            ) : null}
+            <p className="text-sm text-gray-500 mt-3">{funding.note}</p>
+          </section>
+        </div>
+
+        {/* ---- Live plan panel ---- */}
+        <aside className="lg:sticky lg:top-24 self-start">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+            <h2 className="font-bold text-gray-900 mb-1">Your plan so far</h2>
+            <p className="text-xs text-gray-500 mb-4">
+              Directional, and updating as you go.
+            </p>
+
+            {numbersReady ? (
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-baseline">
+                  <span className="text-sm text-gray-600">Payback</span>
+                  <span className="font-bold text-gray-900">
+                    {roi.paybackYear ? `Year ${roi.paybackYear}` : "10y+"}
+                  </span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <span className="text-sm text-gray-600">
+                    Input saving, yr 5
+                  </span>
+                  <span className="font-bold" style={{ color: ACCENT }}>
+                    {formatEur(roi.year5Savings)}/yr
+                  </span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <span className="text-sm text-gray-600">10-year net</span>
+                  <span
+                    className="font-bold"
+                    style={{ color: roi.tenYearNet >= 0 ? ACCENT : "#B4413C" }}
+                  >
+                    {formatSignedEur(roi.tenYearNet)}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500 mb-4">
+                Add your input spend and pick a practice to see your numbers.
+              </p>
+            )}
+
+            <div className="border-t border-gray-200 pt-3 space-y-2 text-sm">
+              <div>
+                <span className="text-gray-500">Adding: </span>
+                <span className="text-gray-900">
+                  {adding.length > 0
+                    ? adding.map(labelFor).join(", ")
+                    : "nothing yet"}
+                </span>
+              </div>
+              {field && (
+                <div>
+                  <span className="text-gray-500">First move: </span>
+                  <span className="text-gray-900">
+                    {field}
+                    {fieldHa ? ` (${fieldHa} ha)` : ""}, {season.toLowerCase()}
+                  </span>
+                </div>
+              )}
+              {fundingChosen.length > 0 && (
+                <div>
+                  <span className="text-gray-500">Funding to chase: </span>
+                  <span className="text-gray-900">{fundingChosen.length}</span>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={handleConvert}
+              className="w-full mt-5 text-white px-4 py-3 rounded-md font-semibold hover:opacity-95 transition-opacity"
+              style={{ backgroundColor: ACCENT }}
+            >
+              Save this as my Passport &rarr;
+            </button>
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              Keeps everything you entered as living farm data you own.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
   );
 }
