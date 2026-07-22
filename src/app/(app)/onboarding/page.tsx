@@ -9,7 +9,9 @@ import { useAppStore } from '@/stores/appStore';
 export default function WelcomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const fromAssessment = searchParams.get('from') === 'assessment';
+  const from = searchParams.get('from');
+  const fromAssessment = from === 'assessment';
+  const fromPlaybook = from === 'playbook';
   const stack = searchParams.get('stack');
   const setOnboardingStep = useAppStore((state) => state.setOnboardingStep);
   const company = useAppStore((state) => state.company);
@@ -33,6 +35,16 @@ export default function WelcomePage() {
         <div className="bg-forest-50 border border-forest-200 rounded-xl p-4 mb-6 text-center">
           <p className="text-forest-800 font-medium">
             Your Stack {stack} assessment is complete. Let&apos;s set up your tracker to start collecting baseline data.
+          </p>
+        </div>
+      )}
+
+      {fromPlaybook && stack && (
+        <div className="bg-forest-50 border border-forest-200 rounded-xl p-4 mb-6 text-center">
+          <p className="text-forest-800 font-medium">
+            Turning your Stack {stack} Playbook into a Passport. We&apos;ll carry
+            your farm size, region, and practices straight in so your plan
+            becomes tracked operational data you own.
           </p>
         </div>
       )}

@@ -222,21 +222,10 @@ export function buildStack5Playbook(inputs: PlaybookInputs): Playbook {
   }));
 
   // ---- Intro prose (Layer A, templated + honest) -------------------------
-  const adoptedList =
-    adopted.length > 0
-      ? adopted.map((p) => p.label.toLowerCase()).join(", ")
-      : "no core regenerative practices yet";
-  const paybackClause = roi?.paybackYear
-    ? `Your own figures point to a directional payback around year ${roi.paybackYear}`
-    : "Your figures don't yet show a payback within ten years — which usually means a lever needs revisiting, not that the transition can't pay";
+  const intro =
+    "A regenerative transition costs before it pays. This plan sequences the moves so the early dip stays survivable and each step makes the next one cheaper.";
 
-  const intro = `This is a Compounding Engine playbook for a ${hectares.toLocaleString(
-    "en-IE",
-  )}-hectare operation in the ${REGION_LABELS[region]}, built around ${adoptedList}. ${paybackClause}. The plan below sequences the moves so the early transition cost stays survivable and each step makes the next one cheaper — the whole point of Stack 5 is a system that gets more efficient and more profitable with every cycle, not a one-off project.`;
-
-  const headline = `Your Stack 5 Playbook — turning ${hectares.toLocaleString(
-    "en-IE",
-  )} ha into a compounding engine`;
+  const headline = "Your regenerative transition plan";
 
   // ---- Collect every source the plan drew on -----------------------------
   const sourceIds = new Set<string>();
