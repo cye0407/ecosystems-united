@@ -10,7 +10,7 @@ import {
   formatEur,
   type RoiYearRow,
 } from "@/lib/playbooks/roi-model";
-import { PRACTICES, getStack5Funding, type IssueKey } from "@/lib/playbooks/stack-5";
+import { PRACTICES, getStack5Funding, getFundingChecklist, type IssueKey } from "@/lib/playbooks/stack-5";
 import {
   SOIL_TYPES,
   FARM_ISSUES,
@@ -268,14 +268,14 @@ export default function Stack5Worksheet() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
-      <nav className="mb-6">
+      <nav className="mb-6 print:hidden">
         <Link href="/tools/regenerative-roi"
           className="text-sm font-medium text-gray-500 hover:text-gray-800">
           &larr; Back to the ROI calculator
         </Link>
       </nav>
 
-      <header className="mb-8">
+      <header className="mb-8 print:hidden">
         <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
           Stack 5 &middot; The Compounding Engine
         </span>
@@ -297,7 +297,7 @@ export default function Stack5Worksheet() {
       </header>
 
       {/* ================= PHASE 1: INTAKE ================= */}
-      <div className="grid lg:grid-cols-[1fr_20rem] gap-8 items-start">
+      <div className="grid lg:grid-cols-[1fr_20rem] gap-8 items-start print:hidden">
         <div className="space-y-6">
           {/* Step 1 */}
           <section className="bg-white border border-gray-200 rounded-xl p-6">
@@ -546,11 +546,17 @@ export default function Stack5Worksheet() {
 
       {/* ================= PHASE 2: THE PLAYBOOK ================= */}
       {showPlaybook && (
-        <div ref={playbookRef} className="mt-16 pt-10 border-t border-gray-200">
+        <div ref={playbookRef} className="mt-16 pt-10 border-t border-gray-200 print:mt-0 print:pt-0 print:border-0">
           <header className="mb-6">
-            <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
-              Your personalized playbook
-            </span>
+            <div className="flex items-start justify-between gap-4">
+              <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
+                Your personalized playbook
+              </span>
+              <button onClick={() => window.print()}
+                className="print:hidden shrink-0 text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
+                ⤓ Print / save as PDF
+              </button>
+            </div>
             <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-2">
               Your regenerative transition, step by step
             </h2>
@@ -837,6 +843,48 @@ export default function Stack5Worksheet() {
             <p className="text-sm text-gray-500">{funding.note}</p>
           </section>
 
+          {/* Funding application checklist */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">
+              How to actually claim it — checklist
+            </h3>
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
+              <ul className="space-y-2.5">
+                {getFundingChecklist(region).map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                    <input type="checkbox" defaultChecked={false}
+                      className="w-4 h-4 mt-0.5" style={{ accentColor: ACCENT }} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Measurement / KPI plan */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-1">What to measure</h3>
+            <p className="text-sm text-gray-500 mb-4">
+              You can only prove the transition worked if you baseline it now. Record these, then
+              re-check in year 2 and year 4.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                { k: "Soil organic matter (%)", v: "Lab soil test. The headline number for soil health and carbon." },
+                { k: "Water infiltration", v: "Time how long water takes to soak in. Improves as structure builds." },
+                { k: "Earthworm count", v: "Count in a spade-full in spring. A quick, free biology proxy." },
+                { k: "Yield per hectare", v: "By field, so you can compare trial fields against your control." },
+                { k: "Input spend (€/ha)", v: "Fertiliser + crop protection. The line you expect to fall." },
+                { k: "Fuel use", v: "Litres per hectare. Drops as you cut tillage passes." },
+              ].map((m) => (
+                <div key={m.k} className="bg-gray-50 rounded-lg p-4">
+                  <p className="font-semibold text-gray-900 text-sm">{m.k}</p>
+                  <p className="text-sm text-gray-600">{m.v}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Sources */}
           <details className="mb-10">
             <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
@@ -858,7 +906,7 @@ export default function Stack5Worksheet() {
           </details>
 
           {/* Passport conversion — after the plan */}
-          <div className="rounded-xl p-7 text-white" style={{ backgroundColor: ACCENT }}>
+          <div className="print:hidden rounded-xl p-7 text-white" style={{ backgroundColor: ACCENT }}>
             <h3 className="text-2xl font-bold mb-2">Keep this. Make it yours.</h3>
             <p className="text-white/85 mb-5 text-sm leading-relaxed">
               You&apos;ve just mapped your operation. Save it as your Passport and everything here

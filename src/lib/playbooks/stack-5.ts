@@ -149,6 +149,42 @@ export function getStack5Funding(region: Region): {
   return FUNDING_BY_REGION[region];
 }
 
+/** Concrete, region-specific steps to actually claim the funding. */
+export function getFundingChecklist(region: Region): string[] {
+  switch (region) {
+    case "eu":
+      return [
+        "Find your national CAP Strategic Plan and its list of eco-schemes",
+        "Identify the eco-scheme action(s) matching cover crops, reduced tillage or rotation",
+        "Register with your national paying agency",
+        "Note the annual application window and the field data you'll need",
+        "Apply, and keep evidence of what you did, where and when",
+      ];
+    case "uk":
+      return [
+        "Set up or log in to the Rural Payments service",
+        "Use the 'Find funding for land or farms' tool to pick SFI26 actions",
+        "Confirm current payment rates and eligible actions for each parcel",
+        "Apply during an open application window (or call RPA 03000 200 301)",
+        "Keep records for each parcel you enter into an agreement",
+      ];
+    case "us":
+      return [
+        "Contact your local USDA NRCS office",
+        "Get an FSA farm number and proof of land control (deed or lease)",
+        "Complete form CPA-1200 with a conservation planner",
+        "Ask about EQIP (specific practices) and CSP (whole-farm) ranking dates",
+        "Track your state's funding cut-off / ranking window",
+      ];
+    default:
+      return [
+        "Check your national or regional agriculture ministry for soil-health or agri-environment payments",
+        "Ask a local adviser which of these practices are cost-shared where you farm",
+        "Confirm application windows and the evidence you'll need to keep",
+      ];
+  }
+}
+
 const FUNDING_BY_REGION: Record<
   Region,
   { programs: FundingProgram[]; note: string }
