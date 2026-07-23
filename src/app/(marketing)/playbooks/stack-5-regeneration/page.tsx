@@ -18,6 +18,7 @@ import {
   recommendCoverCrops,
   recommendPractices,
   buildTimeline,
+  buildBenchmark,
   type SoilKey,
 } from "@/lib/playbooks/stack-5-recommend";
 import { computeEconomics, formatEur0, ECON } from "@/lib/playbooks/stack-5-economics";
@@ -178,6 +179,7 @@ export default function Stack5Worksheet() {
   );
   const startWhen = `${startPeriod.replace(/ \(.*\)/, "")} ${startYear}`;
   const timeline = buildTimeline(adding, field || null);
+  const benchmark = buildBenchmark(soilKey, running, adding);
   const econ = useMemo(
     () =>
       computeEconomics({
@@ -577,6 +579,19 @@ export default function Stack5Worksheet() {
               needs third-party verification, never guaranteed.
             </div>
           </header>
+
+          {/* Where you stand */}
+          <section className="mb-10">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">Where you stand</h3>
+            <ul className="space-y-2">
+              {benchmark.map((b, i) => (
+                <li key={i} className="flex gap-3 text-sm text-gray-700">
+                  <span style={{ color: ACCENT }} className="mt-0.5">▸</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
           {/* Numbers + graph */}
           <section className="mb-10">

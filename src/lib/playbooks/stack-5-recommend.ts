@@ -195,6 +195,62 @@ export function recommendPractices(
     );
 }
 
+// Soil-specific framing for the "where you stand" insight. Directional, anchored
+// to soil behaviour, not invented survey stats.
+const SOIL_INSIGHT: Record<SoilKey, string> = {
+  sandy:
+    "On light, sandy ground, nitrogen and moisture drain away fast. Catch crops like cereal rye plus building organic matter give the quickest wins here.",
+  loam:
+    "Loam is forgiving ground to transition on — most practices establish reliably, so your sequencing and funding matter more than soil constraints.",
+  clay:
+    "On heavy clay, compaction and drainage usually limit yield first. Deep-rooting covers like tillage radish and phased reduced-tillage tend to pay back fastest.",
+  silt:
+    "Silty soils cap and erode easily, so keeping them covered year-round is the priority — cover crops are the natural first move.",
+  chalk:
+    "Thin, free-draining chalk soils dry out and hold little organic matter, so building it with cover crops and compost is the key lever.",
+  peat:
+    "Peaty soils are carbon-rich but fragile. Minimise disturbance and skip deep-rooting brassicas — protect what's there rather than pushing hard.",
+};
+
+/**
+ * A few honest, profile-tailored "where you stand" insights. Anchored to soil
+ * behaviour and transition research (SARE, MSU/Datta 2025), clearly directional
+ * — no fabricated precise adoption percentages.
+ */
+export function buildBenchmark(
+  soil: SoilKey | null,
+  running: string[],
+  adding: string[],
+): string[] {
+  const out: string[] = [];
+  if (soil) out.push(SOIL_INSIGHT[soil]);
+
+  if (running.length > 0) {
+    const labels = running
+      .map((k) => PRACTICES.find((p) => p.key === k)?.label ?? k)
+      .join(" and ");
+    out.push(
+      `You already run ${labels.toLowerCase()}, which puts you ahead of a standing start — the next gain comes from stacking the missing practices onto it.`,
+    );
+  } else {
+    out.push(
+      "Cover crops are the single most commonly funded first step, so for a farm starting out that's usually where the money and momentum begin.",
+    );
+  }
+
+  if (adding.includes("reducedTill")) {
+    out.push(
+      "Budget for no-till to trim yields by roughly 5% in the first year or two before it recovers, and lean on your cover crop for weed control so you don't fall back on the plough.",
+    );
+  }
+
+  out.push(
+    "Farms that combine cover crops, reduced tillage and diverse rotation typically cut fertiliser use meaningfully over three to four years. The practices reinforce each other, so doing them together beats one at a time.",
+  );
+
+  return out;
+}
+
 // Agronomic roll-out order: cover crops first (fastest, most funded), then
 // reduced tillage (using the cover for weed suppression), then rotation, then
 // compost. Research (MSU/Datta 2025, SARE) shows these work as a SYSTEM and
