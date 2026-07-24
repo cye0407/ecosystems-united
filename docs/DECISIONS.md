@@ -7,7 +7,7 @@ Presented to Cat one at a time in chat; this file is the tracker of record.
 |---|---|---|
 | D-001 | Cover-crop pages: stack identity + tool CTA | DECIDED 2026-07-24: A |
 | D-002 | Link-mesh batch (drainage, inline links, biofuels loop) | DECIDED 2026-07-24: A |
-| D-003 | Regen pillar CTA pile-up | OPEN |
+| D-003 | Regenerative pillar CTA pile-up | DECIDED 2026-07-24: A |
 | D-004 | Legacy /framework bottom CTAs on spiking pages | OPEN |
 | D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | OPEN |
 | D-006 | Assessment→playbook mapping tables | OPEN |
@@ -90,7 +90,7 @@ on the biofuels tool). Applied via background agent.
 
 ---
 
-## D-003 — Regen pillar CTA pile-up
+## D-003 — Regenerative pillar CTA pile-up
 **Status:** OPEN
 
 **Context.** `regenerative-guide` (the pillar, 10 inbound links) ends with
@@ -114,7 +114,11 @@ playbook.
 
 **Recommendation.** A.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A**. One closing tool CTA (regenerative-roi);
+dark regeneration-assessment block + duplicate end-of-page BaselineCTA
+removed (mid-article BaselineCTA stays); inline link to
+cover-crop-selection-guide added in the cover-crops section. Queued to the
+D-002 implementation agent as a separate commit.
 
 ---
 

@@ -63,7 +63,7 @@ export default function RegenerativeGuidePage() {
 
         <h2>Cover Crops: Investment and Returns</h2>
         <p>
-          Cover crops are the most widely adopted regenerative practice, and for good reason: the economics are the most straightforward to calculate and the payback period is the shortest. But the returns vary enormously depending on species selection, climate, cash crop rotation, and termination method.
+          Cover crops are the most widely adopted regenerative practice, and for good reason: the economics are the most straightforward to calculate and the payback period is the shortest. But the returns vary enormously depending on <Link href="/articles/cover-crop-selection-guide">species selection</Link>, climate, cash crop rotation, and termination method.
         </p>
         <p>
           The full <Link href="/articles/cover-crops-roi">cover crops ROI analysis</Link> breaks down establishment costs, yield impacts on subsequent cash crops, input savings from nitrogen fixation and weed suppression, and the grazing or forage value that multi-species covers can provide. For cereal and oilseed rotations in temperate climates, cover crops typically break even within two seasons and generate net positive returns from year three onward.
@@ -169,17 +169,6 @@ export default function RegenerativeGuidePage() {
         </p>
       </article>
 
-      {/* Bottom CTA Section */}
-      <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
-        <h3 className="text-xl font-bold mb-2">Assess your regenerative readiness</h3>
-        <p className="text-gray-400 mb-6">
-          The regeneration assessment identifies which practices match your operation type, where the strongest ROI opportunities sit, and what a realistic transition timeline looks like. Takes 5 minutes. No signup required.
-        </p>
-        <Link href="/tools/regeneration-assessment" className="inline-block bg-[#B8ADE3] text-white px-5 py-2 rounded font-medium hover:bg-[#a89ad6] transition-colors">
-          Take the Regeneration Assessment &rarr;
-        </Link>
-      </div>
-
       {/* Article Navigation */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <p className="text-sm text-gray-500 mb-4">Popular articles in this series:</p>
@@ -197,11 +186,6 @@ export default function RegenerativeGuidePage() {
             <span className="block text-sm text-gray-600">Seed costs, yield impacts, input savings, and the five value streams that build the case</span>
           </Link>
         </div>
-      </div>
-
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
       </div>
     </div>
   );
