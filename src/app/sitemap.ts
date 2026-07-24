@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/energy-calculator",
     "/tools/regenerative-roi",
     "/tools/resilience-exposure",
+    "/tools/drainage-payback",
     "/tools/biofuel-feedstock-compare",
     "/tools/scope-3-readiness",
     "/tools/csrd-readiness",

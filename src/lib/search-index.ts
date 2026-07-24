@@ -121,6 +121,13 @@ const staticPages: SearchEntry[] = [
     type: "tool",
   },
   {
+    title: "Drainage Payback Calculator",
+    description:
+      "Model tile drainage on your wet fields — installation cost by drain spacing, yield response by waterlogging severity, and your payback period. Free, every preset adjustable.",
+    href: "/tools/drainage-payback",
+    type: "tool",
+  },
+  {
     title: "Biofuel Feedstock Comparison",
     description:
       "Compare 1st–4th generation biofuels on carbon, land use, EROI, and scalability. Weight your priorities, get a best-fit ranking and a downloadable workbook.",
