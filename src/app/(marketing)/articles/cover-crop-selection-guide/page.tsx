@@ -1,5 +1,44 @@
 import Link from "next/link";
 import BaselineCTA from "@/components/marketing/BaselineCTA";
+import FaqJsonLd, { type FaqItem } from "@/components/marketing/FaqJsonLd";
+
+const faqItems: FaqItem[] = [
+  {
+    question: "Which cover crop is best for nitrogen fixation?",
+    answer:
+      "Legumes — crimson clover, hairy vetch, field peas, red clover, and white clover. Depending on species, establishment timing, and growing conditions, they can fix 40–150 kg N/ha, enough to supply a moderate-demand cash crop the following season.",
+  },
+  {
+    question: "Which cover crop is best for relieving soil compaction?",
+    answer:
+      "Deep-rooted brassicas and radishes — tillage radish (daikon radish), forage turnip, and oilseed radish. Tillage radish taproots can reach 60–90 cm depth in a single season, penetrating compacted subsoil layers and creating channels for water infiltration and future crop roots.",
+  },
+  {
+    question: "Which cover crop is best for weed suppression?",
+    answer:
+      "Winter rye is the champion, producing benzoxazinoids that suppress weeds both during growth and after incorporation. Mustards, buckwheat, and oats are also effective through rapid establishment and dense canopy formation.",
+  },
+  {
+    question: "Which cover crops work best for erosion control?",
+    answer:
+      "Fast-establishing species — oats, buckwheat, annual ryegrass, phacelia, and mustards. Species that germinate in 3–5 days and establish ground cover within 3–4 weeks are ideal for sloped fields and highly erodible soils.",
+  },
+  {
+    question: "Which cover crops are best for nutrient scavenging?",
+    answer:
+      "Deep-rooted grasses and brassicas — winter rye, oilseed radish, turnip, Italian ryegrass, and oats. Winter rye is particularly effective, with extensive root systems capturing nitrogen down to 2 meters.",
+  },
+  {
+    question: "Are cover crop mixes better than monocultures?",
+    answer:
+      "The evidence increasingly favors diversity: mixes address multiple functions simultaneously and mitigate risk if one species fails to establish. Monocultures make sense for a single dominant goal or simplified management. A practical compromise is a simple mix of 2–4 species targeting complementary goals.",
+  },
+  {
+    question: "How much does cover crop seed cost per hectare?",
+    answer:
+      "Typical costs range from €15–25/ha for mustard and €20–40/ha for oats or winter rye, up to €60–90/ha for hairy vetch.",
+  },
+];
 
 export const metadata = {
   title: "Cover Crop Selection Guide: Matching Species to Purpose | Ecosystems United",
@@ -10,6 +49,7 @@ export const metadata = {
 export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
+      <FaqJsonLd items={faqItems} />
       <nav className="mb-8">
         <Link
           href="/framework/stack-3-circularity"

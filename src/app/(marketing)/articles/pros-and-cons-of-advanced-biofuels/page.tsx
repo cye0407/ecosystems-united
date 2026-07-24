@@ -1,5 +1,39 @@
 import Link from "next/link";
 import BaselineCTA from "@/components/marketing/BaselineCTA";
+import FaqJsonLd, { type FaqItem } from "@/components/marketing/FaqJsonLd";
+
+const faqItems: FaqItem[] = [
+  {
+    question: "How much can advanced biofuels reduce carbon emissions?",
+    answer:
+      "Advanced biofuels can reduce greenhouse gas emissions by up to 80% compared to fossil fuels. Since they're derived from biomass that absorbs CO₂ during growth, their overall carbon footprint is significantly lower.",
+  },
+  {
+    question: "What are advanced biofuels made from?",
+    answer:
+      "Unlike traditional biofuels that rely on food crops, advanced biofuels derive from renewable sources such as agricultural waste, algae, forestry residues, and municipal solid waste.",
+  },
+  {
+    question: "What are drop-in biofuels?",
+    answer:
+      "Drop-in fuels are advanced biofuels that can blend with or directly replace petroleum-based fuels in existing vehicles, aircraft, and industrial applications. This makes adoption easier than alternatives requiring new infrastructure.",
+  },
+  {
+    question: "Why are advanced biofuels more expensive than fossil fuels?",
+    answer:
+      "Feedstock processing is expensive, conversion technologies require costly infrastructure, and limited scale prevents economies that would reduce costs.",
+  },
+  {
+    question: "What are the main challenges facing advanced biofuels?",
+    answer:
+      "High production costs, feedstock supply issues, technological barriers at commercial scale, policy uncertainty, and competition with other clean energy options such as electric vehicles and hydrogen fuel.",
+  },
+  {
+    question: "Where do advanced biofuels make the most sense?",
+    answer:
+      "Strong fits include aviation and shipping where electrification isn't yet feasible, industrial applications replacing fossil-derived chemicals, regions seeking energy independence from fuel imports, and operations with significant waste streams that could become feedstock.",
+  },
+];
 
 export const metadata = {
   title: "The Pros and Cons of Advanced Biofuels: A Balanced Assessment",
@@ -10,6 +44,7 @@ export const metadata = {
 export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
+      <FaqJsonLd items={faqItems} />
       {/* Navigation */}
       <nav className="mb-8">
         <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">

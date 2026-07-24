@@ -1,5 +1,44 @@
 import Link from "next/link";
 import BaselineCTA from "@/components/marketing/BaselineCTA";
+import FaqJsonLd, { type FaqItem } from "@/components/marketing/FaqJsonLd";
+
+const faqItems: FaqItem[] = [
+  {
+    question: "How much does tile drainage cost per hectare?",
+    answer:
+      "Standard pattern tile drainage (15-20m spacing, 1.0-1.2m depth) costs €2,500-3,500 per hectare. Close-spacing systems for heavy clay run €3,500-4,500/hectare, while wide-spacing systems for sandy soils cost €1,800-2,500/hectare.",
+  },
+  {
+    question: "How do I know if my land needs subsurface drainage?",
+    answer:
+      "Indicators include prolonged standing water after rainfall, delayed planting windows, poor crop establishment, yield maps showing consistent low zones in wet areas, root disease pressure, soil with poor natural drainage, and rutting from equipment on wet soils. If your fields fit three or more of these criteria, subsurface drainage likely offers substantial economic returns.",
+  },
+  {
+    question: "What yield improvement can subsurface drainage deliver?",
+    answer:
+      "Severely waterlogged fields typically see 25-40% yield increases, moderately waterlogged fields 15-25%, and mildly affected fields 8-15%. Response also varies by crop — maize typically gains 15-30% and vegetables 20-35%.",
+  },
+  {
+    question: "What is the payback period for subsurface drainage?",
+    answer:
+      "A moderate scenario works out to roughly 10.6 years once timely-operations value and input savings are included; severely waterlogged fields often achieve 5-8 year payback. Payback under 10 years is generally considered excellent for infrastructure investments.",
+  },
+  {
+    question: "How long does tile drainage last?",
+    answer:
+      "Tile drainage provides consistent, long-term performance with a 50+ year lifespan, works in all soil types, and requires minimal maintenance.",
+  },
+  {
+    question: "What is mole drainage and how much does it cost?",
+    answer:
+      "Mole drainage is a lower-cost option for heavy clay soils, costing €500-800 per hectare (20-30% of tile systems) but requiring renewal every 5-8 years. It is best suited to clay content above 35% with stable soil structure.",
+  },
+  {
+    question: "How much does drainage maintenance cost?",
+    answer:
+      "Budget €20-40 per hectare per year for maintenance reserves. Major repairs like tile replacement or outlet reconstruction occur infrequently but can cost €500-1,500 per incident.",
+  },
+];
 
 export const metadata = {
   title: "Subsurface Drainage: Design, Costs, and Payback | Ecosystems United",
@@ -10,6 +49,7 @@ export const metadata = {
 export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
+      <FaqJsonLd items={faqItems} />
       <nav className="mb-8">
         <Link
           href="/framework/stack-2-efficiency"
