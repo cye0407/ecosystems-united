@@ -1,22 +1,25 @@
 # Decision Log — ongoing
 
-One entry per decision. Status: OPEN → DECIDED (with date + choice) or PARKED.
-Presented to Cat one at a time in chat; this file is the tracker of record.
+One entry per decision. Status: OPEN → DECIDED (date + choice), BLOCKED (on
+another decision), or PARKED. Presented to Cat one at a time in chat; this
+file is the tracker of record.
 
 | ID | Title | Status |
 |---|---|---|
 | D-001 | Cover-crop pages: stack identity + tool CTA | DECIDED 2026-07-24: A |
 | D-002 | Link-mesh batch (drainage, inline links, biofuels loop) | DECIDED 2026-07-24: A |
 | D-003 | Regenerative pillar CTA pile-up | DECIDED 2026-07-24: A |
-| D-004 | Legacy /framework bottom CTAs on spiking pages | OPEN |
-| D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | OPEN |
-| D-006 | Assessment→playbook mapping tables | OPEN |
+| D-004 | Legacy /framework bottom CTAs on spiking pages | DECIDED 2026-07-24: B |
+| D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | DECIDED 2026-07-24: C |
+| D-006 | Assessment→playbook mapping tables | BLOCKED on D-014 |
 | D-007 | Stack 3 assessment scoring quirk | OPEN |
-| D-008 | Merge the two Wave-1 code branches | OPEN |
+| D-008 | Merge `feat/playbook-keepable-layer` | OPEN |
 | D-009 | Content: publish coefficients + the sharp opinion | OPEN |
 | D-010 | Content: two small honesty edits | OPEN |
 | D-011 | Publishing sequence + channel infrastructure | OPEN |
 | D-012 | Standalone biofuels playbook | OPEN |
+| D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
+| D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
 | P-001 | Workspace/product naming | PARKED (Cat: fine-tune later) |
 | P-002 | Final price points per tier | PARKED (Cat: fine-tune later) |
 | P-003 | Extraction trust model (client-side vs cloud OCR) + ladder placement | PARKED (artifact-library doc §Part 2.6) |
@@ -24,184 +27,94 @@ Presented to Cat one at a time in chat; this file is the tracker of record.
 ---
 
 ## D-001 — Cover-crop pages: stack identity + tool CTA
-**Status:** OPEN
+**Status:** DECIDED
 
-**Context.** `cover-crop-selection-guide` is the deepest article in the SEO
-spike (species profiles, costs, mixes) and the only spiking page with **no
-tool CTA at all** — it's absent from every ArticleCTA slug set, so it closes
-with the newsletter fallback. Related inconsistency: it badges Stack 3,
-`cover-crops-roi` badges Stack 2, and the regenerative cluster + regenerative-roi
-CTA set claim cover crops for Stack 5.
-
-**Decision needed.** Which stack owns cover crops site-wide, and does the
-selection guide get the regenerative-roi CTA?
-
-**Options with impact.**
-- **A) Stack 5 / regen.** Add slug to `REGEN_ECONOMICS_SLUGS` (1 line) →
-  page closes with the regenerative-roi calculator → Stack 5 playbook — the
-  strongest funnel on the site. Harmonise both cover-crop pages' badges to 5
-  when next touched. Impact: biggest conversion leak on the spike closed;
-  consistent anchor-text/topic signal for SEO.
-- **B) Stack 3 (respect current badge).** Add slug to a Stack 3 CTA set →
-  funnels to circularity assessment. Impact: leak closed, but into a weaker
-  funnel (no numbers module yet) and contradicts the regenerative cluster's claim.
-- **C) Do nothing.** Newsletter fallback stays. Impact: spike traffic on the
-  best article keeps converting to nothing.
-
-**Recommendation.** A — Stack 5. Cover crops are the core regen practice,
-the ROI calculator is the only tool wired through to a playbook, and the
-regenerative cluster already treats these pages as its spokes.
+**Context.** `cover-crop-selection-guide` — deepest spiking article, only
+one with no tool CTA (newsletter fallback); three-way stack-identity
+conflict across the cover-crop pages (3 vs 2 vs 5).
 
 **Decided:** 2026-07-24 — **A** ("Cover crops are regenerative" — Cat).
-Slug added to `REGEN_ECONOMICS_SLUGS` (ArticleCTA.tsx); badge harmonisation
-to Stack 5 on both cover-crop pages queued for when the pages are next
-touched (was A9).
+Stack 5 owns cover crops. Slug added to `REGEN_ECONOMICS_SLUGS`
+(ArticleCTA.tsx, commit 71cab900); badge harmonisation to Stack 5 queued
+for when the pages are next touched.
 
 ---
 
-## D-002 — Link-mesh batch (A2 + A5 + A6)
-**Status:** OPEN
+## D-002 — Link-mesh batch
+**Status:** DECIDED
 
-**Context.** Three link-only fixes from the SEO report, no copy rewrites:
-(1) drainage mesh is one-way in the wrong direction — the broad-intent
-`agricultural-drainage` never links the commercial deep-dive
-`subsurface-drainage-design` or the water pillar; (2) three spiking pages
-describe a tool at the exact paragraph where readers do the math but don't
-link it; (3) biofuels traffic dead-ends — `biofuel-feedstock-compare` links
-only `/signup`, and the pros/cons page doesn't link its own pillar back.
-
-**Decision needed.** Approve the batch of link additions?
-
-**Options with impact.**
-- **A) Approve all.** ~10 links across 5 files. Impact: overview→deep-dive
-  routing for drainage, moment-of-intent conversion on 3 pages, biofuels
-  traffic can finally reach the playbook layer (stack-3-circularity — see
-  D-012 for the standalone-playbook question).
-- **B) Approve links only, skip the tool→playbook link** until D-012 is
-  settled. Impact: article mesh improves; biofuels tool still dead-ends.
-- **C) Decline.** Impact: none of the above; drainage deep-dive stays
-  undiscoverable from its own overview page.
-
-**Recommendation.** A. Additive links, zero copy risk, reversible; the
-stack-3 link can be retargeted if D-012 later creates a biofuels playbook.
+**Context.** Link-only fixes: two-way drainage mesh + pillar back-links;
+inline tool links at moment-of-intent on three pages; biofuels loop closure
+(tool → stack-3 playbook interim link, pillar back-links).
 
 **Decided:** 2026-07-24 — **A** (all links, incl. the interim stack-3 link
-on the biofuels tool). Applied via background agent.
+on the biofuels tool; retarget in one line if D-012 builds a biofuels
+playbook). Applied: commit d63b09da.
 
 ---
 
 ## D-003 — Regenerative pillar CTA pile-up
-**Status:** OPEN
+**Status:** DECIDED
 
-**Context.** `regenerative-guide` (the pillar, 10 inbound links) ends with
-three stacked blocks: a dark CTA to `regeneration-assessment` (qualitative
-5-min tool), a *second* BaselineCTA (it already renders one mid-page), and
-the layout's regenerative-roi CTA. Two competing "assess yourself" tools
-within one screen; only regenerative-roi links onward to the Stack 5
-playbook.
-
-**Decision needed.** Consolidate to one closing tool CTA?
-
-**Options with impact.**
-- **A) Keep regenerative-roi, drop the dark regeneration-assessment block +
-  duplicate BaselineCTA; add an inline link to cover-crop-selection-guide in
-  the pillar's cover-crops section.** Impact: one clear ask into the
-  strongest funnel; regeneration-assessment remains reachable from /tools.
-- **B) Keep regeneration-assessment as the closing ask instead.** Impact:
-  qualitative tool wins; readers never reach the ROI numbers or playbook.
-- **C) Leave as-is.** Impact: three asks dilute each other on the pillar
-  receiving the spike.
-
-**Recommendation.** A.
+**Context.** `regenerative-guide` ended with three stacked blocks
+(regeneration-assessment dark CTA, duplicate BaselineCTA, regenerative-roi
+ArticleCTA) — two competing assessment tools in one screen.
 
 **Decided:** 2026-07-24 — **A**. One closing tool CTA (regenerative-roi);
-dark regeneration-assessment block + duplicate end-of-page BaselineCTA
-removed (mid-article BaselineCTA stays); inline link to
-cover-crop-selection-guide added in the cover-crops section. Queued to the
-D-002 implementation agent as a separate commit.
+dark block + duplicate end-of-page BaselineCTA removed (mid-article
+BaselineCTA stays); inline link to cover-crop-selection-guide added in the
+cover-crops section. Applied: commit 5b85291a.
 
 ---
 
-## D-004 — Legacy /framework bottom CTAs (all 7 spiking pages)
-**Status:** OPEN
+## D-004 — Legacy /framework bottom CTAs (7 spiking pages)
+**Status:** DECIDED
 
-**Context.** Every spiking page carries a hardcoded full-width bottom CTA to
-`/framework/stack-N` immediately above the newer stack-aware tool CTA — two
-colored blocks, competing asks. This is the most invasive proposal (7 pages,
-and the framework pages are the education funnel).
+**Context.** Every spiking page carried a hardcoded bottom CTA to
+`/framework/stack-N` directly above the tool CTA — competing asks.
+Recommendation was to defer; Cat overrode.
 
-**Decision needed.** Retarget, remove, or keep the legacy blocks?
-
-**Options with impact.**
-- **A) Retarget each block to the matching tool/playbook.** Impact: one
-  destination per page end; framework pages lose some internal traffic.
-- **B) Remove the block entirely, keep only the ArticleCTA.** Impact:
-  cleanest close; least work; same framework-traffic cost.
-- **C) Keep as-is.** Impact: status quo dilution, but zero risk to the live
-  funnel tuning.
-- **D) Defer until D-001–003 ship and GSC shows their effect.** Impact:
-  evidence before the invasive change.
-
-**Recommendation.** D — do the surgical fixes first, revisit with data.
-
-**Decided:** —
+**Decided:** 2026-07-24 — **B**, remove the blocks. Cat: "SEO traffic is
+for solving a problem, not pitching the framework." Only the tool CTA
+closes the page. Consistent with the standing lead-with-the-job rule.
+Queued to the implementation agent (third commit). Site-wide extension
+split out as D-013.
 
 ---
 
 ## D-005 — Additive SEO builds
-**Status:** OPEN
+**Status:** DECIDED
 
-**Context.** Three "safe — additive" items ride the spike without touching
-any existing CTA/copy: FAQ/HowTo JSON-LD (M), a drainage payback calculator
-extracted from the worked model already published in the subsurface article
-(L), and seven verified-not-existing cluster articles (M each).
+**Context.** Three additive items riding the spike: FAQ/HowTo JSON-LD on 3
+hot pages (Q&A lifted verbatim from visible text); a drainage payback
+calculator from the worked model already published in
+subsurface-drainage-design; three new cluster articles verified not to
+exist (cover-crop termination costs, controlled drainage, selling-residues
+farm-gate economics).
 
-**Decision needed.** Which to commission now?
-
-**Options with impact.**
-- **A) A4 FAQ schema only.** Impact: rich-result eligibility on 3 hot pages;
-  fastest win.
-- **B) A4 + first articles.** Suggested first three: cover-crop termination
-  costs, controlled drainage, selling-residues farm-gate economics (each
-  extends a spiking cluster; termination is the #1 practical follow-up
-  question). Impact: cluster depth while intent is hot.
-- **C) A4 + articles + A7 drainage calculator.** Impact: the
-  highest-commercial-intent page gets its own interactive funnel entry;
-  largest effort.
-- **D) None.** Impact: spike rides on existing pages only.
-
-**Recommendation.** B now, A7 queued behind the Wave-2 numbers modules
-(same build pattern, better sequenced with Stack 2's module).
-
-**Decided:** —
+**Decided:** 2026-07-24 — **C** (all of it now). FAQ schema queued to the
+link-batch agent (same files); the three articles
+(`feat/spike-cluster-articles`) and the calculator
+(`feat/drainage-payback-calculator`) dispatched as parallel worktree
+agents. The calculator's model is to be REUSED by Stack 2's Wave-2 numbers
+module, not rebuilt.
 
 ---
 
 ## D-006 — Assessment→playbook mapping tables
-**Status:** OPEN
+**Status:** BLOCKED on D-014
 
-**Context.** `feat/assessment-handoff` makes assessments actually pass
-results to playbooks. Mapping principle: only capability-gap questions map;
-external drivers are never inferred. Full tables in the agent report; the
-three flagged rows: Stack 4 Q10 (inventory/capacity buffer → "Thin cash
-reserves" — operational slack ≈ cash, loosest mapping), Stack 2 (8 questions
-→ the single key "No idea where the money leaks"), Stack 3 (only 2 mappings
-because of its scoring quirk, see D-007).
+**Context.** `feat/assessment-handoff` maps weak assessment answers to
+pre-selected playbook issue chips (marketing-side localStorage only).
+Flagged rows: Stack 4 Q10 (operational slack → "thin cash reserves",
+loosest), Stack 2 (8 questions → one honest key), Stack 3 (2 mappings only,
+see D-007).
 
-**Decision needed.** Approve the tables; veto/remap any row?
-
-**Options with impact.**
-- **A) Approve all as-is.** Impact: handoff ships everywhere; S4 Q10 slightly
-  loose; S2 chips are monotone but honest.
-- **B) Approve minus S4 Q10.** Impact: cleanest honesty; Q10 weak answers
-  simply don't pre-select anything.
-- **C) Rework S2 for variety.** Impact: would require inferring drivers the
-  agent explicitly rejected as dishonest — not actually available without
-  changing the assessment questions themselves.
-
-**Recommendation.** B — drop S4 Q10, approve the rest unchanged.
-
-**Decided:** —
+**Blocked:** 2026-07-24 — Cat: can't decide with incomplete connections;
+the full journey (assessment → playbook → workspace capture) must be
+settled first, or a solid decision made to NOT capture that data. Revisit
+when D-014 is decided. The `feat/assessment-handoff` branch stays unmerged
+until then.
 
 ---
 
@@ -211,54 +124,47 @@ because of its scoring quirk, see D-007).
 **Context.** Found during handoff work: several circularity-assessment
 questions score answering "Yes" to a *bad* state (e.g. "do you pay for
 disposal of valuable material?") as 2 points toward a good score. The
-handoff skipped mapping them; the quirk itself remains live on the
-assessment.
+quirk is live on the free assessment today, independent of any handoff.
 
 **Decision needed.** Fix the scoring, and how?
 
 **Options with impact.**
-- **A) Invert scoring on the affected questions.** Impact: scores drop for
-  users who previously answered "Yes" to bad states — more honest results,
-  small content change to a live free tool.
+- **A) Invert scoring on the affected questions.** Impact: more honest
+  scores immediately; code-only change; question copy stays awkward.
 - **B) Rephrase the questions so "Yes" is consistently the good state.**
-  Impact: cleaner long-term; slightly more copy work; keeps scoring code
-  untouched.
-- **C) Leave it.** Impact: the free assessment mildly rewards bad states;
-  handoff for those questions stays impossible.
+  Impact: cleaner long-term; small copy change to a live free tool; keeps
+  scoring code untouched; unlocks honest chip-mappings later if D-006
+  unblocks.
+- **C) Leave it.** Impact: the free assessment mildly rewards bad states.
 
-**Recommendation.** B — rephrase; it also unlocks honest mappings for those
-questions later.
+**Recommendation.** B — rephrase.
 
 **Decided:** —
 
 ---
 
-## D-008 — Merge the two Wave-1 code branches
-**Status:** OPEN
+## D-008 — Merge `feat/playbook-keepable-layer`
+**Status:** OPEN  (restructured 2026-07-24: originally covered both Wave-1
+branches; `feat/assessment-handoff` now waits with D-006/D-014.)
 
-**Context.** `feat/playbook-keepable-layer` (36/36 green) and
-`feat/assessment-handoff` (31/31 green) both base off
-`feat/regenerative-cluster`, disjoint files, but interacting behavior:
-saved playbook state wins over an incoming assessment handoff on revisit.
-Three as-built behaviors ride along: saved-beats-handoff; empty KPI
-baselines print as blank write-in boxes; checklist persistence is
-index-based (future copy reordering misaligns old ticks, degrades
-gracefully).
+**Context.** The keepable-layer branch (persistence/restore, KPI baseline
+capture, CSV export, print header; 36/36 tests green) is independent of the
+handoff question — everything it does lives playbook-side. Three as-built
+behaviors ride along: saved state beats any incoming handoff (moot until
+the handoff branch ships); empty KPI baselines print as blank write-in
+boxes; checklist persistence is index-based.
 
-**Decision needed.** Merge both (after D-006 verdict applied) with the
-as-built behaviors?
+**Decision needed.** Merge it into feat/regenerative-cluster now?
 
 **Options with impact.**
-- **A) Merge both, accept as-built.** Impact: the keepable layer + honest
-  handoff land together; combined suite run once post-merge; behaviors
-  revisitable later.
-- **B) Merge keepable-layer only.** Impact: persistence ships; assessments
-  keep overclaim-free copy but no real handoff.
-- **C) Hold both for hands-on review first.** Impact: nothing lands until
-  Cat runs the try-it steps in each review guide.
+- **A) Merge now, accept as-built behaviors.** Impact: playbooks stop
+  losing everything on refresh — the worst gap for any future paid artifact
+  — plus baselines/CSV ship; behaviors revisitable.
+- **B) Hold for Cat's hands-on review first** (try-it steps in the agent's
+  review guide). Impact: nothing lands until reviewed; branch sits.
 
-**Recommendation.** A, immediately after D-006 is decided (and the veto, if
-any, applied).
+**Recommendation.** A — additive, well-tested, independent of the parked
+data-capture question.
 
 **Decided:** —
 
@@ -267,27 +173,25 @@ any, applied).
 ## D-009 — Content: publish the coefficients + the sharp opinion
 **Status:** OPEN
 
-**Context.** The regen essay's centerpiece is radical transparency: it
-publishes the model's exact internals (8/4/0% dip, 5→30% ramp, €120/ha,
-€55/ha, 0.875–1.25 multiplier, no auto-filled subsidies) and plants a flag:
-"the biggest threat to regenerative agriculture's economics isn't
-scepticism. It's the movement's own marketing." Coefficients also appear in
-LinkedIn B1/B3 and Reddit draft 1.
+**Context.** The regenerative-economics essay publishes the model's exact
+internals (8/4/0% dip, 5→30% ramp, €120/ha, €55/ha, 0.875–1.25 multiplier,
+no auto-filled subsidies) and plants a flag: "the biggest threat to
+regenerative agriculture's economics isn't scepticism. It's the movement's
+own marketing." Coefficients also appear in LinkedIn B1/B3 and Reddit
+draft 1.
 
 **Decision needed.** Publish both as-is under your name?
 
 **Options with impact.**
-- **A) Publish both.** Impact: strongest possible differentiation; commits
-  you to public changelogs when coefficients change (which is the strategy —
-  Reddit corrections feed the model); the opinion will be quoted, in both
-  directions.
+- **A) Publish both.** Impact: strongest differentiation; commits you to
+  public changelogs when coefficients change (which is the strategy); the
+  opinion will be quoted, in both directions.
 - **B) Coefficients yes, soften the opinion.** Impact: transparency intact;
-  essay loses its sharpest (most shareable) edge.
-- **C) Round the coefficients ("~8%", "roughly €120").** Impact: less
-  commitment; also less credible — precision is the proof of honesty here.
+  essay loses its sharpest, most shareable edge.
+- **C) Round the coefficients.** Impact: less commitment; less credible —
+  precision is the proof of honesty here.
 
-**Recommendation.** A. This is the honesty-as-moat position doing exactly
-its job; the commitment it creates is one you've already chosen.
+**Recommendation.** A.
 
 **Decided:** —
 
@@ -296,23 +200,22 @@ its job; the commitment it creates is one you've already chosen.
 ## D-010 — Content: two small honesty edits
 **Status:** OPEN
 
-**Context.** Two lines are slightly ahead of reality: LinkedIn C3 says "I'm
-building comparison tools in this space" about a residue soil-value
-coefficient that exists in no tool yet (the feedstock comparison tool
-itself does exist); the cheat-sheet footer claims it's "corrected by grower
-feedback" before any feedback round has happened.
+**Context.** Two lines run slightly ahead of reality: LinkedIn C3 ("I'm
+building comparison tools in this space" re a residue soil-value
+coefficient no tool has yet); the cheat-sheet footer ("corrected by grower
+feedback" before any feedback round exists).
 
 **Decision needed.** Apply the two softenings?
 
 **Options with impact.**
 - **A) Soften both** (C3 → "I build feedstock comparison tools, and the
   soil-value side is the coefficient I trust least"; footer → "corrections
-  from growers welcome — tell me and the next version improves"). Impact:
-  strictly true on day one; no fake doors.
+  from growers welcome — tell me and the next version improves").
+  Impact: strictly true on day one; no fake doors.
 - **B) Keep as written.** Impact: minor overclaims in the two most
   reputation-sensitive channels.
 
-**Recommendation.** A — one-minute edits, I apply them on approval.
+**Recommendation.** A — one-minute edits, applied on approval.
 
 **Decided:** —
 
@@ -321,28 +224,26 @@ feedback" before any feedback round has happened.
 ## D-011 — Publishing sequence + channel infrastructure
 **Status:** OPEN
 
-**Context.** Batch 1 is drafted. Proposed order: week 1 LinkedIn cover-crop
-trio + first Notes → cover-crops essay as the new Substack publication's
-opener → regen essay week 2–3 → biofuels LinkedIn trio later → Reddit
-strictly after karma-building (table → artifact drop → roast-my-numbers),
-Medium canonical imports ~1 week after each Substack run. Blocked on your
-accounts: Substack publication, Medium import, LinkedIn scheduling, Reddit
-account history; the cheat sheet must exist as a hosted file before its
-announcement post.
+**Context.** Batch 1 drafted. Proposed order: week 1 LinkedIn cover-crop
+trio + first Notes → cover-crops essay opens the new Substack publication →
+regenerative-economics essay week 2–3 → biofuels LinkedIn trio later →
+Reddit strictly after karma-building (table → artifact drop →
+roast-my-numbers), Medium canonical imports ~1 week behind Substack.
+Blocked on Cat's accounts: Substack publication, Medium import, LinkedIn
+scheduling, Reddit history; the cheat sheet must be a hosted file before
+its announcement post.
 
-**Decision needed.** Adopt the sequence, and when do the accounts get set up?
+**Decision needed.** Adopt the sequence; when do accounts get set up?
 
 **Options with impact.**
-- **A) Adopt as proposed; set up Substack + LinkedIn this week.** Impact:
-  riding the spike within days on the two no-dependency channels.
-- **B) Adopt but Substack-first only.** Impact: single-channel focus; slower
-  reach compounding.
-- **C) Hold all publishing until after voice review of every piece.**
-  Impact: review was always required — this just sequences it; no time lost
-  if review happens this week.
+- **A) Adopt as proposed; Substack + LinkedIn set up this week.** Impact:
+  riding the spike within days on the no-dependency channels.
+- **B) Substack-first only.** Impact: single-channel focus, slower reach.
+- **C) Hold everything until full voice review.** Impact: review was always
+  required; no time lost if it happens this week.
 
-**Recommendation.** A, with your voice review of `notes.md` +
-`linkedin-queue.md` as the first (fastest) step.
+**Recommendation.** A, with voice review of notes.md + linkedin-queue.md
+as the first, fastest step.
 
 **Decided:** —
 
@@ -351,25 +252,99 @@ announcement post.
 ## D-012 — Standalone biofuels playbook
 **Status:** OPEN
 
-**Context.** You stated biofuels has its own standalone playbook; the SEO
-agent verified **no biofuels playbook route exists in this repo** — the
-biofuels funnel currently ends at `biofuel-feedstock-compare` → `/signup`.
-Biofuels is the site's biggest raw traffic (~848/wk).
+**Context.** Cat believed a standalone biofuels playbook exists; verified:
+no biofuels playbook route exists in this repo — the biofuels funnel ends
+at `biofuel-feedstock-compare` → `/signup` (D-002 added an interim
+stack-3-circularity link). Biofuels is the site's biggest raw traffic
+(~848/wk).
 
 **Decision needed.** Where does biofuels traffic funnel long-term?
 
 **Options with impact.**
-- **A) It exists elsewhere / was planned elsewhere — point me at it.**
-  Impact: A6's link retargets there; no build.
+- **A) It exists/was planned elsewhere — point me at it.** Impact: link
+  retargets; no build.
 - **B) Build a standalone biofuels playbook** on the shared shell (slot
-  pattern now proven; feedstock-compare tool provides the handoff data).
-  Impact: the biggest traffic stream gets a real funnel; ~Wave-2-module
-  sized effort.
+  pattern proven; feedstock-compare provides handoff data). Impact: the
+  biggest traffic stream gets a real funnel; Wave-2-module-sized effort.
 - **C) Stack-3 playbook stays the destination.** Impact: adequate,
-  unspecific; the circularity playbook doesn't speak biofuels language.
+  unspecific.
 
-**Recommendation.** B, scheduled with Wave 2 — the traffic volume justifies
-its own playbook, and D-002's interim stack-3 link keeps the funnel alive
-meanwhile.
+**Recommendation.** B, scheduled with Wave 2.
+
+**Decided:** —
+
+---
+
+## D-013 — Framework CTAs site-wide
+**Status:** OPEN
+
+**Context.** D-004 removed the legacy /framework bottom blocks on the 7
+spiking pages, per Cat's principle: SEO traffic solves a problem, it isn't
+pitched the framework. The same bottom-block pattern exists across the
+other ~112 articles, and every article also carries a TOP back-link to
+/framework/stack-N. The framework pages remain the education layer,
+reachable via nav.
+
+**Decision needed.** Extend the removal site-wide; does the top back-link
+go too?
+
+**Options with impact.**
+- **A) Remove bottom framework blocks on all articles; keep top
+  back-links.** Impact: consistent one-ask page ends; discreet path to the
+  education layer stays; ~112-page mechanical sweep.
+- **B) Remove both bottom blocks and top back-links.** Impact: framework
+  fully exits the article surface; reachable only via nav.
+- **C) Spiking pages only (status quo after D-004).** Impact: inconsistent
+  pattern on the long tail.
+
+**Recommendation.** A first (mechanical, low-risk), then judge B by whether
+the top link carries measurable traffic.
+
+**Decided:** —
+
+---
+
+## D-014 — Workspace data capture for playbook concepts
+**Status:** OPEN — decide at Wave-2 scoping (Cat: "address this when we
+cross that path")
+
+**Context.** Verified against `src/types/index.ts`: the playbook layer and
+the workspace data model only partially connect. Maps today: Stack 1 KPIs
+(emissions, energy, water, waste, data quality) map well; Stack 5 partially
+(`LandUse.soilOrganicMatterPercent`/`soilPh`, fuel, fertiliser exist;
+infiltration/earthworms don't). Doesn't map: Stack 4's entire KPI set
+(runway months, top-buyer share, income streams, insured risks,
+debt-to-income — `FinancialContext` holds only qualitative bands); Stacks
+2/3's money-side numbers (margin/ha, disposal €, byproduct revenue); and
+ALL plan-level concepts — issues, practices running/adding, first move,
+kpiBaselines — have no entity anywhere. The seed carries them; nothing
+stores them. This gates: D-006 (Cat won't approve chip mappings without the
+full journey settled), the handoff-branch merge, the roadmap's "baselines
+flow into the tracker" claim, and the Stack 4 numbers module (needs the
+numeric fields as inputs).
+
+**Decision needed.** Does the workspace capture plan-layer + numeric
+resilience data — and in what shape — or is no-capture the deliberate
+design?
+
+**Options with impact.**
+- **A) Full extension:** KpiBaseline entity + Plan/Practices entity +
+  numeric Stack-4 financial-resilience fields. Impact: "living data you
+  own" becomes literally true; playbook→tracker loop closes; biggest
+  build; Stack 4 module unblocked.
+- **B) KpiBaseline entity only;** plan concepts stay playbook-side
+  (localStorage + exports). Impact: tracking/trajectory works (the core
+  paid value); plans remain keepable artifacts, not workspace state;
+  Stack 4 module still needs its input fields separately.
+- **C) Deliberate no-capture:** playbooks are self-contained keepable
+  artifacts; the workspace stays an 8-domain physical-data tracker; all
+  copy stays softened accordingly. Impact: least build; the
+  workspace/Passport story shrinks to "evidence + proof", plans live on
+  paper/PDF.
+
+**Recommendation.** Decide when Wave 2 is scoped — this IS the Wave-2
+scoping decision. My lean: A, scoped tightly (KpiBaseline + the Stack-4
+numeric fields first, Plan entity second) — both are prerequisites for
+things already commissioned in spirit.
 
 **Decided:** —
