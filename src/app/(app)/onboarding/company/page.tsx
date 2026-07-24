@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { v4 as uuid } from 'uuid';
@@ -33,6 +33,29 @@ export default function CompanyProfilePage() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [fromPlaybook, setFromPlaybook] = useState(false);
+
+  // Absorb a playbook seed if the grower arrived via "Save this as my Passport",
+  // so onboarding is pre-filled rather than a blank form. Tolerant of both the
+  // Stack 5 seed (crops/location) and the generic stacks-1-4 seed (sector).
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('eu:passport:seed');
+      if (!raw) return;
+      const seed = JSON.parse(raw);
+      const description: string = seed.sector || seed.crops || '';
+      const country: string = seed.location || '';
+      setFormData((prev) => ({
+        ...prev,
+        industryCode: 'A01', // Crop and animal production — the playbooks are farm-facing.
+        industryDescription: description,
+        headquartersCountry: country || prev.headquartersCountry,
+      }));
+      setFromPlaybook(true);
+    } catch {
+      /* no seed / malformed — plain form is fine */
+    }
+  }, []);
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -101,6 +124,13 @@ export default function CompanyProfilePage() {
           Just three things to get started. You can fill in the rest from settings whenever you like.
         </p>
       </div>
+
+      {fromPlaybook && (
+        <div className="bg-forest-50 border border-forest-200 rounded-xl p-4 mb-6 text-sm text-forest-800">
+          We&apos;ve carried over what you entered in your playbook. Check it over and continue —
+          the rest of your plan comes with you into the tracker.
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <Card className="mb-6">

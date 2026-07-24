@@ -149,8 +149,17 @@ export default function ResilienceAssessmentPage() {
 
         <div className="flex flex-col gap-4">
           <Link
-            href="/signup?from=assessment&stack=4"
+            href="/playbooks/stack-4-resilience"
             className="bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
+          >
+            Get your personalized playbook →
+          </Link>
+          <p className="text-center text-sm text-gray-500">
+            A free plan built from your result: the moves in order, the resources, and how to make it your Passport.
+          </p>
+          <Link
+            href="/signup?from=assessment&stack=4"
+            className="border border-gray-300 text-gray-700 px-6 py-3 rounded-md font-medium hover:bg-gray-50 text-center"
           >
             Start Your Baseline — Free Plan →
           </Link>

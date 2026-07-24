@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
@@ -23,13 +23,64 @@ const MONTHS = [
 ];
 const START_YEARS = ["2026", "2027", "2028"];
 
+// ---------------------------------------------------------------------------
+// Core state the shell owns and exposes to slots. Stack 5's premium slots read
+// from this plus their own extra state (managed in slots.useExtras).
+// ---------------------------------------------------------------------------
+export interface PlaybookCore {
+  content: StackContent;
+  accent: string;
+  scale: number;
+  region: Region;
+  sector: string;
+  issues: string[];
+  running: string[];
+  adding: string[];
+  field: string;
+  startWhen: string;
+  runningAreas: FocusArea[];
+  addingAreas: FocusArea[];
+  inPlayAreas: FocusArea[];
+  recommendedKey: string | undefined;
+  inputCls: string;
+}
+
+// Declarative slots. Stack 5 supplies all; stacks 1-4 supply none and render the
+// lighter default layout. Rich modules are NEVER baked into the shell body.
+export interface PlaybookSlots<E = Record<string, unknown>> {
+  /** Owns Stack-5 extra state (spend, margin, soil, carbon, funding) + derived. */
+  useExtras?: (core: PlaybookCore) => E;
+  /** Extra intake section(s), rendered under step 1. */
+  intakeExtras?: (core: PlaybookCore, extras: E) => ReactNode;
+  /** Replaces the default "Your plan so far" panel body (above the shared CTA). */
+  livePanel?: (core: PlaybookCore, extras: E) => ReactNode;
+  /** Rendered inside a focus-area card, keyed by focus-area key. */
+  focusAreaExtras?: (core: PlaybookCore, extras: E, focusKey: string) => ReactNode;
+  /** Extra playbook sections after "Where you stand" (e.g. graph + economics). */
+  playbookTop?: (core: PlaybookCore, extras: E) => ReactNode;
+  /** Extra playbook sections after the focus areas (e.g. funding + sources). */
+  playbookBottom?: (core: PlaybookCore, extras: E) => ReactNode;
+  /** Extra fields merged into the Passport seed. */
+  seedExtras?: (core: PlaybookCore, extras: E) => Record<string, unknown>;
+  /** Gate on generation (Stack 5 requires numbers entered). */
+  canGenerate?: (core: PlaybookCore, extras: E) => boolean;
+  /** Override the "Where you stand" lines (e.g. Stack 5's soil-aware benchmark). */
+  benchmark?: (core: PlaybookCore, extras: E) => string[];
+}
+
 interface Handoff {
   scale?: number;
   sector?: string;
   issues?: string[];
 }
 
-export default function StackPlaybook({ content }: { content: StackContent }) {
+export default function StackPlaybook<E = Record<string, unknown>>({
+  content,
+  slots,
+}: {
+  content: StackContent;
+  slots?: PlaybookSlots<E>;
+}) {
   const router = useRouter();
   const accent = content.accent;
   const playbookRef = useRef<HTMLDivElement>(null);
@@ -39,7 +90,9 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
   const [sector, setSector] = useState("");
   const [issues, setIssues] = useState<string[]>([]);
   const [running, setRunning] = useState<string[]>([]);
-  const [adding, setAdding] = useState<string[]>([content.focusAreas[0]?.key].filter(Boolean) as string[]);
+  const [adding, setAdding] = useState<string[]>(
+    [content.focusAreas[0]?.key].filter(Boolean) as string[],
+  );
   const [field, setField] = useState("");
   const [startPeriod, setStartPeriod] = useState(QUARTERS[3]);
   const [startYear, setStartYear] = useState(START_YEARS[0]);
@@ -80,7 +133,6 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
   const areaFor = (key: string) => content.focusAreas.find((f) => f.key === key);
   const inPlay = new Set([...running, ...adding]);
   const recommendedKey = recommendFocusAreas(content.focusAreas, issues, inPlay)[0]?.area.key;
-
   const runningAreas = running.map(areaFor).filter(Boolean) as FocusArea[];
   const addingAreas = (adding.map(areaFor).filter(Boolean) as FocusArea[]).sort(
     (a, b) => a.priority - b.priority,
@@ -88,9 +140,28 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
   const inPlayAreas = content.focusAreas.filter((f) => inPlay.has(f.key));
   const startWhen = `${startPeriod.replace(/ \(.*\)/, "")} ${startYear}`;
   const timeline = buildGenericTimeline(addingAreas, field || null);
-  const benchmark = buildGenericBenchmark(content, runningAreas, addingAreas[0] ?? null);
-  const issueLabel = (key: string) =>
-    content.issues.find((i) => i.key === key)?.label ?? key;
+  const issueLabel = (key: string) => content.issues.find((i) => i.key === key)?.label ?? key;
+
+  const inputCls =
+    "w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent";
+
+  const core: PlaybookCore = {
+    content, accent, scale, region, sector, issues, running, adding, field, startWhen,
+    runningAreas, addingAreas, inPlayAreas, recommendedKey, inputCls,
+  };
+
+  // Optional premium state. `slots` is stable per mounted page, so this optional
+  // hook call keeps a consistent order across renders.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const extras = (slots?.useExtras ? slots.useExtras(core) : ({} as E));
+
+  const canGenerate = slots?.canGenerate
+    ? slots.canGenerate(core, extras)
+    : addingAreas.length > 0 || runningAreas.length > 0;
+
+  const benchmark = slots?.benchmark
+    ? slots.benchmark(core, extras)
+    : buildGenericBenchmark(content, runningAreas, addingAreas[0] ?? null);
 
   const buildPlaybook = () => {
     setShowPlaybook(true);
@@ -103,14 +174,10 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
 
   const handleConvert = () => {
     const seed = {
-      stack: content.stackNum,
-      scale,
-      region,
-      sector: sector || null,
-      issues,
-      running,
-      adding,
+      stack: content.stackNum, scale, region, sector: sector || null,
+      issues, running, adding,
       firstMove: field ? { field, start: startWhen } : null,
+      ...(slots?.seedExtras ? slots.seedExtras(core, extras) : {}),
     };
     try {
       localStorage.setItem(SEED_KEY, JSON.stringify(seed));
@@ -132,9 +199,7 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
     </div>
   );
 
-  const chip = (
-    key: string, label: string, active: boolean, onClick: () => void, star = false,
-  ) => (
+  const chip = (key: string, label: string, active: boolean, onClick: () => void, star = false) => (
     <button key={key} type="button" onClick={onClick}
       className={`relative flex items-center gap-2 py-2 px-3 rounded-md border text-left text-sm font-medium transition-colors ${
         active ? "text-white" : "bg-white border-gray-300 text-gray-700 hover:border-gray-400"
@@ -149,9 +214,6 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
       )}
     </button>
   );
-
-  const inputCls =
-    "w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent";
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
@@ -181,9 +243,7 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
             {stepHead(1, "Your operation", "The basics we tailor the plan to.")}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-600 mb-1">
-                  Size ({content.scaleLabel})
-                </label>
+                <label className="block text-sm text-gray-600 mb-1">Size ({content.scaleLabel})</label>
                 <input type="number" min="0" value={scale}
                   onChange={(e) => setScale(parseFloat(e.target.value) || 0)}
                   className={inputCls} style={{ outlineColor: accent }} />
@@ -199,10 +259,11 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
             <div className="mt-4">
               <label className="block text-sm text-gray-600 mb-1">{content.sectorLabel}</label>
               <input type="text" value={sector} onChange={(e) => setSector(e.target.value)}
-                placeholder={content.sectorPlaceholder} className={inputCls}
-                style={{ outlineColor: accent }} />
+                placeholder={content.sectorPlaceholder} className={inputCls} style={{ outlineColor: accent }} />
             </div>
           </section>
+
+          {slots?.intakeExtras?.(core, extras)}
 
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             {stepHead(2, "What do you already have in place?", "So we build on it, not around it.")}
@@ -265,27 +326,33 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
         {/* Live panel */}
         <aside className="lg:sticky lg:top-24 self-start">
           <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-            <h2 className="font-bold text-gray-900 mb-3">Your plan so far</h2>
-            <div className="space-y-2 text-sm mb-4">
-              <div><span className="text-gray-500">Adding: </span>
-                <span className="text-gray-900">
-                  {addingAreas.length > 0 ? addingAreas.map((a) => a.label).join(", ") : "nothing yet"}
-                </span>
-              </div>
-              {runningAreas.length > 0 && (
-                <div><span className="text-gray-500">Already have: </span>
-                  <span className="text-gray-900">{runningAreas.map((a) => a.label).join(", ")}</span>
+            {slots?.livePanel ? (
+              slots.livePanel(core, extras)
+            ) : (
+              <>
+                <h2 className="font-bold text-gray-900 mb-3">Your plan so far</h2>
+                <div className="space-y-2 text-sm mb-4">
+                  <div><span className="text-gray-500">Adding: </span>
+                    <span className="text-gray-900">
+                      {addingAreas.length > 0 ? addingAreas.map((a) => a.label).join(", ") : "nothing yet"}
+                    </span>
+                  </div>
+                  {runningAreas.length > 0 && (
+                    <div><span className="text-gray-500">Already have: </span>
+                      <span className="text-gray-900">{runningAreas.map((a) => a.label).join(", ")}</span>
+                    </div>
+                  )}
+                  {field && (
+                    <div><span className="text-gray-500">Starting: </span>
+                      <span className="text-gray-900">{field}, {startWhen}</span>
+                    </div>
+                  )}
                 </div>
-              )}
-              {field && (
-                <div><span className="text-gray-500">Starting: </span>
-                  <span className="text-gray-900">{field}, {startWhen}</span>
-                </div>
-              )}
-            </div>
-            <button onClick={buildPlaybook} disabled={addingAreas.length === 0 && runningAreas.length === 0}
+              </>
+            )}
+            <button onClick={buildPlaybook} disabled={!canGenerate}
               className="w-full text-white px-4 py-3 rounded-md font-semibold hover:opacity-95 transition-opacity disabled:bg-gray-300"
-              style={addingAreas.length > 0 || runningAreas.length > 0 ? { backgroundColor: accent } : undefined}>
+              style={canGenerate ? { backgroundColor: accent } : undefined}>
               Take me to my playbook &darr;
             </button>
           </div>
@@ -330,6 +397,8 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
               ))}
             </ul>
           </section>
+
+          {slots?.playbookTop?.(core, extras)}
 
           <section className="mb-10">
             <h3 className="text-lg font-bold text-gray-900 mb-1">Your first three years, in order</h3>
@@ -378,6 +447,7 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
                         </ul>
                       </div>
                     </div>
+                    {slots?.focusAreaExtras?.(core, extras, f.key)}
                     <div className="flex items-start gap-2 text-sm rounded-lg p-3" style={{ backgroundColor: "#F3F2F8" }}>
                       <span className="font-semibold" style={{ color: accent }}>Do this:</span>
                       <span className="text-gray-700">{f.howTo}</span>
@@ -388,49 +458,55 @@ export default function StackPlaybook({ content }: { content: StackContent }) {
             </div>
           </section>
 
-          <section className="mb-10">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">{content.resourcesTitle}</h3>
-            {content.resources.map((r) => (
-              <div key={r.name} className="bg-white border border-gray-200 rounded-xl p-5 mb-3">
-                <h4 className="font-semibold text-gray-900 text-sm mb-1">{r.name}</h4>
-                <p className="text-sm text-gray-600 mb-2">{r.snippet}</p>
-                {r.url && (
-                  <a href={r.url} target="_blank" rel="noopener noreferrer"
-                    className="text-sm font-medium hover:underline" style={{ color: accent }}>
-                    Open &rarr;
-                  </a>
-                )}
-              </div>
-            ))}
-            <p className="text-sm text-gray-500">{content.resourcesNote}</p>
-          </section>
+          {slots?.playbookBottom?.(core, extras)}
 
-          <section className="mb-10">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">{content.checklistTitle}</h3>
-            <div className="bg-white border border-gray-200 rounded-xl p-6">
-              <ul className="space-y-2.5">
-                {content.checklist.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                    <input type="checkbox" defaultChecked={false} className="w-4 h-4 mt-0.5" style={{ accentColor: accent }} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-
-          <section className="mb-10">
-            <h3 className="text-lg font-bold text-gray-900 mb-1">{content.kpisTitle}</h3>
-            <p className="text-sm text-gray-500 mb-4">Baseline these now, then re-check as you go. You can only prove it worked if you measured the start.</p>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {content.kpis.map((m) => (
-                <div key={m.k} className="bg-gray-50 rounded-lg p-4">
-                  <p className="font-semibold text-gray-900 text-sm">{m.k}</p>
-                  <p className="text-sm text-gray-600">{m.v}</p>
+          {content.resources.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{content.resourcesTitle}</h3>
+              {content.resources.map((r) => (
+                <div key={r.name} className="bg-white border border-gray-200 rounded-xl p-5 mb-3">
+                  <h4 className="font-semibold text-gray-900 text-sm mb-1">{r.name}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{r.snippet}</p>
+                  {r.url && (
+                    <a href={r.url} target="_blank" rel="noopener noreferrer"
+                      className="text-sm font-medium hover:underline" style={{ color: accent }}>Open &rarr;</a>
+                  )}
                 </div>
               ))}
-            </div>
-          </section>
+              <p className="text-sm text-gray-500">{content.resourcesNote}</p>
+            </section>
+          )}
+
+          {content.checklist.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{content.checklistTitle}</h3>
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <ul className="space-y-2.5">
+                  {content.checklist.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
+                      <input type="checkbox" defaultChecked={false} className="w-4 h-4 mt-0.5" style={{ accentColor: accent }} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {content.kpis.length > 0 && (
+            <section className="mb-10">
+              <h3 className="text-lg font-bold text-gray-900 mb-1">{content.kpisTitle}</h3>
+              <p className="text-sm text-gray-500 mb-4">Baseline these now, then re-check as you go. You can only prove it worked if you measured the start.</p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {content.kpis.map((m) => (
+                  <div key={m.k} className="bg-gray-50 rounded-lg p-4">
+                    <p className="font-semibold text-gray-900 text-sm">{m.k}</p>
+                    <p className="text-sm text-gray-600">{m.v}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className="print:hidden rounded-xl p-7 text-white" style={{ backgroundColor: accent }}>
             <h3 className="text-2xl font-bold mb-2">Keep this. Make it yours.</h3>
