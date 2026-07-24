@@ -13,7 +13,7 @@ file is the tracker of record.
 | D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | DECIDED 2026-07-24: C |
 | D-006 | Assessment→playbook mapping tables | BLOCKED on D-014 |
 | D-007 | Stack 3 assessment scoring quirk | DECIDED 2026-07-24: B |
-| D-008 | Merge `feat/playbook-keepable-layer` | OPEN |
+| D-008 | Merge `feat/playbook-keepable-layer` | DECIDED 2026-07-24: A |
 | D-009 | Content: publish coefficients + the sharp opinion | OPEN |
 | D-010 | Content: two small honesty edits | OPEN |
 | D-011 | Publishing sequence + channel infrastructure | OPEN |
@@ -171,7 +171,12 @@ boxes; checklist persistence is index-based.
 **Recommendation.** A — additive, well-tested, independent of the parked
 data-capture question.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A**, as a merge train with the two additive
+D-005 branches (spike-cluster-articles, drainage-payback-calculator; Cat
+did not object to folding them in, calculator handoff lines kept).
+Combined verification: 42/42 tests, tsc clean outside the allowed set.
+Subsurface "calculating payback" inline link retargeted to
+/tools/drainage-payback as flagged.
 
 ---
 

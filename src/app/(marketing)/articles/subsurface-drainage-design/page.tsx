@@ -281,7 +281,7 @@ export default function ArticlePage() {
         <h2>Payback Period Calculation</h2>
 
         <p>
-          Return on investment depends on installation cost, yield response, crop value, and field size. Here&apos;s a framework for <Link href="/tools/efficiency-assessment">calculating payback</Link>:
+          Return on investment depends on installation cost, yield response, crop value, and field size. Here&apos;s a framework for <Link href="/tools/drainage-payback">calculating payback</Link> &mdash; or run your own numbers directly in our free drainage payback calculator, every assumption adjustable:
         </p>
 
         <h3>Example: Moderate Drainage Scenario</h3>
