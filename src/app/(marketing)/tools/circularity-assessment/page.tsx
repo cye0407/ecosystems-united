@@ -137,7 +137,7 @@ export default function CircularityAssessmentPage() {
             Get your personalized playbook →
           </Link>
           <p className="text-center text-sm text-gray-500">
-            A free plan built from your result: the moves in order, the resources, and how to make it your Passport.
+            A free plan you tailor to your operation: the moves in order, the resources, and how to make it your Passport.
           </p>
           <Link
             href="/signup?from=assessment&stack=3"

@@ -109,10 +109,17 @@ export function buildGenericTimeline(
   firstField: string | null,
 ): TimelineStep[] {
   const ordered = [...adding].sort((a, b) => a.priority - b.priority);
-  const [y1, y2, y3] = ordered;
+  const [y1, y2, ...rest] = ordered; // year 3 absorbs the 3rd and any later areas
   const where = firstField
     ? `Start with ${firstField}.`
     : "Start small — one area, one part of the operation.";
+  const restLabels = rest.map((r) => r.label.toLowerCase());
+  const y3Layer =
+    restLabels.length === 0
+      ? ""
+      : restLabels.length === 1
+        ? `Layer in ${restLabels[0]}. `
+        : `Layer in ${restLabels.slice(0, -1).join(", ")} and ${restLabels[restLabels.length - 1]}. `;
   return [
     {
       year: "Year 1",
@@ -130,10 +137,8 @@ export function buildGenericTimeline(
     },
     {
       year: "Year 3",
-      title: y3 ? `Add ${y3.label.toLowerCase()}, then review` : "Review and scale",
-      detail: `${
-        y3 ? `Layer in ${y3.label.toLowerCase()}. ` : ""
-      }Compare against your baseline and scale what actually moved the numbers.`,
+      title: rest.length > 0 ? `Add ${restLabels.join(", ")}, then review` : "Review and scale",
+      detail: `${y3Layer}Compare against your baseline and scale what actually moved the numbers.`,
     },
   ];
 }

@@ -84,6 +84,20 @@ export function computeEconomics(args: {
     });
   }
 
+  // Honesty: rotation and compost are in the plan but not yet priced here.
+  const unpriced: string[] = [];
+  if (practices.includes("rotation")) unpriced.push("diverse rotation");
+  if (practices.includes("compost")) unpriced.push("compost / manure");
+  if (unpriced.length > 0) {
+    lines.push({
+      label: `${unpriced.join(" and ")}: value not priced here`,
+      perHa: 0,
+      total: 0,
+      kind: "cost",
+      note: "Real, but harder to generalise — treat as upside on top of the numbers above.",
+    });
+  }
+
   const netWithoutFunding = lines.reduce((s, l) => s + l.total, 0);
   const fundingTotal = fundingPerHa * hectares;
 

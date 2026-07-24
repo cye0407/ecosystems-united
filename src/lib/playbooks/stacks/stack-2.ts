@@ -121,7 +121,7 @@ export const stack2Content: StackContent = {
       ],
       howTo:
         "Convert each cost into an intensity figure (energy per unit output, input cost per hectare) and record it every month so trend, not noise, drives your decisions.",
-      addresses: ["noVisibility", "buyerData", "benchmarking"],
+      addresses: ["noVisibility", "buyerData", "marginsThin"],
       priority: 5,
     },
   ],

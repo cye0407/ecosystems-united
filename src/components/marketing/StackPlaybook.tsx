@@ -367,19 +367,30 @@ export default function StackPlaybook<E = Record<string, unknown>>({
               <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>
                 Your personalized playbook
               </span>
-              <button onClick={() => window.print()}
+              <button
+                onClick={() => {
+                  analytics.track("playbook_exported", { stack: content.stackNum });
+                  window.print();
+                }}
                 className="print:hidden shrink-0 text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
                 ⤓ Print / save as PDF
               </button>
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-2">{content.playbookHeadline}</h2>
-            {(sector || scale) && (
-              <p className="text-gray-600 mb-3">
-                Built for {sector ? `${sector}, ` : ""}
-                {scale ? `${scale.toLocaleString("en-IE")} ${content.scaleLabel}` : ""}
-                {issues.length > 0 ? `, focused on ${issues.map(issueLabel).map((s) => s.toLowerCase()).join(", ")}.` : "."}
-              </p>
-            )}
+            {(() => {
+              const builtParts = [
+                sector.trim() || null,
+                scale > 0 ? `${scale.toLocaleString("en-IE")} ${content.scaleLabel}` : null,
+              ].filter(Boolean) as string[];
+              if (builtParts.length === 0 && issues.length === 0) return null;
+              const focus =
+                issues.length > 0
+                  ? `${builtParts.length ? ", " : ""}focused on ${issues.map(issueLabel).map((s) => s.toLowerCase()).join(", ")}.`
+                  : ".";
+              return (
+                <p className="text-gray-600 mb-3">Built for {builtParts.join(", ")}{focus}</p>
+              );
+            })()}
             <div className="rounded-lg border-l-4 p-4 bg-gray-50 text-sm text-gray-700" style={{ borderColor: accent }}>
               <strong>Read this as a plan, not a promise.</strong> It's built from what you told us and
               recognised best practice. Validate it against your own situation and an adviser before you
@@ -511,9 +522,9 @@ export default function StackPlaybook<E = Record<string, unknown>>({
           <div className="print:hidden rounded-xl p-7 text-white" style={{ backgroundColor: accent }}>
             <h3 className="text-2xl font-bold mb-2">Keep this. Make it yours.</h3>
             <p className="text-white/85 mb-5 text-sm leading-relaxed">
-              You've just mapped your operation. Save it as your Passport and everything here becomes
-              living data you own — ready to track, build on, and share with buyers, banks or grant
-              bodies when they ask. You only enter it once.
+              You've just mapped your operation. Save it as your Passport to carry your plan into the
+              free tracker — your farm details come with you, ready to build on as living data you own
+              and share with buyers, banks or grant bodies as you fill it in. You only start once.
             </p>
             <button onClick={handleConvert}
               className="inline-block bg-white px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors"
