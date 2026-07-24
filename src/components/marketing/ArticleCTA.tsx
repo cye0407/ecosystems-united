@@ -70,6 +70,7 @@ const BIOFUELS_SLUGS = new Set([
   "cellulosic-vs-traditional-biofuels",
   "pros-and-cons-of-advanced-biofuels",
   "ranking-biofuel-sustainability",
+  "selling-crop-residues-biofuel-feedstock",
 ]);
 
 const regenEconomicsCTA = {
@@ -85,6 +86,7 @@ const REGEN_ECONOMICS_SLUGS = new Set([
   "regenerative-guide",
   "regenerative-agriculture-economics",
   "cover-crop-selection-guide",
+  "cover-crop-termination",
   "soil-health-business-case",
   "cover-crops-roi",
   "regenerative-practices-2025",
@@ -114,6 +116,7 @@ const EFFICIENCY_SLUGS = new Set([
   "precision-irrigation-technology",
   "agricultural-drainage",
   "subsurface-drainage-design",
+  "controlled-drainage",
   "nutrient-management-planning",
   "tillage-systems-compared",
   "soil-compaction-management",

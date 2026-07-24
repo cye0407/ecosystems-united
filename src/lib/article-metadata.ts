@@ -191,6 +191,7 @@ export const guideCategories: GuideCategory[] = [
       { slug: "ranking-biofuel-sustainability", title: "Ranking the Sustainability of Biofuels", desc: "Comparing the 4 generations" },
       { slug: "biofuel-trends-2025", title: "Biofuel Trends 2025", desc: "Where the industry is heading" },
       { slug: "biofuels-in-aviation", title: "Biofuels in Aviation", desc: "Sustainable aviation fuel opportunities" },
+      { slug: "selling-crop-residues-biofuel-feedstock", title: "Selling Crop Residues as Feedstock", desc: "Farm-gate economics of straw and stover" },
     ],
   },
   {
@@ -236,6 +237,7 @@ export const guideCategories: GuideCategory[] = [
       { slug: "regenerative-agriculture-economics", title: "Economics of Regenerative Ag", desc: "Financial framework for transitions" },
       { slug: "soil-health-business-case", title: "Soil Health: The Business Case", desc: "How healthy soil reduces costs" },
       { slug: "cover-crops-roi", title: "Cover Crops: Investment & Returns", desc: "Cost-benefit analysis" },
+      { slug: "cover-crop-termination", title: "Cover Crop Termination", desc: "Methods, timing, and cost per hectare" },
       { slug: "regenerative-practices-2025", title: "7 Practices Delivering ROI in 2025", desc: "What\u2019s working and why" },
       { slug: "carbon-markets-agriculture", title: "Carbon Markets for Agriculture", desc: "Credits, verification, and what\u2019s actually worth it" },
       { slug: "regenerative-transition-costs", title: "Regenerative Transition Costs", desc: "The J-curve economics of changing practices" },
@@ -274,6 +276,7 @@ export const guideCategories: GuideCategory[] = [
       { slug: "drought-resilience-water-management", title: "Drought Resilience Planning", desc: "Water budgeting and adaptive management" },
       { slug: "water-quality-management-farms", title: "Water Quality Management", desc: "Runoff, nutrients, and regulatory compliance" },
       { slug: "subsurface-drainage-design", title: "Subsurface Drainage Design", desc: "Tile drainage costs, yield gains, and payback" },
+      { slug: "controlled-drainage", title: "Controlled Drainage", desc: "Drainage water management: costs, nitrate cuts, and fit" },
     ],
   },
   {
