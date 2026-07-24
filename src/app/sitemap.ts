@@ -84,6 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "composting-nutrient-cycling-roi",
     "cooperative-models-small-farms",
     "cover-crop-selection-guide",
+    "cover-crop-termination",
     "cover-crops-roi",
     "crop-diversification-risk",
     "csrd-vsme-agricultural-suppliers",

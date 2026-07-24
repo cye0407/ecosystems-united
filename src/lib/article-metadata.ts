@@ -236,6 +236,7 @@ export const guideCategories: GuideCategory[] = [
       { slug: "regenerative-agriculture-economics", title: "Economics of Regenerative Ag", desc: "Financial framework for transitions" },
       { slug: "soil-health-business-case", title: "Soil Health: The Business Case", desc: "How healthy soil reduces costs" },
       { slug: "cover-crops-roi", title: "Cover Crops: Investment & Returns", desc: "Cost-benefit analysis" },
+      { slug: "cover-crop-termination", title: "Cover Crop Termination", desc: "Methods, timing, and cost per hectare" },
       { slug: "regenerative-practices-2025", title: "7 Practices Delivering ROI in 2025", desc: "What\u2019s working and why" },
       { slug: "carbon-markets-agriculture", title: "Carbon Markets for Agriculture", desc: "Credits, verification, and what\u2019s actually worth it" },
       { slug: "regenerative-transition-costs", title: "Regenerative Transition Costs", desc: "The J-curve economics of changing practices" },

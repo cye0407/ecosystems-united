@@ -85,6 +85,7 @@ const REGEN_ECONOMICS_SLUGS = new Set([
   "regenerative-guide",
   "regenerative-agriculture-economics",
   "cover-crop-selection-guide",
+  "cover-crop-termination",
   "soil-health-business-case",
   "cover-crops-roi",
   "regenerative-practices-2025",
