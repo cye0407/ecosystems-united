@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { computeRoi, formatSignedEur, formatEur } from "@/lib/playbooks/roi-model";
 import { computeEconomics } from "@/lib/playbooks/stack-5-economics";
 import {
@@ -19,6 +19,10 @@ import CoverCropBlock from "./CoverCropBlock";
 
 const ACCENT = "#2D5A47";
 
+// Same per-stack persistence pattern as the shell's `eu:playbook:stack-5:state`,
+// but for the slot-owned extras (spend, soil, carbon, funding checklist).
+const EXTRAS_KEY = "eu:playbook:stack-5:extras";
+
 function useStack5Extras(core: PlaybookCore) {
   const [inputSpend, setInputSpend] = useState("350");
   const [grossMargin, setGrossMargin] = useState("800");
@@ -26,6 +30,55 @@ function useStack5Extras(core: PlaybookCore) {
   const [location, setLocation] = useState("");
   const [includeCarbon, setIncludeCarbon] = useState(false);
   const [fundingRate, setFundingRate] = useState("");
+  const [fundingChecks, setFundingChecks] = useState<Record<number, boolean>>({});
+  const [hydrated, setHydrated] = useState(false);
+
+  // One-time localStorage hydration on mount — the same pattern the shell uses
+  // for its saved state (an effect, not a lazy initializer, to stay SSR-safe).
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(EXTRAS_KEY);
+      if (raw) {
+        const s = JSON.parse(raw) as Record<string, unknown>;
+        if (typeof s.inputSpend === "string") setInputSpend(s.inputSpend);
+        if (typeof s.grossMargin === "string") setGrossMargin(s.grossMargin);
+        if (typeof s.soil === "string" && (s.soil === "" || SOIL_TYPES.some((t) => t.key === s.soil))) {
+          setSoil(s.soil as SoilKey | "");
+        }
+        if (typeof s.location === "string") setLocation(s.location);
+        if (typeof s.includeCarbon === "boolean") setIncludeCarbon(s.includeCarbon);
+        if (typeof s.fundingRate === "string") setFundingRate(s.fundingRate);
+        if (Array.isArray(s.fundingChecks)) {
+          setFundingChecks(Object.fromEntries(
+            s.fundingChecks.filter((n): n is number => typeof n === "number").map((n) => [n, true]),
+          ));
+        }
+      }
+    } catch {
+      /* malformed saved extras — defaults are fine */
+    }
+    setHydrated(true);
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  useEffect(() => {
+    if (!hydrated) return;
+    const t = setTimeout(() => {
+      try {
+        localStorage.setItem(EXTRAS_KEY, JSON.stringify({
+          inputSpend, grossMargin, soil, location, includeCarbon, fundingRate,
+          fundingChecks: Object.keys(fundingChecks).filter((k) => fundingChecks[Number(k)]).map(Number),
+        }));
+      } catch {
+        /* storage unavailable — non-fatal */
+      }
+    }, 400);
+    return () => clearTimeout(t);
+  }, [hydrated, inputSpend, grossMargin, soil, location, includeCarbon, fundingRate, fundingChecks]);
+
+  const toggleFundingCheck = (i: number) =>
+    setFundingChecks((c) => ({ ...c, [i]: !c[i] }));
 
   const spend = parseFloat(inputSpend) || 0;
   const margin = parseFloat(grossMargin) || 0;
@@ -61,6 +114,7 @@ function useStack5Extras(core: PlaybookCore) {
   return {
     inputSpend, setInputSpend, grossMargin, setGrossMargin, soil, setSoil,
     location, setLocation, includeCarbon, setIncludeCarbon, fundingRate, setFundingRate,
+    fundingChecks, toggleFundingCheck,
     spend, margin, roi, econ, coverRecs, numbersReady,
   };
 }
@@ -207,7 +261,7 @@ export const stack5Slots: PlaybookSlots<Stack5Extras> = {
     </>
   ),
 
-  playbookBottom: (core) => {
+  playbookBottom: (core, e) => {
     const funding = getStack5Funding(core.region);
     const inPlay = new Set([...core.running, ...core.adding]);
     const usedSourceIds = new Set<string>();
@@ -244,7 +298,9 @@ export const stack5Slots: PlaybookSlots<Stack5Extras> = {
             <ul className="space-y-2.5">
               {getFundingChecklist(core.region).map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                  <input type="checkbox" defaultChecked={false} className="w-4 h-4 mt-0.5" style={{ accentColor: ACCENT }} />
+                  <input type="checkbox" checked={e.fundingChecks[i] === true}
+                    onChange={() => e.toggleFundingCheck(i)}
+                    className="w-4 h-4 mt-0.5" style={{ accentColor: ACCENT }} />
                   <span>{item}</span>
                 </li>
               ))}
