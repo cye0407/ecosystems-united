@@ -82,6 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "closed-loop-nutrient-cycling",
     "companion-planting-introduction",
     "composting-nutrient-cycling-roi",
+    "controlled-drainage",
     "cooperative-models-small-farms",
     "cover-crop-selection-guide",
     "cover-crop-termination",

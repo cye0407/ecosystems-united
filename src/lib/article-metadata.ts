@@ -275,6 +275,7 @@ export const guideCategories: GuideCategory[] = [
       { slug: "drought-resilience-water-management", title: "Drought Resilience Planning", desc: "Water budgeting and adaptive management" },
       { slug: "water-quality-management-farms", title: "Water Quality Management", desc: "Runoff, nutrients, and regulatory compliance" },
       { slug: "subsurface-drainage-design", title: "Subsurface Drainage Design", desc: "Tile drainage costs, yield gains, and payback" },
+      { slug: "controlled-drainage", title: "Controlled Drainage", desc: "Drainage water management: costs, nitrate cuts, and fit" },
     ],
   },
   {

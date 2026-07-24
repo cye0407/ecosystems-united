@@ -115,6 +115,7 @@ const EFFICIENCY_SLUGS = new Set([
   "precision-irrigation-technology",
   "agricultural-drainage",
   "subsurface-drainage-design",
+  "controlled-drainage",
   "nutrient-management-planning",
   "tillage-systems-compared",
   "soil-compaction-management",
