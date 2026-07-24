@@ -7,13 +7,13 @@ import { analytics } from "@/lib/analytics";
 const questions = [
   "Do you know all the physical outputs that leave your operation (waste, by-products, scrap)?",
   "Have you mapped where each output stream goes?",
-  "Do you pay for disposal of anything that could have value?",
+  "Is everything you pay to dispose of genuinely worthless?",
   "Have you explored whether anyone would buy what you throw away?",
-  "Do you have equipment or space that sits idle more than 30% of the time?",
+  "Is your equipment and space in productive use at least 70% of the time?",
   "Have you monetized any by-product or waste stream in the past 2 years?",
   "Do you know businesses nearby that might need your outputs as their inputs?",
   "Do you recover any energy (heat, cooling) from your processes?",
-  "Do you have data or knowledge you collect but don't use?",
+  "Do you put the data and knowledge you collect to use?",
   "Can you estimate the annual value of what leaves your system uncaptured?",
 ];
 

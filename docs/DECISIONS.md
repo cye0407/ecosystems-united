@@ -12,7 +12,7 @@ file is the tracker of record.
 | D-004 | Legacy /framework bottom CTAs on spiking pages | DECIDED 2026-07-24: B |
 | D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | DECIDED 2026-07-24: C |
 | D-006 | Assessment→playbook mapping tables | BLOCKED on D-014 |
-| D-007 | Stack 3 assessment scoring quirk | OPEN |
+| D-007 | Stack 3 assessment scoring quirk | DECIDED 2026-07-24: B |
 | D-008 | Merge `feat/playbook-keepable-layer` | OPEN |
 | D-009 | Content: publish coefficients + the sharp opinion | OPEN |
 | D-010 | Content: two small honesty edits | OPEN |
@@ -139,7 +139,12 @@ quirk is live on the free assessment today, independent of any handoff.
 
 **Recommendation.** B — rephrase.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **B**. Three questions rephrased so "Yes" is the
+good state: "Is everything you pay to dispose of genuinely worthless?" /
+"Is your equipment and space in productive use at least 70% of the time?" /
+"Do you put the data and knowledge you collect to use?" Scoring code
+untouched. Note: if D-006 ever unblocks, mappings for these questions
+become honestly possible against the NEW phrasing.
 
 ---
 
