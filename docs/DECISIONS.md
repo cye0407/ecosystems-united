@@ -14,9 +14,9 @@ file is the tracker of record.
 | D-006 | Assessment→playbook mapping tables | BLOCKED on D-014 |
 | D-007 | Stack 3 assessment scoring quirk | DECIDED 2026-07-24: B |
 | D-008 | Merge `feat/playbook-keepable-layer` | DECIDED 2026-07-24: A |
-| D-009 | Content: publish coefficients + the sharp opinion | OPEN |
-| D-010 | Content: two small honesty edits | OPEN |
-| D-011 | Publishing sequence + channel infrastructure | OPEN |
+| D-009 | Content: publish coefficients + the sharp opinion | DECIDED 2026-07-24: A w/ rewrite |
+| D-010 | Content: two small honesty edits | DECIDED 2026-07-24: A modified |
+| D-011 | Publishing sequence + channel infrastructure | DECIDED 2026-07-24: A |
 | D-012 | Standalone biofuels playbook | OPEN |
 | D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
 | D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
@@ -203,7 +203,13 @@ draft 1.
 
 **Recommendation.** A.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A, with a clarity rewrite** (Cat: "I like the
+stance but it is confusing language"). Coefficients publish exactly as
+coded. The opinion section was rewritten to state the point in one read:
+sceptics don't kill regenerative agriculture, broken "pays for itself"
+promises do — the threat is hiding the J-curve dip, NOT the movement's
+cultural image. Heading changed from the idiom ("inside the house") to
+"The overpromise is the threat, not the sceptics".
 
 ---
 
@@ -227,7 +233,13 @@ feedback" before any feedback round exists).
 
 **Recommendation.** A — one-minute edits, applied on approval.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A, modified by the new voice rules** (see
+D-009 addendum): cheat-sheet footer softened as proposed; LinkedIn C3's
+self-build sentence REMOVED entirely (not softened) per Cat's standing
+rule — nothing she publishes says "I'm building", and LinkedIn talks to
+the audience, not about herself. Full LinkedIn-queue re-voice dispatched;
+D-009's coefficient section gained the standing disclaimer: "if you don't
+agree with these coefficients, tell me what you'd use instead."
 
 ---
 
@@ -255,7 +267,12 @@ its announcement post.
 **Recommendation.** A, with voice review of notes.md + linkedin-queue.md
 as the first, fastest step.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A**. Sequence adopted. Cat this week: new
+Substack publication, LinkedIn scheduler choice, Medium (lower urgency);
+Reddit waits on listener-session history. Claude: host the cheat sheet as
+a real file BEFORE the artifact-drop post (announcement never precedes the
+artifact). All publishing gated on Cat's voice review of the re-voiced
+batch.
 
 ---
 

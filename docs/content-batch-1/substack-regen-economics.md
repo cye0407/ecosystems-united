@@ -32,6 +32,8 @@ Transparency or nothing, so here's what's under the hood of my model. Every figu
 - **System effect:** the savings ramp scales with how many practices you stack, from a 0.875 multiplier for one practice alone up to 1.25 for four together. The research is fairly emphatic that these practices compound as a system and underperform bolted on in isolation.
 - **Subsidies:** not assumed. Ever. Eco-scheme payments for cover crops commonly land somewhere in the €50–130/ha range in Europe, but the rates vary so much by country and scheme that my model refuses to auto-fill them. You enter your own rate or the model shows you the economics without it.
 
+A standing disclaimer, and a genuine ask: **if you don't agree with these coefficients, tell me what you'd use instead — and why.** Field numbers beat published averages, and the model changes when better numbers show up.
+
 Run sensible inputs through that and payback typically lands around year three or four. Sometimes later. And here's the part a marketer would cut: sometimes *never*. If your input spend is already low — if you're already running a lean operation — there's less fat for regenerative practices to trim, and the savings ramp has less to ramp on. The model will show you that. I consider it a feature.
 
 ## Why conservative beats compelling
@@ -42,11 +44,11 @@ Maybe. But think about who uses a free farm-economics calculator and what happen
 
 There's also a selfish reason. I publish my coefficients precisely so that people with actual field experience can tell me where they're wrong — it's the fastest error-correction mechanism I have. That only works if the starting numbers are visibly honest. Nobody bothers correcting a sales pitch; they just dismiss it.
 
-## The credibility risk is coming from inside the house
+## The overpromise is the threat, not the sceptics
 
-Here's my slightly uncomfortable opinion, as someone who writes in this space: the biggest threat to regenerative agriculture's economics isn't scepticism. It's the movement's own marketing.
+Here's my uncomfortable opinion, as someone who writes in this space: sceptics don't kill regenerative agriculture. Broken promises do.
 
-Every time a farmer is promised "pays for itself" and then eats an undisclosed 8% in year one, the idea takes reputational damage that no case study repairs. The steady-state numbers might be genuinely excellent — the Kansas data and the AFT farms suggest the long game is very real — but the people who never got shown the dip don't stick around to reach steady state. They exit at the bottom of a J-curve they didn't know existed, and they tell the neighbours too.
+The dangerous sentence is "it pays for itself." It's said with good intentions, and at steady state it may even be true — but the farmer hearing it is standing at the *start* of the transition, where the honest answer is "it costs you money for two to three years first." Promise the first sentence, deliver the second, and you've created the most persuasive sceptic there is: a neighbour who tried it and got burned. The steady-state numbers might be genuinely excellent — the Kansas data and the AFT farms suggest the long game is very real — but the people who never got shown the dip don't stick around to reach steady state. They exit at the bottom of a J-curve nobody drew for them, and they tell everyone why.
 
 Selling the dip sounds like bad marketing. I think it's the only marketing that survives contact with year two. "This will cost you money for two to three years, here's roughly how much, here's when it typically turns, and here's how funding can soften the front end" is a pitch a farmer can plan around — and a bank can lend against. "Trust the process" is not.
 

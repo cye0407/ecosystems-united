@@ -7,13 +7,13 @@ Goal: value-first posts that harvest coefficient corrections and artifact-demand
 
 **Suggested subs:** r/RegenerativeAg (primary), r/agronomy (secondary, later — 1 sub per posting window per the kit's cadence rule)
 
-**Title:** Building a free regen-transition ROI calculator — are these coefficients defensible? (EU-leaning)
+**Title:** I made a free regen-transition ROI calculator — are these default coefficients defensible? (EU-leaning)
 
 **Body:**
 
-I build free calculators and write guides on farm sustainability economics — not a farmer, so I'd rather get roasted here than quietly mislead someone who is.
+I publish free calculators and guides on farm sustainability economics — not a farmer, so I'd rather get roasted here than quietly mislead someone who is.
 
-The calculator models the transition J-curve (worse before better) for a farm adding cover crops and/or reduced tillage. Every figure below is an adjustable assumption in the tool, but the *defaults* matter because most people never change defaults. Here's what's under the hood:
+The calculator is live and free. It models the transition J-curve (worse before better) for a farm adding cover crops and/or reduced tillage. Every figure below is an adjustable assumption in the tool, but the *defaults* matter because most people never change defaults. Here's what's under the hood:
 
 - **Cover crop seed + one establishment pass: €55/ha, recurring every year** the cover stays in
 - **Fuel + labour saving once reduced/no-till is established: €40/ha/yr** (converted from ~$17/acre US CEAP fuel-saving data, rounded down for EU conditions)
@@ -32,7 +32,7 @@ Specific asks:
 2. Is €55/ha realistic for what you pay for seed + establishment, and what mix is that for?
 3. Anyone who cut tillage passes: what did fuel + labour savings really come to per ha/acre?
 
-If a default is wrong for your region or soil, I'll change it — that's the point of asking. Happy to share the tool in comments if anyone wants it (free, no signup).
+Don't agree with these numbers? Say what you'd use instead — and why. If a default is wrong for your region or soil, that's exactly what the asking is for. Happy to share the tool in comments if anyone wants it (free, no signup).
 
 **Posting notes:** answer every comment within 24h; log corrections per coefficient + region in the signal log; link only in comments when asked.
 
@@ -65,7 +65,7 @@ Extra notes I'd flag:
 - Vetch and rye pair well: the cereal gives the vetch something to climb.
 - Radish only earns its place if it gets real autumn growth before frost — late-sown radish is expensive mulch.
 
-Corrections genuinely welcome — especially rates and windows for your region, and anything you'd flat-out disagree with from experience. If there's interest I'll post an updated version with the fixes folded in.
+Corrections genuinely welcome — especially rates and windows for your region, and anything you'd flat-out disagree with from experience. If a rate or window is wrong for your area, say what you'd use instead.
 
 **Posting notes:** the "updated version with fixes" is the archetype-3-style give-back — post it. Log every correction by species + region.
 
@@ -79,7 +79,7 @@ Corrections genuinely welcome — especially rates and windows for your region, 
 
 **Body:**
 
-I build free tools and write guides on farm sustainability economics, and the most common question I get is some version of "which cover crop for my situation?" So I condensed the answer onto one printable page:
+I publish free tools and guides on farm sustainability economics, and the most common question I get is some version of "which cover crop for my situation?" So I condensed the answer onto one printable page:
 
 - **Problem → species matrix**: compaction, erosion, low organic matter, weeds, drainage, drought, fertiliser cost, pests — and which species actually address each
 - **Per-species quick facts**: solo seeding rate, sowing window (temperate EU), and how to terminate it
@@ -90,9 +90,9 @@ It's a direct file — no email, no signup, nothing to unlock. I keep it deliber
 
 Two honest asks, because this sheet gets better with field experience I don't have:
 
-1. What's missing that you'd want on a one-pager like this? (Most-requested addition gets built next.)
+1. What's missing that you'd want on a one-pager like this?
 2. Anything on it you'd outright contradict for your region or soil?
 
 File link in comments (some subs eat link posts). If mods prefer it differently, tell me and I'll adjust.
 
-**Posting notes:** downloads + requested additions = demand ranking for the artifact library. The "most-requested addition gets built next" line is the signal harvest — track it.
+**Posting notes:** downloads + requested additions = demand ranking for the artifact library. The "what's missing" ask is the signal harvest — track requested additions per comment.

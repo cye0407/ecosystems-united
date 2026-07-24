@@ -62,4 +62,4 @@ Plan on roughly **€55/ha per year** for seed plus one establishment pass — r
 
 ---
 
-*Free from Ecosystems United — built from published agronomy references and corrected by grower feedback. Spotted an error for your region? Tell me and the next version improves.*
+*Free from Ecosystems United — built from published agronomy references. Corrections from growers welcome: spotted an error for your region? Say what you'd use instead.*
