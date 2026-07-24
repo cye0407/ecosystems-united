@@ -183,20 +183,6 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 2 */}
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to fix your efficiency leaks?</h3>
-        <p className="text-white/80 mb-4">
-          Cover crops are often the highest-ROI first step in agricultural efficiency improvement—fixing fertilizer, water, and yield leaks simultaneously.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 2 focuses on moving from passive measurement to operational improvement. The Five Stacks Framework helps you identify your biggest efficiency opportunities and implement changes that pay for themselves.
-        </p>
-        <Link href="/framework/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 2 →
-        </Link>
-      </div>
-
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

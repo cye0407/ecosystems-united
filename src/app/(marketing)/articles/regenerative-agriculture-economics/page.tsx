@@ -166,20 +166,6 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 5 */}
-      <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your economic case?</h3>
-        <p className="text-white/80 mb-4">
-          The economics of regenerative agriculture favor operations that track and document their improvements.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 5 focuses on turning operational economics into market positioning. The Five Stacks Framework helps you build documented financial performance that supports premium pricing, better financing terms, and stronger partnerships.
-        </p>
-        <Link href="/framework/stack-5-regeneration" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 5 →
-        </Link>
-      </div>
-
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

@@ -349,21 +349,6 @@ export default function ArticlePage() {
 
       </article>
 
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">
-          Explore Stack 2: Efficiency
-        </h2>
-        <p className="mb-6 text-white/90">
-          Subsurface drainage is one component of resource efficiency. Discover the complete framework for optimizing water, nutrient, and energy use while improving yields and resilience.
-        </p>
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Discover Stack 2: Efficiency
-        </Link>
-      </div>
-
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h2>
         <div className="space-y-3">

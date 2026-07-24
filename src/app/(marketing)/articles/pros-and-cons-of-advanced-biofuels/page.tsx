@@ -135,20 +135,6 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to evaluate your circular value options?</h3>
-        <p className="text-white/80 mb-4">
-          Biofuels are one pathway for turning waste into value—Stack 3 in the Five Stacks Framework helps you evaluate all the options systematically.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 3 focuses on identifying waste streams and byproducts that can become revenue or cost savings. Biofuels, composting, biogas, animal feed—the right choice depends on your specific waste streams, local infrastructure, and market access.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 3 →
-        </Link>
-      </div>
-
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

@@ -353,19 +353,6 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">Ready to Build Circular Systems?</h2>
-        <p className="mb-6 text-white/90">
-          Cover cropping is one strategy within Stack 3: Circularity. Explore the full framework for closing loops, capturing value from waste, and designing regenerative nutrient cycles.
-        </p>
-        <Link
-          href="/framework/stack-3-circularity"
-          className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 3: Circularity
-        </Link>
-      </div>
-
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold mb-4 text-gray-900">Further Reading</h3>
         <div className="space-y-3">
