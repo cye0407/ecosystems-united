@@ -133,6 +133,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "regenerative-practices-2025",
     "regenerative-transition-costs",
     "scope-1-2-3-agriculture",
+    "selling-crop-residues-biofuel-feedstock",
     "small-farm-competitive-strategy",
     "small-farm-financial-planning",
     "small-farm-market-channels",

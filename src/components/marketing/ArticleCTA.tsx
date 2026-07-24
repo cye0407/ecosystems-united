@@ -70,6 +70,7 @@ const BIOFUELS_SLUGS = new Set([
   "cellulosic-vs-traditional-biofuels",
   "pros-and-cons-of-advanced-biofuels",
   "ranking-biofuel-sustainability",
+  "selling-crop-residues-biofuel-feedstock",
 ]);
 
 const regenEconomicsCTA = {
