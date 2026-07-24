@@ -103,6 +103,13 @@ const calculators = [
     status: "available" as const,
   },
   {
+    name: "Drainage Payback Calculator",
+    description:
+      "Would tile drainage pay on your wet fields? Pick drain spacing and how waterlogged the area is, and see installation cost, annual benefit, and years to payback — every preset adjustable.",
+    href: "/tools/drainage-payback",
+    status: "available" as const,
+  },
+  {
     name: "Energy Efficiency ROI Calculator",
     description:
       "Input your energy consumption and see exactly what efficiency improvements would save you — in euros and CO₂.",

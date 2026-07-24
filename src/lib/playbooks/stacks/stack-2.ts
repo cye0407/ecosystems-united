@@ -6,6 +6,7 @@ export const stack2Content: StackContent = {
   slug: "stack-2-efficiency",
   stackNum: 2,
   accent: "#5B4A9E",
+  handoffKey: "eu:playbook:stack-2",
   toolHref: "/tools/efficiency-assessment",
   toolLabel: "Back to the efficiency assessment",
 
