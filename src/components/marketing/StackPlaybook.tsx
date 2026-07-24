@@ -13,6 +13,12 @@ import {
   type StackContent,
   type FocusArea,
 } from "@/lib/playbooks/content-types";
+import {
+  buildKpiBaselineCsv,
+  CSV_BOM,
+  type KpiBaseline,
+  type KpiBaselineMap,
+} from "@/lib/playbooks/export";
 
 const SEED_KEY = "eu:passport:seed";
 const REGIONS: Region[] = ["eu", "uk", "us", "other"];
@@ -74,6 +80,9 @@ interface Handoff {
   issues?: string[];
 }
 
+const isStringArray = (v: unknown): v is string[] =>
+  Array.isArray(v) && v.every((x) => typeof x === "string");
+
 export default function StackPlaybook<E = Record<string, unknown>>({
   content,
   slots,
@@ -98,6 +107,11 @@ export default function StackPlaybook<E = Record<string, unknown>>({
   const [startYear, setStartYear] = useState(START_YEARS[0]);
   const [cameFromTool, setCameFromTool] = useState(false);
   const [showPlaybook, setShowPlaybook] = useState(false);
+  const [checks, setChecks] = useState<Record<number, boolean>>({});
+  const [kpiBaselines, setKpiBaselines] = useState<KpiBaselineMap>({});
+  const [hydrated, setHydrated] = useState(false);
+
+  const stateKey = `eu:playbook:stack-${content.stackNum}:state`;
 
   useEffect(() => {
     if (content.handoffKey) {
@@ -114,9 +128,66 @@ export default function StackPlaybook<E = Record<string, unknown>>({
         /* defaults are fine */
       }
     }
+    // Saved worksheet state wins over the handoff — it's the user's later edits.
+    try {
+      const raw = localStorage.getItem(stateKey);
+      if (raw) {
+        const s = JSON.parse(raw) as Record<string, unknown>;
+        if (typeof s.scale === "number" && Number.isFinite(s.scale) && s.scale >= 0) setScale(s.scale);
+        if (typeof s.region === "string" && (REGIONS as string[]).includes(s.region)) setRegion(s.region as Region);
+        if (typeof s.sector === "string") setSector(s.sector);
+        if (isStringArray(s.issues)) setIssues(s.issues);
+        if (isStringArray(s.running)) setRunning(s.running);
+        if (isStringArray(s.adding)) setAdding(s.adding);
+        if (typeof s.field === "string") setField(s.field);
+        if (typeof s.startPeriod === "string" && [...QUARTERS, ...MONTHS].includes(s.startPeriod)) setStartPeriod(s.startPeriod);
+        if (typeof s.startYear === "string" && START_YEARS.includes(s.startYear)) setStartYear(s.startYear);
+        if (Array.isArray(s.checks)) {
+          setChecks(Object.fromEntries(
+            s.checks.filter((n): n is number => typeof n === "number").map((n) => [n, true]),
+          ));
+        }
+        if (s.kpiBaselines && typeof s.kpiBaselines === "object" && !Array.isArray(s.kpiBaselines)) {
+          const clean: KpiBaselineMap = {};
+          for (const [k, v] of Object.entries(s.kpiBaselines as Record<string, unknown>)) {
+            if (v && typeof v === "object") {
+              const b = v as Partial<KpiBaseline>;
+              clean[k] = {
+                value: typeof b.value === "string" ? b.value : "",
+                date: typeof b.date === "string" ? b.date : "",
+              };
+            }
+          }
+          setKpiBaselines(clean);
+        }
+        if (s.generated === true) setShowPlaybook(true);
+      }
+    } catch {
+      /* malformed saved state — start a fresh worksheet */
+    }
+    setHydrated(true);
     analytics.track("playbook_worksheet_opened", { stack: content.stackNum });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Persist everything the worksheet + plan holds, debounced, per stack.
+  useEffect(() => {
+    if (!hydrated) return;
+    const t = setTimeout(() => {
+      try {
+        localStorage.setItem(stateKey, JSON.stringify({
+          scale, region, sector, issues, running, adding, field, startPeriod, startYear,
+          generated: showPlaybook,
+          checks: Object.keys(checks).filter((k) => checks[Number(k)]).map(Number),
+          kpiBaselines,
+        }));
+      } catch {
+        /* storage unavailable — non-fatal */
+      }
+    }, 400);
+    return () => clearTimeout(t);
+  }, [hydrated, stateKey, scale, region, sector, issues, running, adding, field,
+    startPeriod, startYear, showPlaybook, checks, kpiBaselines]);
 
   const toggle = (list: string[], set: (v: string[]) => void, key: string) =>
     set(list.includes(key) ? list.filter((k) => k !== key) : [...list, key]);
@@ -172,11 +243,47 @@ export default function StackPlaybook<E = Record<string, unknown>>({
     );
   };
 
+  const setBaseline = (kpi: string, patch: Partial<KpiBaseline>) =>
+    setKpiBaselines((b) => ({
+      ...b,
+      [kpi]: { ...(b[kpi] ?? { value: "", date: "" }), ...patch },
+    }));
+
+  const enteredBaselines = () =>
+    content.kpis
+      .map((m) => ({
+        kpi: m.k,
+        value: (kpiBaselines[m.k]?.value ?? "").trim(),
+        date: kpiBaselines[m.k]?.date ?? "",
+      }))
+      .filter((b) => b.value || b.date);
+
+  const handleCsvExport = () => {
+    try {
+      // CSV_BOM so Excel opens the € and CO2e characters as UTF-8.
+      const blob = new Blob([CSV_BOM + buildKpiBaselineCsv(content.kpis, kpiBaselines)], {
+        type: "text/csv;charset=utf-8",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${content.slug}-kpi-baselines.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      /* non-fatal */
+    }
+    analytics.track("playbook_export_csv", { stack: content.stackNum });
+  };
+
   const handleConvert = () => {
     const seed = {
       stack: content.stackNum, scale, region, sector: sector || null,
       issues, running, adding,
       firstMove: field ? { field, start: startWhen } : null,
+      kpiBaselines: enteredBaselines(),
       ...(slots?.seedExtras ? slots.seedExtras(core, extras) : {}),
     };
     try {
@@ -362,19 +469,35 @@ export default function StackPlaybook<E = Record<string, unknown>>({
       {/* Playbook */}
       {showPlaybook && (
         <div ref={playbookRef} className="mt-16 pt-10 border-t border-gray-200 print:mt-0 print:pt-0 print:border-0">
+          {/* Print-only identity line so the saved PDF says what it is. */}
+          <div className="hidden print:block mb-4 pb-2 border-b border-gray-300 text-sm text-gray-600">
+            Ecosystems United &mdash; Stack {content.stackNum} playbook
+            {sector.trim() ? ` · ${sector.trim()}` : ""}
+            {scale > 0 ? ` · ${scale.toLocaleString("en-IE")} ${content.scaleLabel}` : ""}
+            {` · generated ${new Date().toLocaleDateString("en-IE", { day: "numeric", month: "long", year: "numeric" })}`}
+          </div>
           <header className="mb-6">
             <div className="flex items-start justify-between gap-4">
               <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>
                 Your personalized playbook
               </span>
-              <button
-                onClick={() => {
-                  analytics.track("playbook_exported", { stack: content.stackNum });
-                  window.print();
-                }}
-                className="print:hidden shrink-0 text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
-                ⤓ Print / save as PDF
-              </button>
+              <div className="print:hidden shrink-0 flex flex-wrap justify-end gap-2">
+                {content.kpis.length > 0 && (
+                  <button
+                    onClick={handleCsvExport}
+                    className="text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
+                    ⤓ Download KPI baseline sheet (CSV)
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    analytics.track("playbook_exported", { stack: content.stackNum });
+                    window.print();
+                  }}
+                  className="text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
+                  ⤓ Print / save as PDF
+                </button>
+              </div>
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-2">{content.playbookHeadline}</h2>
             {(() => {
@@ -495,7 +618,9 @@ export default function StackPlaybook<E = Record<string, unknown>>({
                 <ul className="space-y-2.5">
                   {content.checklist.map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                      <input type="checkbox" defaultChecked={false} className="w-4 h-4 mt-0.5" style={{ accentColor: accent }} />
+                      <input type="checkbox" checked={checks[i] === true}
+                        onChange={() => setChecks((c) => ({ ...c, [i]: !c[i] }))}
+                        className="w-4 h-4 mt-0.5" style={{ accentColor: accent }} />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -509,12 +634,32 @@ export default function StackPlaybook<E = Record<string, unknown>>({
               <h3 className="text-lg font-bold text-gray-900 mb-1">{content.kpisTitle}</h3>
               <p className="text-sm text-gray-500 mb-4">Baseline these now, then re-check as you go. You can only prove it worked if you measured the start.</p>
               <div className="grid sm:grid-cols-2 gap-3">
-                {content.kpis.map((m) => (
-                  <div key={m.k} className="bg-gray-50 rounded-lg p-4">
-                    <p className="font-semibold text-gray-900 text-sm">{m.k}</p>
-                    <p className="text-sm text-gray-600">{m.v}</p>
-                  </div>
-                ))}
+                {content.kpis.map((m) => {
+                  const b = kpiBaselines[m.k] ?? { value: "", date: "" };
+                  return (
+                    <div key={m.k} className="bg-gray-50 rounded-lg p-4">
+                      <p className="font-semibold text-gray-900 text-sm">{m.k}</p>
+                      <p className="text-sm text-gray-600">{m.v}</p>
+                      <div className="mt-3 grid grid-cols-[1fr_8.5rem] gap-2">
+                        <div>
+                          <label className="block text-[11px] text-gray-400 mb-0.5">Your start value</label>
+                          <input type="text" value={b.value}
+                            onChange={(e) => setBaseline(m.k, { value: e.target.value })}
+                            placeholder="—"
+                            className="w-full border border-gray-200 rounded px-2 py-1 text-sm text-gray-900 bg-white focus:outline-none focus:ring-1 print:border-0 print:bg-transparent print:px-0"
+                            style={{ outlineColor: accent }} />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] text-gray-400 mb-0.5">Date</label>
+                          <input type="date" value={b.date}
+                            onChange={(e) => setBaseline(m.k, { date: e.target.value })}
+                            className="w-full border border-gray-200 rounded px-2 py-1 text-sm text-gray-900 bg-white focus:outline-none focus:ring-1 print:border-0 print:bg-transparent print:px-0"
+                            style={{ outlineColor: accent }} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
           )}
