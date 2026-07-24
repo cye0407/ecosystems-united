@@ -241,7 +241,7 @@ export default function ArticlePage() {
         <h2>Payback Period Calculation</h2>
 
         <p>
-          Return on investment depends on installation cost, yield response, crop value, and field size. Here&apos;s a framework for calculating payback:
+          Return on investment depends on installation cost, yield response, crop value, and field size. Here&apos;s a framework for <Link href="/tools/efficiency-assessment">calculating payback</Link>:
         </p>
 
         <h3>Example: Moderate Drainage Scenario</h3>
@@ -372,6 +372,24 @@ export default function ArticlePage() {
             className="block text-[#5B4A9E] hover:underline"
           >
             Agricultural Drainage Systems: Surface and Subsurface Solutions &rarr;
+          </Link>
+          <Link
+            href="/articles/water-management-guide"
+            className="block text-[#5B4A9E] hover:underline"
+          >
+            The Complete Guide to Water Management for Farms &rarr;
+          </Link>
+          <Link
+            href="/articles/soil-compaction-management"
+            className="block text-[#5B4A9E] hover:underline"
+          >
+            Soil Compaction: Detection, Prevention, and Remediation &rarr;
+          </Link>
+          <Link
+            href="/articles/irrigation-system-planning"
+            className="block text-[#5B4A9E] hover:underline"
+          >
+            8 Essential Questions Before Installing an Irrigation System &rarr;
           </Link>
           <Link
             href="/articles/soil-health-business-case"

@@ -125,7 +125,7 @@ export default function ArticlePage() {
           From a Stack 3 perspective, advanced biofuels represent one option for creating value from waste streams. The question isn't whether biofuels are universally good—it's whether they make sense for your specific situation.
         </p>
         <p>
-          If your operation generates significant organic waste, understanding biofuel pathways helps you evaluate:
+          If your operation generates significant organic waste, <Link href="/tools/biofuel-feedstock-compare">understanding biofuel pathways</Link> helps you evaluate:
         </p>
         <ul>
           <li>Whether selling feedstock to biofuel producers could generate revenue</li>
@@ -164,6 +164,18 @@ export default function ArticlePage() {
           <Link href="/articles/circular-economy-explained" className="block p-4 border border-gray-200 rounded-lg hover:border-[#7B6BB8] transition-colors">
             <span className="font-medium text-gray-900">The Circular Economy Explained →</span>
             <span className="block text-sm text-gray-600">The broader framework for turning waste into value</span>
+          </Link>
+          <Link href="/articles/biofuels-guide" className="block p-4 border border-gray-200 rounded-lg hover:border-[#7B6BB8] transition-colors">
+            <span className="font-medium text-gray-900">The Complete Guide to Biofuels for Farms →</span>
+            <span className="block text-sm text-gray-600">Biofuel economics, sustainability rankings, and energy opportunities for agricultural operations</span>
+          </Link>
+          <Link href="/articles/biofuels-in-aviation" className="block p-4 border border-gray-200 rounded-lg hover:border-[#7B6BB8] transition-colors">
+            <span className="font-medium text-gray-900">Biofuels in Aviation: How SAF Is Creating New Feedstock Demand →</span>
+            <span className="block text-sm text-gray-600">How Sustainable Aviation Fuel is driving demand for agricultural feedstocks</span>
+          </Link>
+          <Link href="/articles/farm-waste-to-value" className="block p-4 border border-gray-200 rounded-lg hover:border-[#7B6BB8] transition-colors">
+            <span className="font-medium text-gray-900">Farm Waste Streams: Where Value Is Being Lost →</span>
+            <span className="block text-sm text-gray-600">A practical audit of farm waste streams and circular opportunities</span>
           </Link>
         </div>
       </div>

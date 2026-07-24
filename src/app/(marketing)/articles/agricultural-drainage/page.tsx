@@ -146,6 +146,14 @@ export default function ArticlePage() {
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>
         <div className="space-y-3">
+          <Link href="/articles/subsurface-drainage-design" className="block p-4 border border-gray-200 rounded-lg hover:border-[#5B4A9E] transition-colors">
+            <span className="font-medium text-gray-900">Subsurface Drainage: Design, Costs, and Payback →</span>
+            <span className="block text-sm text-gray-600">Tile drainage economics, installation costs, and payback calculations</span>
+          </Link>
+          <Link href="/articles/water-management-guide" className="block p-4 border border-gray-200 rounded-lg hover:border-[#5B4A9E] transition-colors">
+            <span className="font-medium text-gray-900">The Complete Guide to Water Management for Farms →</span>
+            <span className="block text-sm text-gray-600">Irrigation systems, drainage, water quality, and infrastructure planning</span>
+          </Link>
           <Link href="/articles/agricultural-irrigation" className="block p-4 border border-gray-200 rounded-lg hover:border-[#5B4A9E] transition-colors">
             <span className="font-medium text-gray-900">Agricultural Irrigation Methods →</span>
             <span className="block text-sm text-gray-600">Understanding irrigation systems and their efficiency trade-offs</span>

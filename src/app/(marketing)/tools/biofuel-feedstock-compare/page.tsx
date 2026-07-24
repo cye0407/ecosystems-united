@@ -255,6 +255,12 @@ export default function BiofuelFeedstockComparePage() {
             viable. That&apos;s a Stack 3 (margin recovery) opportunity: value
             you&apos;re currently leaving in the field.
           </p>
+          <Link
+            href="/playbooks/stack-3-circularity"
+            className="inline-block mt-4 bg-white text-[#7B6BB8] px-5 py-2.5 rounded-md font-semibold text-sm hover:bg-gray-100 transition-colors"
+          >
+            See the margin-recovery playbook &rarr;
+          </Link>
         </div>
 
         {/* Take-it-with-you download */}

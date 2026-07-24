@@ -6,7 +6,7 @@ Presented to Cat one at a time in chat; this file is the tracker of record.
 | ID | Title | Status |
 |---|---|---|
 | D-001 | Cover-crop pages: stack identity + tool CTA | DECIDED 2026-07-24: A |
-| D-002 | Link-mesh batch (drainage, inline links, biofuels loop) | OPEN |
+| D-002 | Link-mesh batch (drainage, inline links, biofuels loop) | DECIDED 2026-07-24: A |
 | D-003 | Regen pillar CTA pile-up | OPEN |
 | D-004 | Legacy /framework bottom CTAs on spiking pages | OPEN |
 | D-005 | Additive SEO builds (FAQ schema, drainage calculator, cluster articles) | OPEN |
@@ -30,7 +30,7 @@ Presented to Cat one at a time in chat; this file is the tracker of record.
 spike (species profiles, costs, mixes) and the only spiking page with **no
 tool CTA at all** — it's absent from every ArticleCTA slug set, so it closes
 with the newsletter fallback. Related inconsistency: it badges Stack 3,
-`cover-crops-roi` badges Stack 2, and the regen cluster + regenerative-roi
+`cover-crops-roi` badges Stack 2, and the regenerative cluster + regenerative-roi
 CTA set claim cover crops for Stack 5.
 
 **Decision needed.** Which stack owns cover crops site-wide, and does the
@@ -44,13 +44,13 @@ selection guide get the regenerative-roi CTA?
   consistent anchor-text/topic signal for SEO.
 - **B) Stack 3 (respect current badge).** Add slug to a Stack 3 CTA set →
   funnels to circularity assessment. Impact: leak closed, but into a weaker
-  funnel (no numbers module yet) and contradicts the regen cluster's claim.
+  funnel (no numbers module yet) and contradicts the regenerative cluster's claim.
 - **C) Do nothing.** Newsletter fallback stays. Impact: spike traffic on the
   best article keeps converting to nothing.
 
 **Recommendation.** A — Stack 5. Cover crops are the core regen practice,
 the ROI calculator is the only tool wired through to a playbook, and the
-regen cluster already treats these pages as its spokes.
+regenerative cluster already treats these pages as its spokes.
 
 **Decided:** 2026-07-24 — **A** ("Cover crops are regenerative" — Cat).
 Slug added to `REGEN_ECONOMICS_SLUGS` (ArticleCTA.tsx); badge harmonisation
@@ -85,7 +85,8 @@ only `/signup`, and the pros/cons page doesn't link its own pillar back.
 **Recommendation.** A. Additive links, zero copy risk, reversible; the
 stack-3 link can be retargeted if D-012 later creates a biofuels playbook.
 
-**Decided:** —
+**Decided:** 2026-07-24 — **A** (all links, incl. the interim stack-3 link
+on the biofuels tool). Applied via background agent.
 
 ---
 

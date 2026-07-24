@@ -128,7 +128,7 @@ export default function ArticlePage() {
           <strong>Step 2: Transition planning.</strong> Design a 3-5 year implementation strategy starting with lowest-risk practices. Most successful farmers start with cover crops on a portion of acreage.
         </p>
         <p>
-          <strong>Step 3: Financial modeling.</strong> Project costs, yields, and returns under different scenarios. Use available research data to inform realistic expectations.
+          <strong>Step 3: Financial modeling.</strong> <Link href="/tools/regenerative-roi">Project costs, yields, and returns under different scenarios</Link>. Use available research data to inform realistic expectations.
         </p>
         <p>
           <strong>Step 4: Risk analysis.</strong> Identify potential challenges and develop mitigation strategies. Phased implementation reduces exposure.
