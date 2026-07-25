@@ -2,156 +2,113 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import NewsletterSignup from "./NewsletterSignup";
+import { getArticleCluster } from "@/lib/article-clusters";
 
-const productCTAs = [
-  {
-    label: "See Our Pricing",
-    desc: "Free baseline tracker, rules-based questionnaire response engine, and certification packs coming soon. See what's available.",
-    href: "/products",
-    color: "#4AA88C",
-    footnote: "Free tracker. No credit card required.",
-  },
-  {
-    label: "Try the Response Generator",
-    desc: "Upload a buyer questionnaire, get answers matched from 200+ templates and filled with your tracked data. Rules-based logic, not guesswork.",
-    href: "/see-it-in-action",
-    color: "#3D2E7C",
-    footnote: "From €39 per questionnaire.",
-  },
-];
+// D-021: every article closes with the cluster-translated WORKSPACE CTA —
+// the free tracker, pitched in the cluster's job language. Copy order is
+// fixed: what you get -> what it takes -> privacy. The privacy footnote is
+// identical everywhere. Cluster comes from src/lib/article-clusters.ts
+// (generated from docs/content-matrix.csv — the source of truth).
+//
+// D-021 note: the ecolabel selector / readiness tools / feedstock compare
+// are no longer the page close — they stay reachable via inline links and
+// the mid-article playbook CTAs. Reversible by re-adding a cluster branch.
 
-const certificationCTA = {
-  label: "Find Your Ecolabel — Free",
-  desc: "Not sure which ecolabel to pursue? Our free selector matches the right label family to your operation and scores your certification readiness — then take a readiness checklist with you.",
-  href: "/tools/ecolabel-selector",
-  color: "#5B4A9E",
-  footnote: "Free interactive tool. No signup to check your readiness.",
-};
-
-const scope3CsrdCTA = {
-  label: "Check Your Readiness — Free",
-  desc: "Buyers asking for Scope 3 or CSRD data? Score your readiness in 5 minutes, see your weakest area, and get the scorecard to keep — then start tracking so you can answer the next request in minutes, not days.",
-  href: "/tools/scope-3-readiness",
-  color: "#3D2E7C",
-  footnote: "Free interactive tool. Folds straight into your free baseline tracker.",
-};
-
-// Scope 3 / CSRD / buyer-request articles funnel into the readiness tools + tracker
-const SCOPE3_CSRD_SLUGS = new Set([
-  "buyer-scope-3-request",
-  "buyer-scrutiny",
-  "building-esg-response-system",
-  "building-baseline",
-  "csrd-esg-guide",
-  "csrd-vsme-agricultural-suppliers",
-  "scope-1-2-3-agriculture",
-  "vsme-buyer-questionnaire-response",
-]);
-
-const biofuelsCTA = {
-  label: "Compare the 4 Generations",
-  desc: "Not all biofuels are equally sustainable. Tell our free tool what matters most for your operation — carbon, land use, scalability — and get the best-fit feedstock ranked for you, plus a workbook to take with you.",
-  href: "/tools/biofuel-feedstock-compare",
-  color: "#7B6BB8",
-  footnote: "Free interactive tool. No signup to compare.",
-};
-
-// The 11 biofuels & energy articles that should all funnel into the comparison tool.
-const BIOFUELS_SLUGS = new Set([
-  "advanced-biofuels",
-  "biofuel-sustainability-ranking",
-  "biofuel-trends-2025",
-  "biofuels-explained",
-  "biofuels-guide",
-  "biofuels-in-aviation",
-  "biomass-energy-farm",
-  "cellulosic-biofuels",
-  "cellulosic-vs-traditional-biofuels",
-  "pros-and-cons-of-advanced-biofuels",
-  "ranking-biofuel-sustainability",
-  "selling-crop-residues-biofuel-feedstock",
-]);
-
-const regenEconomicsCTA = {
-  label: "Calculate Your Payback",
-  desc: "That's the business case in principle. Now run it on your own numbers: the free Regenerative ROI calculator models your transition cost, input savings, optional carbon income, and the year you break even — every assumption adjustable, no hand-waving.",
-  href: "/tools/regenerative-roi",
-  color: "#2D5A47",
-  footnote: "Free interactive calculator. No signup to run it.",
-};
-
-// Regenerative-economics cluster (pillar + spokes) funnels into the free tracker
-const REGEN_ECONOMICS_SLUGS = new Set([
-  "regenerative-guide",
-  "regenerative-agriculture-economics",
-  "cover-crop-selection-guide",
-  "cover-crop-termination",
-  "soil-health-business-case",
-  "cover-crops-roi",
-  "regenerative-practices-2025",
-  "carbon-markets-agriculture",
-  "regenerative-transition-costs",
-  "biochar-soil-amendment",
-  "agroforestry-economics",
-  "composting-nutrient-cycling-roi",
-]);
-
-const efficiencyCTA = {
-  label: "Score your operation — Free",
-  desc: "You can't fix leaks you can't see. Score your operation across cost, energy, water, and process in 3 minutes, get your weakest area, and take the Efficiency Scorecard workbook with you to work the fixes.",
-  href: "/tools/efficiency-assessment",
-  color: "#5B4A9E",
-  footnote: "Free interactive scorecard. No signup to see your score.",
-};
-
-// Stack 2 — operational-efficiency cluster (water, energy, drainage, inputs)
-const EFFICIENCY_SLUGS = new Set([
-  "water-management-guide",
-  "water-quality-management-farms",
-  "water-recycling-efficiency",
-  "rainwater-harvesting-agriculture",
-  "agricultural-irrigation",
-  "irrigation-system-planning",
-  "precision-irrigation-technology",
-  "agricultural-drainage",
-  "subsurface-drainage-design",
-  "controlled-drainage",
-  "nutrient-management-planning",
-  "tillage-systems-compared",
-  "soil-compaction-management",
-  "value-chains-economic-efficiency",
-]);
-
-const resilienceCTA = {
-  label: "Calculate your exposure — Free",
-  desc: "Could one disruption cascade through your operation? Six numbers reveal where you're most exposed — customer and supplier concentration, buffers, runway, key-person risk — with the fix for your weakest link and the workbook to keep.",
-  href: "/tools/resilience-exposure",
-  color: "#9A8CD0",
-  footnote: "Free interactive calculator. No signup to see your exposure.",
-};
-
-// Stack 4 — structural-resilience cluster (risk, finance, market, supply)
-const RESILIENCE_SLUGS = new Set([
-  "resilience-guide",
-  "climate-risk-assessment-farms",
-  "crop-diversification-risk",
-  "farm-insurance-climate-adaptation",
-  "farm-succession-planning",
-  "financial-resilience-farm-operations",
-  "small-farm-financial-planning",
-  "market-volatility-strategies",
-  "supply-chain-resilience-agriculture",
-  "drought-resilience-water-management",
-]);
-
-function isEcolabelArticle(slug: string): boolean {
-  return slug.includes("ecolabel") || slug.includes("eco-label");
+interface WorkspaceVariant {
+  heading: string;
+  get: string;
+  need: string;
+  ctaLabel: string;
 }
 
-function getSlugHash(slug: string): number {
-  return slug.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-}
+const DEFAULT_VARIANT: WorkspaceVariant = {
+  heading: "Stop reading about it — see your own numbers",
+  get: "You get: a live picture of your operation — energy, inputs, water, waste, and what each one costs you — ready for your own decisions and for the next time someone asks for numbers.",
+  need: "What it takes: 12 months of the records you already have, entered once.",
+  ctaLabel: "See your operation in numbers — free →",
+};
+
+const WORKSPACE_VARIANTS: Record<string, WorkspaceVariant> = {
+  baseline: {
+    heading: "Stop rebuilding the same numbers every time someone asks",
+    get: "You get: every number you're supposed to be measuring — energy, inputs, water, waste, land — in one place, auto-calculated, and ready the next time a buyer, lender, or grant form asks.",
+    need: "What it takes: the records you already have — bills, invoices, meter readings — entered once.",
+    ctaLabel: "Get your numbers in one place — free →",
+  },
+  efficiency: {
+    heading: "Stop guessing where the water — and the money — goes",
+    get: "You get: a live picture of your operation — water, energy, inputs, and what each one costs you — every leak you fix visible in the numbers, and the next buyer question already answered.",
+    need: "What it takes: 12 months of bills and meter readings, entered once.",
+    ctaLabel: "See your operation in numbers — free →",
+  },
+  "circular-economy": {
+    heading: "Your waste streams have a price tag — find it",
+    get: "You get: what your operation discards and what that costs you, on record — so you can spot the streams worth selling, reusing, or cutting, and see the gain when you act.",
+    need: "What it takes: the waste and disposal records you already have, entered once.",
+    ctaLabel: "See what your waste costs — free →",
+  },
+  resilience: {
+    heading: "You can't fix an exposure you haven't measured",
+    get: "You get: your operation's numbers in one place — what you spend, what you produce, where it goes — so the weak spots show up before a bad season finds them for you.",
+    need: "What it takes: the records you already have, entered once.",
+    ctaLabel: "See your operation in numbers — free →",
+  },
+  regenerative: {
+    heading: "If the practice works, your numbers should show it",
+    get: "You get: your inputs, fuel, soil, and land data in one place — so when you change a practice, you can see what it saved, what it cost, and whether it's paying back.",
+    need: "What it takes: the field and input records you already have, entered once.",
+    ctaLabel: "See if it pays in your numbers — free →",
+  },
+  biofuels: {
+    heading: "Know what your residues are worth before someone names a price",
+    get: "You get: a live record of what your operation produces, uses, and discards — residues, byproducts, energy — so when a buyer or a biofuel offer shows up, you negotiate from your own numbers.",
+    need: "What it takes: the production and waste records you already have, entered once.",
+    ctaLabel: "Put your numbers to work — free →",
+  },
+  ecolabel: {
+    heading: "Certification is an evidence game — start collecting yours now",
+    get: "You get: your records — inputs, energy, water, waste, workforce — organized the way audits ask for them, so certification prep becomes pulling up numbers, not hunting for them.",
+    need: "What it takes: the records you already keep, entered once.",
+    ctaLabel: "Get audit-ready numbers — free →",
+  },
+  vsme: {
+    heading: "The next buyer questionnaire doesn't have to cost you a week",
+    get: "You get: the datapoints buyers actually ask for — energy, emissions, water, waste, workforce — tracked once and ready to answer from, instead of a scramble through folders every time.",
+    need: "What it takes: the records you already have, entered once.",
+    ctaLabel: "Track once, answer every request — free →",
+  },
+  intercropping: {
+    heading: "Trialling a new cropping system? Let the numbers call it",
+    get: "You get: your yields, inputs, and costs tracked season by season in one place — so when you trial a multi-crop system, you can see whether it actually out-earned the old one.",
+    need: "What it takes: the planting and input records you already keep, entered once.",
+    ctaLabel: "Track your trial in numbers — free →",
+  },
+  "small-farm-strategy": {
+    heading: "Small farms win on knowing their numbers",
+    get: "You get: what you spend, use, and produce in one live picture — the numbers behind every pricing, channel, and investment call you make.",
+    need: "What it takes: the records you already have — bills, invoices, sales — entered once.",
+    ctaLabel: "See your operation in numbers — free →",
+  },
+  "agribusiness-strategy": {
+    heading: "Position yourself with numbers, not hunches",
+    get: "You get: a live picture of what your operation spends, uses, and produces — the foundation for deciding where in the chain you can actually compete.",
+    need: "What it takes: the records you already have, entered once.",
+    ctaLabel: "See your operation in numbers — free →",
+  },
+  biodiversity: {
+    heading: "Habitat pays better when you can show what you did",
+    get: "You get: your land use, plantings, and inputs on record — so when a scheme, buyer, or auditor asks what you've done for nature, you answer with dates and numbers.",
+    need: "What it takes: the land and field records you already have, entered once.",
+    ctaLabel: "Put your land on record — free →",
+  },
+  "land-use-planning": {
+    heading: "Plan your land from your own numbers",
+    get: "You get: every parcel's use, inputs, and outputs in one place — so allocation decisions run on your data, not on how last season felt.",
+    need: "What it takes: the land and field records you already have, entered once.",
+    ctaLabel: "See your land in numbers — free →",
+  },
+  pillar: DEFAULT_VARIANT,
+};
 
 export default function ArticleCTA() {
   const pathname = usePathname();
@@ -159,292 +116,35 @@ export default function ArticleCTA() {
   if (pathname === "/articles") return null;
 
   const slug = pathname.split("/").pop() || "";
+  const { cluster } = getArticleCluster(slug);
+  const v = WORKSPACE_VARIANTS[cluster] ?? DEFAULT_VARIANT;
 
-  // D-021 EXAMPLE ONLY (agricultural-irrigation): the proposed page close —
-  // cluster-translated workspace CTA + bottom newsletter. If Cat approves the
-  // flow, this becomes the general pattern; if not, delete this branch.
-  if (slug === "agricultural-irrigation") {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div className="p-8 rounded-lg text-white mt-12" style={{ backgroundColor: "#4AA88C" }}>
-          <h2 className="text-2xl font-bold mb-3">
-            Stop guessing where the water — and the money — goes
-          </h2>
-          <p className="text-white/80 mb-3">
-            You get: a live picture of your operation — water, energy, inputs, and what
-            each one costs you — every leak you fix visible in the numbers, and the
-            next buyer question already answered.
-          </p>
-          <p className="text-white/80 mb-6">
-            What it takes: 12 months of bills and meter readings, entered once.
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href="/tracker"
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: "#4AA88C" }}
-            >
-              See your operation in numbers — free →
-            </Link>
-            <Link
-              href="/see-it-in-action"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              See it in action first
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">
-            Your data is yours: stored on your device, synced only to your private
-            account. We don&apos;t mine it — and you can export everything, anytime.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // Biofuels & energy articles always funnel into the comparison tool
-  if (BIOFUELS_SLUGS.has(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: biofuelsCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Which biofuel pathway fits your operation?
-          </h2>
-          <p className="text-white/80 mb-6">{biofuelsCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={biofuelsCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: biofuelsCTA.color }}
-            >
-              {biofuelsCTA.label}
-            </Link>
-            <Link
-              href="/articles"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              Browse all guides
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{biofuelsCTA.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Scope 3 / CSRD / buyer-request articles funnel into the readiness tools
-  if (SCOPE3_CSRD_SLUGS.has(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: scope3CsrdCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Can you answer a buyer request today?
-          </h2>
-          <p className="text-white/80 mb-6">{scope3CsrdCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={scope3CsrdCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: scope3CsrdCTA.color }}
-            >
-              {scope3CsrdCTA.label}
-            </Link>
-            <Link
-              href="/tools/csrd-readiness"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              Or check CSRD readiness
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{scope3CsrdCTA.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Regenerative-economics articles funnel into the free baseline tracker
-  if (REGEN_ECONOMICS_SLUGS.has(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: regenEconomicsCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Does it pay on your operation?
-          </h2>
-          <p className="text-white/80 mb-6">{regenEconomicsCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={regenEconomicsCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: regenEconomicsCTA.color }}
-            >
-              {regenEconomicsCTA.label}
-            </Link>
-            <Link
-              href="/tracker"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              See what the tracker includes
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{regenEconomicsCTA.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Stack 2 efficiency articles funnel into the Efficiency Scorecard
-  if (EFFICIENCY_SLUGS.has(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: efficiencyCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Where is your operation leaking value?
-          </h2>
-          <p className="text-white/80 mb-6">{efficiencyCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={efficiencyCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: efficiencyCTA.color }}
-            >
-              {efficiencyCTA.label}
-            </Link>
-            <Link
-              href="/tracker"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              See what the tracker includes
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{efficiencyCTA.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Stack 4 resilience articles funnel into the Resilience Scorecard
-  if (RESILIENCE_SLUGS.has(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: resilienceCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Could one disruption break you?
-          </h2>
-          <p className="text-white/80 mb-6">{resilienceCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={resilienceCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: resilienceCTA.color }}
-            >
-              {resilienceCTA.label}
-            </Link>
-            <Link
-              href="/tracker"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              See what the tracker includes
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{resilienceCTA.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Ecolabel articles always get the certification pack CTA
-  if (isEcolabelArticle(slug)) {
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: certificationCTA.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Turn this knowledge into action
-          </h2>
-          <p className="text-white/80 mb-6">{certificationCTA.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={certificationCTA.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: certificationCTA.color }}
-            >
-              {certificationCTA.label}
-            </Link>
-            <Link
-              href="/articles"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              Browse all guides
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">
-            {certificationCTA.footnote}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // ~30% of other articles get a product CTA
-  const hash = getSlugHash(slug);
-  const showProductCTA = hash % 10 < 3;
-
-  if (showProductCTA) {
-    const product = productCTAs[hash % productCTAs.length];
-    return (
-      <div className="max-w-4xl mx-auto px-6 pb-16">
-        <div
-          className="p-8 rounded-lg text-white mt-12"
-          style={{ backgroundColor: product.color }}
-        >
-          <h2 className="text-2xl font-bold mb-3">
-            Ready to put this into practice?
-          </h2>
-          <p className="text-white/80 mb-6">{product.desc}</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
-              href={product.href}
-              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-              style={{ color: product.color }}
-            >
-              {product.label}
-            </Link>
-            <Link
-              href="/articles"
-              className="text-white/70 hover:text-white underline text-sm transition-colors"
-            >
-              Browse all guides
-            </Link>
-          </div>
-          <p className="text-sm text-white/60 mt-3">{product.footnote}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Default (no specific tool branch): the in-body BaselineCTA already carries
-  // the free-tracker offer, so the closing slot is the Five Stacks Monthly
-  // newsletter — no duplicated baseline CTA.
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-16 mt-12">
-      <NewsletterSignup />
+    <div className="max-w-4xl mx-auto px-6 pb-16">
+      <div className="p-8 rounded-lg text-white mt-12" style={{ backgroundColor: "#4AA88C" }}>
+        <h2 className="text-2xl font-bold mb-3">{v.heading}</h2>
+        <p className="text-white/80 mb-3">{v.get}</p>
+        <p className="text-white/80 mb-6">{v.need}</p>
+        <div className="flex flex-wrap items-center gap-4">
+          <Link
+            href="/tracker"
+            className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+            style={{ color: "#4AA88C" }}
+          >
+            {v.ctaLabel}
+          </Link>
+          <Link
+            href="/see-it-in-action"
+            className="text-white/70 hover:text-white underline text-sm transition-colors"
+          >
+            See it in action first
+          </Link>
+        </div>
+        <p className="text-sm text-white/60 mt-3">
+          Your data is yours: stored on your device, synced only to your private
+          account. We don&apos;t mine it — and you can export everything, anytime.
+        </p>
+      </div>
     </div>
   );
 }

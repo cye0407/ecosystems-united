@@ -10,59 +10,45 @@
 const fs = require("fs");
 const path = require("path");
 
-const REPO = "C:\\Users\\User\\Documents\\CY\\ecosystems-united";
+const REPO = path.resolve(__dirname, "..");
 const ART = path.join(REPO, "src", "app", "(marketing)", "articles");
 const CSV = path.join(REPO, "docs", "content-matrix.csv");
-const CTA = fs.readFileSync(
-  path.join(REPO, "src", "components", "marketing", "ArticleCTA.tsx"),
+
+// --- cluster map from src/lib/article-clusters.ts (generated from this CSV's
+// manual columns by scripts/build-article-clusters.cjs) --------------------
+const CLUSTERS_TS = fs.readFileSync(
+  path.join(REPO, "src", "lib", "article-clusters.ts"),
   "utf8",
 );
-
-// --- slug sets from ArticleCTA.tsx -----------------------------------------
-function parseSetDef(name) {
-  const m = CTA.match(new RegExp(name + String.raw`\s*=\s*new Set\(\[([\s\S]*?)\]\)`));
-  if (!m) return new Set();
-  return new Set([...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]));
-}
-const SETS = {
-  biofuels: parseSetDef("BIOFUELS_SLUGS"),
-  "scope3-csrd": parseSetDef("SCOPE3_CSRD_SLUGS"),
-  regenerative: parseSetDef("REGEN_ECONOMICS_SLUGS"),
-  efficiency: parseSetDef("EFFICIENCY_SLUGS"),
-  resilience: parseSetDef("RESILIENCE_SLUGS"),
-};
+const CLUSTER_OF = {};
+for (const m of CLUSTERS_TS.matchAll(
+  /"([a-z0-9-]+)":\s*\{\s*cluster:\s*"([a-z0-9-]+)"/g,
+)) CLUSTER_OF[m[1]] = m[2];
 const SPIKING = new Set([
   "pros-and-cons-of-advanced-biofuels", "regenerative-guide",
   "regenerative-agriculture-economics", "subsurface-drainage-design",
   "agricultural-drainage", "cover-crop-selection-guide", "cover-crops-roi",
 ]);
 
-const slugHash = (s) => s.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-const PRODUCT_LABELS = ["See Our Pricing", "Try the Response Generator"];
-
+// Post-D-021 sweep: every article closes with the cluster-keyed workspace CTA.
 function endCta(slug) {
-  if (SETS.biofuels.has(slug)) return ["biofuels", "Compare the 4 Generations -> /tools/biofuel-feedstock-compare"];
-  if (SETS["scope3-csrd"].has(slug)) return ["scope3-csrd", "Check Your Readiness -> /tools/scope-3-readiness"];
-  if (SETS.regenerative.has(slug)) return ["regenerative", "Calculate Your Payback -> /tools/regenerative-roi"];
-  if (SETS.efficiency.has(slug)) return ["efficiency", "Score your operation -> /tools/efficiency-assessment"];
-  if (SETS.resilience.has(slug)) return ["resilience", "Calculate your exposure -> /tools/resilience-exposure"];
-  if (slug.includes("ecolabel") || slug.includes("eco-label")) return ["ecolabel", "Find Your Ecolabel -> /tools/ecolabel-selector"];
-  const h = slugHash(slug);
-  if (h % 10 < 3) return ["product-rotation", PRODUCT_LABELS[h % 2] + " (hash product CTA)"];
-  return ["none-fallback", "Newsletter signup"];
+  const cluster = CLUSTER_OF[slug] || "none";
+  return [cluster, `Workspace CTA (${cluster} variant) -> /tracker`];
 }
 
-// Proposed mid CTA under D-015 option A
+// D-015 as implemented by the D-021 sweep: playbook clusters get the mid
+// playbook CTA; everything else stays empty until its playbook exists.
+const PLAYBOOK_ROUTES = {
+  baseline: "/playbooks/stack-1-metrics",
+  efficiency: "/playbooks/stack-2-efficiency",
+  "circular-economy": "/playbooks/stack-3-circularity",
+  resilience: "/playbooks/stack-4-resilience",
+  regenerative: "/playbooks/stack-5-regeneration",
+};
 function midProposed(cluster) {
-  switch (cluster) {
-    case "biofuels": return "MidCTA: feedstock job copy -> /tools/biofuel-feedstock-compare";
-    case "scope3-csrd": return "BaselineCTA (fits: buyer-data IS the job)";
-    case "regenerative": return "MidCTA: transition-numbers job copy -> /tools/regenerative-roi";
-    case "efficiency": return "MidCTA: leak job copy -> /tools/efficiency-assessment";
-    case "resilience": return "MidCTA: disruption job copy -> /tools/resilience-exposure";
-    case "ecolabel": return "MidCTA: label-fit job copy -> /tools/ecolabel-selector";
-    default: return "BaselineCTA (fallback - unmatched cluster)";
-  }
+  if (PLAYBOOK_ROUTES[cluster])
+    return `MidPlaybookCTA(${cluster}) -> ${PLAYBOOK_ROUTES[cluster]}`;
+  return "(none - playbook pending)";
 }
 
 // --- scan articles ----------------------------------------------------------
@@ -113,7 +99,13 @@ function computeRow(slug) {
     stack_badge_current: fwMatches.length ? fwMatches[0][1] : "",
     framework_link_count: fwMatches.length,
     has_bottom_framework_block: fwMatches.length >= 2 ? "yes(heuristic)" : "no",
-    mid_cta_current: /<BaselineCTA/.test(src) ? "BaselineCTA" : "none",
+    mid_cta_current: (() => {
+      const m = src.match(/<MidPlaybookCTA cluster="([a-z0-9-]+)"/);
+      if (m) return `MidPlaybookCTA(${m[1]})`;
+      if (/<BaselineCTA/.test(src)) return "BaselineCTA";
+      if (/<NewsletterSignup/.test(src)) return "NewsletterSignup only";
+      return "none";
+    })(),
     mid_cta_proposed_D015: isPillar ? "(pillar - decide separately)" : midProposed(cluster),
     end_cta_current: endCur,
     has_stack_connection_section: /[Tt]he Stack \d/.test(src) ? "yes" : "no",
