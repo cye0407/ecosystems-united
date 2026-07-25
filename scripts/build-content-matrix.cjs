@@ -29,6 +29,52 @@ const SPIKING = new Set([
   "agricultural-drainage", "cover-crop-selection-guide", "cover-crops-roi",
 ]);
 
+// Carry-over: read the existing CSV (if present) so hand-curated columns
+// cluster_proposed / cluster_reasoning survive regeneration. Keyed by slug;
+// new articles default to "". These two columns are NOT derived from the
+// pages — they are Cat's editorial routing decisions and must be preserved.
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = "", i = 0, inQ = false;
+  while (i < text.length) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+        inQ = false; i++; continue;
+      }
+      field += c; i++; continue;
+    }
+    if (c === '"') { inQ = true; i++; continue; }
+    if (c === ",") { row.push(field); field = ""; i++; continue; }
+    if (c === "\r") { i++; continue; }
+    if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; i++; continue; }
+    field += c; i++;
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+const carry = {}; // slug -> { cluster_proposed, cluster_reasoning }
+const CSV_PATH = path.join(REPO, "docs", "content-matrix.csv");
+if (fs.existsSync(CSV_PATH)) {
+  const prev = parseCSV(fs.readFileSync(CSV_PATH, "utf8"))
+    .filter((r) => !(r.length === 1 && r[0] === ""));
+  if (prev.length) {
+    const h = prev[0];
+    const iSlug = h.indexOf("slug");
+    const iProp = h.indexOf("cluster_proposed");
+    const iReason = h.indexOf("cluster_reasoning");
+    if (iProp !== -1 && iReason !== -1) {
+      for (let r = 1; r < prev.length; r++) {
+        carry[prev[r][iSlug]] = {
+          cluster_proposed: prev[r][iProp] || "",
+          cluster_reasoning: prev[r][iReason] || "",
+        };
+      }
+    }
+  }
+}
+
 const slugHash = (s) => s.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
 const PRODUCT_LABELS = ["See Our Pricing", "Try the Response Generator"];
 
@@ -107,6 +153,10 @@ for (const slug of dirs.sort()) {
     keywords: kw,
     word_count_body: wordCount(src),
     cluster_cta_set: cluster,
+    // Editorial routing columns carried over from the existing CSV by slug
+    // (see parseCSV/carry above); new articles default to "".
+    cluster_proposed: (carry[slug] || {}).cluster_proposed || "",
+    cluster_reasoning: (carry[slug] || {}).cluster_reasoning || "",
     matrix_pillar_proposed: (pillarOf[slug] || []).join(" | "),
     stack_badge_current: stackBadge,
     framework_link_count: fwMatches.length,

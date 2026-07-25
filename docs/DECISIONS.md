@@ -20,7 +20,7 @@ file is the tracker of record.
 | D-012 | Standalone biofuels playbook | DECIDED 2026-07-25: B |
 | D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
 | D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
-| D-015 | Stack-job mid-article CTAs (replace blanket BaselineCTA) | OPEN |
+| D-015 | Stack-job mid-article CTAs (replace blanket BaselineCTA) | DECIDED 2026-07-25: A + matrix gate |
 | D-016 | Article context: pillar back-link + badge instead of framework/stack | OPEN |
 | D-017 | "Stack N Connection" body sections (32 articles) | OPEN |
 | P-001 | Workspace/product naming | PARKED (Cat: fine-tune later) |
@@ -375,7 +375,13 @@ is already slug-set-matched by cluster; the MID CTA is one-size-fits-all.
 **Recommendation.** A — mid + end CTA then both speak the cluster's job,
 and the Passport pitch appears only where baseline IS the job.
 
-**Decided:** —
+**Decided:** 2026-07-25 — **A, gated on the content matrix.** Central
+tracker built: docs/content-matrix.csv (129 rows) + regenerable via
+scripts/build-content-matrix.cjs. Finding: 64 articles match NO cluster
+set. Cat accepted the cluster-assignment pass: agent proposes
+cluster_proposed + reasoning per article in the CSV; Cat reviews/overrides
+in Excel; the reviewed matrix is the sweep's single source of truth. No
+implementation until the matrix review is done.
 
 ---
 
