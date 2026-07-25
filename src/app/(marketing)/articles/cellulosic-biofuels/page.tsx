@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Cellulosic Biofuels: Turning Agricultural Waste into Energy Value",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles/biofuels-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Biofuels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Cellulosic Biofuels: Turning Agricultural Waste into Energy Value
         </h1>
@@ -70,16 +64,7 @@ export default function ArticlePage() {
         <p>
           The resulting ethanol is distilled and purified before blending with gasoline. Leftover biomass can be repurposed for electricity generation or other uses.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Why Cellulosic Biofuels Matter</h2>
+              <h2>Why Cellulosic Biofuels Matter</h2>
 
         <h3>Sustainable Use of Waste Materials</h3>
         <p>
@@ -108,9 +93,9 @@ export default function ArticlePage() {
           <li><strong>Limited commercial scale:</strong> While some plants are operational, many remain in early stages</li>
         </ul>
 
-        <h2>The Stack 3 Connection</h2>
+        <h2>What this means for your crop residues</h2>
         <p>
-          Cellulosic biofuels are a prime example of Stack 3 thinking—what you discard can become margin. Agricultural operations generate significant crop residues that currently have limited value. Cellulosic biofuel pathways offer one potential route to capturing that value.
+          Cellulosic biofuels are a prime example of a simple rule—what you discard can become margin. Agricultural operations generate significant crop residues that currently have limited value. Cellulosic biofuel pathways offer one potential route to capturing that value.
         </p>
         <p>
           The opportunity for your operation might be:
@@ -126,19 +111,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to find value in what you discard?</h3>
-        <p className="text-white/80 mb-4">
-          Cellulosic biofuels represent one pathway for circular value creation—part of Stack 3 in the Five Stacks Framework.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 3 focuses on systematically identifying waste streams and byproducts that can become revenue or cost savings. Understanding the cellulosic biofuel landscape helps you evaluate whether your crop residues have emerging market value.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 3 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

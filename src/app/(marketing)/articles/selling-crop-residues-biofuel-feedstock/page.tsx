@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Selling Crop Residues as Biofuel Feedstock: Farm-Gate Economics",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#7B6BB8] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Selling Crop Residues as Biofuel Feedstock: Farm-Gate Economics
         </h1>
@@ -80,16 +74,7 @@ export default function ArticlePage() {
         <p>
           At recent fertiliser prices this replacement value lands around &euro;10&ndash;20/tonne of straw, dominated by potash &mdash; and it moves with fertiliser markets, which is exactly when straw decisions get made badly: high fertiliser prices raise both the temptation of straw revenue and the true cost of exporting nutrients. Whatever your local numbers, this line is objective and calculable. Deduct it before you compare the offer to anything.
         </p>
-      </article>
-
-      {/* Mid-article CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Line 4: The Soil Value Nobody Prices</h2>
+              <h2>Line 4: The Soil Value Nobody Prices</h2>
         <p>
           Here is the part the buyer&apos;s offer never includes. Residue returned to the field is not waste &mdash; it is next decade&apos;s organic matter, this winter&apos;s erosion armour, and next July&apos;s moisture retention:
         </p>
@@ -198,6 +183,11 @@ export default function ArticlePage() {
           </li>
         </ul>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

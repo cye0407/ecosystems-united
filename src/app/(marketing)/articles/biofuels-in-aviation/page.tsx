@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Biofuels in Aviation: How SAF Is Creating New Feedstock Demand",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles/biofuels-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Biofuels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Biofuels in Aviation: How SAF Is Creating New Feedstock Demand
         </h1>
@@ -78,16 +72,7 @@ export default function ArticlePage() {
           <li><strong>Dedicated energy crops:</strong> Camelina, switchgrass, and other non-food crops</li>
           <li><strong>Algae:</strong> Still developing but high potential</li>
         </ul>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Policy Is Accelerating Demand</h2>
+              <h2>Policy Is Accelerating Demand</h2>
         <p>
           Government mandates are creating guaranteed demand for SAF:
         </p>
@@ -131,25 +116,17 @@ export default function ArticlePage() {
           As SAF production scales, feedstock demand will grow. Operations that understand this market can position to capture value from materials currently treated as waste or low-value byproducts.
         </p>
 
-        <h2>The Stack 3 Connection</h2>
+        <h2>What SAF demand means for your residues</h2>
         <p>
-          Aviation biofuels exemplify Stack 3 thinking: finding value in what others discard. The question for your operation is whether SAF feedstock markets could create value from your waste streams—and whether the infrastructure exists to connect you to those markets.
+          Aviation biofuels turn on a simple idea: finding value in what others discard. The question for your operation is whether SAF feedstock markets could create value from your waste streams—and whether the infrastructure exists to connect you to those markets.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to evaluate your feedstock opportunities?</h3>
-        <p className="text-white/80 mb-4">
-          Aviation biofuel demand is creating new markets for agricultural waste streams—part of Stack 3 in the Five Stacks Framework.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 3 focuses on systematically identifying waste and byproducts that can become revenue. Understanding SAF feedstock demand helps you evaluate whether your crop residues, used oils, or other materials have emerging market value.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 3 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

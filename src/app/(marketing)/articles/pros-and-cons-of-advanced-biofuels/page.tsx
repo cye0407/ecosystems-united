@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 import FaqJsonLd, { type FaqItem } from "@/components/marketing/FaqJsonLd";
 
 const faqItems: FaqItem[] = [
@@ -47,19 +47,13 @@ export default function ArticlePage() {
       <FaqJsonLd items={faqItems} />
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles/biofuels-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Biofuels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Pros and Cons of Advanced Biofuels: A Balanced Assessment
         </h1>
@@ -100,16 +94,7 @@ export default function ArticlePage() {
         <p>
           Advanced biofuels can be made from waste materials, turning agricultural residues, forestry waste, and municipal garbage into energy. This reduces landfill mass and methane emissions while creating value from materials otherwise discarded.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>The Challenges</h2>
+              <h2>The Challenges</h2>
 
         <h3>High Production Costs</h3>
         <p>
@@ -155,9 +140,9 @@ export default function ArticlePage() {
           <li>Markets without supportive policy frameworks</li>
         </ul>
 
-        <h2>The Stack 3 Perspective</h2>
+        <h2>Does it make sense for your operation?</h2>
         <p>
-          From a Stack 3 perspective, advanced biofuels represent one option for creating value from waste streams. The question isn't whether biofuels are universally good—it's whether they make sense for your specific situation.
+          Seen as a waste-to-value decision, advanced biofuels represent one option for creating value from waste streams. The question isn't whether biofuels are universally good—it's whether they make sense for your specific situation.
         </p>
         <p>
           If your operation generates significant organic waste, <Link href="/tools/biofuel-feedstock-compare">understanding biofuel pathways</Link> helps you evaluate:
@@ -169,6 +154,11 @@ export default function ArticlePage() {
           <li>Whether other circular economy options (composting, biogas, animal feed) offer better returns</li>
         </ul>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
