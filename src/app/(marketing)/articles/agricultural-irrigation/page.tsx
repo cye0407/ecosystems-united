@@ -156,7 +156,7 @@ export default function ArticlePage() {
       {/* D-021 example — 30s workspace popup */}
       <WorkspacePopupExample
         headline="Your bills already know where the leaks are."
-        body="You get a live picture of water, energy, and input use — every fix visible in the numbers. It takes 12 months of bills, entered once. Your data stays yours."
+        body="We built a free tool for exactly this: enter 12 months of bills and meter readings once, and it becomes a live picture of your water, energy, and input use — you see where money leaks, and every fix shows up in the numbers. Your data stays yours."
         ctaLabel="Start free →"
         ctaHref="/tracker"
       />
