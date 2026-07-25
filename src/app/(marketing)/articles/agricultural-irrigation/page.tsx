@@ -129,9 +129,9 @@ export default function ArticlePage() {
           However, efficiency isn't the only consideration. Capital costs, maintenance complexity, crop suitability, and labor availability all factor into the right choice for your operation.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>Where your irrigation money actually goes</h2>
         <p>
-          Irrigation is a major operational cost and a significant resource use category. Stack 2 thinking asks: where is water being wasted, and what's the cost?
+          Irrigation is a major operational cost and a significant resource use category. The question that pays: where is water being wasted, and what is that costing you?
         </p>
         <p>
           Key efficiency questions for your irrigation system:
