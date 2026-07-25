@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Measuring Intercropping Effectiveness: Key Metrics and Methods",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 4: Adaptive Resilience
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3B7D6E] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Adaptive Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Measuring Intercropping Effectiveness: Key Metrics and Methods
         </h1>
@@ -74,16 +68,7 @@ export default function ArticlePage() {
         <p>
           <strong>Limitation:</strong> IER fluctuates with crop prices, so it may not accurately gauge long-term productivity. A combination that looks good when prices favor one crop may look poor when prices shift.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Competitive Ratio (CR)</h2>
+              <h2>Competitive Ratio (CR)</h2>
         <p>
           Using LER data, the <strong>Competitive Ratio</strong> measures how competitive the two (or more) crops are with each other, accounting for their sowing proportions.
         </p>
@@ -133,38 +118,30 @@ export default function ArticlePage() {
           Add IER and MAI calculations when you want to understand economic implications. Use CR when you need to fine-tune crop balance. Apply ATER when time efficiency matters for your system.
         </p>
 
-        <h2>The Stack 4 Connection</h2>
+        <h2>Why the measuring matters beyond the field</h2>
         <p>
-          Measurement is central to Stack 4 implementation. Without data, you can't know whether sustainable practices are actually delivering value.
+          Measurement is what separates a practice that works from a practice you hope works. Without data, you can't know whether sustainable practices are actually delivering value.
         </p>
         <p>
-          These intercropping metrics connect directly to the broader Five Stacks approach:
+          These intercropping metrics pay off well beyond the trial plot:
         </p>
         <ul>
-          <li>They provide objective evidence for Stack 1 certification claims</li>
-          <li>They generate the baseline data Stack 2 requires for efficiency evaluation</li>
-          <li>They help identify circular value opportunities in Stack 3</li>
-          <li>They verify that Stack 4 practices are working as expected</li>
-          <li>They build the data foundation for Stack 5 storytelling</li>
+          <li>They provide objective evidence for certification claims</li>
+          <li>They generate the baseline data efficiency evaluation requires</li>
+          <li>They help identify waste-to-value opportunities</li>
+          <li>They verify that new practices are working as expected</li>
+          <li>They build the data foundation for the regenerative story you can prove</li>
         </ul>
         <p>
           Start measuring now—even imperfectly—so you have data to work with as you refine your system.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 4 */}
-      <div className="mt-12 p-8 bg-[#3B7D6E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to measure what matters?</h3>
-        <p className="text-white/80 mb-4">
-          Effective intercropping requires measurement. These metrics help you evaluate whether your practices are delivering the benefits you expect.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 4 focuses on sustainable practices that generate measurable returns. The framework helps you implement practices systematically and verify results with data—turning assumptions into evidence.
-        </p>
-        <Link href="/framework/stack-4-resilience" className="inline-block bg-white text-[#3B7D6E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 4 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

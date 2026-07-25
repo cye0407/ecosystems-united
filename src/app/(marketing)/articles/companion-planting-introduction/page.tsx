@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Introduction to Companion Planting: Exploiting Plant Relationships",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 4: Adaptive Resilience
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3B7D6E] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Adaptive Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Introduction to Companion Planting: Exploiting Plant Relationships
         </h1>
@@ -73,16 +67,7 @@ export default function ArticlePage() {
         <p>
           In practice, companion planting can be considered a sub-genre of intercropping. When companion planting practices are implemented in agricultural systems, they typically use intercropping patterns (row, strip, mixed, or relay) while selecting crops based on relationship benefits.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Economics of Companion Planting</h2>
+              <h2>Economics of Companion Planting</h2>
         <p>
           Successful companion planting requires understanding each plant species' functionality. In an ideal situation, both the companion and target crop are harvestable, providing direct economic benefit.
         </p>
@@ -124,12 +109,12 @@ export default function ArticlePage() {
           In larger-scale production, companion planting principles often show up as specialized intercropping practices like trap cropping, repellent planting, or push-pull systems.
         </p>
 
-        <h2>The Stack 4 Connection</h2>
+        <h2>Treat it like any other input decision</h2>
         <p>
-          Companion planting represents Stack 4 thinking—implementing sustainable practices that can reduce input costs while maintaining or improving yields. The challenge is that much companion planting relies on traditional knowledge that hasn't been scientifically validated.
+          Companion planting is a practice bet: it can reduce input costs while maintaining or improving yields. The challenge is that much companion planting relies on traditional knowledge that hasn't been scientifically validated.
         </p>
         <p>
-          The Stack 4 approach suggests:
+          A disciplined approach suggests:
         </p>
         <ul>
           <li>Start with well-documented combinations that have research support</li>
@@ -138,6 +123,11 @@ export default function ArticlePage() {
           <li>Share findings to contribute to the growing body of knowledge</li>
         </ul>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

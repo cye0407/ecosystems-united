@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Cereal-Legume Intercropping: The Most Practical System | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-3-circularity"
-          className="text-gray-600 hover:text-[#7B6BB8] transition-colors"
-        >
-          &larr; Back to Stack 3: Circularity
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold">
-            3
-          </div>
-          <span className="text-[#7B6BB8] font-semibold">Stack 3: Circularity</span>
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Cereal-Legume Intercropping: The Most Practical System
         </h1>
@@ -102,14 +93,7 @@ export default function ArticlePage() {
         <p>
           The nitrogen credit also extends to subsequent crops. Research shows that following crops may require 20-30 kg N/ha less fertilizer due to residual nitrogen from the legume component, adding further value to the system.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Seeding Rates and Ratios</h2>
+              <h2>Seeding Rates and Ratios</h2>
 
         <p>
           Determining optimal seeding rates requires understanding that intercrops don&apos;t simply involve reducing each component proportionally. The general principle is to seed each component at 60-75% of its sole-crop rate, with the exact ratio depending on several factors:
@@ -240,18 +224,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">Explore Stack 3: Circularity</h3>
-        <p className="mb-6">
-          Discover how circular economy principles can transform resource use, eliminate waste, and build regenerative systems that benefit both business and environment.
-        </p>
-        <Link
-          href="/framework/stack-3-circularity"
-          className="inline-block px-6 py-3 bg-white text-[#7B6BB8] rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Learn About Stack 3
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

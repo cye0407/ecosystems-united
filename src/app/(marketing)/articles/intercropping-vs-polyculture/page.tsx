@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Intercropping vs. Polyculture: Multi-Crop Systems That Reduce Risk and Build Margin",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#3B7D6E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 4: Adaptive Resilience
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3B7D6E] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Adaptive Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Intercropping vs. Polyculture: Multi-Crop Systems That Reduce Risk and Build Margin
         </h1>
@@ -78,16 +72,7 @@ export default function ArticlePage() {
         <p>
           <strong>Business case:</strong> Enhanced ecological resilience. Improved soil health through diverse root structures. Expanded habitat for beneficial organisms. Greater sustainability over time as the system matures.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>The Key Distinction</h2>
+              <h2>The Key Distinction</h2>
         <p>
           All intercropping is a form of polyculture, but not all polycultures are intercropping. The differences matter operationally:
         </p>
@@ -177,9 +162,9 @@ export default function ArticlePage() {
           Many successful farmers blend elements from different approaches, creating hybrid systems tailored to their context.
         </p>
 
-        <h2>The Stack 4 Connection</h2>
+        <h2>What multi-crop systems do for your operation</h2>
         <p>
-          Multi-crop systems exemplify Stack 4's focus on sustainable practices that improve operational performance:
+          Multi-crop systems are sustainable practices that improve operational performance:
         </p>
         <ul>
           <li><strong>Risk reduction:</strong> Diversity spreads exposure across multiple crops and revenue streams</li>
@@ -192,19 +177,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 4 */}
-      <div className="mt-12 p-8 bg-[#3B7D6E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to diversify your system?</h3>
-        <p className="text-white/80 mb-4">
-          Multi-crop approaches reduce risk and build resilience—but choosing the right system for your operation matters.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 4 focuses on sustainable practices that deliver operational value. The Five Stacks Framework helps you implement diversity strategically, measure results, and build documentation for Stack 5 market positioning.
-        </p>
-        <Link href="/framework/stack-4-resilience" className="inline-block bg-white text-[#3B7D6E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 4 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

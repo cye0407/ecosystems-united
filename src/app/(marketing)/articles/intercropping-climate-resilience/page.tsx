@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Intercropping for Climate Resilience | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-4-resilience"
-          className="text-gray-600 hover:text-[#9A8CD0] transition-colors"
-        >
-          &larr; Back to Stack 4: Resilience
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       <header className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-semibold">
-            4
-          </div>
-          <span className="text-[#9A8CD0] font-medium">Stack 4: Resilience</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Intercropping for Climate Resilience
         </h1>
@@ -126,14 +117,7 @@ export default function ArticlePage() {
         <p>
           The insurance effect amplifies when stress frequency increases &mdash; exactly the trajectory projected under climate change. Modeling studies suggest that as the probability of extreme weather events rises from once-per-decade to once-per-five-years, the economic advantage of diversified systems grows disproportionately, because monocultures experience catastrophic failures more frequently while intercrops maintain partial productivity.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Performance Under Stress: LER Patterns Across Climate Gradients</h2>
+              <h2>Performance Under Stress: LER Patterns Across Climate Gradients</h2>
 
         <p>
           Land Equivalent Ratio (LER) analysis reveals how intercropping advantages shift across different climate conditions. While LER values above 1.0 indicate yield advantages under any conditions, the magnitude of this advantage consistently increases under stress.
@@ -247,20 +231,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#9A8CD0] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">
-          Ready to Build Climate Resilience?
-        </h3>
-        <p className="mb-6 text-white/90">
-          Discover how the Five Stacks Framework helps organizations transform climate risk into adaptive capacity through diversified agricultural systems.
-        </p>
-        <Link
-          href="/framework/stack-4-resilience"
-          className="inline-block bg-white text-[#9A8CD0] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 4: Resilience
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Intercropping for Integrated Pest Management | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-3-circularity"
-          className="text-gray-600 hover:text-[#7B6BB8] transition-colors"
-        >
-          &larr; Back to Stack 3: Circularity
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-semibold">
-            3
-          </div>
-          <span className="text-[#7B6BB8] font-semibold">Stack 3: Circularity</span>
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Intercropping for Integrated Pest Management
         </h1>
@@ -106,14 +97,7 @@ export default function ArticlePage() {
         <p>
           Swiss studies found that flowering strips along field margins reduced insecticide applications by 2-3 sprays per season in vegetable rotations, saving €180-250 per hectare in chemical costs alone. The strips occupied only 3-5% of field area but provided biological control benefits across the entire field through parasitoid dispersal. This approach integrates seamlessly with intercropping strategies, creating multiple layers of pest suppression through ecological enhancement.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Disease Suppression Through Diversity and Airflow</h2>
+              <h2>Disease Suppression Through Diversity and Airflow</h2>
 
         <p>
           Beyond insect pests, intercropping influences disease dynamics, particularly for foliar fungal pathogens that spread through water splash and wind-dispersed spores. The mechanisms differ from insect pest control but can be equally powerful. Intercropping reduces disease severity through physical barriers to spore dispersal, altered microclimate (especially humidity and leaf wetness duration), and induction of plant resistance compounds.
@@ -195,19 +179,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">Explore Stack 3: Circularity</h3>
-        <p className="mb-6 text-white/90">
-          Discover more strategies for closing loops, designing out waste, and building regenerative systems that maintain resource value.
-        </p>
-        <Link
-          href="/framework/stack-3-circularity"
-          className="inline-flex items-center gap-2 bg-white text-[#7B6BB8] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          View Stack 3 Framework
-          <span aria-hidden="true">&rarr;</span>
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h3>

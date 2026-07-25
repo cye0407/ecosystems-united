@@ -1,5 +1,4 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "Intercropping in Organic Systems: Why Multi-Crop Approaches Fit Organic Principles",
@@ -12,19 +11,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 4: Adaptive Resilience
+        <Link href="/articles/intercropping-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Intercropping for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3B7D6E] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Adaptive Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Intercropping in Organic Systems: Why Multi-Crop Approaches Fit Organic Principles
         </h1>
@@ -72,16 +65,7 @@ export default function ArticlePage() {
         <p>
           <strong>Caution:</strong> Legume fatigue may occur if soil becomes overly infested with pathogens from over-cultivation. Rotation and diversity remain important even within intercropped systems.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Circumventing Synthetic Input Restrictions</h2>
+              <h2>Circumventing Synthetic Input Restrictions</h2>
         <p>
           Organic certification restricts synthetic fertilizers, herbicides, and pesticides that are commonplace in conventional agriculture. Intercropping helps circumvent these restrictions by:
         </p>
@@ -105,37 +89,24 @@ export default function ArticlePage() {
           This creates potential for organic production to compete more effectively with conventional agriculture, expanding market access through improved economic viability.
         </p>
 
-        <h2>The Stack 4 Connection</h2>
+        <h2>What intercropping does for an organic operation</h2>
         <p>
-          For operations pursuing or maintaining organic certification (a Stack 1 activity), intercropping provides practical tools to meet organic requirements while potentially improving productivity and profitability.
+          For operations pursuing or maintaining organic certification, intercropping provides practical tools to meet organic requirements while potentially improving productivity and profitability.
         </p>
         <p>
-          The approach connects multiple stacks:
+          The approach earns its keep in several ways at once:
         </p>
         <ul>
-          <li><strong>Stack 1:</strong> Supports organic certification requirements</li>
-          <li><strong>Stack 2:</strong> Can improve input efficiency by reducing need for external inputs</li>
-          <li><strong>Stack 3:</strong> May create circular value through nitrogen fixation and waste reduction</li>
-          <li><strong>Stack 4:</strong> Represents a sustainable practice with measurable outcomes</li>
+          <li><strong>Certification:</strong> Supports organic certification requirements</li>
+          <li><strong>Efficiency:</strong> Can improve input efficiency by reducing need for external inputs</li>
+          <li><strong>Circular value:</strong> May create value through nitrogen fixation and waste reduction</li>
+          <li><strong>Resilience:</strong> A sustainable practice with measurable outcomes</li>
         </ul>
         <p>
           As conventional agriculture becomes increasingly cost-inefficient—both economically and environmentally—intercropping in organic systems offers a pathway to more resilient, sustainable production.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 4 */}
-      <div className="mt-12 p-8 bg-[#3B7D6E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to implement sustainable practices?</h3>
-        <p className="text-white/80 mb-4">
-          Intercropping in organic systems demonstrates how Stack 4 practices can support Stack 1 certification while improving operational performance.
-        </p>
-        <p className="text-white/80 mb-6">
-          The Five Stacks Framework helps you see how different sustainability activities connect and reinforce each other—building systems that are both certified and genuinely sustainable.
-        </p>
-        <Link href="/framework/stack-4-resilience" className="inline-block bg-white text-[#3B7D6E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 4 →
-        </Link>
-      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
