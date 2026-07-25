@@ -170,10 +170,13 @@ export default function ArticleCTA() {
           <h2 className="text-2xl font-bold mb-3">
             Stop guessing where the water — and the money — goes
           </h2>
+          <p className="text-white/80 mb-3">
+            You get: a live picture of your operation — water, energy, inputs, and what
+            each one costs you — every leak you fix visible in the numbers, and the
+            next buyer question already answered.
+          </p>
           <p className="text-white/80 mb-6">
-            The free tracker turns your bills and meter readings into a live picture of
-            your operation: water, energy, inputs. Every leak you fix shows up in the
-            numbers, and the next buyer question already has an answer waiting.
+            What it takes: 12 months of bills and meter readings, entered once.
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <Link
@@ -181,7 +184,7 @@ export default function ArticleCTA() {
               className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
               style={{ color: "#4AA88C" }}
             >
-              Open the free tracker →
+              See your operation in numbers — free →
             </Link>
             <Link
               href="/see-it-in-action"
@@ -190,10 +193,10 @@ export default function ArticleCTA() {
               See it in action first
             </Link>
           </div>
-          <p className="text-sm text-white/60 mt-3">Free. No lock-in — export your data anytime.</p>
-        </div>
-        <div className="mt-8">
-          <NewsletterSignup />
+          <p className="text-sm text-white/60 mt-3">
+            Your data is yours: stored on your device, synced only to your private
+            account. We don&apos;t mine it — and you can export everything, anytime.
+          </p>
         </div>
       </div>
     );

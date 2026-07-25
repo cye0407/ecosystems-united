@@ -75,15 +75,22 @@ export default function ArticlePage() {
 
       {/* D-021 example — MID 1: cluster playbook CTA */}
       <div className="my-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Get your leak-fixing plan</h3>
+        <h3 className="text-2xl font-bold mb-3">Find where your operation leaks money</h3>
+        <p className="text-white/80 mb-3">
+          You get: which leaks to chase first — energy, inputs, water, or process
+          waste — the order to work them over your first three years, and the six
+          numbers that prove the fixes worked.
+        </p>
         <p className="text-white/80 mb-6">
-          Irrigation is one of the places operations leak money quietly. Tell the free
-          playbook what you run and what&apos;s squeezing you — it builds a personalized
-          plan: what to fix first, what it pays back, and how to prove it worked.
+          What it takes: five questions about your operation. No signup, nothing to
+          install.
         </p>
         <Link href="/playbooks/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Build my plan — free →
+          Get my leak-fixing sequence — free →
         </Link>
+        <p className="text-sm text-white/60 mt-3">
+          Everything you enter stays in your browser — it never leaves your device.
+        </p>
       </div>
 
       {/* Continue article */}
@@ -149,8 +156,8 @@ export default function ArticlePage() {
       {/* D-021 example — 30s workspace popup */}
       <WorkspacePopupExample
         headline="Your bills already know where the leaks are."
-        body="The free tracker turns 12 months of bills and meter readings into a live picture of water, energy, and input use — every fix you make shows up in the numbers."
-        ctaLabel="Open the free tracker →"
+        body="You get a live picture of water, energy, and input use — every fix visible in the numbers. It takes 12 months of bills, entered once. Your data stays yours."
+        ctaLabel="Start free →"
         ctaHref="/tracker"
       />
 
