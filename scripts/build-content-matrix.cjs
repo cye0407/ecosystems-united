@@ -1,27 +1,35 @@
-// Builds docs/content-matrix.csv — the central article tracker for
-// ecosystems-united. One row per article under src/app/(marketing)/articles.
+// Refreshes docs/content-matrix.csv — the central article tracker.
+// THE CSV IS THE SOURCE OF TRUTH for layout + manual columns:
+//  - Cat's column ORDER and row ORDER are preserved exactly.
+//  - Manual columns (cluster_proposed, cluster_reasoning, notes, and any
+//    column this script doesn't recognize) are carried over untouched.
+//  - Only DERIVED columns (see DERIVED below) are recomputed from the code.
+//  - New articles are appended at the bottom; vanished articles are dropped
+//    (reported on stdout). Unnamed/empty columns are dropped.
+// Run: node scripts/build-content-matrix.cjs
 const fs = require("fs");
 const path = require("path");
 
 const REPO = "C:\\Users\\User\\Documents\\CY\\ecosystems-united";
 const ART = path.join(REPO, "src", "app", "(marketing)", "articles");
+const CSV = path.join(REPO, "docs", "content-matrix.csv");
 const CTA = fs.readFileSync(
   path.join(REPO, "src", "components", "marketing", "ArticleCTA.tsx"),
   "utf8",
 );
 
-// --- parse slug sets out of ArticleCTA.tsx --------------------------------
-function parseSet(name) {
+// --- slug sets from ArticleCTA.tsx -----------------------------------------
+function parseSetDef(name) {
   const m = CTA.match(new RegExp(name + String.raw`\s*=\s*new Set\(\[([\s\S]*?)\]\)`));
   if (!m) return new Set();
   return new Set([...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]));
 }
 const SETS = {
-  biofuels: parseSet("BIOFUELS_SLUGS"),
-  scope3csrd: parseSet("SCOPE3_CSRD_SLUGS"),
-  regenerative: parseSet("REGEN_ECONOMICS_SLUGS"),
-  efficiency: parseSet("EFFICIENCY_SLUGS"),
-  resilience: parseSet("RESILIENCE_SLUGS"),
+  biofuels: parseSetDef("BIOFUELS_SLUGS"),
+  "scope3-csrd": parseSetDef("SCOPE3_CSRD_SLUGS"),
+  regenerative: parseSetDef("REGEN_ECONOMICS_SLUGS"),
+  efficiency: parseSetDef("EFFICIENCY_SLUGS"),
+  resilience: parseSetDef("RESILIENCE_SLUGS"),
 };
 const SPIKING = new Set([
   "pros-and-cons-of-advanced-biofuels", "regenerative-guide",
@@ -29,58 +37,12 @@ const SPIKING = new Set([
   "agricultural-drainage", "cover-crop-selection-guide", "cover-crops-roi",
 ]);
 
-// Carry-over: read the existing CSV (if present) so hand-curated columns
-// cluster_proposed / cluster_reasoning survive regeneration. Keyed by slug;
-// new articles default to "". These two columns are NOT derived from the
-// pages — they are Cat's editorial routing decisions and must be preserved.
-function parseCSV(text) {
-  const rows = [];
-  let row = [], field = "", i = 0, inQ = false;
-  while (i < text.length) {
-    const c = text[i];
-    if (inQ) {
-      if (c === '"') {
-        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
-        inQ = false; i++; continue;
-      }
-      field += c; i++; continue;
-    }
-    if (c === '"') { inQ = true; i++; continue; }
-    if (c === ",") { row.push(field); field = ""; i++; continue; }
-    if (c === "\r") { i++; continue; }
-    if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; i++; continue; }
-    field += c; i++;
-  }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  return rows;
-}
-const carry = {}; // slug -> { cluster_proposed, cluster_reasoning }
-const CSV_PATH = path.join(REPO, "docs", "content-matrix.csv");
-if (fs.existsSync(CSV_PATH)) {
-  const prev = parseCSV(fs.readFileSync(CSV_PATH, "utf8"))
-    .filter((r) => !(r.length === 1 && r[0] === ""));
-  if (prev.length) {
-    const h = prev[0];
-    const iSlug = h.indexOf("slug");
-    const iProp = h.indexOf("cluster_proposed");
-    const iReason = h.indexOf("cluster_reasoning");
-    if (iProp !== -1 && iReason !== -1) {
-      for (let r = 1; r < prev.length; r++) {
-        carry[prev[r][iSlug]] = {
-          cluster_proposed: prev[r][iProp] || "",
-          cluster_reasoning: prev[r][iReason] || "",
-        };
-      }
-    }
-  }
-}
-
 const slugHash = (s) => s.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
 const PRODUCT_LABELS = ["See Our Pricing", "Try the Response Generator"];
 
 function endCta(slug) {
   if (SETS.biofuels.has(slug)) return ["biofuels", "Compare the 4 Generations -> /tools/biofuel-feedstock-compare"];
-  if (SETS.scope3csrd.has(slug)) return ["scope3-csrd", "Check Your Readiness -> /tools/scope-3-readiness"];
+  if (SETS["scope3-csrd"].has(slug)) return ["scope3-csrd", "Check Your Readiness -> /tools/scope-3-readiness"];
   if (SETS.regenerative.has(slug)) return ["regenerative", "Calculate Your Payback -> /tools/regenerative-roi"];
   if (SETS.efficiency.has(slug)) return ["efficiency", "Score your operation -> /tools/efficiency-assessment"];
   if (SETS.resilience.has(slug)) return ["resilience", "Calculate your exposure -> /tools/resilience-exposure"];
@@ -103,21 +65,18 @@ function midProposed(cluster) {
   }
 }
 
-// --- scan articles ---------------------------------------------------------
+// --- scan articles ----------------------------------------------------------
 const dirs = fs.readdirSync(ART).filter((d) =>
   fs.existsSync(path.join(ART, d, "page.tsx")));
-
 const pages = {};
 for (const d of dirs) pages[d] = fs.readFileSync(path.join(ART, d, "page.tsx"), "utf8");
 
-// pillar detection: *-guide dirs linking >=5 other articles
 const outLinks = {};
 for (const d of dirs) {
   outLinks[d] = [...pages[d].matchAll(/href="\/articles\/([a-z0-9-]+)"/g)]
     .map((m) => m[1]).filter((s) => s !== d);
 }
 const pillars = dirs.filter((d) => d.endsWith("-guide") && new Set(outLinks[d]).size >= 5);
-// reverse index: article -> pillars linking to it
 const pillarOf = {};
 for (const p of pillars)
   for (const target of new Set(outLinks[p]))
@@ -125,25 +84,22 @@ for (const p of pillars)
 
 function field(re, src) { const m = src.match(re); return m ? m[1] : ""; }
 function wordCount(src) {
-  // Count words in text nodes (between > and <), skipping pure-code fragments.
   const texts = [...src.matchAll(/>([^<>{}]+)</g)].map((m) => m[1]);
   let n = 0;
   for (const t of texts) n += (t.match(/[A-Za-zÀ-ü€][A-Za-zÀ-ü0-9€'%.,-]*/g) || []).length;
   return n;
 }
 
-const rows = [];
-for (const slug of dirs.sort()) {
+function computeRow(slug) {
   const src = pages[slug];
   const title = field(/title:\s*"([^"]+)"/, src);
-  const desc = field(/description:\s*"([^"]+)"/, src) || field(/description:\s*\n?\s*"([^"]+)"/, src);
+  const desc = field(/description:\s*"([^"]+)"/, src);
   const kw = [...(field(/keywords:\s*\[([^\]]*)\]/, src) || "").matchAll(/"([^"]+)"/g)]
     .map((m) => m[1]).join(" | ");
   const fwMatches = [...src.matchAll(/framework\/stack-(\d)/g)];
-  const stackBadge = fwMatches.length ? fwMatches[0][1] : "";
   const [cluster, endCur] = endCta(slug);
   const isPillar = pillars.includes(slug);
-  rows.push({
+  return {
     slug,
     url: "https://ecosystemsunited.com/articles/" + slug,
     type: isPillar ? "pillar" : "article",
@@ -153,12 +109,8 @@ for (const slug of dirs.sort()) {
     keywords: kw,
     word_count_body: wordCount(src),
     cluster_cta_set: cluster,
-    // Editorial routing columns carried over from the existing CSV by slug
-    // (see parseCSV/carry above); new articles default to "".
-    cluster_proposed: (carry[slug] || {}).cluster_proposed || "",
-    cluster_reasoning: (carry[slug] || {}).cluster_reasoning || "",
     matrix_pillar_proposed: (pillarOf[slug] || []).join(" | "),
-    stack_badge_current: stackBadge,
+    stack_badge_current: fwMatches.length ? fwMatches[0][1] : "",
     framework_link_count: fwMatches.length,
     has_bottom_framework_block: fwMatches.length >= 2 ? "yes(heuristic)" : "no",
     mid_cta_current: /<BaselineCTA/.test(src) ? "BaselineCTA" : "none",
@@ -166,15 +118,76 @@ for (const slug of dirs.sort()) {
     end_cta_current: endCur,
     has_stack_connection_section: /[Tt]he Stack \d/.test(src) ? "yes" : "no",
     spiking_2026_07: SPIKING.has(slug) ? "yes" : "",
-    notes: "",
-  });
+  };
+}
+// Columns this script OWNS (recomputed). Everything else is manual: carried.
+const DERIVED = new Set(Object.keys(computeRow(dirs[0])));
+DERIVED.delete("slug"); // slug is the join key, never rewritten
+
+// --- merge with the existing CSV (source of truth for layout + manual) -----
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') q = false;
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(cell); cell = ""; }
+    else if (c === "\n") { row.push(cell.replace(/\r$/, "")); rows.push(row); row = []; cell = ""; }
+    else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter((r) => r.length > 1 || (r[0] || "").trim() !== "");
 }
 
-const cols = Object.keys(rows[0]);
+let header, orderedSlugs = [], existingBySlug = {};
+if (fs.existsSync(CSV)) {
+  const [h, ...data] = parseCSV(fs.readFileSync(CSV, "utf8"));
+  header = h.filter((c) => c.trim() !== ""); // drop unnamed/empty columns
+  const si = h.indexOf("slug");
+  for (const r of data) {
+    const slug = r[si];
+    if (!slug) continue;
+    const obj = {};
+    h.forEach((col, i) => { if (col.trim() !== "") obj[col] = r[i] ?? ""; });
+    existingBySlug[slug] = obj;
+    orderedSlugs.push(slug);
+  }
+} else {
+  header = ["slug", ...Object.keys(computeRow(dirs[0])).filter((c) => c !== "slug"),
+    "cluster_proposed", "cluster_reasoning", "notes"];
+}
+// Ensure every derived column + the standard manual columns exist in header.
+for (const col of [...DERIVED, "cluster_proposed", "cluster_reasoning", "notes"])
+  if (!header.includes(col)) header.push(col);
+
+const live = new Set(dirs);
+const dropped = orderedSlugs.filter((s) => !live.has(s));
+const kept = orderedSlugs.filter((s) => live.has(s));
+const added = dirs.filter((s) => !existingBySlug[s]).sort();
+
+const outRows = [];
+for (const slug of [...kept, ...added]) {
+  const prev = existingBySlug[slug] || {};
+  const fresh = computeRow(slug);
+  const row = {};
+  for (const col of header) {
+    if (col === "slug") row[col] = slug;
+    else if (DERIVED.has(col)) row[col] = fresh[col];
+    else row[col] = prev[col] ?? "";
+  }
+  outRows.push(row);
+}
+
 const esc = (v) => {
   v = String(v ?? "");
   return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
 };
-const csv = [cols.join(","), ...rows.map((r) => cols.map((c) => esc(r[c])).join(","))].join("\n");
-fs.writeFileSync(path.join(REPO, "docs", "content-matrix.csv"), csv + "\n");
-console.log("rows:", rows.length, "| pillars detected:", pillars.length, "|", pillars.join(", "));
+fs.writeFileSync(CSV,
+  [header.join(","), ...outRows.map((r) => header.map((c) => esc(r[c])).join(","))].join("\n") + "\n");
+console.log(`rows: ${outRows.length} | kept order: ${kept.length} | added: ${added.length}${added.length ? " (" + added.join(", ") + ")" : ""} | dropped: ${dropped.length}${dropped.length ? " (" + dropped.join(", ") + ")" : ""}`);
+console.log("column order preserved from existing file; manual columns carried: " +
+  header.filter((c) => c !== "slug" && !DERIVED.has(c)).join(", "));
