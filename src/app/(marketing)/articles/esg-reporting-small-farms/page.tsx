@@ -104,7 +104,8 @@ export default function ArticlePage() {
         <p>
           If you have a farm safety policy (many farms do, even if it&apos;s basic), that document answers governance questions about health and safety management. If you don&apos;t have one, creating a simple one-page policy is a worthwhile exercise that serves both ESG reporting and actual risk management.
         </p>
-              <h2>Governance: How You Run the Operation</h2>
+
+        <h2>Governance: How You Run the Operation</h2>
         <p>
           Governance sounds corporate. For a small farm, it means: what standards do you operate to, and can you demonstrate it?
         </p>

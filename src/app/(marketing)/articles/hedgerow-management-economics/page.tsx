@@ -84,7 +84,8 @@ export default function ArticlePage() {
         <p>
           A three-year trimming rotation (cutting one side one year, the other side the next, and the top in year three) maximizes wildlife value while maintaining structure. This approach is encouraged under Sustainable Farming Incentive (SFI) and other agri-environment schemes.
         </p>
-              <h2>Economics of Hedgerow Management</h2>
+
+        <h2>Economics of Hedgerow Management</h2>
         <p>
           The costs of hedgerow management must be weighed against the multiple revenue streams and savings they generate:
         </p>

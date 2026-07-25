@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Understanding Agribusiness: How the System Works",
@@ -12,19 +12,13 @@ export default function AgribusinessGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 1: Core Metrics
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Understanding Agribusiness: How the System Works
         </h1>
@@ -82,15 +76,7 @@ export default function AgribusinessGuidePage() {
         <p>
           This reframing matters because it expands the scope of what you can measure, report, and improve. Your sustainability story is not limited to field-level practices. It includes procurement decisions, energy sourcing, waste management, transport logistics, and workforce conditions. The operations that report across this full scope &mdash; rather than just talking about soil health or cover crops &mdash; are the ones buyers take seriously.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Scale and Survival: Small vs. Large</h2>
         <p>
           The consolidation trend in agriculture is well documented. Fewer, larger operations producing more output. But the picture is more nuanced than the headlines suggest. Small and mid-sized operations are not just surviving &mdash; many are finding structural advantages that large operations cannot replicate.
@@ -162,6 +148,11 @@ export default function AgribusinessGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Find out where your operation stands</h3>
@@ -192,10 +183,6 @@ export default function AgribusinessGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

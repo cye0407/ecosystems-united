@@ -59,7 +59,8 @@ export default function ArticlePage() {
         <p>
           General alignment of stakeholder interests increases marketability and thereby efficacy. Labels that satisfy scientific rigor but ignore market realities don't get adopted. Labels that follow market trends but lack scientific backing don't maintain credibility.
         </p>
-              <h2>Achievable Criteria with Iterative Improvement</h2>
+
+        <h2>Achievable Criteria with Iterative Improvement</h2>
         <p>
           Certification objectives shouldn't be compromised, but establishing and maintaining sustainable production practices takes time. It's more effective to define achievable criteria initially, then objectively reevaluate at regular intervals—incorporating new scientific evidence and market developments.
         </p>

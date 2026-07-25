@@ -72,7 +72,8 @@ export default function ArticlePage() {
         <p>
           <strong>Warning:</strong> Don't fall into a low-value monoculture trap. Specializing in commodity crops without differentiation puts you back in price competition with scale operations. Specialize in high-value products where quality and attention matter.
         </p>
-              <h2>Strategy 3: Diversification</h2>
+
+        <h2>Strategy 3: Diversification</h2>
         <p>
           <strong>Core principle:</strong> Integrate different activities, products, and revenue streams to spread risk and create value that single-product operations can't match.
         </p>

@@ -113,7 +113,8 @@ export default function ArticlePage() {
         <p>
           Certifications are third-party verified evidence. They carry more weight than self-declarations. If a questionnaire asks about your environmental management policy and you hold GlobalG.A.P., your IFA compliance is the policy in action.
         </p>
-              <h2>Step 6: Review Before Submitting</h2>
+
+        <h2>Step 6: Review Before Submitting</h2>
         <p>
           Before you send:
         </p>

@@ -76,7 +76,8 @@ export default function ArticlePage() {
         <p>
           One model worth considering: cooperative AD plants shared between multiple farms. Several operations pool their feedstock, share the capital cost, and split the energy output and digestate. This reduces individual investment while achieving the scale needed to make the numbers work. It requires good relationships and clear agreements, but successful cooperative AD schemes exist across Europe.
         </p>
-              <h2>Small-Scale Options That Pay Back Quickly</h2>
+
+        <h2>Small-Scale Options That Pay Back Quickly</h2>
         <p>
           Not every biomass energy project needs to be industrial-scale. Some of the fastest paybacks come from the simplest interventions.
         </p>

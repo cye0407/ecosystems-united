@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Guide to Farm Resilience & Risk Management",
@@ -12,19 +12,13 @@ export default function ResilienceGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#9A8CD0] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 4: Resilience
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Guide to Farm Resilience &amp; Risk Management
         </h1>
@@ -96,15 +90,7 @@ export default function ResilienceGuidePage() {
         <p>
           Building financial resilience means maintaining adequate reserves, managing debt terms to match agricultural cash flow cycles, and stress-testing your finances against realistic adverse scenarios. What happens to your cash position if yields drop twenty percent? If your primary buyer delays payment by sixty days? If input costs increase by thirty percent? If you cannot answer those questions with numbers, your financial resilience is based on hope rather than infrastructure.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Biological Threats in a Changing Climate</h2>
         <p>
           Climate change is not just about temperature and rainfall. It is rewriting the map of pest and disease pressure. Species that were previously limited by winter temperatures are expanding their range. Growing seasons are shifting, which changes the timing of pest life cycles relative to crop vulnerability windows.
@@ -165,6 +151,11 @@ export default function ResilienceGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Assess your farm&rsquo;s resilience</h3>
@@ -195,10 +186,6 @@ export default function ResilienceGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

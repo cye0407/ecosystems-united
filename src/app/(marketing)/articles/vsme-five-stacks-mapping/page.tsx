@@ -142,7 +142,8 @@ export default function ArticlePage() {
           <li><strong>VSME CSRD status</strong>, your own regulatory position and your buyers&apos; requirements</li>
           <li><strong>VSME adoption tracking</strong>, the tracker explicitly tracks your VSME readiness stage</li>
         </ul>
-              <h2>Coverage Summary</h2>
+
+        <h2>Coverage Summary</h2>
         <p>
           When you fill in the eight tracker domains, the VSME Basic Module is largely covered:
         </p>

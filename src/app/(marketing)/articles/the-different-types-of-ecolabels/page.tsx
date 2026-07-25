@@ -58,7 +58,8 @@ export default function ArticlePage() {
         <p>
           For agricultural operations seeking certification, Type I labels represent the most credible market signal—but also require the most rigorous documentation and compliance.
         </p>
-              <h2>Type II Ecolabels: Self-Declared Claims</h2>
+
+        <h2>Type II Ecolabels: Self-Declared Claims</h2>
         <p>
           Type II ecolabels are claims made by manufacturers, importers, retailers, or distributors about environmental characteristics—think "dolphin safe" or "recyclable packaging."
         </p>

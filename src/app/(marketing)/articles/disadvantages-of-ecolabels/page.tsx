@@ -59,7 +59,8 @@ export default function ArticlePage() {
         <p>
           This creates a paradox: the proliferation of labels intended to help consumers can actually increase confusion and skepticism.
         </p>
-              <h2>Label Proliferation and Redundancy</h2>
+
+        <h2>Label Proliferation and Redundancy</h2>
         <p>
           The increasingly large range of certifications creates redundancies. It becomes hard to define the purpose and impact of individual schemes when many have overlapping objectives.
         </p>

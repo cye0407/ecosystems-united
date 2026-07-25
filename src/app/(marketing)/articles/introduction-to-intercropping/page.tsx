@@ -62,7 +62,8 @@ export default function ArticlePage() {
         <p>
           Each crop provides something the others need. This is the core principle of successful intercropping—complementary crops that together produce more than they would separately.
         </p>
-              <h2>Key Principles for Success</h2>
+
+        <h2>Key Principles for Success</h2>
         <p>
           Regardless of which intercropping pattern you choose, successful implementation requires:
         </p>

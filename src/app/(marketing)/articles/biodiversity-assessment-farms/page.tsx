@@ -106,7 +106,8 @@ export default function ArticlePage() {
           Regularly walk your hedgerows, ponds, and woodland edges to assess condition. Note gap frequency in hedgerows, water quality observations in ponds (clarity, algae, wildlife), and ground flora diversity in woodland. Simple photo monitoring from fixed points creates a visual record of habitat change over time.
         </p>
 
-              <h2>Habitat Mapping: Creating Your Farm Biodiversity Baseline</h2>
+
+        <h2>Habitat Mapping: Creating Your Farm Biodiversity Baseline</h2>
         <p>
           A habitat map is the foundation of farm biodiversity assessment. It shows what habitats exist, where they are, and how much area they cover &mdash; essential data for CSRD reporting.
         </p>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "A Financial Framework for Regenerative Agriculture",
@@ -12,19 +12,13 @@ export default function RegenerativeGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-5-regeneration" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#B8ADE3] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 5: Regeneration
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-sm text-gray-500">Stack 5: Regeneration</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           A Financial Framework for Regenerative Agriculture
         </h1>
@@ -82,15 +76,7 @@ export default function RegenerativeGuidePage() {
         <p>
           The critical insight is that these practices are not independent. They interact. Cover crops and reduced tillage reinforce each other. Integrated livestock and managed grazing create nutrient cycling loops that reduce purchased inputs. Compost application and biological treatments both feed the soil food web. The operations seeing the strongest financial returns are stacking three or four practices together, not implementing one in isolation.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Carbon Markets for Agriculture</h2>
         <p>
           Carbon markets represent a genuinely new revenue stream for agricultural operations, but the landscape is messy. Voluntary markets, compliance markets, different registries, different methodologies, different price points &mdash; and a persistent credibility problem that has depressed prices for agricultural carbon credits.
@@ -168,6 +154,11 @@ export default function RegenerativeGuidePage() {
           The farms that will lead the next decade of agricultural economics are the ones that treat soil as a balance sheet asset, carbon as a revenue line, and regenerative management as operational strategy rather than environmental aspiration. The data supports it. The markets are pricing it in. The question is whether your operation captures the value or watches it flow to competitors who moved first.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Article Navigation */}
       <div className="mt-12 pt-8 border-t border-gray-200">

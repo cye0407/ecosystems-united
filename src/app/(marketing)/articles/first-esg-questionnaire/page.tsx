@@ -232,7 +232,8 @@ export default function ArticlePage() {
           metric. Leaving fields blank with no explanation is worse than
           explaining why you can&apos;t answer.
         </p>
-              <h2>Common First-Timer Questions</h2>
+
+        <h2>Common First-Timer Questions</h2>
         <p>
           <strong>
             What if I don&apos;t have the policies they&apos;re asking about?

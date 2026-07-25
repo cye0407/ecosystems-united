@@ -94,7 +94,8 @@ export default function ArticlePage() {
         <p>
           Advanced biofuels can be made from waste materials, turning agricultural residues, forestry waste, and municipal garbage into energy. This reduces landfill mass and methane emissions while creating value from materials otherwise discarded.
         </p>
-              <h2>The Challenges</h2>
+
+        <h2>The Challenges</h2>
 
         <h3>High Production Costs</h3>
         <p>

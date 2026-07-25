@@ -157,7 +157,8 @@ export default function ArticlePage() {
         <p>
           <strong>What good enough looks like:</strong> A land use table and a statement about proximity to protected sites. You do not need a full <Link href="/articles/biodiversity-assessment-farms">biodiversity assessment</Link> for the Basic Module, just factual descriptions of what habitats exist on your land.
         </p>
-              <h2>Putting It Together</h2>
+
+        <h2>Putting It Together</h2>
         <p>
           The Basic Module is a structured collection of data you largely already possess. The work is not generating new information, it is organizing existing records into a consistent format. A farm that tracks energy, keeps safety records, holds spray logs, and has filed environmental stewardship applications is already 70-80% of the way there.
         </p>

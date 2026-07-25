@@ -105,7 +105,8 @@ export default function ArticlePage() {
         <p>
           Your buyer may provide guidance on which topics they consider material for their supply chain. If they specifically request water data, they&apos;ve determined water is material to their reporting.
         </p>
-              <h2>Timeline: When This Becomes Real</h2>
+
+        <h2>Timeline: When This Becomes Real</h2>
         <p>
           Large EU companies started CSRD reporting in 2025. Listed SMEs begin in 2026-2028. For farm suppliers, the impact follows:
         </p>

@@ -68,7 +68,8 @@ export default function ArticlePage() {
         <p>
           <strong>Limitation:</strong> IER fluctuates with crop prices, so it may not accurately gauge long-term productivity. A combination that looks good when prices favor one crop may look poor when prices shift.
         </p>
-              <h2>Competitive Ratio (CR)</h2>
+
+        <h2>Competitive Ratio (CR)</h2>
         <p>
           Using LER data, the <strong>Competitive Ratio</strong> measures how competitive the two (or more) crops are with each other, accounting for their sowing proportions.
         </p>

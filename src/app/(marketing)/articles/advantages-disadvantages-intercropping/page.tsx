@@ -62,7 +62,8 @@ export default function ArticlePage() {
         <p>
           Dense, diverse plant coverage can naturally suppress weed growth by competing for light and space. Ground-covering crops like squash shade out weeds without herbicides.
         </p>
-              <h2>Disadvantages of Intercropping</h2>
+
+        <h2>Disadvantages of Intercropping</h2>
 
         <h3>Complex Management</h3>
         <p>

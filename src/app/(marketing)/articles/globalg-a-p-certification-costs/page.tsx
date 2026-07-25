@@ -98,7 +98,8 @@ export default function ArticlePage() {
           <li><strong>Works when:</strong> you track baseline data and want to automate the questionnaire response portion</li>
           <li><strong>Risk:</strong> tool quality varies; the tool handles answers but you still need to verify and provide physical evidence</li>
         </ul>
-              <h2>Total First-Year Cost: Realistic Ranges</h2>
+
+        <h2>Total First-Year Cost: Realistic Ranges</h2>
         <ul>
           <li><strong>Best case (organized farm, DIY):</strong> &euro;600&ndash;1,200</li>
           <li><strong>Typical (some gaps, tool-assisted):</strong> &euro;1,000&ndash;2,500</li>

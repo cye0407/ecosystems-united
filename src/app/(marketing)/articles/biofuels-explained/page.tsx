@@ -66,7 +66,8 @@ export default function ArticlePage() {
         <p>
           <strong>Infrastructure compatibility:</strong> Consumer concerns about ethanol effects on motors and equipment, though newer engines are generally designed for biofuel blends.
         </p>
-              <h2>Potential Benefits</h2>
+
+        <h2>Potential Benefits</h2>
         <p>
           If biofuel use continues to expand, benefits could include:
         </p>

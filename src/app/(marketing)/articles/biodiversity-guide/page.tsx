@@ -79,7 +79,8 @@ export default function BiodiversityGuidePage() {
         <p>
           The practical approach is to think in terms of pollinator infrastructure rather than pollinator gardens. Where are the gaps in the forage calendar? Where are nesting opportunities limited? Where does the landscape force pollinators to cross large open areas without shelter? Answering these questions and filling the gaps creates measurable habitat improvement that shows up in both assessment scores and, over time, in crop yields on pollination-dependent enterprises.
         </p>
-              <h2>Biodiversity Net Gain: The Regulatory and Financial Frontier</h2>
+
+        <h2>Biodiversity Net Gain: The Regulatory and Financial Frontier</h2>
         <p>
           <Link href="/articles/biodiversity-net-gain-agriculture">Biodiversity net gain (BNG)</Link> is reshaping how land is valued. Under BNG frameworks, any development that impacts habitat must deliver a measurable net increase in biodiversity &mdash; typically ten percent above the pre-development baseline. When development sites cannot achieve this on-site, they must purchase biodiversity units from off-site providers. Those providers are, increasingly, farms.
         </p>

@@ -74,7 +74,8 @@ export default function ArticlePage() {
         <p>
           At recent fertiliser prices this replacement value lands around &euro;10&ndash;20/tonne of straw, dominated by potash &mdash; and it moves with fertiliser markets, which is exactly when straw decisions get made badly: high fertiliser prices raise both the temptation of straw revenue and the true cost of exporting nutrients. Whatever your local numbers, this line is objective and calculable. Deduct it before you compare the offer to anything.
         </p>
-              <h2>Line 4: The Soil Value Nobody Prices</h2>
+
+        <h2>Line 4: The Soil Value Nobody Prices</h2>
         <p>
           Here is the part the buyer&apos;s offer never includes. Residue returned to the field is not waste &mdash; it is next decade&apos;s organic matter, this winter&apos;s erosion armour, and next July&apos;s moisture retention:
         </p>

@@ -99,7 +99,8 @@ export default function ArticlePage() {
         <p>
           If you&apos;re not providing ESG data, you&apos;re not eligible. The premium goes to farms that are. Over years, this differential compounds. The responsive farms get better prices, more investment, and stronger relationships. The silent farms get standard terms and declining relative position.
         </p>
-              <h2>What Buyers Actually Expect from Farm Suppliers</h2>
+
+        <h2>What Buyers Actually Expect from Farm Suppliers</h2>
         <p>
           The bar is lower than you think. Buyers sending questionnaires to agricultural suppliers are not expecting the same sophistication as a multinational chemical company. They know their supply base includes family farms, small holdings, and operations that have never heard of ESG until the email arrived.
         </p>

@@ -67,7 +67,8 @@ export default function ArticlePage() {
         <p>
           In practice, companion planting can be considered a sub-genre of intercropping. When companion planting practices are implemented in agricultural systems, they typically use intercropping patterns (row, strip, mixed, or relay) while selecting crops based on relationship benefits.
         </p>
-              <h2>Economics of Companion Planting</h2>
+
+        <h2>Economics of Companion Planting</h2>
         <p>
           Successful companion planting requires understanding each plant species' functionality. In an ideal situation, both the companion and target crop are harvestable, providing direct economic benefit.
         </p>

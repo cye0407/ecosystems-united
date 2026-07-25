@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Circular Economy Guide for Farms: Turn Waste Into Revenue",
@@ -12,19 +12,13 @@ export default function CircularEconomyGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#7B6BB8] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 3: Circularity
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circularity</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Circular Economy Guide for Farms: Turn Waste Into Revenue
         </h1>
@@ -112,15 +106,7 @@ export default function CircularEconomyGuidePage() {
         <p>
           Rainwater harvesting, process water filtration and recirculation, constructed wetlands for natural treatment&mdash;these are not luxury investments. They are infrastructure that reduces your two biggest water costs: buying clean water in and paying to send dirty water out.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Building Circular Partnerships: Who Needs Your Outputs?</h2>
         <p>
           The most profitable circularity happens between operations, not within them. Industrial symbiosis&mdash;where one operation&apos;s waste becomes another&apos;s input&mdash;creates value that neither party could capture alone.
@@ -188,6 +174,11 @@ export default function CircularEconomyGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">How circular is your operation?</h3>
@@ -238,10 +229,6 @@ export default function CircularEconomyGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

@@ -84,7 +84,8 @@ export default function ArticlePage() {
           <li>Requires new processing infrastructure</li>
           <li>Complex conversion technology still being optimized</li>
         </ul>
-              <h2>Side-by-Side Comparison</h2>
+
+        <h2>Side-by-Side Comparison</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>

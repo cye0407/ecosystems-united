@@ -97,7 +97,8 @@ export default function ArticlePage() {
         <p>
           Swiss studies found that flowering strips along field margins reduced insecticide applications by 2-3 sprays per season in vegetable rotations, saving €180-250 per hectare in chemical costs alone. The strips occupied only 3-5% of field area but provided biological control benefits across the entire field through parasitoid dispersal. This approach integrates seamlessly with intercropping strategies, creating multiple layers of pest suppression through ecological enhancement.
         </p>
-              <h2>Disease Suppression Through Diversity and Airflow</h2>
+
+        <h2>Disease Suppression Through Diversity and Airflow</h2>
 
         <p>
           Beyond insect pests, intercropping influences disease dynamics, particularly for foliar fungal pathogens that spread through water splash and wind-dispersed spores. The mechanisms differ from insect pest control but can be equally powerful. Intercropping reduces disease severity through physical barriers to spore dispersal, altered microclimate (especially humidity and leaf wetness duration), and induction of plant resistance compounds.

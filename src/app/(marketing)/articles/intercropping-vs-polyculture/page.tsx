@@ -72,7 +72,8 @@ export default function ArticlePage() {
         <p>
           <strong>Business case:</strong> Enhanced ecological resilience. Improved soil health through diverse root structures. Expanded habitat for beneficial organisms. Greater sustainability over time as the system matures.
         </p>
-              <h2>The Key Distinction</h2>
+
+        <h2>The Key Distinction</h2>
         <p>
           All intercropping is a form of polyculture, but not all polycultures are intercropping. The differences matter operationally:
         </p>

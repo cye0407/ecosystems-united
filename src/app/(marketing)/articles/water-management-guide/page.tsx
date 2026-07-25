@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Guide to Water Management for Farms",
@@ -12,19 +12,13 @@ export default function WaterManagementGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 2: Efficiency
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Guide to Water Management for Farms
         </h1>
@@ -90,15 +84,7 @@ export default function WaterManagementGuidePage() {
         <p>
           Storage is the main cost. Lined reservoirs, tanks, or converted lagoons each have different cost profiles and planning implications. The key calculation is whether the capital cost of storage, amortised over its lifespan, is less than the cost of the water it replaces &mdash; including the increasingly real cost of abstraction licence risk.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Agricultural Drainage: The Other Half of Water Management</h2>
         <p>
           Irrigation gets the investment. Drainage gets neglected. Yet on many farms, particularly in Northern Europe and other high-rainfall regions, <Link href="/articles/agricultural-drainage">agricultural drainage</Link> has a bigger impact on productivity than irrigation ever will. Waterlogged soils restrict root development, delay fieldwork windows, reduce nutrient availability, and create conditions for crop disease.
@@ -148,7 +134,7 @@ export default function WaterManagementGuidePage() {
           The real gains come when irrigation, drainage, water quality, and supply resilience are managed as a single system rather than four separate problems. Water harvested from building roofs supplements irrigation supply. Drainage water, if clean enough, feeds back into storage. Precision irrigation reduces drainage volumes and nutrient leaching simultaneously. Soil health improvements increase both water-holding capacity (reducing irrigation demand) and infiltration rate (reducing surface drainage problems).
         </p>
         <p>
-          This integrated approach is what Stack 2 of the Five Stacks Framework calls efficiency &mdash; not doing less, but getting more from every input. Water is the clearest example because it touches every part of the operation and every litre saved, stored, or better applied compounds across the entire production system.
+          This integrated approach is what efficiency really means &mdash; not doing less, but getting more from every input. Water is the clearest example because it touches every part of the operation and every litre saved, stored, or better applied compounds across the entire production system.
         </p>
 
         <h2>Where to Start</h2>
@@ -166,6 +152,11 @@ export default function WaterManagementGuidePage() {
           Each of these questions points to a specific area of the detailed guides linked throughout this page. Start with the biggest gap, build the infrastructure to close it, then move to the next. Water management is not a project with a completion date. It is an ongoing operational discipline that compounds in value every year you practice it.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
@@ -197,10 +188,6 @@ export default function WaterManagementGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

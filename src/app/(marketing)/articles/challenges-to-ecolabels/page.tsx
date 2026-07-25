@@ -63,7 +63,8 @@ export default function ArticlePage() {
         <p>
           For agricultural operations, this often manifests as labels that don't quite fit your production system—criteria designed for one context applied awkwardly to another.
         </p>
-              <h2>Dynamic vs. Dependable Standards</h2>
+
+        <h2>Dynamic vs. Dependable Standards</h2>
         <p>
           Ecolabels must adapt to evolving market needs while establishing consistent trust and reliability. These goals often conflict.
         </p>

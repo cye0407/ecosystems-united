@@ -73,7 +73,8 @@ export default function ArticlePage() {
         <p>
           Equally important &mdash; what they don&apos;t want: guilt trips about their other shopping habits, lectures on sustainability, or being made to feel like buying local is a moral obligation. People buy food because it&apos;s good, it&apos;s trustworthy, and it fits into their life. Keep it practical.
         </p>
-              <h2>How to Position Your Farm</h2>
+
+        <h2>How to Position Your Farm</h2>
         <p>
           Here&apos;s the connection most farm operators miss: the sustainability practices you&apos;re already implementing are your marketing. You don&apos;t need to invent a brand story. You need to tell the one you&apos;re already living.
         </p>

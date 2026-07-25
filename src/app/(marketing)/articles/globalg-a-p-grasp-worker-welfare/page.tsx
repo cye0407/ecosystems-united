@@ -79,7 +79,8 @@ export default function ArticlePage() {
           <li><strong>Safe housing:</strong> if worker housing is provided, does it meet basic standards (clean water, sanitation, adequate space, weather protection)?</li>
           <li><strong>Access to services:</strong> do workers have access to clean drinking water, sanitary facilities, and first aid during working hours?</li>
         </ul>
-              <h2>What Evidence the Auditor Needs</h2>
+
+        <h2>What Evidence the Auditor Needs</h2>
         <p>
           GRASP is assessed during the same visit as your IFA audit, typically
           adding 1&ndash;2 hours. The auditor will want to see:

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Guide to Ecolabels for Farms",
@@ -12,19 +12,13 @@ export default function EcolabelGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 2: Efficiency
+        <Link href="/articles/vsme-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete VSME Guide for Agricultural SMEs
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Guide to Ecolabels for Farms
         </h1>
@@ -110,15 +104,7 @@ export default function EcolabelGuidePage() {
         <p>
           The EU Green Claims Directive, expected to tighten enforcement significantly, will make unsubstantiated environmental claims on products illegal. This is good news for farms with legitimate certifications &mdash; it removes competition from operations making empty claims. But it also means any labels you use or pursue must be defensible under incoming regulation. Self-declared environmental claims without verification are becoming a legal liability, not just a reputational one.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>What Drives Ecolabel Adoption</h2>
         <p>
           Understanding the <Link href="/articles/drivers-of-ecolabel-adoption">drivers of ecolabel adoption</Link> helps you assess whether certification makes sense for your operation right now or whether other investments should come first.
@@ -138,7 +124,7 @@ export default function EcolabelGuidePage() {
           For farms, the most important trend is convergence between ESG reporting (CSRD/VSME) and certification data. The data you collect for buyer ESG questionnaires &mdash; energy, water, waste, emissions, biodiversity &mdash; overlaps significantly with what ecolabel audits assess. This creates an efficiency opportunity: build your data infrastructure once and use it for both compliance reporting and certification maintenance.
         </p>
         <p>
-          Operations that treat data collection and certification as separate workstreams are doubling their administrative burden unnecessarily. The Five Stacks approach integrates both into a single data layer.
+          Operations that treat data collection and certification as separate workstreams are doubling their administrative burden unnecessarily. The smarter route integrates both into a single data layer: track once, use everywhere.
         </p>
 
         <h2>Using Certification Strategically</h2>
@@ -183,6 +169,11 @@ export default function EcolabelGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Assess your efficiency position</h3>
@@ -213,10 +204,6 @@ export default function EcolabelGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

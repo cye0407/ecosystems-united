@@ -93,7 +93,8 @@ export default function ArticlePage() {
         <p>
           The strategic advantage is recurring revenue. Rather than hoping customers show up each week, you have committed subscribers. You also build a direct relationship that bypasses every intermediary, and you gain predictability that helps with production planning.
         </p>
-              <h2>Starting Small</h2>
+
+        <h2>Starting Small</h2>
         <p>
           The biggest mistake in value-added products is over-investing before you&apos;ve validated demand. Don&apos;t build a processing facility on day one. Don&apos;t take out a loan for a commercial kitchen before you&apos;ve sold a single jar.
         </p>

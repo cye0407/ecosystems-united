@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Guide to Biofuels for Farms",
@@ -12,19 +12,13 @@ export default function BiofuelsGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#7B6BB8] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 3: Circularity
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circularity</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Guide to Biofuels for Farms
         </h1>
@@ -102,15 +96,7 @@ export default function BiofuelsGuidePage() {
         <p>
           This is where circularity thinking pays off. Operations that can demonstrate a genuine waste-to-fuel pathway &mdash; where the feedstock would otherwise be disposed of &mdash; have the strongest sustainability case and the best market position.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Aviation Fuel: The Highest-Value Opportunity</h2>
         <p>
           Aviation is the sector with the fewest decarbonisation alternatives. Batteries cannot power long-haul flights. Hydrogen infrastructure does not exist at airports. That leaves sustainable aviation fuel (SAF) as the primary pathway, and regulators are mandating its adoption on an aggressive timeline.
@@ -139,7 +125,7 @@ export default function BiofuelsGuidePage() {
           <strong>Sustainability certification is becoming non-negotiable.</strong> Uncertified feedstock is increasingly excluded from premium markets. If you are supplying into biofuel chains, ISCC or equivalent certification is a requirement, not a differentiator. The cost and complexity of certification is a barrier for smaller operations, but cooperative models are emerging to share that burden.
         </p>
         <p>
-          <strong>Integration with carbon markets is accelerating.</strong> Biofuel pathways that can demonstrate and verify low carbon intensity scores are accessing additional revenue through carbon credit mechanisms. This adds another revenue layer on top of the fuel value, but requires robust data collection and reporting &mdash; which connects directly back to the measurement infrastructure that underpins all Five Stacks work.
+          <strong>Integration with carbon markets is accelerating.</strong> Biofuel pathways that can demonstrate and verify low carbon intensity scores are accessing additional revenue through carbon credit mechanisms. This adds another revenue layer on top of the fuel value, but requires robust data collection and reporting &mdash; the same measurement infrastructure that underpins everything else on this site.
         </p>
 
         <h2>The Economics for Farm Operations</h2>
@@ -178,6 +164,11 @@ export default function BiofuelsGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Assess your circularity opportunities</h3>
@@ -208,10 +199,6 @@ export default function BiofuelsGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

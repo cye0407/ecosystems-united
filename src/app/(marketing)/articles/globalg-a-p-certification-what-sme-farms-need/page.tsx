@@ -105,7 +105,8 @@ export default function ArticlePage() {
           most of these documents. The gap is usually formatting and
           organization, not the data itself.
         </p>
-              <h2>Who Needs GlobalG.A.P.?</h2>
+
+        <h2>Who Needs GlobalG.A.P.?</h2>
         <p>
           Strictly speaking, GlobalG.A.P. is voluntary. In practice, if you supply
           fresh produce to any major European retailer (Aldi, Lidl, Tesco,

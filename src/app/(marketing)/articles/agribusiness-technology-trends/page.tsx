@@ -137,7 +137,8 @@ export default function ArticlePage() {
         <p>
           The limiting factor is typically analysis capability, not image collection. Ensure you have time and skill to interpret imagery before investing in higher-resolution data sources.
         </p>
-              <h2>AI and Machine Learning: Early Stage with Pockets of Value</h2>
+
+        <h2>AI and Machine Learning: Early Stage with Pockets of Value</h2>
 
         <p>
           Artificial intelligence and machine learning generate the most hype and the least clarity in agtech. The technology is real and improving rapidly, but practical applications for SMEs remain limited.

@@ -78,7 +78,8 @@ export default function ArticlePage() {
         <p>
           <strong>The catch:</strong> Costly infrastructure and scaling limitations. Highly sustainable but production challenges and costs slow adoption.
         </p>
-              <h2>Second-Generation Biofuels: Best Current Balance</h2>
+
+        <h2>Second-Generation Biofuels: Best Current Balance</h2>
         <p>
           <strong>What they are:</strong> Lignocellulosic ethanol and waste-based biofuels from agricultural residues, non-food biomass, and waste.
         </p>

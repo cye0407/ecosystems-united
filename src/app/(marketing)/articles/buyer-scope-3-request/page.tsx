@@ -99,7 +99,8 @@ export default function ArticlePage() {
         <p>
           With just these four inputs, you can provide a reasonable first estimate that covers the vast majority of your farm&apos;s emissions.
         </p>
-              <h2>A Quick Calculation Example</h2>
+
+        <h2>A Quick Calculation Example</h2>
         <p>For a 200-head dairy farm in Western Europe:</p>
         <ul>
           <li>200 dairy cows &times; 128 kg CH4/head/year (IPCC default) = 25.6 tonnes CH4 = <strong>~718 tonnes CO2e</strong> from enteric fermentation</li>

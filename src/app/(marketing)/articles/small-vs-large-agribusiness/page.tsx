@@ -91,7 +91,8 @@ export default function ArticlePage() {
         <p>
           <strong>Lower overhead:</strong> Family labor, modest infrastructure, and conservative debt loads create resilience during downturns that over-leveraged large operations lack.
         </p>
-              <h2>Strategic Implications</h2>
+
+        <h2>Strategic Implications</h2>
         <p>
           <strong>If you're smaller:</strong> Don't try to out-volume large operations. Find positions where their scale is irrelevant or even a disadvantage:
         </p>

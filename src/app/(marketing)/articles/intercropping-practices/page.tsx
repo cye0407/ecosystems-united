@@ -70,7 +70,8 @@ export default function ArticlePage() {
         <p>
           This approach incorporates plant varieties offensive to specific pests into the growing space. The repellent effect can be chemical (volatile compounds that deter pests), physical (structures that interfere with pest movement), or both. More rows of repellent crop are typically needed than in trap cropping.
         </p>
-              <h2>Push-Pull Intercropping</h2>
+
+        <h2>Push-Pull Intercropping</h2>
         <p>
           Push-pull combines trap and repellent approaches into a single integrated system. This approach has gained significant popularity, particularly in Africa for maize production.
         </p>

@@ -65,7 +65,8 @@ export default function ArticlePage() {
         <p>
           <strong>Caution:</strong> Legume fatigue may occur if soil becomes overly infested with pathogens from over-cultivation. Rotation and diversity remain important even within intercropped systems.
         </p>
-              <h2>Circumventing Synthetic Input Restrictions</h2>
+
+        <h2>Circumventing Synthetic Input Restrictions</h2>
         <p>
           Organic certification restricts synthetic fertilizers, herbicides, and pesticides that are commonplace in conventional agriculture. Intercropping helps circumvent these restrictions by:
         </p>

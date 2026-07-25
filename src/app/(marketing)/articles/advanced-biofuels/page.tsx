@@ -72,7 +72,8 @@ export default function ArticlePage() {
         <p>
           Some advanced biofuels can blend with existing fossil fuels or be used directly in current engines without modification. This makes implementation easier compared to alternatives requiring new infrastructure.
         </p>
-              <h2>Challenges to Widespread Adoption</h2>
+
+        <h2>Challenges to Widespread Adoption</h2>
         
         <h3>High Production Costs</h3>
         <p>

@@ -71,7 +71,8 @@ export default function ArticlePage() {
         <p>
           This process requires baseline data. You can't demonstrate compliance with standards you haven't measured against. This is why ecolabel preparation starts with your records—it requires the same measurement foundation as any other sustainability reporting.
         </p>
-              <h2>Types of Ecolabels Relevant to Agriculture</h2>
+
+        <h2>Types of Ecolabels Relevant to Agriculture</h2>
         <p>
           Several ecolabel categories matter for agricultural operations:
         </p>

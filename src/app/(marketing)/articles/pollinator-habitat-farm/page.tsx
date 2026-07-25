@@ -69,7 +69,8 @@ export default function ArticlePage() {
         <p>
           Simple provision of these microhabitats &mdash; leaving areas of bare ground on south-facing banks, retaining dead wood and mature trees with cavities, allowing some areas of scrub to develop &mdash; can be as important as providing forage.
         </p>
-              <h2>Species Mix and Seasonal Succession</h2>
+
+        <h2>Species Mix and Seasonal Succession</h2>
         <p>
           The success of wildflower plantings depends entirely on species selection. A mix dominated by a few vigorous species that all flower in June is far less valuable than a diverse mixture providing forage from March through October.
         </p>

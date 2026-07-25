@@ -140,7 +140,8 @@ export default function ArticlePage() {
         <p>
           <strong>For farms:</strong> You report on your own workforce and operations. You do not need to audit your feed supplier&apos;s labor practices or your agrochemical provider&apos;s environmental record.
         </p>
-              <h2>When Does Full ESRS Apply to You?</h2>
+
+        <h2>When Does Full ESRS Apply to You?</h2>
         <p>
           Full ESRS currently applies to:
         </p>

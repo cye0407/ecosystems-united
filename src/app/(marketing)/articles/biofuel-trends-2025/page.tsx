@@ -69,7 +69,8 @@ export default function ArticlePage() {
         <p>
           More aggressive blending policies mean growing demand for biofuel feedstocks.
         </p>
-              <h2>4. Renewable Diesel (HVO) for Heavy Transport</h2>
+
+        <h2>4. Renewable Diesel (HVO) for Heavy Transport</h2>
         <p>
           Unlike traditional biodiesel, renewable diesel (hydrotreated vegetable oil) is chemically identical to petroleum diesel, making it compatible with existing engines and infrastructure.
         </p>

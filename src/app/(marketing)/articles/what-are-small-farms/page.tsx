@@ -69,7 +69,8 @@ export default function ArticlePage() {
         <p>
           <strong>Quality over volume:</strong> Attention to detail possible at small scale commands premium pricing. Heritage varieties, specialty products, and superior freshness justify higher prices.
         </p>
-              <h2>The Structural Challenges</h2>
+
+        <h2>The Structural Challenges</h2>
         <p>
           Small farms face real disadvantages within the agribusiness system:
         </p>

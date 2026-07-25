@@ -71,7 +71,8 @@ export default function ArticlePage() {
           <li><strong>B Corp Certification:</strong> Recognizes companies meeting high social and environmental standards</li>
           <li><strong>GOTS (Global Organic Textile Standard):</strong> Guarantees organic and ethical textile production</li>
         </ul>
-              <h2>Governance and Transparency Labels</h2>
+
+        <h2>Governance and Transparency Labels</h2>
         <p>
           These certifications help identify companies with transparent leadership and ethical business practices:
         </p>

@@ -101,7 +101,8 @@ export default function ArticlePage() {
         <p>
           Agricultural lime (calcium carbonate) applied to correct soil pH releases CO2 when it reacts with soil acids. Urea fertilizer releases CO2 during hydrolysis in the soil. These are smaller sources but should not be overlooked&mdash;a farm applying 200 tonnes of limestone per year is adding roughly 88 tonnes of CO2 from this source alone.
         </p>
-              <h2>Scope 2: Purchased Electricity</h2>
+
+        <h2>Scope 2: Purchased Electricity</h2>
         <p>
           Scope 2 is the simplest category for most farms. It covers indirect emissions from purchased electricity&mdash;the carbon footprint of generating the power you draw from the grid.
         </p>

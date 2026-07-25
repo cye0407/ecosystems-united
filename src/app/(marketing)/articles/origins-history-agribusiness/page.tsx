@@ -77,7 +77,8 @@ export default function ArticlePage() {
         <p>
           <strong>Strategic insight:</strong> The upgrade cycle creates ongoing dependency. Each technology purchase creates need for the next. Breaking this cycle requires deliberate strategy.
         </p>
-              <h2>The Farm Crisis (1980s)</h2>
+
+        <h2>The Farm Crisis (1980s)</h2>
         <p>
           When the farm real estate bubble burst in the 1980s, almost half of all farmers went out of business. Those who had taken on debt to expand and upgrade were most vulnerable.
         </p>

@@ -117,7 +117,8 @@ export default function ArticlePage() {
         <p>
           The insurance effect amplifies when stress frequency increases &mdash; exactly the trajectory projected under climate change. Modeling studies suggest that as the probability of extreme weather events rises from once-per-decade to once-per-five-years, the economic advantage of diversified systems grows disproportionately, because monocultures experience catastrophic failures more frequently while intercrops maintain partial productivity.
         </p>
-              <h2>Performance Under Stress: LER Patterns Across Climate Gradients</h2>
+
+        <h2>Performance Under Stress: LER Patterns Across Climate Gradients</h2>
 
         <p>
           Land Equivalent Ratio (LER) analysis reveals how intercropping advantages shift across different climate conditions. While LER values above 1.0 indicate yield advantages under any conditions, the magnitude of this advantage consistently increases under stress.

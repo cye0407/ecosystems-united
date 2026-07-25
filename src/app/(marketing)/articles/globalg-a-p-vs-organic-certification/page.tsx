@@ -97,7 +97,8 @@ export default function ArticlePage() {
           <li><strong>GlobalG.A.P.:</strong> annual audit, continuous record keeping. Does not constrain your farming system</li>
           <li><strong>Organic:</strong> annual inspection, continuous compliance with input restrictions. Constrains your entire farming system</li>
         </ul>
-              <h2>When to Choose GlobalG.A.P.</h2>
+
+        <h2>When to Choose GlobalG.A.P.</h2>
         <ul>
           <li>Your buyers require it (most European retail supply chains)</li>
           <li>You use integrated pest management with some conventional inputs</li>

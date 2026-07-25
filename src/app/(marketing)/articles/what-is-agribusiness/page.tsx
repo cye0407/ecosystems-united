@@ -84,7 +84,8 @@ export default function ArticlePage() {
         <p>
           <strong>Strategic implication:</strong> Outside capital brings outside pressure. The terms of financing shape what's possible. Understanding this relationship is essential for strategic planning.
         </p>
-              <h2>How Agribusiness Evolved</h2>
+
+        <h2>How Agribusiness Evolved</h2>
         <p>
           The current system emerged through several waves:
         </p>

@@ -88,7 +88,8 @@ export default function ArticlePage() {
         <p>
           The brutal truth: &ldquo;just farm harder&rdquo; doesn&apos;t work when the system is structurally designed to favor scale. Effort isn&apos;t the problem. Position is.
         </p>
-              <h2>Where the System Is Vulnerable</h2>
+
+        <h2>Where the System Is Vulnerable</h2>
         <p>
           Here&apos;s the part most people miss: the industrial food system is powerful, but it&apos;s not invincible. It has structural vulnerabilities&mdash;and those vulnerabilities are your strategic openings.
         </p>

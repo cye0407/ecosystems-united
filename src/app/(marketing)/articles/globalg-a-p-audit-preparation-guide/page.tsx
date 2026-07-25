@@ -113,7 +113,8 @@ export default function ArticlePage() {
           already have most of this. The task is organizing it into the format
           the auditor expects.
         </p>
-              <h2>Week 4: Site Walk and Mock Audit</h2>
+
+        <h2>Week 4: Site Walk and Mock Audit</h2>
         <p>
           With documentation and records in order, walk your site as the auditor
           would. Check these physical requirements:

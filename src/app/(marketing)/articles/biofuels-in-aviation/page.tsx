@@ -72,7 +72,8 @@ export default function ArticlePage() {
           <li><strong>Dedicated energy crops:</strong> Camelina, switchgrass, and other non-food crops</li>
           <li><strong>Algae:</strong> Still developing but high potential</li>
         </ul>
-              <h2>Policy Is Accelerating Demand</h2>
+
+        <h2>Policy Is Accelerating Demand</h2>
         <p>
           Government mandates are creating guaranteed demand for SAF:
         </p>

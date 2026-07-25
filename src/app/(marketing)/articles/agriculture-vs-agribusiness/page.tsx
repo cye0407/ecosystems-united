@@ -76,7 +76,8 @@ export default function ArticlePage() {
           <li><strong>Quality control:</strong> Attention to detail impossible at industrial scale</li>
           <li><strong>Trust:</strong> Personal accountability that anonymous supply chains can't provide</li>
         </ul>
-              <h2>Side-by-Side Comparison</h2>
+
+        <h2>Side-by-Side Comparison</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>

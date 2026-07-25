@@ -87,7 +87,8 @@ export default function ArticlePage() {
         <p>
           This distribution isn&apos;t inherently unfair &mdash; each stage adds value and incurs costs. However, the concentration of market power means that returns aren&apos;t determined purely by costs and competition but also by bargaining leverage. When four companies process 85% of beef cattle in the United States, when three companies control 60% of global agricultural inputs, and when five retailers control 70% of grocery sales in a country, competitive market dynamics break down.
         </p>
-              <h2>Power Dynamics and Information Asymmetry</h2>
+
+        <h2>Power Dynamics and Information Asymmetry</h2>
         <p>
           Supply chain power flows from three sources: concentration, control of information, and control of access to consumers. At the production stage, farmers are fragmented and have limited information about prices further down the chain. They often sell at posted prices with little negotiation leverage. Meanwhile, buyers &mdash; whether aggregators, processors, or retailers &mdash; can see prices across the entire supply chain and can shift between suppliers.
         </p>

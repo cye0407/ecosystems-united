@@ -65,7 +65,8 @@ export default function ArticlePage() {
         <p>
           <strong>Challenge:</strong> High lipid yield but expensive extraction process. Costly infrastructure and scaling limitations slow adoption.
         </p>
-              <h2>Second-Generation Biofuels (Lignocellulosic/Waste-Based)</h2>
+
+        <h2>Second-Generation Biofuels (Lignocellulosic/Waste-Based)</h2>
         <p>
           <strong>Overall sustainability rank: Best balance of sustainability and practicality</strong>
         </p>

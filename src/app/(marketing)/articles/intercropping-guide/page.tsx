@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Guide to Intercropping for Farms",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-4-resilience" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#9A8CD0] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 4: Resilience
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-bold text-sm">
-            4
-          </div>
-          <span className="text-sm text-gray-500">Stack 4: Resilience</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Guide to Intercropping for Farms
         </h1>
@@ -97,15 +91,7 @@ export default function ArticlePage() {
         <p>
           For operations already working within organic certification&mdash;or considering the transition&mdash;intercropping takes on additional importance. Without synthetic nitrogen, the legume component is not just helpful; it is essential. The guide to <Link href="/articles/intercropping-organic-systems" className="text-[#9A8CD0] hover:underline">intercropping in organic systems</Link> addresses the specific constraints and opportunities.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Measuring Whether It Is Actually Working</h2>
         <p>
           &ldquo;It looked good&rdquo; is not a metric. If you are going to allocate field area to intercropping, you need to know whether the system outperforms the monoculture alternative.
@@ -173,6 +159,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Assess your operation&rsquo;s resilience</h3>
@@ -231,10 +222,6 @@ export default function ArticlePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

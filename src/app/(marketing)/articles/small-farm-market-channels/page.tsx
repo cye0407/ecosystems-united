@@ -75,7 +75,8 @@ export default function ArticlePage() {
         <p>
           <strong>The trade-off:</strong> You lose the direct customer relationship. You also lose some control over pricing. But if your bottleneck is marketing rather than production, food hubs remove the constraint that&apos;s actually holding you back.
         </p>
-              <h2>3. Farmers Markets and Farm Shops</h2>
+
+        <h2>3. Farmers Markets and Farm Shops</h2>
         <p>
           Farmers markets remain the most common direct sales channel for small farms, and for good reason. They put you face-to-face with your customers. You get immediate feedback, you build regulars, and you capture the full retail margin.
         </p>

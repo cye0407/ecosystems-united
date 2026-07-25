@@ -69,7 +69,8 @@ export default function ArticlePage() {
           <li><strong>Compliance Mindset:</strong> Focus may shift to obtaining the logo rather than actual improvement</li>
           <li><strong>SME Barriers:</strong> Smaller businesses often lack resources for complex certification processes</li>
         </ul>
-              <h2>A Framework for Evaluating Ecolabel ROI</h2>
+
+        <h2>A Framework for Evaluating Ecolabel ROI</h2>
         <p>
           The most successful companies approach certification strategically rather than reactively. Here's a practical framework:
         </p>

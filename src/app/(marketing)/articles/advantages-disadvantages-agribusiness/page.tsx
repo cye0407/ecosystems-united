@@ -69,7 +69,8 @@ export default function ArticlePage() {
         <p>
           <strong>Strategic value:</strong> Predictability enables planning. The trade-off is that predictable commodity pricing often means thin margins.
         </p>
-              <h2>What Agribusiness Costs You</h2>
+
+        <h2>What Agribusiness Costs You</h2>
 
         <h3>Margin Compression</h3>
         <p>

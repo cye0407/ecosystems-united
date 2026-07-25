@@ -64,7 +64,8 @@ export default function ArticlePage() {
         <p>
           The resulting ethanol is distilled and purified before blending with gasoline. Leftover biomass can be repurposed for electricity generation or other uses.
         </p>
-              <h2>Why Cellulosic Biofuels Matter</h2>
+
+        <h2>Why Cellulosic Biofuels Matter</h2>
 
         <h3>Sustainable Use of Waste Materials</h3>
         <p>

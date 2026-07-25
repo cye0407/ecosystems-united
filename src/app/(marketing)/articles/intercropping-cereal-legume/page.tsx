@@ -93,7 +93,8 @@ export default function ArticlePage() {
         <p>
           The nitrogen credit also extends to subsequent crops. Research shows that following crops may require 20-30 kg N/ha less fertilizer due to residual nitrogen from the legume component, adding further value to the system.
         </p>
-              <h2>Seeding Rates and Ratios</h2>
+
+        <h2>Seeding Rates and Ratios</h2>
 
         <p>
           Determining optimal seeding rates requires understanding that intercrops don&apos;t simply involve reducing each component proportionally. The general principle is to seed each component at 60-75% of its sole-crop rate, with the exact ratio depending on several factors:

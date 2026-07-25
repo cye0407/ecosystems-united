@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Complete Small Farm Strategy Guide",
@@ -12,19 +12,13 @@ export default function SmallFarmGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 2: Efficiency
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Complete Small Farm Strategy Guide
         </h1>
@@ -105,15 +99,7 @@ export default function SmallFarmGuidePage() {
         <p>
           The strategic opportunity for small farms is not to fight the industrial system head-on. It is to serve the markets that the industrial system cannot serve well, and to build resilience against the shocks that the industrial system is structurally vulnerable to.
         </p>
-      </article>
 
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
         <h2>Value-Added Products: Moving Up the Chain</h2>
         <p>
           Selling raw agricultural output is selling a commodity. Selling a product &mdash; processed, packaged, branded &mdash; captures value that would otherwise go to someone else. <Link href="/articles/small-farm-value-added-products">Value-added products</Link> are the single most effective way for small farms to increase revenue per hectare without increasing production volume.
@@ -179,6 +165,11 @@ export default function SmallFarmGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Find out where your efficiency gains are</h3>
@@ -209,10 +200,6 @@ export default function SmallFarmGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }
