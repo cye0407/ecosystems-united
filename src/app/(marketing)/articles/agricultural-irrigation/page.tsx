@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import WorkspacePopupExample from "@/components/marketing/WorkspacePopupExample";
 
 export const metadata = {
   title: "Agricultural Irrigation: Methods, Advantages, and Efficiency Trade-offs",
@@ -10,21 +11,15 @@ export const metadata = {
 export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      {/* Navigation */}
+      {/* Navigation — D-016 example: pillar context, not framework */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 2: Operational Efficiency
+        <Link href="/articles/water-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The complete guide to water management
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Agricultural Irrigation: Methods, Advantages, and Efficiency Trade-offs
         </h1>
@@ -78,9 +73,17 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
+      {/* D-021 example — MID 1: cluster playbook CTA */}
+      <div className="my-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
+        <h3 className="text-2xl font-bold mb-3">Get your leak-fixing plan</h3>
+        <p className="text-white/80 mb-6">
+          Irrigation is one of the places operations leak money quietly. Tell the free
+          playbook what you run and what&apos;s squeezing you — it builds a personalized
+          plan: what to fix first, what it pays back, and how to prove it worked.
+        </p>
+        <Link href="/playbooks/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
+          Build my plan — free →
+        </Link>
       </div>
 
       {/* Continue article */}
@@ -138,19 +141,18 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 2 */}
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to find your operational leaks?</h3>
-        <p className="text-white/80 mb-4">
-          Irrigation efficiency is part of Stack 2 in the Five Stacks Framework—identifying where water and energy waste costs you money.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 2 focuses on fixing leaks before adding new initiatives. Your water use data reveals patterns—where you over-irrigate, where timing is off, where equipment issues waste resources. These are often easy wins that improve both costs and environmental performance.
-        </p>
-        <Link href="/framework/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 2 →
-        </Link>
+      {/* D-021 example — MID 2: newsletter */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
+      {/* D-021 example — 30s workspace popup */}
+      <WorkspacePopupExample
+        headline="Your bills already know where the leaks are."
+        body="The free tracker turns 12 months of bills and meter readings into a live picture of water, energy, and input use — every fix you make shows up in the numbers."
+        ctaLabel="Open the free tracker →"
+        ctaHref="/tracker"
+      />
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

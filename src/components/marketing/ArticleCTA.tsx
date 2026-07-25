@@ -160,6 +160,45 @@ export default function ArticleCTA() {
 
   const slug = pathname.split("/").pop() || "";
 
+  // D-021 EXAMPLE ONLY (agricultural-irrigation): the proposed page close —
+  // cluster-translated workspace CTA + bottom newsletter. If Cat approves the
+  // flow, this becomes the general pattern; if not, delete this branch.
+  if (slug === "agricultural-irrigation") {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div className="p-8 rounded-lg text-white mt-12" style={{ backgroundColor: "#4AA88C" }}>
+          <h2 className="text-2xl font-bold mb-3">
+            Stop guessing where the water — and the money — goes
+          </h2>
+          <p className="text-white/80 mb-6">
+            The free tracker turns your bills and meter readings into a live picture of
+            your operation: water, energy, inputs. Every leak you fix shows up in the
+            numbers, and the next buyer question already has an answer waiting.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href="/tracker"
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: "#4AA88C" }}
+            >
+              Open the free tracker →
+            </Link>
+            <Link
+              href="/see-it-in-action"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              See it in action first
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">Free. No lock-in — export your data anytime.</p>
+        </div>
+        <div className="mt-8">
+          <NewsletterSignup />
+        </div>
+      </div>
+    );
+  }
+
   // Biofuels & energy articles always funnel into the comparison tool
   if (BIOFUELS_SLUGS.has(slug)) {
     return (
