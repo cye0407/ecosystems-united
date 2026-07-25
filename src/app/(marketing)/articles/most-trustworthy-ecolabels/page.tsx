@@ -1,5 +1,4 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
 
 export const metadata = {
   title: "The Most Trustworthy Ecolabels: 10 Certifications That Actually Mean Something",
@@ -12,19 +11,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/ecolabel-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Ecolabels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Most Trustworthy Ecolabels: 10 Certifications That Actually Mean Something
         </h1>
@@ -79,16 +72,7 @@ export default function ArticlePage() {
         <p>
           Government-backed certification (EPA and DOE) for energy-efficient products. Relevant for equipment purchases and operational efficiency claims. Strong consumer recognition.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h3>6. Cradle to Cradle Certified</h3>
+              <h3>6. Cradle to Cradle Certified</h3>
         <p>
           Focuses on circular economy design—products that can be reused or recycled safely. Rigorous five-tier certification covering material health, water stewardship, and renewable energy. Growing recognition in B2B contexts.
         </p>
@@ -124,23 +108,10 @@ export default function ArticlePage() {
           <li><strong>Your readiness:</strong> Can you meet the criteria and produce required documentation?</li>
         </ul>
         <p>
-          Understanding the certification landscape is part of Stack 1—knowing what's expected in your market context. The next step is assessing which certifications align with your operational reality and strategic direction.
+          Understanding the certification landscape means knowing what's expected in your market context. The next step is assessing which certifications align with your operational reality and strategic direction.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your measurement foundation?</h3>
-        <p className="text-white/80 mb-4">
-          Knowing which ecolabels matter is part of Stack 1 in the Five Stacks Framework—understanding the external landscape you're operating in.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 1 focuses on building defensible baseline data for core sustainability metrics. With solid measurement systems, you can evaluate which certifications are realistic for your operation—and you'll have the data ready when you decide to pursue them.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 →
-        </Link>
-      </div>
     </div>
   );
 }

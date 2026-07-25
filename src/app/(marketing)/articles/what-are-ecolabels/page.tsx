@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "What Are Ecolabels? Understanding Sustainability Certifications",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/ecolabel-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Ecolabels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           What Are Ecolabels? Understanding the Certification Landscape
         </h1>
@@ -75,18 +69,9 @@ export default function ArticlePage() {
           <li><strong>Maintenance:</strong> Reapplication required to maintain certification status</li>
         </ol>
         <p>
-          This process requires baseline data. You can't demonstrate compliance with standards you haven't measured against. This is why ecolabel preparation sits within Stack 1—it requires the same measurement foundation as any other sustainability reporting.
+          This process requires baseline data. You can't demonstrate compliance with standards you haven't measured against. This is why ecolabel preparation starts with your records—it requires the same measurement foundation as any other sustainability reporting.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Types of Ecolabels Relevant to Agriculture</h2>
+              <h2>Types of Ecolabels Relevant to Agriculture</h2>
         <p>
           Several ecolabel categories matter for agricultural operations:
         </p>
@@ -150,19 +135,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your measurement foundation?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding ecolabels is part of Stack 1 in the Five Stacks Framework—knowing both your internal data and the external landscape you're operating in.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 1 focuses on building defensible baseline data for core sustainability metrics: emissions, energy, water, waste, and land use. This is the foundation that makes certification possible, buyer questionnaires answerable, and operational improvement measurable. Without it, you're guessing.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

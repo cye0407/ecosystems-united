@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Different Types of Ecolabels: Type I, II, and III Explained",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/ecolabel-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Ecolabels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Different Types of Ecolabels: Type I, II, and III Explained
         </h1>
@@ -64,16 +58,7 @@ export default function ArticlePage() {
         <p>
           For agricultural operations seeking certification, Type I labels represent the most credible market signal—but also require the most rigorous documentation and compliance.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Type II Ecolabels: Self-Declared Claims</h2>
+              <h2>Type II Ecolabels: Self-Declared Claims</h2>
         <p>
           Type II ecolabels are claims made by manufacturers, importers, retailers, or distributors about environmental characteristics—think "dolphin safe" or "recyclable packaging."
         </p>
@@ -131,23 +116,15 @@ export default function ArticlePage() {
           All three ecolabel types require data—they just use it differently. Type I requires proving you meet defined criteria. Type II requires backing up your specific claims. Type III requires comprehensive life cycle data.
         </p>
         <p>
-          This is why understanding ecolabels is part of Stack 1. Before pursuing any certification path, you need baseline measurement systems that can produce the documentation certification requires. The label type determines what kind of data you need.
+          This is why understanding ecolabels belongs in your measurement groundwork. Before pursuing any certification path, you need baseline measurement systems that can produce the documentation certification requires. The label type determines what kind of data you need.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your measurement foundation?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding ecolabel types is part of Stack 1 in the Five Stacks Framework—knowing both your internal data and the external certification landscape you're operating in.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 1 focuses on building defensible baseline data for core sustainability metrics. This is the foundation that makes any certification path possible and buyer questionnaires answerable. Without measurement systems in place, certification attempts waste time and money.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
     </div>
   );
 }

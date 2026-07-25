@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Advantages and Disadvantages of Ecolabels for Your Business",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/ecolabel-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Ecolabels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           The Advantages and Disadvantages of Ecolabels for Your Business
         </h1>
@@ -75,16 +69,7 @@ export default function ArticlePage() {
           <li><strong>Compliance Mindset:</strong> Focus may shift to obtaining the logo rather than actual improvement</li>
           <li><strong>SME Barriers:</strong> Smaller businesses often lack resources for complex certification processes</li>
         </ul>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>A Framework for Evaluating Ecolabel ROI</h2>
+              <h2>A Framework for Evaluating Ecolabel ROI</h2>
         <p>
           The most successful companies approach certification strategically rather than reactively. Here's a practical framework:
         </p>
@@ -111,7 +96,7 @@ export default function ArticlePage() {
           <li>Who owns the measurement process, and is it sustainable?</li>
         </ul>
         <p>
-          This is the Stack 1 connection: baseline measurement systems must exist before certification makes sense. Otherwise, you're paying for audits you'll fail or spending excessive time reconstructing data that should have been collected systematically.
+          The connection to your numbers: baseline measurement systems must exist before certification makes sense. Otherwise, you're paying for audits you'll fail or spending excessive time reconstructing data that should have been collected systematically.
         </p>
 
         <h2>Making the Decision</h2>
@@ -123,19 +108,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your measurement foundation?</h3>
-        <p className="text-white/80 mb-4">
-          Evaluating ecolabel trade-offs is part of Stack 1 in the Five Stacks Framework—understanding both your internal capabilities and the external certification landscape.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 1 focuses on building defensible baseline data for core sustainability metrics. This foundation determines which certifications are realistic, which will require significant investment, and which offer genuine ROI for your operation.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "GlobalG.A.P. GRASP: Worker Welfare Requirements Explained",
@@ -12,20 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span>{" "}
-          Back to Stack 2: Operational Efficiency
+        <Link href="/articles/vsme-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete VSME Guide for Agricultural SMEs
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">2</div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           GlobalG.A.P. GRASP: Worker Welfare Requirements Explained
         </h1>
@@ -87,14 +79,7 @@ export default function ArticlePage() {
           <li><strong>Safe housing:</strong> if worker housing is provided, does it meet basic standards (clean water, sanitation, adequate space, weather protection)?</li>
           <li><strong>Access to services:</strong> do workers have access to clean drinking water, sanitary facilities, and first aid during working hours?</li>
         </ul>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>What Evidence the Auditor Needs</h2>
+              <h2>What Evidence the Auditor Needs</h2>
         <p>
           GRASP is assessed during the same visit as your IFA audit, typically
           adding 1&ndash;2 hours. The auditor will want to see:
@@ -148,19 +133,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Track Workforce Data, Pass GRASP</h3>
-        <p className="text-white/80 mb-4">
-          Start tracking worker hours, training, and safety data now. When GRASP
-          becomes mandatory for your buyers, you&apos;ll be ready.
-        </p>
-        <Link
-          href="/signup"
-          className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Start Tracking Free &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <p className="text-sm text-gray-500 mb-4">Related articles:</p>
@@ -176,9 +153,6 @@ export default function ArticlePage() {
         </div>
       </div>
 
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

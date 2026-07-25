@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Drivers of Ecolabel Adoption: What Makes Certification Schemes Succeed",
@@ -12,19 +12,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/ecolabel-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Ecolabels for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Drivers of Ecolabel Adoption: What Makes Certification Schemes Succeed
         </h1>
@@ -65,16 +59,7 @@ export default function ArticlePage() {
         <p>
           General alignment of stakeholder interests increases marketability and thereby efficacy. Labels that satisfy scientific rigor but ignore market realities don't get adopted. Labels that follow market trends but lack scientific backing don't maintain credibility.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Achievable Criteria with Iterative Improvement</h2>
+              <h2>Achievable Criteria with Iterative Improvement</h2>
         <p>
           Certification objectives shouldn't be compromised, but establishing and maintaining sustainable production practices takes time. It's more effective to define achievable criteria initially, then objectively reevaluate at regular intervals—incorporating new scientific evidence and market developments.
         </p>
@@ -119,23 +104,15 @@ export default function ArticlePage() {
           <li>Will you need to invest in market development beyond the certification itself?</li>
         </ul>
         <p>
-          Understanding these dynamics is part of Stack 1—knowing the external landscape so you can make strategic decisions about where to invest your certification efforts.
+          Understanding these dynamics is part of knowing the external landscape—so you can make strategic decisions about where to invest your certification efforts.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your measurement foundation?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding what makes certifications succeed is part of Stack 1 in the Five Stacks Framework—knowing the external landscape helps you invest strategically.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 1 focuses on building defensible baseline data for core sustainability metrics. With solid measurement systems, you can evaluate certification opportunities against your actual capabilities—and pursue the ones most likely to deliver real market benefits.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
     </div>
   );
 }
