@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Biodiversity Net Gain: Opportunity for Agricultural Land | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-5-regeneration"
-          className="text-gray-600 hover:text-[#B8ADE3] transition-colors"
-        >
-          &larr; Back to Stack 5: Regeneration
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-[#B8ADE3] font-semibold">Stack 5: Regeneration</span>
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Biodiversity Net Gain: Opportunity for Agricultural Land
         </h1>
@@ -96,14 +87,7 @@ export default function ArticlePage() {
         <p>
           Statutory biodiversity credits (government backstop) are priced at £42,000 per unit for area habitats and £48,000 per unit for linear habitats (hedgerows, watercourses). Private market rates are typically 20-40% below statutory credit prices, as they offer developers cost savings and greater flexibility.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <p>
+              <p>
           A typical BNG agreement is structured as a 30-year conservation covenant (the legal minimum under the Environment Act). The landowner commits to creating and maintaining the habitat to specified conditions, verified through monitoring reports every few years. Payment structures vary: some agreements pay the full amount upfront (minus holdbacks for delivery risk), others structure payments over the establishment period (e.g., 20% on signing, 40% at year 3, 40% at year 5 when condition targets are met).
         </p>
         <p>
@@ -210,18 +194,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#B8ADE3] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">Explore Stack 5: Regeneration</h2>
-        <p className="mb-6">
-          Discover how the Five Stacks Framework integrates biodiversity action with climate, circular economy, and social value strategies for comprehensive sustainability management.
-        </p>
-        <Link
-          href="/framework/stack-5-regeneration"
-          className="inline-block px-6 py-3 bg-white text-[#B8ADE3] rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Learn About Stack 5
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h3>

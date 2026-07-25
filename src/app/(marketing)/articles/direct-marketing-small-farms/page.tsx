@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Direct Marketing for Small Farms: 7 Keys to Building Customer Relationships",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -71,16 +71,7 @@ export default function ArticlePage() {
         <p>
           Once a plan has proven successful, expand at a sustainable rate. Rushing growth often breaks what made the operation work—quality suffers, relationships thin out, costs overrun revenue. Let demand pull growth rather than pushing supply.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h3>4. Keep Good Records</h3>
+              <h3>4. Keep Good Records</h3>
         <p>
           Quality information enables evaluation of progress and determines whether goals are being met. Track not just financials, but also:
         </p>
@@ -141,35 +132,27 @@ export default function ArticlePage() {
           Different channels serve different purposes. Farmers markets build awareness; CSAs create predictable income; restaurant sales command premium prices. Most successful direct marketers use multiple channels strategically.
         </p>
 
-        <h2>The Five Stacks Connection</h2>
+        <h2>What makes direct marketing hold together</h2>
         <p>
-          Direct marketing success ties directly to the Five Stacks Framework:
+          Direct marketing success rests on the same capabilities that strengthen the rest of your operation:
         </p>
         <ul>
-          <li><strong>Stack 1:</strong> Certifications create credibility claims for direct marketing channels</li>
-          <li><strong>Stack 2:</strong> Efficiency improvements support profitability even with direct marketing labor costs</li>
-          <li><strong>Stack 3:</strong> Circular value creates additional products for direct channels</li>
-          <li><strong>Stack 4:</strong> Sustainable practices become part of the story customers value</li>
-          <li><strong>Stack 5:</strong> Story and positioning is exactly what direct marketing communicates</li>
+          <li><strong>Certification:</strong> Creates credibility claims for direct marketing channels</li>
+          <li><strong>Efficiency:</strong> Improvements support profitability even with direct marketing labor costs</li>
+          <li><strong>Circular value:</strong> Creates additional products for direct channels</li>
+          <li><strong>Sustainable practices:</strong> Become part of the story customers value</li>
+          <li><strong>Story and positioning:</strong> Exactly what direct marketing communicates</li>
         </ul>
         <p>
           The framework supports the differentiation, relationships, and documentation that make direct marketing work.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your direct marketing strategy?</h3>
-        <p className="text-white/80 mb-4">
-          Direct marketing creates relationships and premium prices that commodity channels can't match. The Five Stacks Framework helps you build the differentiation and story that make direct marketing work.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides systematic approaches to certification, efficiency, practices, and positioning—each supporting the customer relationships that drive direct marketing success.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
@@ -182,10 +165,6 @@ export default function ArticlePage() {
           <Link href="/articles/what-are-small-farms" className="block p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
             <span className="font-medium text-gray-900">What Are Small Farms? →</span>
             <span className="block text-sm text-gray-600">The business case for staying small</span>
-          </Link>
-          <Link href="/framework/stack-5-regeneration" className="block p-4 border border-gray-200 rounded-lg hover:border-gray-400 transition-colors">
-            <span className="font-medium text-gray-900">Stack 5: Regenerative Advantage →</span>
-            <span className="block text-sm text-gray-600">Turning operational advantages into market position</span>
           </Link>
         </div>
       </div>

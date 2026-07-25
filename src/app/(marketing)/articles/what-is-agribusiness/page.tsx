@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "What Is Agribusiness? Understanding the System You Operate In",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -84,16 +84,7 @@ export default function ArticlePage() {
         <p>
           <strong>Strategic implication:</strong> Outside capital brings outside pressure. The terms of financing shape what's possible. Understanding this relationship is essential for strategic planning.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>How Agribusiness Evolved</h2>
+              <h2>How Agribusiness Evolved</h2>
         <p>
           The current system emerged through several waves:
         </p>
@@ -134,35 +125,27 @@ export default function ArticlePage() {
           <li><strong>Alternative channels:</strong> Direct markets, CSAs, institutional buyers who value what you offer</li>
         </ul>
 
-        <h2>The Five Stacks Connection</h2>
+        <h2>Capturing more value within the system</h2>
         <p>
-          The Five Stacks Framework is essentially a playbook for capturing more value within the agribusiness system:
+          The playbook for capturing more value within the agribusiness system:
         </p>
         <ul>
-          <li><strong>Stack 1 (Certification):</strong> Access premium channels the commodity system can't easily enter</li>
-          <li><strong>Stack 2 (Efficiency):</strong> Reduce your cost exposure to input price volatility</li>
-          <li><strong>Stack 3 (Circular Value):</strong> Capture value from waste streams instead of paying for disposal</li>
-          <li><strong>Stack 4 (Practices):</strong> Build productive capacity that reduces ongoing input dependency</li>
-          <li><strong>Stack 5 (Story):</strong> Differentiate through documented sustainability that commands premium pricing</li>
+          <li><strong>Certification:</strong> Access premium channels the commodity system can't easily enter</li>
+          <li><strong>Efficiency:</strong> Reduce your cost exposure to input price volatility</li>
+          <li><strong>Circular value:</strong> Capture value from waste streams instead of paying for disposal</li>
+          <li><strong>Practices:</strong> Build productive capacity that reduces ongoing input dependency</li>
+          <li><strong>Story:</strong> Differentiate through documented sustainability that commands premium pricing</li>
         </ul>
         <p>
           Understanding agribusiness helps you see where the framework fits: it's about positioning strategically within the system, not fighting it.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to position your operation strategically?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding agribusiness is the first step. The Five Stacks Framework helps you capture more value within the system.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides a systematic approach to building competitive advantage through sustainability—reducing input dependency, accessing premium markets, and creating differentiation the commodity system can't replicate.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

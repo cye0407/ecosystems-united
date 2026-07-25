@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Advantages and Disadvantages of Agribusiness: What It Gives You vs. What It Costs",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -69,16 +69,7 @@ export default function ArticlePage() {
         <p>
           <strong>Strategic value:</strong> Predictability enables planning. The trade-off is that predictable commodity pricing often means thin margins.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>What Agribusiness Costs You</h2>
+              <h2>What Agribusiness Costs You</h2>
 
         <h3>Margin Compression</h3>
         <p>
@@ -132,35 +123,27 @@ export default function ArticlePage() {
           <li><strong>Access alternative channels</strong> that value what the commodity system doesn't</li>
         </ul>
 
-        <h2>The Five Stacks Approach</h2>
+        <h2>Positioning yourself inside the system</h2>
         <p>
-          The Five Stacks Framework is designed for exactly this strategic positioning:
+          Strategic positioning inside the system comes down to five capabilities:
         </p>
         <ul>
-          <li><strong>Stack 1:</strong> Certifications that access channels agribusiness can't easily enter</li>
-          <li><strong>Stack 2:</strong> Efficiency improvements that reduce your input cost exposure</li>
-          <li><strong>Stack 3:</strong> Circular value capture from streams the commodity system ignores</li>
-          <li><strong>Stack 4:</strong> Practices that build productive capacity without ongoing input dependency</li>
-          <li><strong>Stack 5:</strong> Story and positioning that commands premium pricing</li>
+          <li><strong>Certification:</strong> Access channels agribusiness can't easily enter</li>
+          <li><strong>Efficiency:</strong> Improvements that reduce your input cost exposure</li>
+          <li><strong>Circular value:</strong> Capture from streams the commodity system ignores</li>
+          <li><strong>Practices:</strong> Build productive capacity without ongoing input dependency</li>
+          <li><strong>Story:</strong> Positioning that commands premium pricing</li>
         </ul>
         <p>
           Understanding agribusiness advantages and disadvantages is the foundation. The framework helps you act on that understanding.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to optimize your position?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding the system is step one. The Five Stacks Framework helps you capture agribusiness advantages while building independence from its costs.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides systematic approaches to reducing input dependency, accessing premium markets, and creating competitive advantage through sustainability.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

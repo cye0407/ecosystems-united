@@ -119,7 +119,7 @@ export default function ArticlePage() {
           <li>Used cooking oils and animal fats from processing operations</li>
         </ul>
         <p>
-          Stack 3 thinking means evaluating whether your waste streams might have emerging value in these growing markets—and positioning to capture that value as infrastructure develops.
+          The waste-to-value question is whether your waste streams might have emerging value in these growing markets—and positioning to capture that value as infrastructure develops.
         </p>
       </article>
 

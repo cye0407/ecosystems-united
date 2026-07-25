@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "5 Market Channels for Small Farms Beyond the Farmgate",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -75,16 +75,7 @@ export default function ArticlePage() {
         <p>
           <strong>The trade-off:</strong> You lose the direct customer relationship. You also lose some control over pricing. But if your bottleneck is marketing rather than production, food hubs remove the constraint that&apos;s actually holding you back.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>3. Farmers Markets and Farm Shops</h2>
+              <h2>3. Farmers Markets and Farm Shops</h2>
         <p>
           Farmers markets remain the most common direct sales channel for small farms, and for good reason. They put you face-to-face with your customers. You get immediate feedback, you build regulars, and you capture the full retail margin.
         </p>
@@ -152,29 +143,34 @@ export default function ArticlePage() {
           <strong>Don&apos;t over-commit.</strong> Every channel you add requires time, logistics, and attention. A CSA with 30 members, a Tuesday market, and two restaurant accounts is a full plate. Adding a box scheme on top of that isn&apos;t ambitious&mdash;it&apos;s reckless unless you have the team and systems to support it.
         </p>
 
-        <h2>The Five Stacks Connection</h2>
+        <h2>Why diversified channels make you harder to break</h2>
         <p>
-          Diversified market channels connect directly to Stack 4 (Resilience) in the Five Stacks Framework. A farm that relies on a single buyer or a single market is structurally fragile. Adding channels doesn&apos;t just increase revenue&mdash;it reduces the impact of any single disruption.
+          Diversified market channels are resilience in practice. A farm that relies on a single buyer or a single market is structurally fragile. Adding channels doesn&apos;t just increase revenue&mdash;it reduces the impact of any single disruption.
         </p>
         <p>
           But the connection runs deeper than that:
         </p>
         <ul>
-          <li><strong>Stack 1 (Certification):</strong> Organic, biodynamic, or regional quality certifications open doors to channels that require them&mdash;many food hubs and restaurant buyers specifically seek certified producers.</li>
-          <li><strong>Stack 2 (Efficiency):</strong> Streamlined packing, delivery routes, and order management make multi-channel selling viable rather than chaotic.</li>
-          <li><strong>Stack 3 (Circular Value):</strong> Waste from one channel becomes product for another&mdash;imperfect produce goes to box schemes, trimmings go to restaurants, surplus goes to food hubs.</li>
-          <li><strong>Stack 5 (Story):</strong> Each channel reinforces your brand. CSA members become your advocates. Market regulars spread the word. Chefs name you on their menus. The story compounds across channels.</li>
+          <li><strong>Certification:</strong> Organic, biodynamic, or regional quality certifications open doors to channels that require them&mdash;many food hubs and restaurant buyers specifically seek certified producers.</li>
+          <li><strong>Efficiency:</strong> Streamlined packing, delivery routes, and order management make multi-channel selling viable rather than chaotic.</li>
+          <li><strong>Circular value:</strong> Waste from one channel becomes product for another&mdash;imperfect produce goes to box schemes, trimmings go to restaurants, surplus goes to food hubs.</li>
+          <li><strong>Story:</strong> Each channel reinforces your brand. CSA members become your advocates. Market regulars spread the word. Chefs name you on their menus. The story compounds across channels.</li>
         </ul>
         <p>
           Market channel diversification isn&apos;t just a sales tactic. It&apos;s a structural decision that determines how resilient your farm business actually is. Build channels deliberately, run them well, and you create a business that can absorb shocks instead of being destroyed by them.
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA */}
       <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
         <h3 className="text-2xl font-bold mb-3">Ready to diversify your market channels?</h3>
         <p className="text-white/80 mb-4">
-          Building multiple market channels is one of the most effective ways to strengthen your farm business. The Five Stacks Framework helps you develop the certifications, systems, and positioning that make each channel work.
+          Building multiple market channels is one of the most effective ways to strengthen your farm business. It takes the certifications, systems, and positioning that make each channel work.
         </p>
         <p className="text-white/80 mb-6">
           Learn how competitive strategy connects production decisions to market positioning&mdash;so every channel you add reinforces the others.

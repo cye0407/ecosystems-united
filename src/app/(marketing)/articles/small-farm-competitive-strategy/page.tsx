@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Small Farm Competitive Strategy: Differentiation, Specialization, and Diversification",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -72,16 +72,7 @@ export default function ArticlePage() {
         <p>
           <strong>Warning:</strong> Don't fall into a low-value monoculture trap. Specializing in commodity crops without differentiation puts you back in price competition with scale operations. Specialize in high-value products where quality and attention matter.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Strategy 3: Diversification</h2>
+              <h2>Strategy 3: Diversification</h2>
         <p>
           <strong>Core principle:</strong> Integrate different activities, products, and revenue streams to spread risk and create value that single-product operations can't match.
         </p>
@@ -110,35 +101,27 @@ export default function ArticlePage() {
           The common thread: building competitive advantage in spaces where scale doesn't determine who wins.
         </p>
 
-        <h2>The Five Stacks Connection</h2>
+        <h2>The capabilities behind each strategy</h2>
         <p>
-          Each Five Stacks component supports these competitive strategies:
+          Each of these operational capabilities supports the competitive strategies:
         </p>
         <ul>
-          <li><strong>Stack 1 (Certification):</strong> Creates differentiation through third-party verified claims</li>
-          <li><strong>Stack 2 (Efficiency):</strong> Reduces costs so specialization remains profitable at smaller scale</li>
-          <li><strong>Stack 3 (Circular Value):</strong> Captures value from waste streams, supporting diversification</li>
-          <li><strong>Stack 4 (Practices):</strong> Builds productive capacity that reduces input dependency across all strategies</li>
-          <li><strong>Stack 5 (Story):</strong> Communicates differentiation, specialization, and diversification to markets that value them</li>
+          <li><strong>Certification:</strong> Creates differentiation through third-party verified claims</li>
+          <li><strong>Efficiency:</strong> Reduces costs so specialization remains profitable at smaller scale</li>
+          <li><strong>Circular value:</strong> Captures value from waste streams, supporting diversification</li>
+          <li><strong>Practices:</strong> Build productive capacity that reduces input dependency across all strategies</li>
+          <li><strong>Story:</strong> Communicates differentiation, specialization, and diversification to markets that value them</li>
         </ul>
         <p>
           The framework provides systematic support for competitive strategies that don't depend on scale.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your strategy?</h3>
-        <p className="text-white/80 mb-4">
-          Differentiation, specialization, and diversification create competitive advantage where scale doesn't win. The Five Stacks Framework helps you implement these approaches systematically.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides tools for certification, efficiency, circular value, sustainable practices, and market positioning—each supporting competitive strategies designed for smaller operations.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

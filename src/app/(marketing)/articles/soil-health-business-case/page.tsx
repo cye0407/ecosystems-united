@@ -136,9 +136,9 @@ export default function ArticlePage() {
           The key insight: soil health is a capital investment, not an annual expense. Like equipment or infrastructure, it builds productive capacity that pays returns over time.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>Where degraded soil leaks money</h2>
         <p>
-          Soil health is the foundation of Stack 2 efficiency—it's where operational leaks either compound or get fixed:
+          Soil health is the foundation of operational efficiency—it's where leaks either compound or get fixed:
         </p>
         <ul>
           <li><strong>Fertilizer efficiency:</strong> Healthy soil biology cycles nutrients instead of losing them to runoff and volatilization</li>
@@ -147,7 +147,7 @@ export default function ArticlePage() {
           <li><strong>Yield efficiency:</strong> Healthy soil delivers more output per unit of input</li>
         </ul>
         <p>
-          Stack 2 asks: where does your operation lose money to inefficiency? For most agricultural operations, degraded soil is the biggest hidden leak—one that compounds every year it goes unaddressed.
+          The question worth asking: where does your operation lose money to inefficiency? For most agricultural operations, degraded soil is the biggest hidden leak—one that compounds every year it goes unaddressed.
         </p>
       </article>
 

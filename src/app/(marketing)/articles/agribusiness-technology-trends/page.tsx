@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,11 +12,8 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/articles"
-          className="text-gray-600 hover:text-[#3D2E7C] transition-colors"
-        >
-          &larr; Back to Guides
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -140,14 +137,7 @@ export default function ArticlePage() {
         <p>
           The limiting factor is typically analysis capability, not image collection. Ensure you have time and skill to interpret imagery before investing in higher-resolution data sources.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>AI and Machine Learning: Early Stage with Pockets of Value</h2>
+              <h2>AI and Machine Learning: Early Stage with Pockets of Value</h2>
 
         <p>
           Artificial intelligence and machine learning generate the most hype and the least clarity in agtech. The technology is real and improving rapidly, but practical applications for SMEs remain limited.
@@ -297,20 +287,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">
-          Build Technology Strategy Into Your Business Framework
-        </h3>
-        <p className="mb-6 text-gray-300">
-          Technology investments should align with your overall business strategy and sustainability framework. The Five Stacks approach helps you prioritize technology decisions based on where they create the most value across your operation.
-        </p>
-        <Link
-          href="/framework"
-          className="inline-block bg-white text-[#1a1a2e] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore the Five Stacks Framework
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold mb-4">Further Reading</h3>

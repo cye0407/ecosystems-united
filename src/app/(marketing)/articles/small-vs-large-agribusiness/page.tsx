@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Small vs. Large Agribusiness: Finding Your Competitive Position",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -91,16 +91,7 @@ export default function ArticlePage() {
         <p>
           <strong>Lower overhead:</strong> Family labor, modest infrastructure, and conservative debt loads create resilience during downturns that over-leveraged large operations lack.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Strategic Implications</h2>
+              <h2>Strategic Implications</h2>
         <p>
           <strong>If you're smaller:</strong> Don't try to out-volume large operations. Find positions where their scale is irrelevant or even a disadvantage:
         </p>
@@ -135,35 +126,27 @@ export default function ArticlePage() {
           Meanwhile, large operations face sustainability pressure from buyers, regulators, and consumers—pressure that creates opportunities for smaller competitors who can credibly demonstrate what large operations struggle to prove.
         </p>
 
-        <h2>The Five Stacks Approach</h2>
+        <h2>Competitive advantage without scale</h2>
         <p>
-          The Five Stacks Framework is designed to build competitive advantage for operations that can't compete on scale:
+          Operations that can't compete on scale build advantage five ways:
         </p>
         <ul>
-          <li><strong>Stack 1:</strong> Certifications that access channels where scale isn't the advantage</li>
-          <li><strong>Stack 2:</strong> Efficiency improvements that build margin through cost reduction, not volume</li>
-          <li><strong>Stack 3:</strong> Circular value from streams the commodity system ignores</li>
-          <li><strong>Stack 4:</strong> Practices that reduce input dependency and build productive capacity</li>
-          <li><strong>Stack 5:</strong> Story and positioning that commands premium pricing</li>
+          <li><strong>Certification:</strong> Access channels where scale isn't the advantage</li>
+          <li><strong>Efficiency:</strong> Build margin through cost reduction, not volume</li>
+          <li><strong>Circular value:</strong> Capture value from streams the commodity system ignores</li>
+          <li><strong>Practices:</strong> Reduce input dependency and build productive capacity</li>
+          <li><strong>Story:</strong> Positioning that commands premium pricing</li>
         </ul>
         <p>
           Understanding the small vs. large landscape helps you see where the framework fits: building competitive advantage in spaces where scale isn't what wins.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to find your competitive position?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding where you can win is the first step. The Five Stacks Framework helps you build advantages in spaces where scale isn't the determining factor.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides systematic approaches to differentiation, efficiency, and market positioning—competitive strategies that work regardless of scale.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

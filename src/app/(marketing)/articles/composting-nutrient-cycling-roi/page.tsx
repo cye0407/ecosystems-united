@@ -48,7 +48,7 @@ export default function ArticlePage() {
           On-farm composting offers a structural solution. Every tonne of finished compost you produce displaces purchased fertilizer&mdash;nitrogen, phosphorus, and potassium that you&apos;d otherwise buy at market prices. But the savings go beyond the nutrient value alone. Manufacturing synthetic fertilizer is energy-intensive: producing one tonne of ammonium nitrate requires roughly 1.5 tonnes of CO₂ equivalent in emissions. When you replace that input with on-farm compost, you&apos;re reducing both your costs and your carbon footprint simultaneously.
         </p>
         <p>
-          This is the kind of double benefit that makes composting a Stack 5 practice&mdash;it improves your economics <em>and</em> your sustainability story at the same time.
+          This is the kind of double benefit that makes composting a regenerative investment&mdash;it improves your economics <em>and</em> your sustainability story at the same time.
         </p>
 
         <h2>What Farms Can Compost</h2>

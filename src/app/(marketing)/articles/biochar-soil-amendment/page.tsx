@@ -162,15 +162,15 @@ export default function ArticlePage() {
           <strong>Evaluate on-farm production.</strong> If you have consistent biomass waste streams&mdash;prunings, wood chip, crop residues&mdash;on-farm pyrolysis may be the better economic path. Start with simple kiln designs before investing in more sophisticated equipment.
         </p>
         <p>
-          <strong>Document everything.</strong> Record application rates, soil test results, yield data, input changes, and costs. This documentation serves three purposes: it builds your own understanding of what works, it supports potential carbon credit applications, and it creates the evidence base for Stack 5 market positioning.
+          <strong>Document everything.</strong> Record application rates, soil test results, yield data, input changes, and costs. This documentation serves three purposes: it builds your own understanding of what works, it supports potential carbon credit applications, and it creates the evidence base for market positioning.
         </p>
         <p>
           The operations that will benefit most from biochar are those that approach it systematically&mdash;not as a silver bullet, but as one tool in a broader soil health strategy. Combined with cover crops, reduced tillage, and organic matter management, biochar can accelerate soil improvement and provide a uniquely durable form of carbon sequestration.
         </p>
 
-        <h2>The Stack 5 Connection</h2>
+        <h2>A regenerative practice you can verify</h2>
         <p>
-          Biochar sits squarely in Stack 5 territory&mdash;it&apos;s a regenerative practice that creates measurable, verifiable environmental outcomes:
+          Biochar is a regenerative practice that creates measurable, verifiable environmental outcomes:
         </p>
         <ul>
           <li><strong>Carbon sequestration:</strong> Quantifiable, durable, and increasingly valued by carbon markets and supply chain partners</li>

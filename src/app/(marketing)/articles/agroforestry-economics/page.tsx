@@ -182,9 +182,9 @@ export default function ArticlePage() {
           <strong>Plan the management from the start.</strong> Formative pruning, thinning schedules, grazing rotation around trees, coppice cycles &mdash; these need to be in the plan before planting. A tree that isn&apos;t pruned for timber quality in its first decade can&apos;t be corrected later. Design the management calendar alongside the planting plan.
         </p>
 
-        <h2>The Stack 5 Connection</h2>
+        <h2>The long game: natural capital you can prove</h2>
         <p>
-          Agroforestry sits squarely in Stack 5 territory &mdash; it&apos;s regenerative by definition, building natural capital while maintaining productive farming. The economics are real but they require long-term thinking and careful documentation.
+          Agroforestry is regenerative by definition &mdash; building natural capital while maintaining productive farming. The economics are real but they require long-term thinking and careful documentation.
         </p>
         <p>
           Operations that can demonstrate integrated agroforestry systems have powerful stories for:

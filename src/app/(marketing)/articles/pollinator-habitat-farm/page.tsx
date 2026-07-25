@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Creating Pollinator Habitat on the Farm | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-5-regeneration"
-          className="text-gray-600 hover:text-[#B8ADE3] transition-colors"
-        >
-          &larr; Back to Stack 5: Regeneration
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       <header className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-gray-600 font-medium">Stack 5: Regeneration</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Creating Pollinator Habitat on the Farm
         </h1>
@@ -78,14 +69,7 @@ export default function ArticlePage() {
         <p>
           Simple provision of these microhabitats &mdash; leaving areas of bare ground on south-facing banks, retaining dead wood and mature trees with cavities, allowing some areas of scrub to develop &mdash; can be as important as providing forage.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Species Mix and Seasonal Succession</h2>
+              <h2>Species Mix and Seasonal Succession</h2>
         <p>
           The success of wildflower plantings depends entirely on species selection. A mix dominated by a few vigorous species that all flower in June is far less valuable than a diverse mixture providing forage from March through October.
         </p>
@@ -190,18 +174,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#B8ADE3] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">Ready to regenerate your farm ecosystem?</h2>
-        <p className="mb-6">
-          Stack 5: Regeneration shows you how to create measurable biodiversity outcomes that deliver both ecological and economic returns.
-        </p>
-        <Link
-          href="/framework/stack-5-regeneration"
-          className="inline-block bg-white text-[#B8ADE3] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 5: Regeneration &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h3>

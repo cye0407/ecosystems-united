@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Value-Added Products for Small Farms: From Raw to Revenue",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -93,16 +93,7 @@ export default function ArticlePage() {
         <p>
           The strategic advantage is recurring revenue. Rather than hoping customers show up each week, you have committed subscribers. You also build a direct relationship that bypasses every intermediary, and you gain predictability that helps with production planning.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Starting Small</h2>
+              <h2>Starting Small</h2>
         <p>
           The biggest mistake in value-added products is over-investing before you&apos;ve validated demand. Don&apos;t build a processing facility on day one. Don&apos;t take out a loan for a commercial kitchen before you&apos;ve sold a single jar.
         </p>
@@ -152,7 +143,7 @@ export default function ArticlePage() {
           <li>Herb surplus becomes dried blends or infused oils</li>
         </ul>
         <p>
-          This is Stack 3 &mdash; Circular Value Creation &mdash; in practice. You&apos;re not just adding value; you&apos;re capturing value that would otherwise be lost entirely. The environmental benefit (less waste) and the economic benefit (more revenue) point in exactly the same direction.
+          This is circular value creation in practice. You&apos;re not just adding value; you&apos;re capturing value that would otherwise be lost entirely. The environmental benefit (less waste) and the economic benefit (more revenue) point in exactly the same direction.
         </p>
 
         <h2>Making It Sustainable</h2>
@@ -175,19 +166,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to capture more value from your farm?</h3>
-        <p className="text-white/80 mb-4">
-          Value-added products are Stack 3 &mdash; Circular Value Creation &mdash; in action. Turning waste into revenue, surplus into inventory, and raw materials into premium products.
-        </p>
-        <p className="text-white/80 mb-6">
-          The Five Stacks Framework helps you identify circular opportunities, build the systems to capture them, and document the sustainability story that makes your products stand out.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 3: Circular Value Creation &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

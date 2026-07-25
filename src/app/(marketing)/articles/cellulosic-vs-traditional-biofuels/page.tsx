@@ -148,7 +148,7 @@ export default function ArticlePage() {
           <strong>Cellulosic biofuels:</strong> Create demand for crop residues and agricultural waste. This is a newer, less developed market—but it turns materials with little current value into potential revenue.
         </p>
         <p>
-          From a Stack 3 perspective, cellulosic pathways are more interesting because they capture value from waste rather than requiring dedicated crop production. As cellulosic technology matures and scales, crop residue markets will likely develop.
+          Seen as a waste-to-value decision, cellulosic pathways are more interesting because they capture value from waste rather than requiring dedicated crop production. As cellulosic technology matures and scales, crop residue markets will likely develop.
         </p>
 
         <h2>The Outlook</h2>

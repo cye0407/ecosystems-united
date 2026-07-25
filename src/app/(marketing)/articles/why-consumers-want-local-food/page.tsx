@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Why Consumers Are Seeking Out Local Food (And What That Means for Your Farm)",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -73,25 +73,16 @@ export default function ArticlePage() {
         <p>
           Equally important &mdash; what they don&apos;t want: guilt trips about their other shopping habits, lectures on sustainability, or being made to feel like buying local is a moral obligation. People buy food because it&apos;s good, it&apos;s trustworthy, and it fits into their life. Keep it practical.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>How to Position Your Farm</h2>
+              <h2>How to Position Your Farm</h2>
         <p>
           Here&apos;s the connection most farm operators miss: the sustainability practices you&apos;re already implementing are your marketing. You don&apos;t need to invent a brand story. You need to tell the one you&apos;re already living.
         </p>
         <p>
-          If you&apos;re tracking your environmental data through something like the Five Stacks Framework &mdash; soil health metrics, input usage, energy consumption, biodiversity indicators &mdash; that data becomes your story. It&apos;s not abstract. It&apos;s specific, verifiable, and exactly what discerning buyers want to see.
+          If you&apos;re tracking your environmental data &mdash; soil health metrics, input usage, energy consumption, biodiversity indicators &mdash; that data becomes your story. It&apos;s not abstract. It&apos;s specific, verifiable, and exactly what discerning buyers want to see.
         </p>
         <ul>
           <li><strong>Your traceability is your transparency.</strong> If a customer asks where this lamb was raised and what it ate, you can answer. A supermarket can&apos;t.</li>
-          <li><strong>Your ESG data is your credibility.</strong> Stack 1 data &mdash; emissions, water use, soil carbon &mdash; isn&apos;t just for compliance reporting. It&apos;s proof that you operate the way you say you do.</li>
+          <li><strong>Your ESG data is your credibility.</strong> Your core numbers &mdash; emissions, water use, soil carbon &mdash; aren&apos;t just for compliance reporting. It&apos;s proof that you operate the way you say you do.</li>
           <li><strong>Your face and your fields are your brand.</strong> Consumers don&apos;t connect with logos. They connect with people and places. Let them see both.</li>
         </ul>
         <p>
@@ -129,6 +120,11 @@ export default function ArticlePage() {
           The right approach is honest assessment. If direct local sales fit your product, your location, your labour capacity, and your temperament &mdash; the opportunity is real and growing. If they don&apos;t, there are other channels and other strategies that may serve you better. The worst move is chasing a trend that doesn&apos;t match your operation.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Bottom CTA */}
       <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">

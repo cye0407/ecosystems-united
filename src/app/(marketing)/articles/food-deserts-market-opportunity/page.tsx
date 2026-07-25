@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Food Deserts: An Underserved Market Your Farm Can Reach",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -82,16 +82,7 @@ export default function ArticlePage() {
         <p>
           The model is straightforward: the community partner provides the space and promotes the service to their network. You provide the produce. Revenue splits or flat-fee arrangements work depending on the relationship. Some farms run weekly pop-up stalls in community halls; others supply a permanent community fridge or pantry scheme. The key is that the community partner handles demand generation and you handle supply.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h3>Subsidized Box Schemes</h3>
+              <h3>Subsidized Box Schemes</h3>
         <p>
           Several government and charitable programs subsidise fresh produce for low-income households. The mechanics vary, but the core model is consistent: your farm provides weekly or fortnightly boxes of seasonal produce, and public or charitable funding covers part of the cost so the customer pays a reduced price.
         </p>
@@ -150,6 +141,11 @@ export default function ArticlePage() {
           Social sustainability isn&apos;t separate from business sustainability. Serving underserved markets makes your operation more resilient, more fundable, and more defensible&mdash;while doing work that genuinely matters.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Bottom CTA */}
       <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">

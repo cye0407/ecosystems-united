@@ -161,9 +161,9 @@ export default function ArticlePage() {
           <strong>Michigan farm:</strong> 4x improvement in water infiltration after just one season of daikon radish.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>The leaks cover crops fix</h2>
         <p>
-          Cover crops are a Stack 2 efficiency practice—they fix operational leaks:
+          Cover crops are an efficiency practice—they fix operational leaks:
         </p>
         <ul>
           <li><strong>Fertilizer leaks:</strong> Nutrients leaving your fields as runoff or volatilization get captured and cycled</li>
@@ -172,7 +172,7 @@ export default function ArticlePage() {
           <li><strong>Equipment leaks:</strong> Fewer tillage passes means less fuel, labor, and wear</li>
         </ul>
         <p>
-          The documentation you build tracking cover crop ROI also supports later stacks—providing the data foundation for Stack 5 market positioning when you're ready.
+          The documentation you build tracking cover crop ROI keeps paying—providing the data foundation for market positioning when you're ready.
         </p>
       </article>
 

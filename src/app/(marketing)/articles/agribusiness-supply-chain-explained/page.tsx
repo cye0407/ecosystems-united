@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Agribusiness Supply Chain Explained | Ecosystems United",
@@ -11,11 +11,8 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/articles"
-          className="text-gray-600 hover:text-[#3D2E7C] transition-colors"
-        >
-          &larr; Back to Guides
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -90,14 +87,7 @@ export default function ArticlePage() {
         <p>
           This distribution isn&apos;t inherently unfair &mdash; each stage adds value and incurs costs. However, the concentration of market power means that returns aren&apos;t determined purely by costs and competition but also by bargaining leverage. When four companies process 85% of beef cattle in the United States, when three companies control 60% of global agricultural inputs, and when five retailers control 70% of grocery sales in a country, competitive market dynamics break down.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Power Dynamics and Information Asymmetry</h2>
+              <h2>Power Dynamics and Information Asymmetry</h2>
         <p>
           Supply chain power flows from three sources: concentration, control of information, and control of access to consumers. At the production stage, farmers are fragmented and have limited information about prices further down the chain. They often sell at posted prices with little negotiation leverage. Meanwhile, buyers &mdash; whether aggregators, processors, or retailers &mdash; can see prices across the entire supply chain and can shift between suppliers.
         </p>
@@ -175,20 +165,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">
-          Ready to Navigate CSRD in Your Supply Chain?
-        </h3>
-        <p className="mb-6 text-gray-300">
-          The Five Stacks Framework helps agricultural businesses understand their position in the value chain and turn CSRD compliance into competitive advantage.
-        </p>
-        <Link
-          href="/framework"
-          className="inline-block bg-white text-[#1a1a2e] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore the Framework
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t">
         <h3 className="text-xl font-bold mb-4">Further Reading</h3>

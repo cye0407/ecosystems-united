@@ -141,12 +141,12 @@ export default function ArticlePage() {
           The environmental benefits are real. But these practices are scaling because the economics work.
         </p>
 
-        <h2>The Stack 5 Connection</h2>
+        <h2>The story these numbers let you tell</h2>
         <p>
           Each of these practices creates a documentable story: measurable improvements, reduced inputs, demonstrated resilience. That documentation becomes market positioning—the foundation for premium pricing, carbon payments, and buyer partnerships.
         </p>
         <p>
-          The farmers implementing these practices aren't just building better operations. They're building credible sustainability narratives backed by data—exactly what Stack 5 requires.
+          The farmers implementing these practices aren't just building better operations. They're building credible sustainability narratives backed by data—exactly what premium markets ask for.
         </p>
       </article>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Agriculture vs. Agribusiness: Where Can You Actually Compete?",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/agribusiness-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Understanding Agribusiness: How the System Works
         </Link>
       </nav>
 
@@ -76,16 +76,7 @@ export default function ArticlePage() {
           <li><strong>Quality control:</strong> Attention to detail impossible at industrial scale</li>
           <li><strong>Trust:</strong> Personal accountability that anonymous supply chains can't provide</li>
         </ul>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Side-by-Side Comparison</h2>
+              <h2>Side-by-Side Comparison</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
@@ -154,35 +145,27 @@ export default function ArticlePage() {
           Each wave moved value away from production toward processing, distribution, and retail. Understanding this history helps you see where the opportunities moved—and where they might be moving next.
         </p>
 
-        <h2>The Five Stacks Approach</h2>
+        <h2>Competing where scale is not the advantage</h2>
         <p>
-          The Five Stacks Framework is designed for operations competing in agriculture, not agribusiness:
+          For operations competing in agriculture, not agribusiness, the playbook is:
         </p>
         <ul>
-          <li><strong>Stack 1 (Certification):</strong> Access channels where commodity scale isn't the advantage</li>
-          <li><strong>Stack 2 (Efficiency):</strong> Build margin through cost reduction, not volume</li>
-          <li><strong>Stack 3 (Circular Value):</strong> Capture value streams the commodity system ignores</li>
-          <li><strong>Stack 4 (Practices):</strong> Build productive capacity that doesn't require ongoing input purchases</li>
-          <li><strong>Stack 5 (Story):</strong> Create differentiation through documented sustainability agribusiness can't credibly claim</li>
+          <li><strong>Certification:</strong> Access channels where commodity scale isn't the advantage</li>
+          <li><strong>Efficiency:</strong> Build margin through cost reduction, not volume</li>
+          <li><strong>Circular value:</strong> Capture value streams the commodity system ignores</li>
+          <li><strong>Practices:</strong> Build productive capacity that doesn't require ongoing input purchases</li>
+          <li><strong>Story:</strong> Create differentiation through documented sustainability agribusiness can't credibly claim</li>
         </ul>
         <p>
           The framework helps you compete where you can win—not where agribusiness has structural advantages.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to find your competitive position?</h3>
-        <p className="text-white/80 mb-4">
-          Understanding where you can compete is the first step. The Five Stacks Framework helps you build advantages agribusiness can't easily replicate.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework focuses on differentiation, efficiency, and market positioning—competitive strategies that work for agricultural operations, not just scaled agribusiness.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

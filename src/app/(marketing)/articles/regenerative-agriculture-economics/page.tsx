@@ -127,7 +127,7 @@ export default function ArticlePage() {
           <strong>Step 4: Risk analysis.</strong> Identify potential challenges and develop mitigation strategies. Phased implementation reduces exposure.
         </p>
         <p>
-          <strong>Step 5: Monitor and adjust.</strong> Track key metrics and adjust strategies based on performance. Document improvements for Stack 5 market positioning.
+          <strong>Step 5: Monitor and adjust.</strong> Track key metrics and adjust strategies based on performance. Document improvements for market positioning.
         </p>
 
         <h2>Financing and Support</h2>
@@ -144,7 +144,7 @@ export default function ArticlePage() {
           The financing landscape is developing rapidly as lenders and corporate buyers recognize the business case for regenerative systems.
         </p>
 
-        <h2>The Stack 5 Connection</h2>
+        <h2>Numbers that become your market story</h2>
         <p>
           Documented economic performance becomes part of your market story. Operations that can demonstrate:
         </p>

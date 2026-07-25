@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "What Are Small Farms? The Business Case for Staying Small",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -69,16 +69,7 @@ export default function ArticlePage() {
         <p>
           <strong>Quality over volume:</strong> Attention to detail possible at small scale commands premium pricing. Heritage varieties, specialty products, and superior freshness justify higher prices.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>The Structural Challenges</h2>
+              <h2>The Structural Challenges</h2>
         <p>
           Small farms face real disadvantages within the agribusiness system:
         </p>
@@ -112,35 +103,27 @@ export default function ArticlePage() {
           <strong>Sustainability creates differentiation:</strong> Practices that improve soil health, reduce inputs, and document environmental stewardship create stories and certifications that command premium pricing.
         </p>
 
-        <h2>The Five Stacks Connection</h2>
+        <h2>The small-farm playbook</h2>
         <p>
-          The Five Stacks Framework is essentially a playbook for small farm competitive strategy:
+          Small farm competitive strategy comes down to five moves:
         </p>
         <ul>
-          <li><strong>Stack 1 (Certification):</strong> Access premium channels where scale isn't the barrier to entry</li>
-          <li><strong>Stack 2 (Efficiency):</strong> Build margin through cost reduction when you can't compete on volume</li>
-          <li><strong>Stack 3 (Circular Value):</strong> Capture value from streams the commodity system ignores</li>
-          <li><strong>Stack 4 (Practices):</strong> Build productive capacity without ongoing input dependency</li>
-          <li><strong>Stack 5 (Story):</strong> Create differentiation through documented sustainability that large operations can't credibly claim</li>
+          <li><strong>Certification:</strong> Access premium channels where scale isn't the barrier to entry</li>
+          <li><strong>Efficiency:</strong> Build margin through cost reduction when you can't compete on volume</li>
+          <li><strong>Circular value:</strong> Capture value from streams the commodity system ignores</li>
+          <li><strong>Practices:</strong> Build productive capacity without ongoing input dependency</li>
+          <li><strong>Story:</strong> Create differentiation through documented sustainability that large operations can't credibly claim</li>
         </ul>
         <p>
           Understanding what small farms are—and what they can be—reveals why sustainability practices often create competitive advantage at smaller scale.
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#1a1a2e] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your competitive strategy?</h3>
-        <p className="text-white/80 mb-4">
-          Small farms compete on different terms than large operations. The Five Stacks Framework helps you build advantages in spaces where scale isn't what wins.
-        </p>
-        <p className="text-white/80 mb-6">
-          The framework provides systematic approaches to differentiation, efficiency, and market positioning designed for operations that can't—and shouldn't try to—compete on volume.
-        </p>
-        <Link href="/framework" className="inline-block bg-[#4AA88C] text-white px-6 py-3 rounded font-semibold hover:bg-[#3d8f76] transition-colors">
-          Explore the Five Stacks Framework →
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Strategic Land Use Planning for Farm Operations | Ecosystems United",
@@ -11,21 +11,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="text-gray-600 hover:text-[#5B4A9E] transition-colors"
-        >
-          &larr; Back to Stack 2: Efficiency
+        <Link href="/articles/soil-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Soil &amp; Land Management
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-semibold">
-            2
-          </div>
-          <span className="text-[#5B4A9E] font-medium">Stack 2: Efficiency</span>
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Strategic Land Use Planning for Farm Operations
         </h1>
@@ -128,14 +119,7 @@ export default function ArticlePage() {
         <p>
           High-quality productive land typically remains in enterprise production, perhaps with SFI standards applied to improve soil health, hedgerows, or integrated pest management. Mid-grade land might combine production with CS options like winter bird food, nectar-rich margins, or buffer strips. Lower-grade land, especially if clustered, becomes a candidate for Landscape Recovery &mdash; large-scale habitat creation, wetland restoration, or agroforestry projects that generate substantial long-term income streams.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <p>
+              <p>
           The financial analysis is straightforward: calculate the net margin from production (gross margin minus allocated overheads), compare it to the payment rate for environmental management (often £400-£600 per hectare for CS, potentially much more for Landscape Recovery), and factor in saved input costs and reduced management time. For many farms, 10-20% of land area generates more value through environmental schemes than through production.
         </p>
 
@@ -204,20 +188,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-4">
-          Ready to optimize your farm&apos;s land use strategy?
-        </h3>
-        <p className="text-lg mb-6 text-white/90">
-          Explore Stack 2: Efficiency to discover how strategic resource management drives both profitability and sustainability across your entire operation.
-        </p>
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 2: Efficiency
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h3>

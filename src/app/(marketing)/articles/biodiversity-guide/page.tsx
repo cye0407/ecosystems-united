@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Biodiversity on the Farm: Measuring, Creating, and Monetizing Habitat",
@@ -12,19 +12,13 @@ export default function BiodiversityGuidePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-5-regeneration" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 5: Regeneration
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-sm text-gray-500">Stack 5: Regeneration</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Biodiversity on the Farm: Measuring, Creating, and Monetizing Habitat
         </h1>
@@ -85,16 +79,7 @@ export default function BiodiversityGuidePage() {
         <p>
           The practical approach is to think in terms of pollinator infrastructure rather than pollinator gardens. Where are the gaps in the forage calendar? Where are nesting opportunities limited? Where does the landscape force pollinators to cross large open areas without shelter? Answering these questions and filling the gaps creates measurable habitat improvement that shows up in both assessment scores and, over time, in crop yields on pollination-dependent enterprises.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Biodiversity Net Gain: The Regulatory and Financial Frontier</h2>
+              <h2>Biodiversity Net Gain: The Regulatory and Financial Frontier</h2>
         <p>
           <Link href="/articles/biodiversity-net-gain-agriculture">Biodiversity net gain (BNG)</Link> is reshaping how land is valued. Under BNG frameworks, any development that impacts habitat must deliver a measurable net increase in biodiversity &mdash; typically ten percent above the pre-development baseline. When development sites cannot achieve this on-site, they must purchase biodiversity units from off-site providers. Those providers are, increasingly, farms.
         </p>
@@ -148,6 +133,11 @@ export default function BiodiversityGuidePage() {
         </p>
       </article>
 
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
+
       {/* Bottom CTA Section */}
       <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
         <h3 className="text-xl font-bold mb-2">Assess your regeneration readiness</h3>
@@ -182,10 +172,6 @@ export default function BiodiversityGuidePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "The Industrial Food System: What Small Farms Are Up Against",
@@ -12,8 +12,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -88,16 +88,7 @@ export default function ArticlePage() {
         <p>
           The brutal truth: &ldquo;just farm harder&rdquo; doesn&apos;t work when the system is structurally designed to favor scale. Effort isn&apos;t the problem. Position is.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Where the System Is Vulnerable</h2>
+              <h2>Where the System Is Vulnerable</h2>
         <p>
           Here&apos;s the part most people miss: the industrial food system is powerful, but it&apos;s not invincible. It has structural vulnerabilities&mdash;and those vulnerabilities are your strategic openings.
         </p>
@@ -151,7 +142,7 @@ export default function ArticlePage() {
           Knowing why the deck is stacked is necessary but not sufficient. Understanding the industrial food system tells you what you&apos;re up against and where the openings are. It doesn&apos;t tell you what to do on Monday morning.
         </p>
         <p>
-          That&apos;s where the Five Stacks Framework comes in. It provides a systematic approach to building competitive advantage outside the industrial system:
+          The way through is systematic: build competitive advantage outside the industrial system:
         </p>
         <ul>
           <li><strong>Certification</strong> that differentiates your operation with third-party credibility</li>
@@ -168,19 +159,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build your competitive response?</h3>
-        <p className="text-white/80 mb-4">
-          The industrial food system rewards scale. The Five Stacks Framework rewards strategy. It gives small farm operators a systematic approach to certification, efficiency, circular value, regenerative practices, and market positioning.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stop competing on their terms. Start competing on yours.
-        </p>
-        <Link href="/framework" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore the Five Stacks Framework &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
