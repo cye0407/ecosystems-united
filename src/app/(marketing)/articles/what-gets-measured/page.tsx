@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "What Actually Gets Measured in Agricultural Sustainability",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           What Actually Gets Measured in Agricultural Sustainability (And Why It Matters)
         </h1>
@@ -182,20 +177,17 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Bottom CTA Section */}
-      <div className="mt-12 p-8 bg-gray-900 rounded-lg text-white">
-        <h3 className="text-xl font-bold mb-2">Ready to start tracking?</h3>
-        <p className="text-gray-400 mb-6">
-          The free baseline tracker organises your energy, water, waste, and production data across 8 domains. Auto-calculated emissions, CSV exports, multi-site support.
-        </p>
-        <Link href="/signup" className="inline-block bg-[#4AA88C] text-white px-5 py-2 rounded font-medium hover:bg-[#3d8f77] transition-colors">
-          Start Tracking
-        </Link>
+      {/* Mid-article playbook CTA (D-015) — where the old BaselineCTA sat */}
+      <MidPlaybookCTA cluster="baseline" />
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
 
       {/* Article Navigation */}
       <div className="mt-12 pt-8 border-t border-gray-200">
-        <p className="text-sm text-gray-500 mb-4">Continue reading Stack 1 articles:</p>
+        <p className="text-sm text-gray-500 mb-4">Keep reading:</p>
         <div className="space-y-3">
           <Link href="/articles/building-baseline" className="block p-4 border border-gray-200 rounded-lg hover:border-[#4AA88C] transition-colors">
             <span className="font-medium text-gray-900">Building Your Baseline →</span>
@@ -208,10 +200,6 @@ export default function ArticlePage() {
         </div>
       </div>
 
-      {/* Newsletter */}
-      <div className="mt-12">
-        <BaselineCTA />
-      </div>
     </div>
   );
 }

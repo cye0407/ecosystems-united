@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Building Circular Supply Chains in Agriculture",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles/circular-economy-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Circular Economy Guide for Farms: Turn Waste Into Revenue
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Building Circular Supply Chains in Agriculture
         </h1>
@@ -83,10 +78,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="circular-economy" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -140,26 +133,18 @@ export default function ArticlePage() {
           <li><strong>Local authorities and waste management companies:</strong> Some councils actively seek agricultural partners for food waste composting or green waste processing.</li>
         </ul>
         <p>
-          Stack 3 is about creating these value loops. The first loop is usually the hardest&mdash;it requires identifying a partner, negotiating terms, and establishing logistics. But once one loop works, you understand the model. The second and third loops come faster because you know what to look for and how to structure the arrangement.
+          Circular value creation is about building these value loops. The first loop is usually the hardest&mdash;it requires identifying a partner, negotiating terms, and establishing logistics. But once one loop works, you understand the model. The second and third loops come faster because you know what to look for and how to structure the arrangement.
         </p>
         <p>
           The farms that thrive in the coming decades won&apos;t be the ones that produce the most. They&apos;ll be the ones embedded in the most effective circular networks&mdash;capturing value at multiple points, reducing input costs through by-product exchange, and eliminating waste disposal as a cost category entirely. That&apos;s not idealism. It&apos;s operational strategy, and it starts with one phone call to one nearby processor asking a simple question: &ldquo;What do you currently pay to throw away?&rdquo;
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to close the loop on your supply chain?</h3>
-        <p className="text-white/80 mb-4">
-          Circular supply chain development is part of Stack 3 in the Five Stacks Framework&mdash;turning waste streams into value streams and building the partnerships that make circularity work in practice.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 3 focuses on transforming your operation from a linear process into a circular system. By-product markets, waste reduction strategies, and partnership networks don&apos;t just reduce environmental impact&mdash;they reduce costs and create new revenue. The framework helps you build these capabilities systematically, so each circular loop reinforces the next.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 3 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
