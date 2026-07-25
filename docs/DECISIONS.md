@@ -18,13 +18,15 @@ file is the tracker of record.
 | D-010 | Content: two small honesty edits | DECIDED 2026-07-24: A modified |
 | D-011 | Publishing sequence + channel infrastructure | DECIDED 2026-07-24: A |
 | D-012 | Standalone biofuels playbook | DECIDED 2026-07-25: B |
-| D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
+| D-013 | Framework CTAs site-wide | DECIDED 2026-07-25: A - via combined sweep |
 | D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
 | D-015 | Stack-job mid-article CTAs (replace blanket BaselineCTA) | DECIDED 2026-07-25: A + matrix gate |
 | D-018 | Cluster content template (pillar naming + standard article set) | DECIDED 2026-07-25 (Cat spec) |
 | D-019 | Per-cluster playbooks + unique flow into the workspace | DECIDED 2026-07-25 (direction; sequencing open) |
 | D-020 | Compliance cluster focus: VSME vs CSRD vs job-led | DECIDED 2026-07-25: A + C surface |
-| D-016 | Article context: pillar back-link + badge instead of framework/stack | OPEN |
+| D-021 | Article page flow (playbook mid / newsletter mid / workspace end / popup) | DECIDED 2026-07-25: flow approved via example; POPUP site-wide OPEN |
+| D-022 | EUR 29 gate on the playbook keep-moment | OPEN - Cat thinking |
+| D-016 | Article context: pillar back-link + badge | DECIDED 2026-07-25: A (via approved D-021 example) |
 | D-017 | "Stack N Connection" body sections (32 articles) | OPEN |
 | P-001 | Workspace/product naming | PARKED (Cat: fine-tune later) |
 | P-002 | Final price points per tier | PARKED (Cat: fine-tune later) |
