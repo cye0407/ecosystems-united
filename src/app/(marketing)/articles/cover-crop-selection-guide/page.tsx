@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 import FaqJsonLd, { type FaqItem } from "@/components/marketing/FaqJsonLd";
 
 const faqItems: FaqItem[] = [
@@ -51,21 +52,12 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       <FaqJsonLd items={faqItems} />
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-3-circularity"
-          className="text-gray-600 hover:text-[#7B6BB8] transition-colors"
-        >
-          &larr; Back to Stack 3: Circularity
+        <Link href="/articles/regenerative-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> A Financial Framework for Regenerative Agriculture
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-[#7B6BB8] font-semibold">Stack 3: Circularity</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Cover Crop Selection Guide: Matching Species to Purpose
         </h1>
@@ -192,9 +184,8 @@ export default function ArticlePage() {
 
       </article>
 
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="regenerative" />
 
       <article className="prose prose-gray max-w-none">
         <h3>Phacelia (Phacelia tanacetifolia)</h3>
@@ -392,6 +383,11 @@ export default function ArticlePage() {
           Cover cropping is not one-size-fits-all, but with strategic species selection matched to clear goals, it becomes a powerful tool for building soil health, closing nutrient loops, and improving farm resilience &mdash; all core principles of Stack 3: Circularity.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold mb-4 text-gray-900">Further Reading</h3>

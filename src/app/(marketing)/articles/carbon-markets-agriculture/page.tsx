@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Carbon Credits and Carbon Markets for Agricultural Operations",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-5-regeneration" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 5: Regenerative Advantage
+        <Link href="/articles/regenerative-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> A Financial Framework for Regenerative Agriculture
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-sm text-gray-500">Stack 5: Regenerative Advantage</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Carbon Credits and Carbon Markets for Agricultural Operations
         </h1>
@@ -107,10 +102,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="regenerative" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -136,7 +129,7 @@ export default function ArticlePage() {
           If carbon markets interest you, here&apos;s a pragmatic approach that minimises risk and positions you for opportunity:
         </p>
         <p>
-          <strong>Step 1: Measure your baseline.</strong> Before anything else, establish where you are now. This is Stack 1 of the Five Stacks Framework&mdash;you need to know your current soil carbon levels, input usage, energy consumption, and emissions profile. Without a baseline, you can&apos;t demonstrate additionality or measure improvement. Get soil samples taken at multiple depths across representative field areas. Document your current practices thoroughly.
+          <strong>Step 1: Measure your baseline.</strong> Before anything else, establish where you are now&mdash;you need to know your current soil carbon levels, input usage, energy consumption, and emissions profile. Without a baseline, you can&apos;t demonstrate additionality or measure improvement. Get soil samples taken at multiple depths across representative field areas. Document your current practices thoroughly.
         </p>
         <p>
           <strong>Step 2: Document every practice change.</strong> If you implement cover crops, reduced tillage, improved nutrient management, or agroforestry, document the when, where, and how meticulously. Take photos. Keep records of seed purchases, planting dates, termination methods, and application rates. This documentation becomes the evidence base for any future credit claims.
@@ -154,41 +147,33 @@ export default function ArticlePage() {
           If a practice only makes financial sense because of carbon credit revenue, you&apos;re building on a volatile foundation. If it makes sense regardless, the carbon revenue is pure upside.
         </p>
 
-        <h2>The Stack 5 Connection</h2>
+        <h2>Why the foundation decides whether carbon pays</h2>
         <p>
-          Carbon markets represent the regenerative advantage at its clearest: practices that improve your soil, reduce your costs, strengthen your resilience, and generate new revenue streams. That&apos;s the compound return from operational improvement that Stack 5 describes.
+          Carbon markets represent the regenerative advantage at its clearest: practices that improve your soil, reduce your costs, strengthen your resilience, and generate new revenue streams. That&apos;s the compound return from operational improvement.
         </p>
         <p>
-          The progression through the Five Stacks is what makes carbon market participation viable:
+          A clear build order is what makes carbon market participation viable:
         </p>
         <ul>
-          <li><strong>Stack 1 (Baseline):</strong> Gives you the measurement foundation that carbon programmes require</li>
-          <li><strong>Stack 2 (Efficiency):</strong> The practice changes that generate credits&mdash;reduced inputs, better nutrient management&mdash;are efficiency improvements first</li>
-          <li><strong>Stack 3 (Compliance):</strong> Documentation systems built for CSRD/VSME reporting align with MRV requirements</li>
-          <li><strong>Stack 4 (Market Access):</strong> Supply chain relationships create insetting opportunities that often pay better than open markets</li>
-          <li><strong>Stack 5 (Regeneration):</strong> Carbon revenue is the bonus layer&mdash;the compound return on top of soil health, cost reduction, compliance readiness, and market positioning</li>
+          <li><strong>Baseline:</strong> The measurement foundation that carbon programmes require</li>
+          <li><strong>Efficiency:</strong> The practice changes that generate credits&mdash;reduced inputs, better nutrient management&mdash;are efficiency improvements first</li>
+          <li><strong>Documentation:</strong> Record systems built for CSRD/VSME reporting align with MRV requirements</li>
+          <li><strong>Buyer relationships:</strong> Supply chain relationships create insetting opportunities that often pay better than open markets</li>
+          <li><strong>Regeneration:</strong> Carbon revenue is the bonus layer&mdash;the compound return on top of soil health, cost reduction, compliance readiness, and market positioning</li>
         </ul>
         <p>
-          Operations that rush to Stack 5 without building Stacks 1-4 often find the economics don&apos;t work. Those that build systematically find that carbon market participation is a natural extension of improvements they&apos;ve already made&mdash;with revenue that rewards their diligence.
+          Operations that rush to carbon revenue without building the earlier layers often find the economics don&apos;t work. Those that build systematically find that carbon market participation is a natural extension of improvements they&apos;ve already made&mdash;with revenue that rewards their diligence.
         </p>
         <p>
           The honest conclusion: carbon markets for agriculture are real, imperfect, and maturing. They&apos;re not a silver bullet for farm profitability, and they&apos;re not a scam. They&apos;re one revenue stream among many that reward good land management. Approach them with realism, build the foundation first, and position yourself to capture value as the market develops.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 5 */}
-      <div className="mt-12 p-8 bg-[#B8ADE3] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to explore your regenerative advantage?</h3>
-        <p className="text-white/80 mb-4">
-          Carbon markets reward operations that have built strong foundations&mdash;baseline measurement, operational efficiency, compliance documentation, and supply chain relationships.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 5 focuses on capturing compound returns from the improvements you&apos;ve already made. The Five Stacks Framework helps you build the measurement, documentation, and market positioning that make carbon market participation viable and profitable.
-        </p>
-        <Link href="/framework/stack-5-regeneration" className="inline-block bg-white text-[#B8ADE3] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 5 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

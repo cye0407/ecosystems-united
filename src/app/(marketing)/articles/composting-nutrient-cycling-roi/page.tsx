@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "On-Farm Composting: Turning Waste into Fertility",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-5-regeneration" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#B8ADE3] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 5: Regenerative Advantage
+        <Link href="/articles/regenerative-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> A Financial Framework for Regenerative Agriculture
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#B8ADE3] text-white flex items-center justify-center font-bold text-sm">
-            5
-          </div>
-          <span className="text-sm text-gray-500">Stack 5: Regenerative Advantage</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           On-Farm Composting: Turning Waste into Fertility
         </h1>
@@ -97,10 +92,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="regenerative" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -143,7 +136,7 @@ export default function ArticlePage() {
 
         <h2>The Circular Connection</h2>
         <p>
-          Composting sits at the intersection of two Five Stacks pillars. It&apos;s <strong>Stack 3 (Circular Value Creation)</strong> in action&mdash;waste becomes a valuable input. And it&apos;s <strong>Stack 5 (Regenerative Advantage)</strong> because every application cycle builds soil capital that compounds over time.
+          Composting does two jobs at once. It&apos;s <strong>circular value creation</strong> in action&mdash;waste becomes a valuable input. And it&apos;s a <strong>regenerative investment</strong> because every application cycle builds soil capital that compounds over time.
         </p>
         <p>
           The feedback loop works like this: organic waste goes into the composting process. Finished compost goes onto fields. Soil health improves&mdash;better structure, more biological activity, greater water-holding capacity. Healthier soil produces stronger crops with fewer purchased inputs. Crop residues and manure go back into composting. Each cycle reinforces the next.
@@ -156,19 +149,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 5 */}
-      <div className="mt-12 p-8 bg-[#B8ADE3] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to close your nutrient loop?</h3>
-        <p className="text-white/80 mb-4">
-          On-farm composting is one of the most accessible entry points to regenerative practice&mdash;turning an existing waste stream into a fertility asset with payback in as little as one season.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 5 helps you document these circular improvements and translate them into market positioning. The Five Stacks Framework connects operational changes like composting to the sustainability narrative that buyers and supply chain partners increasingly demand.
-        </p>
-        <Link href="/framework/stack-5-regeneration" className="inline-block bg-white text-[#7C6BB5] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 5 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
