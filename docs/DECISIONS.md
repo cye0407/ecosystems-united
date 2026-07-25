@@ -21,6 +21,9 @@ file is the tracker of record.
 | D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
 | D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
 | D-015 | Stack-job mid-article CTAs (replace blanket BaselineCTA) | DECIDED 2026-07-25: A + matrix gate |
+| D-018 | Cluster content template (pillar naming + standard article set) | DECIDED 2026-07-25 (Cat spec) |
+| D-019 | Per-cluster playbooks + unique flow into the workspace | DECIDED 2026-07-25 (direction; sequencing open) |
+| D-020 | Compliance cluster focus: VSME vs CSRD vs job-led | DECIDED 2026-07-25: A + C surface |
 | D-016 | Article context: pillar back-link + badge instead of framework/stack | OPEN |
 | D-017 | "Stack N Connection" body sections (32 articles) | OPEN |
 | P-001 | Workspace/product naming | PARKED (Cat: fine-tune later) |
@@ -382,6 +385,98 @@ set. Cat accepted the cluster-assignment pass: agent proposes
 cluster_proposed + reasoning per article in the CSV; Cat reviews/overrides
 in Excel; the reviewed matrix is the sweep's single source of truth. No
 implementation until the matrix review is done.
+
+**Cat's matrix verdict (2026-07-25):** proposals supported EXCEPT five
+rows (esg-competitive-advantage, missing-esg-data,
+vsme-basic-module-explained, vsme-five-stacks-mapping, vsme-vs-full-esrs)
+→ new **vsme** cluster instead of scope3-csrd, because the target is
+small farms (VSME is their standard; Scope-3 is corporate buyer language).
+CSV write pending (file Excel-locked). Open detail: the vsme cluster's CTA
+destination — honest candidates: BaselineCTA with VSME copy (tracker
+covers VSME datapoints) or a reframed csrd-readiness tool.
+
+---
+
+## D-018 — Cluster content template
+**Status:** DECIDED 2026-07-25 (Cat's spec)
+
+Every cluster follows a standard template:
+1. **Pillar titled "The complete guide to …"** — instant pillar recognition.
+2. **"The economics of …" / financial-framework article.**
+3. **Pros-and-cons article.**
+4. **Different-types article.**
+5. **Stack-level bigger-picture article** (e.g. "efficiency in farming
+   operations") leading from cluster to the wider story.
+
+Gap analysis: docs/cluster-template-gaps.md (heuristic title matching —
+verify before commissioning). Implementation: rename non-conforming
+pillars, commission missing slot articles cluster-by-cluster, priority by
+traffic.
+
+**Amendment (Cat, 2026-07-25):** renames are NOT automatic — rename only
+where the content actually is a complete guide. Regenerative rename
+VETOED: its "Financial Framework" guide fills the economics SLOT; the
+regenerative complete-guide pillar is missing and gets written new.
+Compliance cluster naming waits on D-020.
+
+---
+
+## D-020 — Compliance cluster focus: VSME vs CSRD vs job-led
+**Status:** OPEN
+
+**Context.** The compliance content currently splits identities: a
+csrd-esg-guide pillar + a scope3-csrd CTA set (buyer-corporate language),
+a vsme-guide pillar, Cat's 5-row VSME override in the matrix, and two
+tools (/tools/scope-3-readiness, /tools/csrd-readiness). The ICP is small
+farms: VSME is THE standard they'd actually fill; "Scope 3" and "CSRD"
+are the buyer's vocabulary, not theirs — but also what buyers' emails say
+and possibly what search queries contain.
+
+**Decision needed.** What identity leads the compliance cluster?
+
+**Options with impact.**
+- **A) VSME-led.** One cluster; vsme-guide becomes/stays the pillar
+  ("The complete guide to VSME for farms"); CSRD/Scope-3 articles become
+  spokes explaining WHY buyers ask; CTAs speak VSME + tracker ("track
+  once, answer the VSME datapoints") + respond engine. Impact: matches
+  the small-farm ICP and the tracker's actual VSME mapping; honest;
+  CSRD search traffic still captured by spokes.
+- **B) CSRD-led.** csrd-esg-guide stays the pillar; VSME is a spoke.
+  Impact: rides the bigger regulatory keyword; speaks the buyer's
+  language at the reader who isn't the buyer.
+- **C) Job-led umbrella.** Neither acronym leads: the cluster is "answer
+  buyer requests / prove it to buyers"; VSME and CSRD both spokes; CTA is
+  the respond flow. Impact: purest lead-with-the-job; weakest keyword
+  anchor for the pillar itself.
+
+**Recommendation.** A, with C's surface language — the cluster's pillar
+and CTAs lead with VSME (the reader's actual standard), copy framed as
+the job ("a buyer asked — answer from what you track"), CSRD/Scope-3 kept
+as high-traffic explainer spokes.
+
+**Decided:** 2026-07-25 — **A with C's surface language.** One VSME-led
+compliance cluster: vsme-guide is the pillar (rename to "The complete
+guide to…" AFTER a content check per the D-018 amendment); all
+scope3-csrd rows in the matrix merge into the vsme cluster; CSRD/Scope-3
+articles stay as explainer spokes; CTAs speak VSME in job language.
+Matrix updates (5-row override + scope3→vsme merge) batched, pending the
+Excel lock release.
+
+---
+
+## D-019 — Per-cluster playbooks + unique workspace flow
+**Status:** DECIDED 2026-07-25 (direction; sequencing open)
+
+Cat: each cluster gets **its own playbook**, and based on the playbook's
+output, a **unique flow into the workspace** (Cat's phrasing: "the
+groundwork" — see P-001; working name gaining traction, not final).
+Extends the D-012 biofuels pattern to all clusters. Existing coverage:
+five stack playbooks live; biofuels decided (D-012); circular-economy ≈
+stack-3 and efficiency ≈ stack-2 may reuse. Net-new candidates from the
+matrix: intercropping (10 articles), small-farm-strategy (8),
+agribusiness-strategy (7), biodiversity (5), vsme (respond-flavored),
+ecolabel (cert-flavored). Sequencing at Wave-2 scoping, informed by
+cluster traffic + D-014.
 
 ---
 
