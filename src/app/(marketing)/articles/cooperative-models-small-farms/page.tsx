@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Cooperative Models for Small Farms: Strength in Numbers",
@@ -12,8 +13,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -92,10 +93,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="resilience" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -148,7 +147,7 @@ export default function ArticlePage() {
 
         <h2>The Resilience Connection</h2>
         <p>
-          Cooperative structures build what the Five Stacks Framework calls Stack 4&mdash;Adaptive Resilience. The connection is direct and practical.
+          Cooperative structures build resilience into your operation. The connection is direct and practical.
         </p>
         <p>
           <strong>Shared resources reduce individual vulnerability.</strong> When a storm destroys your crop, shared infrastructure and diversified market access through the cooperative provide a buffer. When input prices spike, purchasing cooperatives absorb the shock across more members. Your worst-case scenario is less catastrophic when you&apos;re not facing it alone.
@@ -164,19 +163,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to build cooperative resilience?</h3>
-        <p className="text-white/80 mb-4">
-          Cooperative structures are one of the most effective ways to build adaptive resilience for small farm operations. Shared resources, diversified markets, and mutual support create a safety net that individual farms can&apos;t replicate alone.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 4 of the Five Stacks Framework focuses on building the adaptive capacity that keeps operations viable through volatility. Cooperation is a core strategy.
-        </p>
-        <Link href="/framework/stack-4-resilience" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 4: Adaptive Resilience &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

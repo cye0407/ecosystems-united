@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Small Farm Financial Planning: Cash Flow, Seasonality, and Investment",
@@ -12,8 +13,8 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Articles
+        <Link href="/articles/small-farm-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Small Farm Strategy Guide
         </Link>
       </nav>
 
@@ -103,10 +104,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="resilience" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -164,7 +163,7 @@ export default function ArticlePage() {
           <strong>Waste streams</strong> are both a disposal cost and a circular economy opportunity. What you pay to dispose of is something you could potentially be selling, composting, or feeding back into production.
         </p>
         <p>
-          This is what Stack 2 of the Five Stacks Framework&mdash;Operational Efficiency&mdash;is fundamentally about. It isn&apos;t asking you to spend money on sustainability. It&apos;s asking you to notice that financial efficiency and environmental efficiency are often the same thing, and to capture both.
+          This is what operational efficiency is fundamentally about. It isn&apos;t asking you to spend money on sustainability. It&apos;s asking you to notice that financial efficiency and environmental efficiency are often the same thing, and to capture both.
         </p>
         <p>
           If you&apos;re already tracking costs carefully, you&apos;re halfway to your sustainability data. If you&apos;re already working on sustainability metrics, you&apos;re generating financial intelligence. The trick is connecting the two rather than treating them as separate exercises.
@@ -191,19 +190,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#2D5A47] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Financial efficiency is environmental efficiency</h3>
-        <p className="text-white/80 mb-4">
-          Your cost data and your sustainability data are two views of the same operations. Stack 2 of the Five Stacks Framework helps you capture both&mdash;reducing costs while building the environmental metrics that buyers and regulators increasingly require.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stop treating financial management and sustainability reporting as separate tasks. They&apos;re the same work, done once, used twice.
-        </p>
-        <Link href="/framework/stack-2-efficiency" className="inline-block bg-white text-[#2D5A47] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 2: Operational Efficiency &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Climate Risk Assessment for Farm Operations | Ecosystems United",
@@ -11,21 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-4-resilience"
-          className="text-gray-600 hover:text-[#9A8CD0] transition-colors"
-        >
-          &larr; Back to Stack 4: Resilience
+        <Link href="/articles/resilience-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Farm Resilience &amp; Risk Management
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-bold">
-            4
-          </div>
-          <span className="text-[#9A8CD0] font-semibold">Stack 4: Resilience</span>
-        </div>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Climate Risk Assessment for Farm Operations
         </h1>
@@ -138,9 +130,8 @@ export default function ArticlePage() {
 
       </article>
 
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="resilience" />
 
       <article className="prose prose-gray max-w-none">
         <h2>Step 3: Estimate Financial Impacts</h2>
@@ -307,20 +298,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#9A8CD0] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">
-          Build Farm Resilience with Stack 4
-        </h3>
-        <p className="mb-4 text-white/90">
-          Climate risk assessment is a foundation of Stack 4: Resilience. Explore the full framework to develop adaptive capacity, manage shocks, and thrive in a changing climate.
-        </p>
-        <Link
-          href="/framework/stack-4-resilience"
-          className="inline-block bg-white text-[#9A8CD0] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 4: Resilience &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Further Reading</h3>

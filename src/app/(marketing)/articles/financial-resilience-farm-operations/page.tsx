@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Financial Resilience for Farm Operations | Ecosystems United",
@@ -11,21 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-4-resilience"
-          className="text-gray-600 hover:text-[#9A8CD0] transition-colors"
-        >
-          &larr; Back to Stack 4: Resilience
+        <Link href="/articles/resilience-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Farm Resilience &amp; Risk Management
         </Link>
       </nav>
 
       <header className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#9A8CD0] text-white flex items-center justify-center font-bold">
-            4
-          </div>
-          <span className="text-[#9A8CD0] font-semibold">Stack 4: Resilience</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Financial Resilience for Farm Operations
         </h1>
@@ -170,9 +162,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="resilience" />
 
       <article className="prose prose-gray max-w-none">
         <h2>Off-Farm Income as a Buffer</h2>
@@ -269,22 +260,15 @@ export default function ArticlePage() {
         </p>
 
         <p>
-          The farms that last decades aren&apos;t the ones that maximize profit in good years. They&apos;re the ones that stay solvent in bad years. Financial resilience is the foundation of everything else in the Five Stacks Framework &mdash; you can&apos;t build ecosystem health, community connections, or long-term value if you&apos;re out of business.
+          The farms that last decades aren&apos;t the ones that maximize profit in good years. They&apos;re the ones that stay solvent in bad years. Financial resilience is the foundation of everything else &mdash; you can&apos;t build ecosystem health, community connections, or long-term value if you&apos;re out of business.
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#9A8CD0] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">Ready to Build Farm Resilience?</h2>
-        <p className="mb-6 text-purple-50">
-          Stack 4: Resilience provides frameworks and tools for adaptive management, scenario planning, and building long-term farm viability.
-        </p>
-        <Link
-          href="/framework/stack-4-resilience"
-          className="inline-block px-6 py-3 bg-white text-[#9A8CD0] rounded-lg font-semibold hover:bg-purple-50 transition-colors"
-        >
-          Explore Stack 4 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h2 className="text-xl font-bold mb-4 text-gray-900">Further Reading</h2>
