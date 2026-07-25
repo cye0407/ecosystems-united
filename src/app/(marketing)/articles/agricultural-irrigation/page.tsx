@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 import WorkspacePopupExample from "@/components/marketing/WorkspacePopupExample";
 
 export const metadata = {
@@ -73,25 +74,8 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* D-021 example — MID 1: cluster playbook CTA */}
-      <div className="my-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Find where your operation leaks money</h3>
-        <p className="text-white/80 mb-3">
-          You get: which leaks to chase first — energy, inputs, water, or process
-          waste — the order to work them over your first three years, and the six
-          numbers that prove the fixes worked.
-        </p>
-        <p className="text-white/80 mb-6">
-          What it takes: five questions about your operation. No signup, nothing to
-          install.
-        </p>
-        <Link href="/playbooks/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get my leak-fixing sequence — free →
-        </Link>
-        <p className="text-sm text-white/60 mt-3">
-          Everything you enter stays in your browser — it never leaves your device.
-        </p>
-      </div>
+      {/* Mid-article playbook CTA (D-015) — same copy, now the shared component */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
