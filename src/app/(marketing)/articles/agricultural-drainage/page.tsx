@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Agricultural Drainage: Benefits for Soil Health and Operational Efficiency",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 2: Operational Efficiency
+        <Link href="/articles/water-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Water Management for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Agricultural Drainage: Benefits for Soil Health and Operational Efficiency
         </h1>
@@ -72,10 +67,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -112,9 +105,9 @@ export default function ArticlePage() {
           Leaching—the process of removing salts from soil with water—can occur naturally or through irrigation and drainage systems. Sometimes leaching is necessary to repair land negatively impacted by agricultural activities. It also protects the root zone from salinization by capillary rise of saline water.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>What poor drainage actually costs you</h2>
         <p>
-          Drainage is a Stack 2 efficiency issue. Poor drainage costs you in multiple ways:
+          Drainage is an efficiency issue at heart. Poor drainage costs you in multiple ways:
         </p>
         <ul>
           <li>Lost operational days when fields are too wet to work</li>
@@ -127,6 +120,11 @@ export default function ArticlePage() {
           Measuring the impact of drainage problems—tracking lost days, yield differences, input efficiency—reveals the true cost of inadequate drainage and helps justify improvement investments.
         </p>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

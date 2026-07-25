@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Tillage Systems Compared: Conventional, Minimum, and No-Till Economics | Ecosystems United",
@@ -11,21 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="text-gray-600 hover:text-[#5B4A9E] transition-colors"
-        >
-          &larr; Back to Stack 2: Efficiency
+        <Link href="/articles/soil-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Soil &amp; Land Management
         </Link>
       </nav>
 
       <header className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-[#5B4A9E] font-semibold">Stack 2: Efficiency</span>
-        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
           Tillage Systems Compared: Conventional, Minimum, and No-Till Economics
         </h1>
@@ -169,9 +161,8 @@ export default function ArticlePage() {
 
       </article>
 
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       <article className="prose prose-gray max-w-none">
 
@@ -321,20 +312,11 @@ export default function ArticlePage() {
 
       </article>
 
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h2 className="text-2xl font-bold mb-4">
-          Stack 2: Efficiency in Action
-        </h2>
-        <p className="mb-6">
-          Resource optimization isn&apos;t about doing less &mdash; it&apos;s about achieving more with strategic precision. Explore how the Five Stacks Framework helps you measure, manage, and monetize operational efficiency.
-        </p>
-        <Link
-          href="/framework/stack-2-efficiency"
-          className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 2: Efficiency
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold mb-4">Further Reading</h3>

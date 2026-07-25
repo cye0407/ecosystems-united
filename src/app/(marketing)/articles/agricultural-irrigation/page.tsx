@@ -14,7 +14,7 @@ export default function ArticlePage() {
       {/* Navigation — D-016 example: pillar context, not framework */}
       <nav className="mb-8">
         <Link href="/articles/water-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> The complete guide to water management
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Water Management for Farms
         </Link>
       </nav>
 

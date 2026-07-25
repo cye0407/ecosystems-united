@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Closed-Loop Nutrient Systems for Farms: Minimize Leakage, Maximize Cycling",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-3-circularity" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#7B6BB8] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 3: Circular Value Creation
+        <Link href="/articles/circular-economy-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Circular Economy Guide for Farms: Turn Waste Into Revenue
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">Stack 3: Circular Value Creation</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Closed-Loop Nutrient Systems for Farms
         </h1>
@@ -90,10 +85,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -145,7 +138,7 @@ export default function ArticlePage() {
           <strong>The balance:</strong> Inputs minus outputs equals your nutrient surplus (or deficit). A high surplus means you&apos;re buying nutrients that aren&apos;t leaving as product &mdash; they&apos;re accumulating in soil (sometimes usefully, often excessively) or leaking to the environment. A deficit means you&apos;re mining your soil&apos;s nutrient reserves.
         </p>
         <p>
-          The target isn&apos;t zero surplus &mdash; some surplus is inevitable because biological systems aren&apos;t 100% efficient. But reducing surplus while maintaining or increasing output is the clearest indicator of improving nutrient cycling efficiency. Track this annually as a Stack 1 metric, and you&apos;ll have a powerful number for demonstrating continuous improvement.
+          The target isn&apos;t zero surplus &mdash; some surplus is inevitable because biological systems aren&apos;t 100% efficient. But reducing surplus while maintaining or increasing output is the clearest indicator of improving nutrient cycling efficiency. Track this annually as a core metric, and you&apos;ll have a powerful number for demonstrating continuous improvement.
         </p>
         <p>
           Most farms that calculate their first nutrient balance are surprised by the results. Nitrogen surpluses of 100-200 kg/ha are common in intensive systems &mdash; meaning half or more of purchased nitrogen never leaves as product. That&apos;s not just an environmental problem. It&apos;s a profitability problem hiding in plain sight.
@@ -155,19 +148,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to close your nutrient loops?</h3>
-        <p className="text-white/80 mb-4">
-          Closed-loop nutrient cycling is a core practice within Stack 3 of the Five Stacks Framework &mdash; turning linear waste flows into circular value streams that reduce costs and build soil capital.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 3 focuses on transforming operational knowledge into circular systems: identifying what leaks from your operation, capturing it, and cycling it back into productive use. The framework helps you build these capabilities progressively, so each improvement compounds on the last.
-        </p>
-        <Link href="/framework/stack-3-circularity" className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Explore Stack 3 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

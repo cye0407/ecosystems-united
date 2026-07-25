@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Precision Irrigation Technology: Sensors, VRI, and ROI",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 2: Operational Efficiency
+        <Link href="/articles/water-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete Guide to Water Management for Farms
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Precision Irrigation Technology: Sensors, VRI, and ROI
         </h1>
@@ -104,10 +99,8 @@ export default function ArticlePage() {
 
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -195,31 +188,23 @@ export default function ArticlePage() {
           <strong>Reduced disease pressure:</strong> Avoiding over-watering reduces foliar disease incidence and soil-borne pathogens, lowering fungicide costs and crop losses.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>Why this pays: measure first, then fix the leaks</h2>
         <p>
           Precision irrigation is operational efficiency in action. You&apos;re finding waste&mdash;water applied where it&apos;s not needed, yields lost where water is insufficient&mdash;and eliminating it through better information and control.
         </p>
         <p>
-          The Five Stacks approach emphasizes measuring first, then fixing leaks before adding complexity. Precision irrigation follows this exactly: sensors measure what&apos;s actually happening, reveal where your current system is inefficient, and enable targeted improvements that pay for themselves rapidly.
+          The discipline that makes it work: measure first, then fix leaks before adding complexity. Precision irrigation follows this exactly: sensors measure what&apos;s actually happening, reveal where your current system is inefficient, and enable targeted improvements that pay for themselves rapidly.
         </p>
         <p>
           The farms that succeed with precision irrigation are those that treat it as an operational upgrade, not a technology experiment. Start with measurement, prove the value, expand systematically. The technology is proven, the economics are sound, and the payback periods are short enough that even conservative operations can justify the investment.
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 2 */}
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to upgrade your irrigation efficiency?</h3>
-        <p className="text-white/80 mb-4">
-          Precision irrigation is a core efficiency opportunity in Stack 2 of the Five Stacks Framework&mdash;measuring resource use and eliminating operational waste.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 2 focuses on finding where water, energy, and inputs are wasted in your current operation. Precision irrigation gives you the data to see it and the control to fix it. The investments pay back quickly and position your operation for tightening water regulations and buyer requirements.
-        </p>
-        <Link href="/framework/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 2 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

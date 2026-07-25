@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import MidPlaybookCTA from "@/components/marketing/MidPlaybookCTA";
 
 export const metadata = {
   title: "Controlled Drainage and Drainage Water Management | Ecosystems United",
@@ -12,19 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#5B4A9E] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to Stack 2: Operational Efficiency
+        <Link href="/articles" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> All guides
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Controlled Drainage and Drainage Water Management
         </h1>
@@ -86,10 +81,8 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
+      {/* Mid-article playbook CTA (D-015) */}
+      <MidPlaybookCTA cluster="efficiency" />
 
       {/* Continue article */}
       <article className="prose prose-gray max-w-none">
@@ -151,6 +144,11 @@ export default function ArticlePage() {
           </li>
         </ul>
       </article>
+
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
+      </div>
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
