@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "VSME Basic Module: The Minimum Your Buyers Will Ask For",
@@ -14,16 +14,12 @@ export default function ArticlePage() {
       {/* Navigation */}
       <nav className="mb-8">
         <Link href="/articles/vsme-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to VSME Guide
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete VSME Guide for Agricultural SMEs
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">1</div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           VSME Basic Module: The Minimum Your Buyers Will Ask For
         </h1>
@@ -161,14 +157,7 @@ export default function ArticlePage() {
         <p>
           <strong>What good enough looks like:</strong> A land use table and a statement about proximity to protected sites. You do not need a full <Link href="/articles/biodiversity-assessment-farms">biodiversity assessment</Link> for the Basic Module, just factual descriptions of what habitats exist on your land.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Putting It Together</h2>
+              <h2>Putting It Together</h2>
         <p>
           The Basic Module is a structured collection of data you largely already possess. The work is not generating new information, it is organizing existing records into a consistent format. A farm that tracks energy, keeps safety records, holds spray logs, and has filed environmental stewardship applications is already 70-80% of the way there.
         </p>
@@ -194,15 +183,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Structure your Basic Module data</h3>
-        <p className="text-white/80 mb-6">
-          The Five Stacks Tracker covers every Basic Module domain, energy, emissions, workforce, water, waste, and land use. Enter it once, export it for any standard.
-        </p>
-        <Link href="/signup" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Start Free &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

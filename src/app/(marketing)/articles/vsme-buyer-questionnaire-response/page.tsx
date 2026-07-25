@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Your Buyer Sent a VSME Questionnaire — Here's How to Respond",
@@ -14,16 +14,12 @@ export default function ArticlePage() {
       {/* Navigation */}
       <nav className="mb-8">
         <Link href="/articles/vsme-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span> Back to VSME Guide
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete VSME Guide for Agricultural SMEs
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">1</div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Your Buyer Sent a VSME Questionnaire, Here&apos;s How to Respond
         </h1>
@@ -117,14 +113,7 @@ export default function ArticlePage() {
         <p>
           Certifications are third-party verified evidence. They carry more weight than self-declarations. If a questionnaire asks about your environmental management policy and you hold GlobalG.A.P., your IFA compliance is the policy in action.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Step 6: Review Before Submitting</h2>
+              <h2>Step 6: Review Before Submitting</h2>
         <p>
           Before you send:
         </p>
@@ -174,20 +163,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Turn questionnaire panic into a 15-minute review</h3>
-        <p className="text-white/80 mb-6">
-          Track your operational data in the Five Stacks Tracker. When the next questionnaire arrives, use the Response Generator to draft answers from your verified data, with confidence scores so you know what is solid and what needs work.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link href="/signup" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-            Start Tracking Free &rarr;
-          </Link>
-          <Link href="/products" className="inline-block border border-white/60 text-white px-6 py-3 rounded font-semibold hover:bg-white/10 transition-colors">
-            See Response Generator &rarr;
-          </Link>
-        </div>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

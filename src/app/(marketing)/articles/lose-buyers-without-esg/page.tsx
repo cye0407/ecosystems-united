@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Will You Lose Buyers Without ESG Data?",
@@ -13,25 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-1-metrics"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">
-            &larr;
-          </span>{" "}
-          Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Will You Lose Buyers Without ESG Data?
         </h1>
@@ -111,16 +99,7 @@ export default function ArticlePage() {
         <p>
           If you&apos;re not providing ESG data, you&apos;re not eligible. The premium goes to farms that are. Over years, this differential compounds. The responsive farms get better prices, more investment, and stronger relationships. The silent farms get standard terms and declining relative position.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>What Buyers Actually Expect from Farm Suppliers</h2>
+              <h2>What Buyers Actually Expect from Farm Suppliers</h2>
         <p>
           The bar is lower than you think. Buyers sending questionnaires to agricultural suppliers are not expecting the same sophistication as a multinational chemical company. They know their supply base includes family farms, small holdings, and operations that have never heard of ESG until the email arrived.
         </p>
@@ -213,21 +192,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">
-          Don&apos;t let industry averages speak for your farm
-        </h3>
-        <p className="text-white/80 mb-6">
-          Every day without your own ESG data, buyers fill the gap with generic estimates that don&apos;t reflect your operation. Stack 1 of the Five Stacks Framework helps you build a defensible baseline from records you already keep&mdash;so your numbers tell your story, not an industry average.
-        </p>
-        <Link
-          href="/framework/stack-1-metrics"
-          className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Get Started with Stack 1 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

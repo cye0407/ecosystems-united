@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "CSRD and VSME: What Agricultural Suppliers Need to Know",
@@ -12,17 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link href="/framework/stack-1-metrics" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span>{" "}
-          Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">1</div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           CSRD and VSME: What Agricultural Suppliers Need to Know
         </h1>
@@ -110,14 +105,7 @@ export default function ArticlePage() {
         <p>
           Your buyer may provide guidance on which topics they consider material for their supply chain. If they specifically request water data, they&apos;ve determined water is material to their reporting.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>Timeline: When This Becomes Real</h2>
+              <h2>Timeline: When This Becomes Real</h2>
         <p>
           Large EU companies started CSRD reporting in 2025. Listed SMEs begin in 2026-2028. For farm suppliers, the impact follows:
         </p>
@@ -170,15 +158,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Your farm data is the foundation</h3>
-        <p className="text-white/80 mb-6">
-          CSRD and VSME come down to one thing: can you measure and defend your operation&apos;s performance? Stack 1 of the Five Stacks Framework builds exactly that capability.
-        </p>
-        <Link href="/framework/stack-1-metrics" className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 1 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

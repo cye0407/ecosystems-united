@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Scope 1, 2, and 3 Emissions Explained for Agricultural Operations",
@@ -13,25 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-1-metrics"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">
-            &larr;
-          </span>{" "}
-          Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Scope 1, 2, and 3 Emissions Explained for Agricultural Operations
         </h1>
@@ -113,16 +101,7 @@ export default function ArticlePage() {
         <p>
           Agricultural lime (calcium carbonate) applied to correct soil pH releases CO2 when it reacts with soil acids. Urea fertilizer releases CO2 during hydrolysis in the soil. These are smaller sources but should not be overlooked&mdash;a farm applying 200 tonnes of limestone per year is adding roughly 88 tonnes of CO2 from this source alone.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Scope 2: Purchased Electricity</h2>
+              <h2>Scope 2: Purchased Electricity</h2>
         <p>
           Scope 2 is the simplest category for most farms. It covers indirect emissions from purchased electricity&mdash;the carbon footprint of generating the power you draw from the grid.
         </p>
@@ -233,21 +212,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">
-          Ready to map your farm&apos;s emission profile?
-        </h3>
-        <p className="text-white/80 mb-6">
-          Understanding your scopes is the first step. Stack 1 of the Five Stacks Framework helps you turn raw activity data&mdash;livestock numbers, fertilizer records, fuel invoices&mdash;into defensible emission figures that satisfy buyer requests.
-        </p>
-        <Link
-          href="/framework/stack-1-metrics"
-          className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Get Started with Stack 1 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

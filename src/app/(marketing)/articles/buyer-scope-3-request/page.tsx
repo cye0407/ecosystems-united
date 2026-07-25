@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "Your Buyer Sent a Scope 3 Request — Now What?",
@@ -12,20 +12,12 @@ export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-1-metrics"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">&larr;</span>{" "}
-          Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">1</div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Your Buyer Sent a Scope 3 Request &mdash; Now What?
         </h1>
@@ -107,14 +99,7 @@ export default function ArticlePage() {
         <p>
           With just these four inputs, you can provide a reasonable first estimate that covers the vast majority of your farm&apos;s emissions.
         </p>
-      </article>
-
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      <article className="prose prose-gray max-w-none">
-        <h2>A Quick Calculation Example</h2>
+              <h2>A Quick Calculation Example</h2>
         <p>For a 200-head dairy farm in Western Europe:</p>
         <ul>
           <li>200 dairy cows &times; 128 kg CH4/head/year (IPCC default) = 25.6 tonnes CH4 = <strong>~718 tonnes CO2e</strong> from enteric fermentation</li>
@@ -163,18 +148,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to make sense of your farm&apos;s carbon data?</h3>
-        <p className="text-white/80 mb-6">
-          Scope 3 requests are about measurement&mdash;and measurement is the foundation of Stack 1. The Five Stacks Framework starts with building a defensible baseline from data you already have.
-        </p>
-        <Link
-          href="/framework/stack-1-metrics"
-          className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Get Started with Stack 1 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>

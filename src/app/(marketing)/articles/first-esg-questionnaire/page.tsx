@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title: "First ESG Questionnaire? Where Agricultural Suppliers Start",
@@ -13,25 +13,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-1-metrics"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">
-            &larr;
-          </span>{" "}
-          Back to Stack 1: Core Metrics
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#3D2E7C] text-white flex items-center justify-center font-bold text-sm">
-            1
-          </div>
-          <span className="text-sm text-gray-500">Stack 1: Core Metrics</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           First ESG Questionnaire? Where Agricultural Suppliers Start
         </h1>
@@ -244,16 +232,7 @@ export default function ArticlePage() {
           metric. Leaving fields blank with no explanation is worse than
           explaining why you can&apos;t answer.
         </p>
-      </article>
-
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
-
-      {/* Continue article */}
-      <article className="prose prose-gray max-w-none">
-        <h2>Common First-Timer Questions</h2>
+              <h2>Common First-Timer Questions</h2>
         <p>
           <strong>
             What if I don&apos;t have the policies they&apos;re asking about?
@@ -323,14 +302,13 @@ export default function ArticlePage() {
           receipts, set up a simple monthly log. Future you will be grateful.
         </p>
 
-        <h2>The Stack 1 Connection</h2>
+        <h2>The first one is the hardest — make it count</h2>
         <p>
           Your first ESG questionnaire is the hardest one you&apos;ll complete.
           Every subsequent request benefits from work you&apos;ve already done.
         </p>
         <p>
-          This is exactly what Stack 1&mdash;Core Metrics&mdash;is about:
-          building a defensible baseline. Not perfection, not transformation.
+          This is exactly what building a baseline is about. Not perfection, not transformation.
           Just honest measurement of where you are today, organized so you can
           respond to anyone who asks.
         </p>
@@ -343,23 +321,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 1 */}
-      <div className="mt-12 p-8 bg-[#3D2E7C] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">
-          Ready to build your baseline?
-        </h3>
-        <p className="text-white/80 mb-6">
-          Your first ESG questionnaire reveals what you need to measure. Stack 1
-          of the Five Stacks Framework helps you turn that scramble into a
-          system&mdash;defensible data you can provide to any buyer, any time.
-        </p>
-        <Link
-          href="/framework/stack-1-metrics"
-          className="inline-block bg-white text-[#3D2E7C] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Get Started with Stack 1 &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

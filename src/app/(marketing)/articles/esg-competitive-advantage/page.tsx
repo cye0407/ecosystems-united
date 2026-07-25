@@ -1,11 +1,11 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 export const metadata = {
   title:
     "Turning ESG Compliance Into Competitive Advantage for Agricultural Operations",
   description:
-    "ESG doesn't have to be just a cost. Learn how agricultural operations use the Five Stacks Framework to turn sustainability data into market access, buyer loyalty, and premium pricing.",
+    "ESG doesn't have to be just a cost. Learn how agricultural operations turn sustainability data into market access, buyer loyalty, and premium pricing.",
   keywords: ["CSRD", "ESG", "sustainability reporting", "VSME", "agricultural compliance", "competitive", "advantage", "agriculture", "sustainability"],
 };
 
@@ -14,27 +14,13 @@ export default function ArticlePage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       {/* Navigation */}
       <nav className="mb-8">
-        <Link
-          href="/framework/stack-3-circularity"
-          className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform">
-            &larr;
-          </span>{" "}
-          Back to Stack 3: Circular Value Creation
+        <Link href="/articles/csrd-esg-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The Complete CSRD &amp; ESG Guide for Agricultural Suppliers
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#7B6BB8] text-white flex items-center justify-center font-bold text-sm">
-            3
-          </div>
-          <span className="text-sm text-gray-500">
-            Stack 3: Circular Value Creation
-          </span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Turning ESG Compliance Into Competitive Advantage for Agricultural
           Operations
@@ -52,8 +38,8 @@ export default function ArticlePage() {
         <p>
           You&apos;ve measured your emissions, compiled your data, built a
           response system. You can answer buyer questionnaires without breaking a
-          sweat. Congratulations&mdash;you&apos;ve completed Stacks 1 and 2 of
-          the Five Stacks Framework.
+          sweat. Congratulations&mdash;you&apos;ve done the measurement groundwork most
+          farms never finish.
         </p>
         <p>
           But here&apos;s the question most farms never ask: what if that data
@@ -62,10 +48,10 @@ export default function ArticlePage() {
           new business?
         </p>
         <p>
-          Most farms see ESG as just measuring. Stack 1 is measurement. Stack 2
-          turns that into efficiency. Stack 3 turns efficiency into value. Stack 4
-          builds resilience. Stack 5 compounds it all. This article is about the
-          pivot from Stack 2 to Stack 3&mdash;the moment where ESG stops being a
+          Most farms see ESG as just measuring. But measurement is only the start:
+          it becomes efficiency, efficiency becomes value, value builds
+          resilience, and it all compounds. This article is about the
+          pivot from efficiency to value creation&mdash;the moment where ESG stops being a
           cost and starts generating returns.
         </p>
 
@@ -110,7 +96,7 @@ export default function ArticlePage() {
         </p>
         <p>
           This isn&apos;t about rushing a sloppy response. It&apos;s about having
-          systems (Stack 2) that make a thorough response fast. The farm with a
+          systems that make a thorough response fast. The farm with a
           maintained Master Data File can produce in two hours what an
           unprepared farm struggles to assemble in two weeks.
         </p>
@@ -179,10 +165,6 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
-      </div>
 
       {/* Continue article - Second Half */}
       <article className="prose prose-gray max-w-none">
@@ -236,9 +218,9 @@ export default function ArticlePage() {
 
         <h3>Advantage-Builders</h3>
         <p>
-          This is where the opportunity sits. Advantage-builders have good data
-          (Stack 1), efficient systems (Stack 2), and they actively create value
-          from their sustainability position (Stack 3). They use ESG data to
+          This is where the opportunity sits. Advantage-builders have good data,
+          efficient systems, and they actively create value
+          from their sustainability position. They use ESG data to
           negotiate, to differentiate, and to access markets that compliance-only
           farms cannot reach.
         </p>
@@ -318,9 +300,9 @@ export default function ArticlePage() {
           it.
         </p>
 
-        <h2>The Stack 3 Mindset</h2>
+        <h2>One investment, four returns</h2>
         <p>
-          Stack 3&mdash;Circular Value Creation&mdash;is about extracting
+          The mindset shift is about extracting
           multiple forms of value from every investment. In this case, the
           investment is your ESG data infrastructure.
         </p>
@@ -343,23 +325,11 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 3 */}
-      <div className="mt-12 p-8 bg-[#7B6BB8] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">
-          Ready to turn compliance into competitive advantage?
-        </h3>
-        <p className="text-white/80 mb-6">
-          Stack 3 of the Five Stacks Framework shows how agricultural operations
-          extract multiple forms of value from sustainability data&mdash;moving
-          from cost centre to competitive edge.
-        </p>
-        <Link
-          href="/framework/stack-3-circularity"
-          className="inline-block bg-white text-[#7B6BB8] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
-        >
-          Explore Stack 3: Circular Value Creation &rarr;
-        </Link>
+      {/* Newsletter (D-021 mid-2) */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
