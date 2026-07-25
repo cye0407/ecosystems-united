@@ -1,5 +1,6 @@
 import Link from "next/link";
-import BaselineCTA from "@/components/marketing/BaselineCTA";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
+import WorkspacePopupExample from "@/components/marketing/WorkspacePopupExample";
 
 export const metadata = {
   title: "Agricultural Irrigation: Methods, Advantages, and Efficiency Trade-offs",
@@ -10,21 +11,15 @@ export const metadata = {
 export default function ArticlePage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      {/* Navigation */}
+      {/* Navigation — D-016 example: pillar context, not framework */}
       <nav className="mb-8">
-        <Link href="/framework/stack-2-efficiency" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Stack 2: Operational Efficiency
+        <Link href="/articles/water-management-guide" className="group flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-[#4AA88C] transition-colors">
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> The complete guide to water management
         </Link>
       </nav>
 
       {/* Header */}
       <header className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-full bg-[#5B4A9E] text-white flex items-center justify-center font-bold text-sm">
-            2
-          </div>
-          <span className="text-sm text-gray-500">Stack 2: Operational Efficiency</span>
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Agricultural Irrigation: Methods, Advantages, and Efficiency Trade-offs
         </h1>
@@ -78,9 +73,24 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Mid-article Newsletter CTA */}
-      <div className="my-12">
-        <BaselineCTA />
+      {/* D-021 example — MID 1: cluster playbook CTA */}
+      <div className="my-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
+        <h3 className="text-2xl font-bold mb-3">Find where your operation leaks money</h3>
+        <p className="text-white/80 mb-3">
+          You get: which leaks to chase first — energy, inputs, water, or process
+          waste — the order to work them over your first three years, and the six
+          numbers that prove the fixes worked.
+        </p>
+        <p className="text-white/80 mb-6">
+          What it takes: five questions about your operation. No signup, nothing to
+          install.
+        </p>
+        <Link href="/playbooks/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
+          Get my leak-fixing sequence — free →
+        </Link>
+        <p className="text-sm text-white/60 mt-3">
+          Everything you enter stays in your browser — it never leaves your device.
+        </p>
       </div>
 
       {/* Continue article */}
@@ -119,9 +129,9 @@ export default function ArticlePage() {
           However, efficiency isn't the only consideration. Capital costs, maintenance complexity, crop suitability, and labor availability all factor into the right choice for your operation.
         </p>
 
-        <h2>The Stack 2 Connection</h2>
+        <h2>Where your irrigation money actually goes</h2>
         <p>
-          Irrigation is a major operational cost and a significant resource use category. Stack 2 thinking asks: where is water being wasted, and what's the cost?
+          Irrigation is a major operational cost and a significant resource use category. The question that pays: where is water being wasted, and what is that costing you?
         </p>
         <p>
           Key efficiency questions for your irrigation system:
@@ -138,19 +148,18 @@ export default function ArticlePage() {
         </p>
       </article>
 
-      {/* Bottom CTA - Stack 2 */}
-      <div className="mt-12 p-8 bg-[#5B4A9E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to find your operational leaks?</h3>
-        <p className="text-white/80 mb-4">
-          Irrigation efficiency is part of Stack 2 in the Five Stacks Framework—identifying where water and energy waste costs you money.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 2 focuses on fixing leaks before adding new initiatives. Your water use data reveals patterns—where you over-irrigate, where timing is off, where equipment issues waste resources. These are often easy wins that improve both costs and environmental performance.
-        </p>
-        <Link href="/framework/stack-2-efficiency" className="inline-block bg-white text-[#5B4A9E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 2 →
-        </Link>
+      {/* D-021 example — MID 2: newsletter */}
+      <div className="mt-12">
+        <NewsletterSignup />
       </div>
+
+      {/* D-021 example — 30s workspace popup */}
+      <WorkspacePopupExample
+        headline="Your bills already know where the leaks are."
+        body="We built a free tool for exactly this: enter 12 months of bills and meter readings once, and it becomes a live picture of your water, energy, and input use — you see where money leaks, and every fix shows up in the numbers. Your data stays yours."
+        ctaLabel="Start free →"
+        ctaHref="/tracker"
+      />
 
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">

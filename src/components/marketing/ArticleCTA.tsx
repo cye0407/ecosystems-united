@@ -160,6 +160,48 @@ export default function ArticleCTA() {
 
   const slug = pathname.split("/").pop() || "";
 
+  // D-021 EXAMPLE ONLY (agricultural-irrigation): the proposed page close —
+  // cluster-translated workspace CTA + bottom newsletter. If Cat approves the
+  // flow, this becomes the general pattern; if not, delete this branch.
+  if (slug === "agricultural-irrigation") {
+    return (
+      <div className="max-w-4xl mx-auto px-6 pb-16">
+        <div className="p-8 rounded-lg text-white mt-12" style={{ backgroundColor: "#4AA88C" }}>
+          <h2 className="text-2xl font-bold mb-3">
+            Stop guessing where the water — and the money — goes
+          </h2>
+          <p className="text-white/80 mb-3">
+            You get: a live picture of your operation — water, energy, inputs, and what
+            each one costs you — every leak you fix visible in the numbers, and the
+            next buyer question already answered.
+          </p>
+          <p className="text-white/80 mb-6">
+            What it takes: 12 months of bills and meter readings, entered once.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href="/tracker"
+              className="inline-block bg-white px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors"
+              style={{ color: "#4AA88C" }}
+            >
+              See your operation in numbers — free →
+            </Link>
+            <Link
+              href="/see-it-in-action"
+              className="text-white/70 hover:text-white underline text-sm transition-colors"
+            >
+              See it in action first
+            </Link>
+          </div>
+          <p className="text-sm text-white/60 mt-3">
+            Your data is yours: stored on your device, synced only to your private
+            account. We don&apos;t mine it — and you can export everything, anytime.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   // Biofuels & energy articles always funnel into the comparison tool
   if (BIOFUELS_SLUGS.has(slug)) {
     return (
