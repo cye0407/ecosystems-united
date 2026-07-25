@@ -139,20 +139,6 @@ export default function ArticlePage() {
         </ul>
       </article>
 
-      {/* Bottom CTA - Stack 4 */}
-      <div className="mt-12 p-8 bg-[#3B7D6E] rounded-lg text-white">
-        <h3 className="text-2xl font-bold mb-3">Ready to implement sustainable practices?</h3>
-        <p className="text-white/80 mb-4">
-          Companion planting is one approach to reducing inputs while improving outcomes—when implemented with proper measurement and evaluation.
-        </p>
-        <p className="text-white/80 mb-6">
-          Stack 4 focuses on sustainable practices that generate measurable returns. Whether companion planting, intercropping, or other approaches, the key is choosing practices that fit your operation and verifying they deliver expected benefits.
-        </p>
-        <Link href="/framework/stack-4-resilience" className="inline-block bg-white text-[#3B7D6E] px-6 py-3 rounded font-semibold hover:bg-gray-100 transition-colors">
-          Get Started with Stack 4 →
-        </Link>
-      </div>
-
       {/* Further Reading */}
       <div className="mt-12 pt-8 border-t border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Further Reading</h3>
