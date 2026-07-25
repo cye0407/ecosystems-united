@@ -173,7 +173,7 @@ export default function ArticlePage() {
           <li><strong>Resilience:</strong> Systems with multiple components weather disruptions better than monocultures</li>
         </ul>
         <p>
-          Stack 4 practices don't require philosophical commitment to ecology—they require understanding that diverse systems often perform better economically when measured over time.
+          These practices don't require philosophical commitment to ecology—they require understanding that diverse systems often perform better economically when measured over time.
         </p>
       </article>
 

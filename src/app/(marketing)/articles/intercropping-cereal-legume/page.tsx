@@ -188,7 +188,7 @@ export default function ArticlePage() {
         </ul>
 
         <p>
-          This integration embodies the circular economy principles of Stack 3, where outputs from one enterprise become inputs for another, minimizing external inputs and waste.
+          This integration embodies circular economy principles, where outputs from one enterprise become inputs for another, minimizing external inputs and waste.
         </p>
 
         <h2>Practical Implementation Steps</h2>

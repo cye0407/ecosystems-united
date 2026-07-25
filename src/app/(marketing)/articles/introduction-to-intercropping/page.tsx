@@ -105,7 +105,7 @@ export default function ArticlePage() {
           <li>Potential for certification and premium markets</li>
         </ul>
         <p>
-          The key is starting with proven combinations and measuring results. Stack 4 practices like intercropping build on the foundation of Stacks 1-3—you need baseline data to know whether your intercropping system is actually delivering the expected benefits.
+          The key is starting with proven combinations and measuring results. Practices like intercropping build on your measurement foundation—you need baseline data to know whether your intercropping system is actually delivering the expected benefits.
         </p>
       </article>
 
