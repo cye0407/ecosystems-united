@@ -17,9 +17,12 @@ file is the tracker of record.
 | D-009 | Content: publish coefficients + the sharp opinion | DECIDED 2026-07-24: A w/ rewrite |
 | D-010 | Content: two small honesty edits | DECIDED 2026-07-24: A modified |
 | D-011 | Publishing sequence + channel infrastructure | DECIDED 2026-07-24: A |
-| D-012 | Standalone biofuels playbook | OPEN |
+| D-012 | Standalone biofuels playbook | DECIDED 2026-07-25: B |
 | D-013 | Framework CTAs site-wide (all articles + top back-links) | OPEN |
 | D-014 | Workspace data capture for playbook concepts | OPEN — decide at Wave-2 scoping |
+| D-015 | Stack-job mid-article CTAs (replace blanket BaselineCTA) | OPEN |
+| D-016 | Article context: pillar back-link + badge instead of framework/stack | OPEN |
+| D-017 | "Stack N Connection" body sections (32 articles) | OPEN |
 | P-001 | Workspace/product naming | PARKED (Cat: fine-tune later) |
 | P-002 | Final price points per tier | PARKED (Cat: fine-tune later) |
 | P-003 | Extraction trust model (client-side vs cloud OCR) + ladder placement | PARKED (artifact-library doc §Part 2.6) |
@@ -298,7 +301,14 @@ stack-3-circularity link). Biofuels is the site's biggest raw traffic
 
 **Recommendation.** B, scheduled with Wave 2.
 
-**Decided:** —
+**Decided:** 2026-07-25 — **B**. Clarified first: the "standalone playbook"
+Cat remembered is the Biofuel Feedstock Sustainability Comparison workbook
+(.xlsx GatedDownload on the feedstock-compare tool) — live, but a take-away
+file, not an interactive playbook. Build the interactive biofuels playbook
+on the shared shell as a Wave-2 module: feedstock-compare handoff,
+residues four-line ledger as the numbers module (price − collection −
+nutrients − soil value), contract/counterparty checks. Interim stack-3
+link stays until it ships.
 
 ---
 
@@ -326,6 +336,104 @@ go too?
 
 **Recommendation.** A first (mechanical, low-risk), then judge B by whether
 the top link carries measurable traffic.
+
+**Decided:** 2026-07-25 — **A in principle**, but Cat's example review
+(preview branch feat/d013-example, companion-planting-introduction) found
+the removal exposes deeper misfits: the Passport/Baseline mid-CTA doesn't
+belong on non-baseline articles, and stack mentions read as randomly
+thrown in. Sweep HELD so it runs ONCE combined with D-015/D-016/D-017
+verdicts. Example preview stays up for comparison.
+
+---
+
+## D-015 — Stack-job mid-article CTAs
+**Status:** OPEN
+
+**Context.** 129 articles hardcode the same mid-article `<BaselineCTA />`
+(free tracker + response generator — Stack 1's job) regardless of topic.
+Cat on the example page: "the Passport does not fit here at all… we need
+stack-based CTAs, or stack-specific ones — instead of 'build your
+baseline', something that fits for Stack 4." The page-END CTA (ArticleCTA)
+is already slug-set-matched by cluster; the MID CTA is one-size-fits-all.
+
+**Decision needed.** What replaces the blanket mid-CTA?
+
+**Options with impact.**
+- **A) Stack-job MidCTA component**, reusing ArticleCTA's existing slug
+  sets: S1/CSRD topics keep BaselineCTA (it fits there); S2 topics get the
+  leak/efficiency pitch; S3 margin-recovery; S4 the resilience-exposure
+  calculator ("could one disruption cascade through your operation?");
+  S5 regenerative-roi. Copy is JOB language — no "Stack N" naming (per
+  lead-with-the-job). Unmatched articles keep BaselineCTA as fallback.
+  Impact: every mid-CTA speaks the reader's actual problem; one new
+  component + a 129-file mechanical swap.
+- **B) Same, but unmatched articles get the newsletter instead of
+  BaselineCTA.** Impact: cleaner fit, weaker product funnel on the tail.
+- **C) Remove mid-CTAs entirely outside matched clusters.** Impact:
+  cleanest reading experience, weakest funnel.
+
+**Recommendation.** A — mid + end CTA then both speak the cluster's job,
+and the Passport pitch appears only where baseline IS the job.
+
+**Decided:** —
+
+---
+
+## D-016 — Article context: pillar, not framework
+**Status:** OPEN
+
+**Context.** 112 articles open with "← Back to Stack N: <name>" pointing
+at /framework/stack-N, plus a numbered stack badge in the header. Cat:
+stack mentions feel "randomly thrown in." Meanwhile 12 topic pillar guides
+exist (intercropping, biofuels, water, regenerative, ecolabel, CSRD…) —
+the natural, reader-logical home for each article. The pillar is what a
+problem-solving reader actually wants ("more on this topic"), the
+framework page is internal scaffolding.
+
+**Decision needed.** Replace framework back-links/badges with pillar
+context?
+
+**Options with impact.**
+- **A) Top back-link → nearest pillar guide** ("← Intercropping &
+  companion planting guide"); drop the numbered stack badge. Needs an
+  article→pillar mapping (derivable from pillar link lists + slug sets;
+  maintained in one file). Impact: context navigation readers understand;
+  framework exits the article surface consistent with D-004/D-013;
+  internal links concentrate pillar authority (SEO win).
+- **B) Keep a framework back-link but reword to job language.** Impact:
+  cosmetic; still routes problem-traffic to scaffolding pages.
+- **C) Leave as-is.** Impact: the "randomly thrown in" feeling stays on
+  112 pages.
+
+**Recommendation.** A.
+
+**Decided:** —
+
+---
+
+## D-017 — "Stack N Connection" body sections
+**Status:** OPEN
+
+**Context.** 32 articles contain an editorial section like "The Stack 4
+Connection" — framework name-dropping inside body copy (Cat:
+"questionable"). Unlike CTAs/links this is CONTENT — each needs a small
+rewrite, not a mechanical strip.
+
+**Decision needed.** How to handle the 32 body sections?
+
+**Options with impact.**
+- **A) Reword sweep:** keep each section's substance (it's usually the
+  "what this means for your operation" close) but rewrite heading + copy
+  in job language, no framework naming. Agent drafts all 32, Cat
+  spot-reviews a sample. Impact: articles stop pitching the framework
+  mid-read; ~1 agent-session; small voice-drift risk on 32 pages.
+- **B) Heading-only rename** ("What this means for your operation"),
+  body text untouched. Impact: cheapest; body sentences may still
+  name stacks.
+- **C) Leave; revisit with the eventual content-refresh stream.**
+  Impact: inconsistent with everything else decided today.
+
+**Recommendation.** A, with the sample-review gate.
 
 **Decided:** —
 
