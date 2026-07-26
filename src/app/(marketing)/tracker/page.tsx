@@ -193,13 +193,6 @@ export default function TrackerPage() {
           No credit card. Multi-site. Yours to export and keep.
         </p>
 
-        {/* Product preview placeholder */}
-        <div className="mt-12 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 aspect-[16/9] max-w-3xl mx-auto flex items-center justify-center">
-          <div className="text-center text-gray-400">
-            <ChartLineUp className="w-10 h-10 mx-auto mb-2" weight="duotone" />
-            <p className="text-sm font-medium">Product preview</p>
-          </div>
-        </div>
       </header>
 
       {/* 2 · The problem */}
