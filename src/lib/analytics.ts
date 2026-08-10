@@ -19,8 +19,18 @@ function getSessionId(): string {
   return id;
 }
 
+// Set by src/proxy.ts for bot-hub geographies (e.g. the Singapore
+// data-center cluster). Events still fire locally but are not recorded,
+// so Supabase site_events reflects humans. Leads are NOT gated here —
+// an explicitly typed email is worth keeping regardless of geo.
+function isFilteredGeo(): boolean {
+  return document.cookie.split('; ').includes('eu_geo_filtered=1');
+}
+
 async function send(event: string, page?: string, label?: string, metadata?: EventProperties): Promise<void> {
   if (typeof window === 'undefined') return;
+
+  if (isFilteredGeo()) return;
 
   if (process.env.NODE_ENV === 'development') {
     console.debug('[analytics]', event, { page, label, metadata });
