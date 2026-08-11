@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/scope-3-readiness",
     "/tools/csrd-readiness",
     "/tools/ecolabel-selector",
+    "/playbooks",
     "/playbooks/stack-1-metrics",
     "/playbooks/stack-2-efficiency",
     "/playbooks/stack-3-circularity",

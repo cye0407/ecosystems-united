@@ -10,7 +10,10 @@ export const stack1Content: StackContent = {
 
   intakeTitle: "Build your defensible baseline",
   intakeIntro:
-    "Tell us about your operation and what's driving the need for data. We'll build a plan to establish a baseline you can defend to a buyer, a bank, or a CSRD report — measured, not estimated.",
+    "Tell us about your operation and what's driving the need for data. We'll build a plan for a documented baseline using activity data, evidence, appropriate emission factors, and clearly labelled estimates.",
+  scopeNote:
+    "This worksheet organizes the evidence job. It does not calculate a complete emissions inventory or produce a CSRD report. Farm emissions boundaries vary by production system, so verify material sources and methods before sharing a total.",
+  handoffKey: "eu:playbook:stack-1",
   sectorLabel: "What do you produce?",
   sectorPlaceholder: "e.g. dairy, arable, mixed",
   scaleLabel: "hectares",
@@ -28,15 +31,15 @@ export const stack1Content: StackContent = {
 
   focusTitle: "What to measure, in order",
   focusIntro:
-    "Start where the data already exists (your bills) and where the footprint is biggest, then widen.",
+    "Start where reliable activity data already exists, then add the material sources for your production system.",
   focusAreas: [
     {
       key: "energy",
       label: "Energy & fuel baseline",
-      why: "Electricity and fuel are already on your bills and drive most of your footprint, so this is the fastest, highest-value place to start.",
+      why: "Electricity and fuel are usually documented on bills, making them a practical first evidence set even when they are not the operation's largest emissions sources.",
       pros: [
         "The data already exists on 12 months of bills and fuel receipts.",
-        "Drives the biggest share of most operations' emissions, so it moves the number most.",
+        "Creates a traceable starting point for cost and emissions calculations.",
         "Immediately useful for both cost control and reporting.",
       ],
       cons: [
@@ -51,18 +54,19 @@ export const stack1Content: StackContent = {
     {
       key: "emissions",
       label: "Emissions inventory (Scope 1 & 2)",
-      why: "Converting your energy and fuel into CO2e with standard factors gives you the number buyers and CSRD actually ask for.",
+      why: "A defensible inventory combines relevant activity data with documented factors. For farms, Scope 1 may include livestock, manure, and managed-soil emissions as well as fuel.",
       pros: [
-        "Turns bills you already have into a credible carbon figure.",
-        "Uses recognised factors (IPCC / Defra), so it stands up to scrutiny.",
+        "Turns documented activity data into a reproducible carbon estimate.",
+        "Uses recognised methods and records the factors applied.",
         "The foundation for any credible claim or reduction target.",
       ],
       cons: [
         "Choosing the right factors and boundary needs care the first time.",
-        "Scope 3 (upstream) is a bigger, separate job.",
+        "Production-system sources such as livestock, manure, and soils require additional activity data and methods.",
+        "Upstream Scope 3 is a separate job after the operational boundary is sound.",
       ],
       howTo:
-        "Apply standard emission factors to your energy and fuel totals (the tracker does this automatically), and set your reporting boundary.",
+        "Set the reporting boundary, list every material Scope 1 and 2 source for your production system, then apply documented factors to the relevant activity data.",
       addresses: ["buyerAsks", "csrd", "claims"],
       priority: 2,
     },
@@ -86,10 +90,10 @@ export const stack1Content: StackContent = {
     {
       key: "landInputs",
       label: "Land use & key inputs",
-      why: "Area, land-use change, and your main inputs complete the picture buyers and schemes want, and feed directly into Scope 3.",
+      why: "Area, land-use change, fertiliser, feed, and other inputs support buyer requests and help identify both direct agricultural emissions and upstream Scope 3 sources.",
       pros: [
         "Captures the land data grants and CSRD increasingly require.",
-        "Sets up upstream (Scope 3) reporting without re-collecting.",
+        "Supports managed-soil calculations where relevant and sets up upstream Scope 3 work.",
       ],
       cons: [
         "Input records can be scattered across suppliers and invoices.",
@@ -103,9 +107,9 @@ export const stack1Content: StackContent = {
 
   playbookHeadline: "Your defensible-baseline plan",
   insights: [
-    "A defensible baseline is what every buyer questionnaire, CSRD report and green claim is built on. Without it you're guessing, and buyers can tell.",
-    "You don't need perfect data to start. A baseline built from real bills beats an estimate, and you tighten it over time.",
-    "The order matters: energy and fuel first (they're on your bills and drive most of the footprint), then water, waste and land.",
+    "A defensible baseline records its boundary, activity data, factors, estimates, evidence, and limitations. That makes it reviewable when a buyer or bank asks.",
+    "You don't need perfect data to start. Use primary records where available and label every estimate so data quality can improve over time.",
+    "Bills are a practical first evidence set, but the material emissions sources depend on what you produce. Livestock, manure, and managed soils can dominate a farm inventory.",
   ],
 
   resourcesTitle: "The standards this is built on",
@@ -127,7 +131,7 @@ export const stack1Content: StackContent = {
     },
   ],
   resourcesNote:
-    "You don't need to read these to start — the tracker applies recognised factors for you. They're here so your numbers are defensible when someone asks how you got them.",
+    "Use these to choose methods and document factors. The tracker can structure common activity data, but it is not a substitute for a production-system-complete inventory.",
 
   checklistTitle: "Getting your baseline in place",
   checklist: [
@@ -141,7 +145,7 @@ export const stack1Content: StackContent = {
 
   kpisTitle: "What to track",
   kpis: [
-    { k: "Total emissions (t CO2e)", v: "Scope 1 & 2 to start, Scope 3 as you widen. The headline number." },
+    { k: "Total emissions (t CO2e)", v: "Scope 1 and 2 using a documented boundary, including material biological sources where relevant; add Scope 3 as you widen." },
     { k: "Energy use (kWh)", v: "Electricity + fuel, by month, so you can see trend and seasonality." },
     { k: "Energy intensity", v: "kWh per unit of output — lets you compare across years and to peers." },
     { k: "Water use (m³)", v: "Metered or estimated, for a representative period." },

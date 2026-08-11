@@ -17,7 +17,9 @@ export const stack5Content: StackContent = {
 
   intakeTitle: "Tell us about your farm, get your playbook",
   intakeIntro:
-    "Answer a few things about your land, soil, and what you want to fix. We build you a personalized regenerative playbook: the practices to add in order, the cover-crop mix for your soil, an honest look at the numbers, and the funding that pays for it. What you enter becomes your Passport when you're ready, so you only fill it in once.",
+    "Use your land, soil, priorities, and selected practices to build a free transition worksheet. It includes an illustrative financial scenario, agronomy prompts, funding links, and a measurement plan.",
+  scopeNote:
+    "The financial view is an illustrative sensitivity scenario, not a forecast or recommendation. It uses generic assumptions that do not distinguish crop, practice, weather, or production system. Validate agronomy, costs, savings, funding, and risk locally before investing.",
   sectorLabel: "What do you grow?",
   sectorPlaceholder: "e.g. winter wheat, barley, oilseed rape",
   scaleLabel: "hectares",

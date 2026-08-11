@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { analytics } from "@/lib/analytics";
+import { saveAssessmentHandoff } from "@/lib/playbooks/assessment-handoff";
 
 const questions = [
   "Do you track energy consumption (electricity, gas, fuel) at least monthly?",
@@ -21,6 +22,11 @@ const options = [
   { label: "Yes", value: 2 },
   { label: "Partially", value: 1 },
   { label: "No", value: 0 },
+];
+
+const issueByQuestion = [
+  "noVisibility", "noVisibility", "noVisibility", "noVisibility", "noVisibility",
+  "claims", "buyerAsks", "noVisibility", "benchmarking", "claims",
 ];
 
 function getResult(score: number) {
@@ -86,6 +92,16 @@ export default function MetricsAssessmentPage() {
     setShowResults(false);
   };
 
+  const handlePlaybookClick = () => {
+    saveAssessmentHandoff({ stack: 1, score, resultLevel: result.level, answers, issueByQuestion });
+    analytics.track("assessment_playbook_clicked", {
+      stack: 1,
+      score,
+      result_level: result.level,
+      weak_issue_count: new Set(issueByQuestion.filter((_, i) => (answers[i] ?? 2) <= 1)).size,
+    });
+  };
+
   if (showResults) {
     return (
       <div className="max-w-2xl mx-auto px-6 py-16">
@@ -132,12 +148,13 @@ export default function MetricsAssessmentPage() {
         <div className="flex flex-col gap-4">
           <Link
             href="/playbooks/stack-1-metrics"
+            onClick={handlePlaybookClick}
             className="bg-[#4AA88C] text-white px-6 py-3 rounded-md font-medium hover:bg-[#3d8f77] text-center"
           >
-            Get your personalized playbook →
+            Build your free planning worksheet →
           </Link>
           <p className="text-center text-sm text-gray-500">
-            A free plan you tailor to your operation: the moves in order, the resources, and how to make it your Passport.
+            Your weaker assessment areas carry over. Review them, choose a focus, and generate a worksheet saved in this browser.
           </p>
           <Link
             href="/signup?from=assessment&stack=1"

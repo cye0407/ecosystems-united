@@ -12,6 +12,9 @@ export const stack3Content: StackContent = {
   intakeTitle: "Turn your waste streams into margin",
   intakeIntro:
     "Tell us about your operation and what's driving the need to close the loop. We'll build a plan to stop paying to throw away what still has value — cutting disposal costs, cycling nutrients, and turning byproducts into revenue, starting with the moves that pay back fastest.",
+  scopeNote:
+    "This worksheet helps map and test possible value streams. It does not establish legal waste status, permit an outlet, or calculate recovered value. Confirm local rules, volumes, quality, transport, and buyer terms before acting.",
+  handoffKey: "eu:playbook:stack-3",
   sectorLabel: "What do you produce?",
   sectorPlaceholder: "e.g. dairy, arable, mixed",
   scaleLabel: "hectares",
@@ -34,12 +37,11 @@ export const stack3Content: StackContent = {
     {
       key: "segregate",
       label: "Segregate and cut disposal costs",
-      why: "Every skip and haulage charge is a bill for value leaving the gate, and separating streams is the fastest way to shrink it with no capital outlay.",
+      why: "Every skip and haulage charge is a bill for material leaving the gate. Measuring and separating streams is often the fastest way to test whether that bill can be reduced.",
       pros: [
-        "No equipment needed — the saving comes from sorting, not spending.",
+        "A first test may need little equipment, although bins, space, labour, and cleaner handling can add cost.",
         "Mixed waste costs the most to dispose of; clean, separated streams often have buyers or lower gate fees.",
         "Weighing what leaves shows you exactly where the margin is going, which every later move builds on.",
-        "Usually pays back within the first invoicing cycle.",
       ],
       cons: [
         "Takes staff discipline and clear labelling to keep streams clean.",
@@ -65,7 +67,7 @@ export const stack3Content: StackContent = {
         "Storage and spreading windows are constrained by weather and regulation, so timing takes planning.",
       ],
       howTo:
-        "Test your manure or slurry for nutrient content, test your soils, and build a simple plan that matches what you produce to what your fields actually need before you buy any bagged fertiliser.",
+        "Test your manure or slurry and soils, check the applicable nutrient and spreading rules, then match available nutrients to field need before changing bagged-fertiliser purchases.",
       addresses: ["buyingInputs", "manureSlurry", "highDisposal", "buyerCircular"],
       priority: 2,
     },
@@ -84,7 +86,7 @@ export const stack3Content: StackContent = {
         "May need modest handling or storage to keep the material saleable.",
       ],
       howTo:
-        "List your three biggest byproduct or residue streams by volume, then make a few calls to local feed merchants, processors, or composters to find who would take or buy each one.",
+        "List your three biggest byproduct or residue streams by volume, check their legal status and quality requirements, then ask local feed merchants, processors, or composters what they can accept and on what terms.",
       addresses: ["byproductsWasted", "newRevenue", "highDisposal"],
       priority: 3,
     },
@@ -131,7 +133,7 @@ export const stack3Content: StackContent = {
   playbookHeadline: "Your margin-recovery plan",
   insights: [
     "What you discard is margin you've already paid to produce and are now paying again to remove. Circularity is a cost-recovery exercise before it's an environmental one.",
-    "You don't need a digester to start. The biggest early wins come from separating streams and cycling nutrients — near-zero capital, quick payback — long before anything you have to build.",
+    "You don't need a digester to start. Separating streams and testing nutrient cycling are lower-commitment experiments to run before anything capital-heavy.",
     "The order matters: cut disposal cost and offset bought-in inputs first, then chase byproduct revenue, and only weigh capital projects like anaerobic digestion once you know your volumes.",
   ],
 
@@ -157,7 +159,7 @@ export const stack3Content: StackContent = {
     },
   ],
   resourcesNote:
-    "You don't need to read these to start. They're here so the plan sits on recognised thinking, and so you can pressure-test a capital project like a digester before you spend on it.",
+    "Use these for framing and feasibility. Waste status, feed and food safety, nutrient application, compost sales, and permitting vary by jurisdiction and intended outlet; confirm them locally before moving material.",
 
   checklistTitle: "Getting margin recovery in place",
   checklist: [

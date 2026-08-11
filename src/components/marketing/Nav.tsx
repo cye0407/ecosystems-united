@@ -15,6 +15,7 @@ const stackItems = [
 
 export default function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
     <nav className="border-b border-gray-200 bg-white">
@@ -22,7 +23,23 @@ export default function Nav() {
         <Link href="/" className="flex items-center">
           <Image src="/logo.png" alt="Ecosystems United" width={150} height={50} priority />
         </Link>
-        <div className="flex items-center gap-6 text-sm">
+        <button
+          type="button"
+          className="rounded-md border border-gray-200 p-2 text-gray-700 lg:hidden"
+          aria-expanded={isMobileOpen}
+          aria-controls="mobile-navigation"
+          aria-label="Toggle navigation"
+          onClick={() => setIsMobileOpen((open) => !open)}
+        >
+          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            {isMobileOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+        <div className="hidden items-center gap-6 text-sm lg:flex">
           {/* Five Stacks Dropdown */}
           <div
             className="relative"
@@ -58,6 +75,15 @@ export default function Nav() {
                     </Link>
                   ))}
                   <div className="border-t border-gray-100 mt-2 pt-2">
+                    <Link
+                      href="/playbooks"
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center bg-[#5B4A9E] text-white text-xs font-bold">
+                        ✓
+                      </div>
+                      <span className="text-gray-700">Free Playbooks</span>
+                    </Link>
                     <Link
                       href="/book"
                       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors"
@@ -106,6 +132,26 @@ export default function Nav() {
           </Link>
         </div>
       </div>
+      {isMobileOpen && (
+        <div id="mobile-navigation" className="border-t border-gray-100 px-6 py-4 lg:hidden">
+          <div className="grid gap-1 text-sm">
+            <Link href="/framework" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">
+              The Five Stacks
+            </Link>
+            <Link href="/playbooks" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 font-medium text-[#5B4A9E] hover:bg-gray-50">
+              Free Playbooks
+            </Link>
+            <Link href="/articles" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">Guides</Link>
+            <Link href="/products" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">Products</Link>
+            <Link href="/for-advisors" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">For Advisors</Link>
+            <Link href="/about" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">About</Link>
+            <Link href="/login" onClick={() => setIsMobileOpen(false)} className="rounded px-3 py-2 text-gray-700 hover:bg-gray-50">Sign In</Link>
+            <Link href="/tracker" onClick={() => setIsMobileOpen(false)} className="mt-2 rounded-lg bg-primary px-4 py-3 text-center font-medium text-white">
+              Free Tracker
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

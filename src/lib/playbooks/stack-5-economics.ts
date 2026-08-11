@@ -94,7 +94,7 @@ export function computeEconomics(args: {
       perHa: 0,
       total: 0,
       kind: "cost",
-      note: "Real, but harder to generalise — treat as upside on top of the numbers above.",
+      note: "Excluded from the totals because costs and benefits are too operation-specific to generalise.",
     });
   }
 

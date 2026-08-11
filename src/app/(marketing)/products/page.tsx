@@ -295,6 +295,20 @@ export default function ProductsPage() {
           Every response shows you where your data gaps are. Assess where your
           operation sits, find the leaks, and prioritize what to fix first.
         </p>
+        <div className="mb-8 rounded-lg border border-[#5B4A9E]/25 bg-[#5B4A9E]/5 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <h3 className="font-semibold text-gray-900">Five free planning playbooks</h3>
+            <p className="mt-1 text-sm text-gray-600">
+              Build a locally saved worksheet for baseline evidence, efficiency, margin recovery, resilience, or regenerative transition.
+            </p>
+          </div>
+          <Link
+            href="/playbooks"
+            className="mt-4 inline-block shrink-0 rounded bg-[#5B4A9E] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#4A3D8C] sm:mt-0"
+          >
+            Open the playbooks
+          </Link>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Stack Assessment — hero card */}

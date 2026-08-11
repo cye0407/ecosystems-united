@@ -51,6 +51,8 @@ export interface StackContent {
   // Intake copy
   intakeTitle: string;
   intakeIntro: string;
+  /** Honest free-release boundary shown before the worksheet. */
+  scopeNote: string;
   /** Label for the "what you produce / do" free-text field. */
   sectorLabel: string;
   sectorPlaceholder: string;

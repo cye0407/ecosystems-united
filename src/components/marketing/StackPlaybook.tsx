@@ -27,7 +27,8 @@ const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
-const START_YEARS = ["2026", "2027", "2028"];
+const CURRENT_YEAR = new Date().getFullYear();
+const START_YEARS = [0, 1, 2].map((offset) => String(CURRENT_YEAR + offset));
 
 // ---------------------------------------------------------------------------
 // Core state the shell owns and exposes to slots. Stack 5's premium slots read
@@ -76,8 +77,11 @@ export interface PlaybookSlots<E = Record<string, unknown>> {
 
 interface Handoff {
   scale?: number;
+  hectares?: number;
   sector?: string;
   issues?: string[];
+  practices?: string[];
+  assessmentScore?: number;
 }
 
 const isStringArray = (v: unknown): v is string[] =>
@@ -99,9 +103,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
   const [sector, setSector] = useState("");
   const [issues, setIssues] = useState<string[]>([]);
   const [running, setRunning] = useState<string[]>([]);
-  const [adding, setAdding] = useState<string[]>(
-    [content.focusAreas[0]?.key].filter(Boolean) as string[],
-  );
+  const [adding, setAdding] = useState<string[]>([]);
   const [field, setField] = useState("");
   const [startPeriod, setStartPeriod] = useState(QUARTERS[3]);
   const [startYear, setStartYear] = useState(START_YEARS[0]);
@@ -110,19 +112,30 @@ export default function StackPlaybook<E = Record<string, unknown>>({
   const [checks, setChecks] = useState<Record<number, boolean>>({});
   const [kpiBaselines, setKpiBaselines] = useState<KpiBaselineMap>({});
   const [hydrated, setHydrated] = useState(false);
+  const kpiStarted = useRef(false);
+  const checklistMilestones = useRef(new Set<number>());
 
   const stateKey = `eu:playbook:stack-${content.stackNum}:state`;
 
   useEffect(() => {
+    let handoffLoaded = false;
+    let savedStateLoaded = false;
     if (content.handoffKey) {
       try {
         const raw = localStorage.getItem(content.handoffKey);
         if (raw) {
           const d: Handoff = JSON.parse(raw);
-          if (typeof d.scale === "number" && d.scale > 0) setScale(d.scale);
+          const handoffScale = typeof d.scale === "number" ? d.scale : d.hectares;
+          if (typeof handoffScale === "number" && handoffScale > 0) setScale(handoffScale);
           if (typeof d.sector === "string") setSector(d.sector);
           if (Array.isArray(d.issues)) setIssues(d.issues);
-          setCameFromTool(true);
+          if (Array.isArray(d.practices)) setAdding(d.practices);
+          handoffLoaded = Boolean(
+            (typeof handoffScale === "number" && handoffScale > 0) ||
+            d.sector || d.issues?.length || d.practices?.length ||
+            typeof d.assessmentScore === "number",
+          );
+          setCameFromTool(handoffLoaded);
         }
       } catch {
         /* defaults are fine */
@@ -133,6 +146,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
       const raw = localStorage.getItem(stateKey);
       if (raw) {
         const s = JSON.parse(raw) as Record<string, unknown>;
+        savedStateLoaded = true;
         if (typeof s.scale === "number" && Number.isFinite(s.scale) && s.scale >= 0) setScale(s.scale);
         if (typeof s.region === "string" && (REGIONS as string[]).includes(s.region)) setRegion(s.region as Region);
         if (typeof s.sector === "string") setSector(s.sector);
@@ -166,7 +180,12 @@ export default function StackPlaybook<E = Record<string, unknown>>({
       /* malformed saved state — start a fresh worksheet */
     }
     setHydrated(true);
-    analytics.track("playbook_worksheet_opened", { stack: content.stackNum });
+    analytics.track("playbook_worksheet_opened", {
+      stack: content.stackNum,
+      slug: content.slug,
+      handoff_loaded: handoffLoaded,
+      saved_state_loaded: savedStateLoaded,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -193,10 +212,16 @@ export default function StackPlaybook<E = Record<string, unknown>>({
     set(list.includes(key) ? list.filter((k) => k !== key) : [...list, key]);
 
   const startRunning = (key: string) => {
+    if (!running.includes(key)) {
+      analytics.track("playbook_focus_selected", { stack: content.stackNum, status: "already_have" });
+    }
     toggle(running, setRunning, key);
     setAdding((a) => a.filter((k) => k !== key));
   };
   const startAdding = (key: string) => {
+    if (!adding.includes(key)) {
+      analytics.track("playbook_focus_selected", { stack: content.stackNum, status: "adding" });
+    }
     toggle(adding, setAdding, key);
     setRunning((r) => r.filter((k) => k !== key));
   };
@@ -223,7 +248,6 @@ export default function StackPlaybook<E = Record<string, unknown>>({
 
   // Optional premium state. `slots` is stable per mounted page, so this optional
   // hook call keeps a consistent order across renders.
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const extras = (slots?.useExtras ? slots.useExtras(core) : ({} as E));
 
   const canGenerate = slots?.canGenerate
@@ -236,18 +260,48 @@ export default function StackPlaybook<E = Record<string, unknown>>({
 
   const buildPlaybook = () => {
     setShowPlaybook(true);
-    analytics.track("playbook_generated", { stack: content.stackNum });
+    analytics.track("playbook_generated", {
+      stack: content.stackNum,
+      slug: content.slug,
+      handoff_loaded: cameFromTool,
+      issue_count: issues.length,
+      focus_count: inPlayAreas.length,
+      has_sector: Boolean(sector.trim()),
+      has_start_location: Boolean(field.trim()),
+      region,
+    });
     setTimeout(
       () => playbookRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
       50,
     );
   };
 
-  const setBaseline = (kpi: string, patch: Partial<KpiBaseline>) =>
+  const setBaseline = (kpi: string, patch: Partial<KpiBaseline>) => {
+    if (!kpiStarted.current && Boolean(patch.value || patch.date)) {
+      kpiStarted.current = true;
+      analytics.track("playbook_kpi_baseline_started", { stack: content.stackNum });
+    }
     setKpiBaselines((b) => ({
       ...b,
       [kpi]: { ...(b[kpi] ?? { value: "", date: "" }), ...patch },
     }));
+  };
+
+  const toggleChecklist = (index: number) => {
+    const willCheck = checks[index] !== true;
+    const completed = Object.values(checks).filter(Boolean).length + (willCheck ? 1 : -1);
+    setChecks((current) => ({ ...current, [index]: willCheck }));
+    if (content.checklist.length === 0 || !willCheck) return;
+    const percent = Math.round((completed / content.checklist.length) * 100);
+    const milestone = [100, 50, 25].find((value) => percent >= value);
+    if (milestone && !checklistMilestones.current.has(milestone)) {
+      checklistMilestones.current.add(milestone);
+      analytics.track("playbook_checklist_progress", {
+        stack: content.stackNum,
+        milestone_percent: milestone,
+      });
+    }
+  };
 
   const enteredBaselines = () =>
     content.kpis
@@ -275,7 +329,10 @@ export default function StackPlaybook<E = Record<string, unknown>>({
     } catch {
       /* non-fatal */
     }
-    analytics.track("playbook_export_csv", { stack: content.stackNum });
+    analytics.track("playbook_export_csv", {
+      stack: content.stackNum,
+      baseline_count: enteredBaselines().length,
+    });
   };
 
   const handleConvert = () => {
@@ -291,7 +348,12 @@ export default function StackPlaybook<E = Record<string, unknown>>({
     } catch {
       /* non-fatal */
     }
-    analytics.track("playbook_convert_to_passport", { stack: content.stackNum });
+    analytics.track("playbook_convert_to_passport", {
+      stack: content.stackNum,
+      issue_count: issues.length,
+      focus_count: inPlayAreas.length,
+      baseline_count: enteredBaselines().length,
+    });
     router.push(`/onboarding?from=playbook&stack=${content.stackNum}`);
   };
 
@@ -331,14 +393,22 @@ export default function StackPlaybook<E = Record<string, unknown>>({
       </nav>
 
       <header className="mb-8 print:hidden">
-        <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>
-          Stack {content.stackNum}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>
+            Stack {content.stackNum}
+          </span>
+          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800">
+            Free planning worksheet
+          </span>
+        </div>
         <h1 className="text-3xl font-bold text-gray-900 mt-2 mb-2">{content.intakeTitle}</h1>
         <p className="text-gray-600">{content.intakeIntro}</p>
+        <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-gray-700">
+          <strong>Scope:</strong> {content.scopeNote}
+        </p>
         {cameFromTool && (
           <p className="mt-2 text-sm font-medium" style={{ color: accent }}>
-            ✓ We carried over what you told the assessment.
+            Assessment details found. Review the selections below before generating your worksheet.
           </p>
         )}
       </header>
@@ -374,7 +444,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
 
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             {stepHead(2, "What do you already have in place?", "So we build on it, not around it.")}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {content.focusAreas.map((f) =>
                 chip(f.key, f.label, running.includes(f.key), () => startRunning(f.key)))}
             </div>
@@ -382,15 +452,20 @@ export default function StackPlaybook<E = Record<string, unknown>>({
 
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             {stepHead(3, content.issuesTitle, "Pick what's driving this. It shapes the order.")}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {content.issues.map((i) =>
-                chip(i.key, i.label, issues.includes(i.key), () => toggle(issues, setIssues, i.key)))}
+                chip(i.key, i.label, issues.includes(i.key), () => {
+                  if (!issues.includes(i.key)) {
+                    analytics.track("playbook_issue_selected", { stack: content.stackNum });
+                  }
+                  toggle(issues, setIssues, i.key);
+                }))}
             </div>
           </section>
 
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             {stepHead(4, content.focusTitle, content.focusIntro)}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {content.focusAreas.filter((f) => !running.includes(f.key)).map((f) =>
                 chip(f.key, f.label, adding.includes(f.key), () => startAdding(f.key), f.key === recommendedKey))}
             </div>
@@ -410,7 +485,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
                 placeholder="e.g. the dairy unit, North block, one product line"
                 className={inputCls} style={{ outlineColor: accent }} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-gray-600 mb-1">Start (month or quarter)</label>
                 <select value={startPeriod} onChange={(e) => setStartPeriod(e.target.value)}
@@ -479,7 +554,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
           <header className="mb-6">
             <div className="flex items-start justify-between gap-4">
               <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>
-                Your personalized playbook
+                Your tailored planning worksheet
               </span>
               <div className="print:hidden shrink-0 flex flex-wrap justify-end gap-2">
                 {content.kpis.length > 0 && (
@@ -491,7 +566,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
                 )}
                 <button
                   onClick={() => {
-                    analytics.track("playbook_exported", { stack: content.stackNum });
+                    analytics.track("playbook_export_pdf", { stack: content.stackNum });
                     window.print();
                   }}
                   className="text-sm font-medium border border-gray-300 rounded-md px-3 py-1.5 text-gray-700 hover:border-gray-400 transition-colors">
@@ -603,6 +678,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
                   <p className="text-sm text-gray-600 mb-2">{r.snippet}</p>
                   {r.url && (
                     <a href={r.url} target="_blank" rel="noopener noreferrer"
+                      onClick={() => analytics.track("playbook_source_opened", { stack: content.stackNum })}
                       className="text-sm font-medium hover:underline" style={{ color: accent }}>Open &rarr;</a>
                   )}
                 </div>
@@ -619,7 +695,7 @@ export default function StackPlaybook<E = Record<string, unknown>>({
                   {content.checklist.map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
                       <input type="checkbox" checked={checks[i] === true}
-                        onChange={() => setChecks((c) => ({ ...c, [i]: !c[i] }))}
+                        onChange={() => toggleChecklist(i)}
                         className="w-4 h-4 mt-0.5" style={{ accentColor: accent }} />
                       <span>{item}</span>
                     </li>
@@ -665,16 +741,15 @@ export default function StackPlaybook<E = Record<string, unknown>>({
           )}
 
           <div className="print:hidden rounded-xl p-7 text-white" style={{ backgroundColor: accent }}>
-            <h3 className="text-2xl font-bold mb-2">Keep this. Make it yours.</h3>
+            <h3 className="text-2xl font-bold mb-2">Continue in the free tracker</h3>
             <p className="text-white/85 mb-5 text-sm leading-relaxed">
-              You've just mapped your operation. Save it as your Passport to carry your plan into the
-              free tracker — your farm details come with you, ready to build on as living data you own
-              and share with buyers, banks or grant bodies as you fill it in. You only start once.
+              Your operation details will prefill tracker onboarding. This worksheet and its KPI entries
+              remain saved in this browser; review them here whenever you return on this device.
             </p>
             <button onClick={handleConvert}
               className="inline-block bg-white px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors"
               style={{ color: accent }}>
-              Save this as my Passport &rarr;
+              Continue to the tracker &rarr;
             </button>
           </div>
         </div>

@@ -13,6 +13,9 @@ export const stack4Content: StackContent = {
   intakeTitle: "Build a farm that bends without breaking",
   intakeIntro:
     "Tell us about your operation and what keeps you up at night. We'll build a plan to layer in buffers — cash, buyers, insurance, and income streams — so one bad shock becomes a setback you absorb, not a crisis that breaks you.",
+  scopeNote:
+    "This worksheet identifies resilience questions and possible buffers. Its cash and concentration prompts are not universal targets and it does not calculate runway, shock exposure, insurance adequacy, or investment returns.",
+  handoffKey: "eu:playbook:stack-4",
   sectorLabel: "What do you produce?",
   sectorPlaceholder: "e.g. dairy, arable, mixed",
   scaleLabel: "hectares",
@@ -48,14 +51,14 @@ export const stack4Content: StackContent = {
         "Easy to raid for non-emergencies without a clear rule for what counts.",
       ],
       howTo:
-        "Open a separate account and set a standing order for a fixed share of each payment until you reach roughly three months of fixed costs.",
+        "Calculate monthly fixed costs and seasonal cash needs, choose a reserve target that fits your volatility and financing, then automate a realistic contribution toward it.",
       addresses: ["thinReserves", "oneBadYear", "priceSwings"],
       priority: 1,
     },
     {
       key: "diversifyBuyers",
       label: "Spread your buyers and markets",
-      why: "If one buyer takes more than about half your output they effectively set your price, so spreading sales is low-cost insurance against losing them.",
+      why: "A high share of revenue from one buyer increases bargaining and interruption risk. Measure the concentration, then decide whether another outlet would materially reduce it.",
       pros: [
         "Usually possible without new capital — new relationships and outlets, not new kit.",
         "Weakens any single buyer's power over your price.",
@@ -134,8 +137,8 @@ export const stack4Content: StackContent = {
   playbookHeadline: "Your structural-resilience plan",
   insights: [
     "Resilience isn't one big move, it's a stack of buffers. No single one saves you, but together they turn a shock into a setback instead of an ending.",
-    "The cheapest resilience is the boring kind: a few months of cash and a second buyer. Build those before you build anything new.",
-    "Every buffer costs something in a normal year — cash not invested, land not cropped, a premium never claimed. That cost is the price of surviving the bad year, and it's almost always worth paying.",
+    "The cheapest resilience is often the boring kind: a deliberate cash target and credible alternative buyers. Test those before building a new enterprise.",
+    "Every buffer costs something in a normal year — cash not invested, land not cropped, or a premium not claimed. Compare that cost with the shock it is intended to absorb.",
   ],
 
   resourcesTitle: "Where this comes from",
@@ -166,7 +169,7 @@ export const stack4Content: StackContent = {
   checklist: [
     "Work out your monthly fixed costs and how many months of them your reserves could cover today",
     "Open a separate reserve account and automate a fixed share of each payment into it",
-    "List your buyers by share of revenue and flag any single one above half",
+    "List buyers by share of revenue and flag concentrations that would materially hurt if lost",
     "Approach one credible alternative outlet for your largest product line",
     "Name the handful of events that would end the business and check the cost to insure each",
     "Pick the weather risk that hurt most recently and add one buffer against it",
@@ -174,7 +177,7 @@ export const stack4Content: StackContent = {
 
   kpisTitle: "What to track",
   kpis: [
-    { k: "Cash runway (months)", v: "Months of fixed costs your reserves could cover with no income. Build toward three or more." },
+    { k: "Cash runway (months)", v: "Months of fixed costs reserves could cover with no income. Set a target from your seasonality, volatility, debt, and access to finance." },
     { k: "Top-buyer share (%)", v: "Share of revenue from your single largest buyer. The lower it is, the less power any one buyer holds over you." },
     { k: "Number of income streams", v: "Distinct, weakly-linked sources of revenue. More streams smooth the whole business." },
     { k: "Insured share of key risks (%)", v: "Of the events that would end the business, how many are covered. The gap is what you're self-insuring." },

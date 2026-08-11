@@ -13,6 +13,8 @@ export const stack2Content: StackContent = {
   intakeTitle: "Find where your margin leaks",
   intakeIntro:
     "Tell us about your operation and what's squeezing you. We'll build a plan to find where energy, water, inputs and time leak out of the business, and fix the cheapest, biggest leaks first, before you spend on anything new.",
+  scopeNote:
+    "This worksheet prioritizes what to investigate. It does not calculate a leak, saving, intensity, or payback until you enter and compare the relevant costs and output data.",
   sectorLabel: "What do you produce?",
   sectorPlaceholder: "e.g. dairy, arable, mixed",
   scaleLabel: "hectares",
@@ -172,9 +174,9 @@ export const stack2Content: StackContent = {
   kpis: [
     { k: "Energy per unit output (kWh)", v: "Energy divided by what you produced — the core efficiency number, comparable year to year." },
     { k: "Water per unit output (m³)", v: "Where water is metered or pumped, output per unit of water shows irrigation and process efficiency." },
-    { k: "Input cost per hectare", v: "Fertiliser, feed and chemicals per hectare — flags over-application before the season closes." },
+    { k: "Input cost intensity", v: "Fertiliser, feed and chemicals per relevant unit: hectare, livestock unit, tonne, or product unit." },
     { k: "Waste / loss (%)", v: "Share of output lost to spoilage, rejects or spillage. What you cut is margin recovered in full." },
-    { k: "Margin per hectare", v: "The bottom line every leak feeds into. Rising margin per hectare is the proof the fixes worked." },
+    { k: "Operating margin per relevant unit", v: "Use the denominator that fits your system. A sustained improvement is evidence that the fixes are working." },
     { k: "Energy + water cost (% of revenue)", v: "Utility spend as a share of turnover — early warning when a leak starts to bite." },
   ],
 };
