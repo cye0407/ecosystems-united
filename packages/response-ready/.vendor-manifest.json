@@ -1,0 +1,10 @@
+{
+  "source": "canonical response-ready repo at ../response-ready (sibling of ecosystems-united under CY/)",
+  "targetSha": "1b48ab8",
+  "vendoredSha": null,
+  "status": "diverged",
+  "packsUsed": ["esg", "globalg-a-p"],
+  "usesEngine": true,
+  "note": "EU currently runs an OLDER, DIVERGED copy of response-ready (~2026-04). It predates canonical's per-pack confidence-band contract change and the playbook/library/multilingual features, so its engine API differs. Bringing EU to targetSha (1b48ab8, the same SHA esg-passport is vendored from) is a TEST-GATED upgrade, not a drop-in copy — see docs/certification/response-ready-sync-baseline.md for the green baseline the upgrade must preserve on the esg-passport side. Run `npm run check:vendor` to see the current drift.",
+  "lastCheck": null
+}
