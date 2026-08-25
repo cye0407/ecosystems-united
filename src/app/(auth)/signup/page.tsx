@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui';
 import { Input } from '@/components/ui';
@@ -15,6 +16,7 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const { signUp } = useAuth();
+  const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -27,13 +29,16 @@ export default function SignupPage() {
 
     setIsLoading(true);
 
-    const { error } = await signUp(email, password, name || undefined);
-
-    setIsLoading(false);
+    const { error, session } = await signUp(email, password, name || undefined);
 
     if (error) {
+      setIsLoading(false);
       setError(error.message);
+    } else if (session) {
+      // Email confirmation is off — the account is live, go straight in.
+      router.replace('/onboarding');
     } else {
+      setIsLoading(false);
       setSubmitted(true);
     }
   }

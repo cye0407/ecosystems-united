@@ -10,7 +10,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
-  signUp: (email: string, password: string, name?: string) => Promise<{ error: Error | null }>;
+  signUp: (email: string, password: string, name?: string) => Promise<{ error: Error | null; session: Session | null }>;
   signOut: () => Promise<{ error: Error | null }>;
   resetPassword: (email: string) => Promise<{ error: Error | null }>;
 }
@@ -52,8 +52,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error ? new Error(error.message) : null };
   }
 
-  async function signUp(email: string, password: string, name?: string): Promise<{ error: Error | null }> {
-    const { error } = await supabase.auth.signUp({
+  async function signUp(email: string, password: string, name?: string): Promise<{ error: Error | null; session: Session | null }> {
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -61,7 +61,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     });
-    return { error: error ? new Error(error.message) : null };
+    // When email confirmation is disabled, Supabase returns a session
+    // immediately and no confirmation email is involved.
+    return { error: error ? new Error(error.message) : null, session: data?.session ?? null };
   }
 
   async function signOut(): Promise<{ error: Error | null }> {
