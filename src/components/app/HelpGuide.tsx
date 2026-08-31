@@ -37,7 +37,7 @@ const sections = [
   {
     icon: GearSix,
     title: 'Settings',
-    description: 'Edit company profile, manage sites, and load demo data.',
+    description: 'Edit company profile, manage sites, and export or reset your data.',
     href: '/settings',
   },
 ];

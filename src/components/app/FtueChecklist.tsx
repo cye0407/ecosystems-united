@@ -43,17 +43,33 @@ export function FtueChecklist() {
 
   const items: FtueItem[] = [
     {
-      id: 'add-site',
-      label: 'Add your first site',
-      description: 'Define where your organisation operates',
+      id: 'review-site',
+      label: 'Check your site details',
+      description: 'We set up a main site from your company info — refine it',
       href: '/onboarding/site',
       icon: MapPin,
-      isComplete: () => sites.length > 0,
+      isComplete: () => ftue.dismissedItems.includes('review-site'),
+    },
+    {
+      id: 'enter-data',
+      label: 'Enter your first data',
+      description: 'Add your first real numbers',
+      href: '/data',
+      icon: Database,
+      isComplete: () => hasAnyData,
+    },
+    {
+      id: 'explore-exports',
+      label: 'Explore exports',
+      description: 'See how your data turns into reports',
+      href: '/exports',
+      icon: Export,
+      isComplete: () => ftue.dismissedItems.includes('explore-exports'),
     },
     {
       id: 'complete-swot',
-      label: 'Complete your SWOT analysis',
-      description: 'Prepares you for Stack 2 strategic assessment',
+      label: 'Reflect on strengths and risks',
+      description: 'Optional: a quick SWOT in your own words',
       href: '/onboarding/swot',
       icon: Target,
       isComplete: () => swot !== null,
@@ -65,22 +81,6 @@ export function FtueChecklist() {
       href: '/onboarding/goals',
       icon: Flag,
       isComplete: () => goals !== null,
-    },
-    {
-      id: 'enter-data',
-      label: 'Enter your first data',
-      description: 'Start building your operational baseline',
-      href: '/data',
-      icon: Database,
-      isComplete: () => hasAnyData,
-    },
-    {
-      id: 'explore-exports',
-      label: 'Explore exports',
-      description: 'See how your data turns into reports',
-      href: '/exports',
-      icon: Export,
-      isComplete: () => false, // dismiss-only
     },
   ];
 

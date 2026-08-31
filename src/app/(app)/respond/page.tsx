@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   DownloadSimple,
   Check,
@@ -26,6 +26,8 @@ import {
 import { useResponseGenerator } from '@/hooks';
 import { useResponseCredits } from '@/hooks/useResponseCredits';
 import ResponseGate from '@/components/app/ResponseGate';
+import { useDataStore } from '@/stores/dataStore';
+import { analytics } from '@/lib/analytics';
 import { cn } from '@/lib/utils/cn';
 import type { AnswerDraft } from 'response-ready';
 
@@ -59,10 +61,41 @@ export default function ResponseGeneratorPage() {
   const [packOverride, setPackOverride] = useState<string | null>(null);
   const [expandedAnswers, setExpandedAnswers] = useState<Set<string>>(new Set());
 
+  // Rough "is there anything to answer from" signal for the pre-upload warning.
+  const trackerRecordCount = useDataStore(
+    (s) =>
+      s.materialInputs.length +
+      s.packagingInputs.length +
+      s.energyElectricity.length +
+      s.energyFuels.length +
+      s.energyWater.length +
+      s.assets.length +
+      s.transportLogs.length +
+      s.workforce.length +
+      s.waste.length +
+      s.productOutputs.length +
+      s.directEmissions.length
+  );
+
+  useEffect(() => {
+    analytics.track('respond_opened');
+  }, []);
+
+  // A credit is only consumed once answers are actually delivered (the review
+  // step) — never for an upload that fails to parse or generate.
+  const creditUsedRef = useRef(false);
+  useEffect(() => {
+    if (step === 'review' && !creditUsedRef.current) {
+      creditUsedRef.current = true;
+      credits.useCredit();
+    }
+    if (step === 'idle') {
+      creditUsedRef.current = false;
+    }
+  }, [step, credits]);
+
   const handleFileUpload = async (file: File) => {
-    // Deduct a credit when starting a session
-    const credited = await credits.useCredit();
-    if (!credited) return;
+    if (credits.available <= 0) return;
     await startSession(file, questionnaireName || file.name.replace(/\.[^.]+$/, ''), requestor);
   };
 
@@ -170,6 +203,17 @@ export default function ResponseGeneratorPage() {
         <div className="max-w-2xl mx-auto">
           <Card className="mb-6">
             <CardTitle className="mb-4">Upload Questionnaire</CardTitle>
+
+            {trackerRecordCount === 0 && (
+              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2 text-sm">
+                <Warning className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" weight="duotone" />
+                <p className="text-amber-800">
+                  Your tracker has no data yet, so most answers will come back
+                  empty. Adding data first gets you much more from each response.
+                  Your credit is only used once answers are generated.
+                </p>
+              </div>
+            )}
 
             <div className="space-y-4">
               <Input

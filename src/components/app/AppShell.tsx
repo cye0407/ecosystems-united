@@ -21,6 +21,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     if (!syncComplete || isOnboardingRoute) return;
     if (!company && !isOnboardingComplete) {
       router.replace("/onboarding");
+    } else if (company && !isOnboardingComplete) {
+      // Company saved but onboarding abandoned mid-way — resume at the
+      // first-entry step (it has a one-click skip) instead of stranding
+      // the user on an empty dashboard with no way back.
+      router.replace("/onboarding/first-entry");
     }
   }, [syncComplete, company, isOnboardingComplete, isOnboardingRoute, router]);
 

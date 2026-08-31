@@ -16,10 +16,13 @@ export default function LoginPage() {
   const { signIn, session, loading } = useAuth();
   const router = useRouter();
 
-  // Redirect to dashboard if already authenticated
+  // Redirect once authenticated — back to where the user was heading if the
+  // auth guard recorded it, otherwise the dashboard.
   useEffect(() => {
     if (!loading && session) {
-      router.replace('/dashboard');
+      const returnTo = new URLSearchParams(window.location.search).get('returnTo');
+      const safe = returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//');
+      router.replace(safe ? returnTo : '/dashboard');
     }
   }, [session, loading, router]);
 

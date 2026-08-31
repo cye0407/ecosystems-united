@@ -10,7 +10,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading && !session) {
-      router.push('/login');
+      // Remember where the user was heading (path + query) so login can
+      // return them there instead of dropping them on the dashboard.
+      const returnTo = `${window.location.pathname}${window.location.search}`;
+      router.push(`/login?returnTo=${encodeURIComponent(returnTo)}`);
     }
   }, [session, loading, router]);
 

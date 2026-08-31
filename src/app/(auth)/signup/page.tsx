@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { analytics } from '@/lib/analytics';
 import { Button } from '@/components/ui';
 import { Input } from '@/components/ui';
 import { Card } from '@/components/ui';
@@ -35,8 +36,11 @@ export default function SignupPage() {
       setIsLoading(false);
       setError(error.message);
     } else if (session) {
+      analytics.track('signup_completed');
       // Email confirmation is off — the account is live, go straight in.
-      router.replace('/onboarding');
+      // Preserve campaign params (e.g. ?from=assessment&stack=N) so the
+      // onboarding welcome can personalise itself.
+      router.replace(`/onboarding${window.location.search}`);
     } else {
       setIsLoading(false);
       setSubmitted(true);

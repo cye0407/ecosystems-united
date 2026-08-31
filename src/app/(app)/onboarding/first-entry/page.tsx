@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { Button, Input, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { useDataStore } from '@/stores/dataStore';
+import { analytics } from '@/lib/analytics';
 import type { EnergyElectricity } from '@/types';
 
 /**
@@ -59,13 +60,15 @@ export default function FirstEntryPage() {
     };
 
     addEnergyElectricity(entry);
+    analytics.track('first_entry_saved');
     finishOnboarding();
-    router.push('/dashboard');
+    router.push('/onboarding/complete');
   };
 
   const handleSkip = () => {
+    analytics.track('first_entry_skipped');
     finishOnboarding();
-    router.push('/dashboard');
+    router.push('/onboarding/complete');
   };
 
   return (

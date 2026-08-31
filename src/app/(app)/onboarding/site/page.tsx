@@ -30,17 +30,23 @@ const ownershipOptions = [
 
 export default function SiteSetupPage() {
   const router = useRouter();
-  const { company, addSite, completeOnboardingStep } = useAppStore();
+  const { company, sites, addSite, updateSite, completeOnboardingStep, dismissFtueItem } = useAppStore();
+
+  // The company step auto-creates a primary site; this page refines it
+  // rather than adding a duplicate.
+  const existingPrimary = sites.find((s) => s.isPrimary) ?? sites[0];
 
   const [formData, setFormData] = useState({
-    siteName: company?.tradingName ? `${company.tradingName} - Main Site` : 'Main Site',
-    siteType: 'hq' as SiteType,
-    country: company?.headquartersCountry || '',
-    city: company?.headquartersCity || '',
-    floorAreaM2: '',
-    landAreaHa: '',
-    ownership: 'leased' as SiteOwnership,
-    operationalSince: '',
+    siteName:
+      existingPrimary?.siteName ||
+      (company?.tradingName ? `${company.tradingName} - Main Site` : 'Main Site'),
+    siteType: (existingPrimary?.siteType ?? 'hq') as SiteType,
+    country: existingPrimary?.country || company?.headquartersCountry || '',
+    city: existingPrimary?.city || company?.headquartersCity || '',
+    floorAreaM2: existingPrimary?.floorAreaM2 != null ? String(existingPrimary.floorAreaM2) : '',
+    landAreaHa: existingPrimary?.landAreaHa != null ? String(existingPrimary.landAreaHa) : '',
+    ownership: (existingPrimary?.ownership ?? 'leased') as SiteOwnership,
+    operationalSince: existingPrimary?.operationalSince || '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -67,9 +73,7 @@ export default function SiteSetupPage() {
 
     if (!validate()) return;
 
-    const site: Site = {
-      id: uuid(),
-      companyId: company?.id || '',
+    const details = {
       siteName: formData.siteName,
       siteType: formData.siteType,
       country: formData.country,
@@ -78,20 +82,29 @@ export default function SiteSetupPage() {
       landAreaHa: formData.landAreaHa ? parseFloat(formData.landAreaHa) : undefined,
       ownership: formData.ownership,
       operationalSince: formData.operationalSince || undefined,
-      isPrimary: true,
-      createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
 
-    addSite(site);
+    if (existingPrimary) {
+      updateSite(existingPrimary.id, details);
+    } else {
+      addSite({
+        id: uuid(),
+        companyId: company?.id || '',
+        ...details,
+        isPrimary: true,
+        createdAt: new Date().toISOString(),
+      } as Site);
+    }
     completeOnboardingStep(1);
+    dismissFtueItem('review-site');
     router.push('/dashboard');
   };
 
   return (
     <div className="animate-fade-in">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-deep-forest mb-2">Add Your First Site</h1>
+        <h1 className="text-2xl font-bold text-deep-forest mb-2">Set Up Your Main Site</h1>
         <p className="text-gray-600">
           Where does your organization operate? You can add more sites later.
         </p>

@@ -7,7 +7,6 @@ import {
   Lightning,
   Flame,
   Drop,
-  Question,
   Check,
   ArrowLeft,
   ChartBar,
@@ -1014,13 +1013,6 @@ export default function EnergyPage() {
               totalScope2={totalScope2}
             />
 
-            {/* Help link */}
-            <div className="mt-2 flex justify-end">
-              <button className="text-xs text-gray-400 hover:text-primary flex items-center gap-1 transition-colors">
-                <Question className="w-3 h-3" />
-                Help with {activeTab} data
-              </button>
-            </div>
           </>
         )}
       </div>

@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { Button, Input, Select, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { companySchema, validateForm } from '@/lib/validation/schemas';
+import { analytics } from '@/lib/analytics';
 import type { Company, Site } from '@/types';
 
 // Common NACE codes for quick selection
@@ -23,7 +24,7 @@ const industryOptions = [
 
 export default function CompanyProfilePage() {
   const router = useRouter();
-  const { setCompany, addSite, completeOnboardingStep } = useAppStore();
+  const { sites, setCompany, addSite, completeOnboardingStep } = useAppStore();
 
   const [formData, setFormData] = useState({
     legalEntityName: '',
@@ -111,8 +112,13 @@ export default function CompanyProfilePage() {
     };
 
     setCompany(company);
-    addSite(site);
+    // Don't duplicate the primary site if one already exists (e.g. the user
+    // came back through this step).
+    if (sites.length === 0) {
+      addSite(site);
+    }
     completeOnboardingStep(0);
+    analytics.track('onboarding_company_saved');
     router.push('/onboarding/first-entry');
   };
 

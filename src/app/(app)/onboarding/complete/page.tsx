@@ -4,15 +4,19 @@ import { useRouter } from 'next/navigation';
 import { CheckCircle2, ArrowRight, LayoutDashboard, Database } from 'lucide-react';
 import { Button, Card } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
+import { useDataStore } from '@/stores/dataStore';
 
 export default function CompletePage() {
   const router = useRouter();
   const {
     company,
     sites,
+    swot,
+    goals,
     setIsOnboardingComplete,
     completeOnboardingStep,
   } = useAppStore();
+  const firstEnergyEntry = useDataStore((s) => s.energyElectricity[0]);
 
   const handleGoToDashboard = () => {
     completeOnboardingStep(4);
@@ -68,25 +72,43 @@ export default function CompletePage() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-forest-700" />
+          {firstEnergyEntry && (
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4 text-forest-700" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">First Data Point</p>
+                <p className="text-sm text-gray-500">
+                  {firstEnergyEntry.consumptionKwh.toLocaleString()} kWh recorded for {firstEnergyEntry.period}
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="font-medium text-gray-900">Strategic Reflection</p>
-              <p className="text-sm text-gray-500">SWOT analysis captured</p>
-            </div>
-          </div>
+          )}
 
-          <div className="flex items-start gap-3">
-            <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-forest-700" />
+          {swot && (
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4 text-forest-700" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Strategic Reflection</p>
+                <p className="text-sm text-gray-500">SWOT analysis captured</p>
+              </div>
             </div>
-            <div>
-              <p className="font-medium text-gray-900">Goals Defined</p>
-              <p className="text-sm text-gray-500">Your success criteria are set</p>
+          )}
+
+          {goals && (
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <CheckCircle2 className="w-4 h-4 text-forest-700" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Goals Defined</p>
+                <p className="text-sm text-gray-500">Your success criteria are set</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Card>
 

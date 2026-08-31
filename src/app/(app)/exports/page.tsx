@@ -1,11 +1,12 @@
-"use client";
+﻿"use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { DownloadSimple, FileXls, FileText, Package, Check } from '@phosphor-icons/react';
+import { DownloadSimple, FileCsv, FileXls, FileText, Package, Check } from '@phosphor-icons/react';
 import { Card, Button, Badge, Select } from '@/components/ui';
 import { useDataStore } from '@/stores/dataStore';
 import { useAppStore } from '@/stores/appStore';
+import { analytics } from '@/lib/analytics';
 
 interface ExportOption {
   id: string;
@@ -29,7 +30,7 @@ const exportOptions: ExportOption[] = [
     id: 'all-data',
     name: 'All Operational Data',
     description: 'Complete export of all domains in a single file',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -37,7 +38,7 @@ const exportOptions: ExportOption[] = [
     id: 'energy-data',
     name: 'Energy & Utilities',
     description: 'Electricity, fuel, and water consumption data',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -45,7 +46,7 @@ const exportOptions: ExportOption[] = [
     id: 'materials-data',
     name: 'Materials & Packaging',
     description: 'Raw materials and packaging input data',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -53,7 +54,7 @@ const exportOptions: ExportOption[] = [
     id: 'transport-data',
     name: 'Transport & Logistics',
     description: 'Inbound, outbound, and internal transport logs',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -61,7 +62,7 @@ const exportOptions: ExportOption[] = [
     id: 'workforce-data',
     name: 'Workforce & Safety',
     description: 'Headcount, health & safety, and training data',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -69,7 +70,7 @@ const exportOptions: ExportOption[] = [
     id: 'outputs-data',
     name: 'Outputs & Waste',
     description: 'Waste, product outputs, and emissions data',
-    icon: FileXls,
+    icon: FileCsv,
     format: 'csv',
     category: 'data',
   },
@@ -92,7 +93,34 @@ interface ExportHistoryItem {
 
 export default function ExportsPage() {
   const { company, sites } = useAppStore();
+  const dismissFtueItem = useAppStore((s) => s.dismissFtueItem);
   const dataStore = useDataStore();
+
+  // Visiting this page completes the "explore exports" getting-started item.
+  useEffect(() => {
+    dismissFtueItem('explore-exports');
+  }, [dismissFtueItem]);
+
+  // Approximate record counts per export so empty downloads are prevented
+  // rather than silently producing header-only files.
+  const exportRecordCounts: Record<string, number> = {
+    'energy-data':
+      dataStore.energyElectricity.length + dataStore.energyFuels.length + dataStore.energyWater.length,
+    'materials-data':
+      dataStore.materialInputs.length + dataStore.packagingInputs.length + dataStore.fertiliserApplications.length,
+    'transport-data': dataStore.transportLogs.length,
+    'workforce-data':
+      dataStore.workforce.length + dataStore.healthSafety.length + dataStore.training.length,
+    'outputs-data':
+      dataStore.waste.length + dataStore.productOutputs.length + dataStore.directEmissions.length +
+      dataStore.cropOutputs.length + dataStore.livestockRecords.length,
+  };
+  const totalRecords =
+    Object.values(exportRecordCounts).reduce((sum, n) => sum + n, 0) + dataStore.assets.length;
+  exportRecordCounts['all-data'] = totalRecords;
+  exportRecordCounts['scope3-data-pack'] = totalRecords;
+  // raw-json always has content (company + sites), so it stays enabled.
+  exportRecordCounts['raw-json'] = 1;
 
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
   const [selectedSite, setSelectedSite] = useState('all');
@@ -203,6 +231,8 @@ export default function ExportsPage() {
       default:
         break;
     }
+
+    analytics.track('export_downloaded', { label: exportOption.id });
 
     // Add to history
     setExportHistory([
@@ -620,7 +650,7 @@ export default function ExportsPage() {
     rows.push(['=== OUTPUTS & WASTE ===']);
     rows.push(...outputs);
 
-    // Agricultural domains (landUse, fertiliser, livestock, crops) — only when present,
+    // Agricultural domains (landUse, fertiliser, livestock, crops) â€” only when present,
     // so non-agricultural exports are unchanged.
     if (agricultural.length > 1) {
       rows.push([]);
@@ -687,6 +717,7 @@ export default function ExportsPage() {
           {reportExports.map((option) => {
             const Icon = option.icon;
             const isLoading = isExporting === option.id;
+            const recordCount = exportRecordCounts[option.id] ?? 0;
 
             return (
               <Card key={option.id} className="hover:shadow-md transition-shadow">
@@ -698,14 +729,17 @@ export default function ExportsPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900">{option.name}</h3>
                       <p className="text-sm text-gray-500 mt-1">{option.description}</p>
-                      <Badge variant="info" className="mt-2">
-                        {option.format.toUpperCase()}
-                      </Badge>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Badge variant="info">{option.format.toUpperCase()}</Badge>
+                        <span className="text-xs text-gray-400">
+                          {recordCount === 0 ? 'No data yet' : `${recordCount.toLocaleString()} records`}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <Button
                     onClick={() => handleExport(option)}
-                    disabled={isLoading}
+                    disabled={isLoading || recordCount === 0}
                     className="flex-shrink-0"
                   >
                     {isLoading ? (
@@ -728,6 +762,7 @@ export default function ExportsPage() {
           {dataExports.map((option) => {
             const Icon = option.icon;
             const isLoading = isExporting === option.id;
+            const recordCount = exportRecordCounts[option.id] ?? 0;
 
             return (
               <Card key={option.id} className="hover:shadow-md transition-shadow">
@@ -738,14 +773,19 @@ export default function ExportsPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900">{option.name}</h3>
-                      <p className="text-xs text-gray-500">{option.format.toUpperCase()}</p>
+                      <p className="text-xs text-gray-500">
+                        {option.format.toUpperCase()}
+                        {option.id !== 'raw-json' && (
+                          <span> · {recordCount === 0 ? 'no data yet' : `${recordCount.toLocaleString()} records`}</span>
+                        )}
+                      </p>
                     </div>
                   </div>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => handleExport(option)}
-                    disabled={isLoading}
+                    disabled={isLoading || recordCount === 0}
                   >
                     {isLoading ? (
                       <div className="w-4 h-4 border-2 border-forest-700 border-t-transparent rounded-full animate-spin" />
