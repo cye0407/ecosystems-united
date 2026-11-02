@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { HONEYPOT_FIELD, looksLikeBot } from '@/lib/bot-check';
 import { Button } from '@/components/ui';
 import { Input } from '@/components/ui';
 import { Card } from '@/components/ui';
@@ -15,12 +16,23 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(0);
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
   const { signUp } = useAuth();
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
+
+    // Spam bots get the same "check your email" screen, but no account.
+    if (looksLikeBot({ email, honeypot, startedAt: startedAt.current })) {
+      setSubmitted(true);
+      return;
+    }
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters.');
@@ -60,6 +72,21 @@ export default function SignupPage() {
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Honeypot: hidden from people, filled in by bots. */}
+              <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                <label>
+                  Website
+                  <input
+                    type="text"
+                    name={HONEYPOT_FIELD}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </label>
+              </div>
+
               <Input
                 label="Name"
                 type="text"
